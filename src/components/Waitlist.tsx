@@ -73,30 +73,32 @@ export default function Waitlist() {
         </div>
 
         {!submitted ? (
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-          >
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              required
-              disabled={loading}
-              className="flex-1 px-5 py-4 rounded-full bg-[rgba(255,255,255,0.06)] border border-[rgba(254,248,236,0.1)] text-[#FEF8EC] font-body placeholder:text-[rgba(254,248,236,0.25)] focus:outline-none focus:border-[#D4A04A] focus:ring-1 focus:ring-[#D4A04A]/30 transition-all disabled:opacity-50"
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-8 py-4 rounded-full bg-gradient-to-r from-[#D4A04A] to-[#B8862E] text-[#1A0F08] font-body font-bold hover:opacity-90 transition-opacity whitespace-nowrap shadow-lg shadow-[#D4A04A]/20 disabled:opacity-60"
+          <>
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
             >
-              {loading ? "Notifying your aunties…" : "Get Early Access"}
-            </button>
-          </form>
-          {error && (
-            <p className="mt-3 font-body text-sm text-[#C75B2A]">{error}</p>
-          )}
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
+                required
+                disabled={loading}
+                className="flex-1 px-5 py-4 rounded-full bg-[rgba(255,255,255,0.06)] border border-[rgba(254,248,236,0.1)] text-[#FEF8EC] font-body placeholder:text-[rgba(254,248,236,0.25)] focus:outline-none focus:border-[#D4A04A] focus:ring-1 focus:ring-[#D4A04A]/30 transition-all disabled:opacity-50"
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-8 py-4 rounded-full bg-gradient-to-r from-[#D4A04A] to-[#B8862E] text-[#1A0F08] font-body font-bold hover:opacity-90 transition-opacity whitespace-nowrap shadow-lg shadow-[#D4A04A]/20 disabled:opacity-60"
+              >
+                {loading ? "Notifying your aunties…" : "Get Early Access"}
+              </button>
+            </form>
+            {error && (
+              <p className="mt-3 font-body text-sm text-[#C75B2A]">{error}</p>
+            )}
+          </>
         ) : (
           <div className="relative">
             {/* Scatter confetti */}
