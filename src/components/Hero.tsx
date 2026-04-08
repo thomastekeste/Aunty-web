@@ -9,6 +9,26 @@ export default function Hero() {
   const [overlineDone, setOverlineDone] = useState(false);
   const [headlineDone, setHeadlineDone] = useState(false);
   const [subtitleDone, setSubtitleDone] = useState(false);
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [joined, setJoined] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setLoading(true);
+    setError("");
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    setLoading(false);
+    if (res.status === 409) { setError("You're already on the waitlist!"); return; }
+    if (!res.ok) { setError("Something went wrong. Try again."); return; }
+    setJoined(true);
+  };
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-[#1A0F08] noise pt-16">
@@ -66,7 +86,7 @@ export default function Hero() {
 
             {headlineDone && (
               <WordReveal
-                text="Seven women from across the diaspora. Real hair wisdom, not algorithms. A personalized ritual \u2014 just for your curls."
+                text="Seven women from across the diaspora. Real hair wisdom, not algorithms. A personalized ritual — just for your curls."
                 as="p"
                 stagger={60}
                 startDelay={200}
@@ -76,19 +96,37 @@ export default function Hero() {
             )}
 
             {subtitleDone && (
-              <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 animate-fade-in-up">
-                <a
-                  href="#quiz"
-                  className="animate-pulse-glow inline-flex items-center justify-center px-8 py-4 rounded-full bg-[#D4A04A] text-[#1A0F08] font-body font-semibold text-base hover:bg-[#B8862E] transition-colors"
-                >
-                  Take The Free Quiz
-                </a>
-                <a
-                  href="#council"
-                  className="inline-flex items-center justify-center px-8 py-4 rounded-full border border-[rgba(254,248,236,0.12)] text-[#FEF8EC] font-body font-medium text-base hover:border-[rgba(254,248,236,0.25)] hover:bg-[rgba(254,248,236,0.04)] transition-all"
-                >
-                  Meet The Aunties
-                </a>
+              <div className="animate-fade-in-up">
+                {!joined ? (
+                  <>
+                    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3 max-w-md">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="your@email.com"
+                        required
+                        disabled={loading}
+                        className="flex-1 w-full px-5 py-4 rounded-full bg-[rgba(255,255,255,0.06)] border border-[rgba(254,248,236,0.1)] text-[#FEF8EC] font-body placeholder:text-[rgba(254,248,236,0.25)] focus:outline-none focus:border-[#D4A04A] focus:ring-1 focus:ring-[#D4A04A]/30 transition-all disabled:opacity-50"
+                      />
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="animate-pulse-glow px-8 py-4 rounded-full bg-gradient-to-r from-[#D4A04A] to-[#B8862E] text-[#1A0F08] font-body font-bold hover:opacity-90 transition-opacity whitespace-nowrap shadow-lg shadow-[#D4A04A]/20 disabled:opacity-60"
+                      >
+                        {loading ? "Notifying…" : "Get Early Access"}
+                      </button>
+                    </form>
+                    {error && <p className="mt-2 font-body text-sm text-[#C75B2A] text-center lg:text-left">{error}</p>}
+                    <a href="#council" className="inline-block mt-4 font-body text-sm text-[rgba(254,248,236,0.4)] hover:text-[#FEF8EC] transition-colors">
+                      or meet the aunties first &darr;
+                    </a>
+                  </>
+                ) : (
+                  <p className="font-display text-xl font-bold text-[#D4A04A]">
+                    You're in — your aunties have been notified.
+                  </p>
+                )}
               </div>
             )}
 

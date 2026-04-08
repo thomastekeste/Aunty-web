@@ -7,7 +7,7 @@ const steps = [
     number: "01",
     title: "Tell Your Aunties About Your Hair",
     description:
-      "Answer questions about your curl type, struggles, and goals. It feels like a conversation with someone who actually gets it \u2014 not a form.",
+      "Answer questions about your curl type, struggles, and goals. It feels like a conversation with someone who actually gets it — not a form.",
     color: "#D4A04A",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
@@ -19,7 +19,7 @@ const steps = [
     number: "02",
     title: "Your Council Convenes",
     description:
-      "Seven aunties analyze your hair profile using AI. They cross-reference their specialties \u2014 moisture, technique, strength, scalp health \u2014 to build YOUR plan.",
+      "Seven aunties analyze your hair profile using AI. They cross-reference their specialties — moisture, technique, strength, scalp health — to build YOUR plan.",
     color: "#3D5A99",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
@@ -55,7 +55,7 @@ export default function HowItWorks() {
             Not a Routine. A Ritual.
           </h2>
           <p className="font-body text-lg text-[#5C4433] max-w-2xl mx-auto">
-            Your aunties don&rsquo;t hand you a product list and disappear. They build a practice with you \u2014
+            Your aunties don&rsquo;t hand you a product list and disappear. They build a practice with you —
             one that adapts as your hair changes.
           </p>
         </div>

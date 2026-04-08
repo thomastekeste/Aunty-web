@@ -4,7 +4,7 @@ import { useInView } from "@/hooks/useInView";
 
 const stats = [
   { value: "7", label: "Aunties from across the diaspora" },
-  { value: "9", label: "Curl types supported (2A\u20134C)" },
+  { value: "9", label: "Curl types supported (2A–4C)" },
   { value: "365", label: "Days of personalized rituals" },
   { value: "2.4K+", label: "On the waitlist" },
 ];
