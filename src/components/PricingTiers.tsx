@@ -108,7 +108,6 @@ export default function PricingTiers() {
                     border: isPopular
                       ? `2px solid ${accent}40`
                       : "1px solid rgba(254,248,236,0.06)",
-                    ringColor: isPopular ? `${accent}30` : undefined,
                   }}
                 >
                   {/* Top accent */}

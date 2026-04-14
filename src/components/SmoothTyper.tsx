@@ -33,7 +33,7 @@ export default function SmoothTyper({
 }: SmoothTyperProps) {
   const [charCount, setCharCount] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const firedRef = useRef(false);
 
   useEffect(() => {

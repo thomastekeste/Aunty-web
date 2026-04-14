@@ -12,7 +12,7 @@ type Phase = 'typing' | 'exiting' | 'done';
 export default function FullScreenIntro({ onComplete }: FullScreenIntroProps) {
   const [phase, setPhase] = useState<Phase>('typing');
   const [line, setLine] = useState(0);
-  const exitTimerRef = useRef<NodeJS.Timeout>();
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
