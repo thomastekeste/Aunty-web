@@ -17,7 +17,7 @@ const steps = [
   },
   {
     number: "02",
-    title: "Your Council Convenes",
+    title: "Your Aunties Review",
     description:
       "Seven aunties analyze your hair profile using AI. They cross-reference their specialties — moisture, technique, strength, scalp health — to build YOUR plan.",
     color: "#3D5A99",

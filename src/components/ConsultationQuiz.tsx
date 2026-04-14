@@ -1,64 +1,86 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import AuntyAvatar from "./AuntyAvatar";
 import CurlPatternIcon from "./CurlPatternIcon";
-import QuizValidation from "./QuizValidation";
-import ConveningCeremony from "./ConveningCeremony";
-import VerdictReveal from "./VerdictReveal";
-import { getAunty } from "@/data/aunties";
+import { aunties, getAunty } from "@/data/aunties";
 import {
   curlOptions,
   curlCategories,
-  struggleOptions,
-  goalOptions,
-  getCurlValidation,
-  empathyValidation,
-  getVerdicts,
   type CurlType,
-  type Struggle,
-  type Goal,
 } from "@/data/quiz";
 
-type Step =
-  | "intro"
-  | "curl"
-  | "validate-curl"
-  | "struggle"
-  | "validate-struggle"
-  | "goal"
-  | "convening"
-  | "verdict";
+type Step = "intro" | "carousel" | "quiz" | "react" | "verdict";
 
-const STEP_PROGRESS: Record<Step, number> = {
-  intro: 0,
-  curl: 1,
-  "validate-curl": 1.5,
-  struggle: 2,
-  "validate-struggle": 2.5,
-  goal: 3,
-  convening: 3.5,
-  verdict: 4,
-};
+const features = [
+  {
+    tag: "Your Council",
+    title: "7 Aunties Who Know Your Hair",
+    desc: "From West Africa to the Caribbean \u2014 each aunty brings generations of real hair wisdom to your phone.",
+  },
+  {
+    tag: "Know Your Pattern",
+    title: "Every Curl Type, Covered",
+    desc: "From 2A waves to 4C coils \u2014 your aunties know every texture and exactly how to care for it.",
+  },
+  {
+    tag: "Custom Rituals",
+    title: "A Routine Built for You",
+    desc: "Wash days, styling days, rest days \u2014 all mapped to your curl pattern and lifestyle.",
+  },
+  {
+    tag: "Adapts to You",
+    title: "Weekly Check-ins That Evolve",
+    desc: "Your plan changes as your hair does. Because no two weeks are the same.",
+  },
+];
 
-// Which aunty hosts each question
-const HOSTS = {
-  curl: "ngozi",
-  struggle: "amara",
-  goal: "carmen",
-};
+const ritualDays = [
+  { day: "M", color: "#D4A04A", label: "Wash" },
+  { day: "T", color: "#C2456E", label: "Style" },
+  { day: "W", color: "#7B3F6B", label: "Refresh" },
+  { day: "T", color: "#2A7B7B", label: "Rest" },
+  { day: "F", color: "#1A7A4A", label: "Scalp" },
+  { day: "S", color: "#B85C2A", label: "Strength" },
+  { day: "S", color: "#3D5A99", label: "Protect" },
+];
+
+function getCurlReaction(curl: CurlType): string {
+  if (curl.startsWith("2")) return "Wavy hair. Let\u2019s work with those waves.";
+  if (curl.startsWith("3")) return "Those curls. I know exactly what they need.";
+  return "Crown texture. Let\u2019s take care of it.";
+}
+
+function getSneakPeekVerdict(curl: CurlType) {
+  if (curl.startsWith("2")) {
+    return {
+      auntyId: "carmen",
+      message:
+        "Mira! Those waves have so much life. In the full app, I\u2019d build you a complete routine \u2014 wash days, products, everything.",
+    };
+  }
+  if (curl.startsWith("3")) {
+    return {
+      auntyId: "ngozi",
+      message:
+        "I KNOW those curls. In the full app, I\u2019d give you a whole wash day ritual, product picks, the works.",
+    };
+  }
+  return {
+    auntyId: "amara",
+    message:
+      "Your coils carry so much strength. In the full app, I\u2019d map out everything \u2014 moisture, protection, growth.",
+  };
+}
 
 export default function ConsultationQuiz() {
   const [step, setStep] = useState<Step>("intro");
+  const [slide, setSlide] = useState(0);
   const [curl, setCurl] = useState<CurlType | null>(null);
-  const [struggle, setStruggle] = useState<Struggle | null>(null);
-  const [goal, setGoal] = useState<Goal | null>(null);
-  const [showNext, setShowNext] = useState(false);
-  const [questionRevealed, setQuestionRevealed] = useState(false);
+  const touchRef = useRef<{ startX: number } | null>(null);
 
   const isOverlay = step !== "intro";
 
-  // Lock body scroll when overlay is active
   useEffect(() => {
     if (isOverlay) {
       document.body.style.overflow = "hidden";
@@ -68,84 +90,112 @@ export default function ConsultationQuiz() {
     }
   }, [isOverlay]);
 
-  // Show "Next" button 700ms after selection
   useEffect(() => {
-    if (
-      (step === "curl" && curl) ||
-      (step === "struggle" && struggle) ||
-      (step === "goal" && goal)
-    ) {
-      setShowNext(false);
-      const t = setTimeout(() => setShowNext(true), 700);
+    if (step === "react") {
+      const t = setTimeout(() => setStep("verdict"), 1800);
       return () => clearTimeout(t);
     }
-  }, [step, curl, struggle, goal]);
-
-  // Reset question state on step change
-  useEffect(() => {
-    setQuestionRevealed(false);
-    setShowNext(false);
   }, [step]);
 
   const handleClose = () => {
     setStep("intro");
+    setSlide(0);
     setCurl(null);
-    setStruggle(null);
-    setGoal(null);
   };
 
-  const handleStart = () => {
-    setStep("curl");
+  const handleBack = () => {
+    if (step === "carousel" && slide > 0) {
+      setSlide((s) => s - 1);
+    } else if (step === "quiz") {
+      setSlide(features.length - 1);
+      setStep("carousel");
+    } else {
+      handleClose();
+    }
   };
 
-  const progress = STEP_PROGRESS[step] / 4;
+  const handleComplete = () => {
+    handleClose();
+    setTimeout(() => {
+      document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
 
-  // ─── Intro state (in-page) ───
+  const nextSlide = () => {
+    if (slide < features.length - 1) setSlide((s) => s + 1);
+  };
+
+  const prevSlide = () => {
+    if (slide > 0) setSlide((s) => s - 1);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchRef.current = { startX: e.touches[0].clientX };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchRef.current) return;
+    const dx = e.changedTouches[0].clientX - touchRef.current.startX;
+    if (Math.abs(dx) > 50) {
+      if (dx < 0) nextSlide();
+      else prevSlide();
+    }
+    touchRef.current = null;
+  };
+
+  const totalSteps = features.length + 2;
+  const currentStep =
+    step === "carousel"
+      ? slide + 1
+      : step === "quiz"
+        ? features.length + 1
+        : step === "react" || step === "verdict"
+          ? totalSteps
+          : 0;
+  const progress = currentStep / totalSteps;
+
+  // ─── Intro (in-page) ───
   if (step === "intro") {
     return (
       <section id="quiz" className="relative py-24 md:py-32 bg-[#1A0F08] noise overflow-hidden">
-        {/* Background glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#D4A04A] opacity-[0.03] blur-[120px]" />
-
         <div className="relative max-w-3xl mx-auto px-6 text-center">
           <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
-            Free Mini Consultation
+            Inside The App
           </p>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#FEF8EC] mb-4 leading-tight">
-            Let Your Aunties <br className="hidden md:block" />
-            See That Hair
+            See What Your <br className="hidden md:block" />
+            Aunties Can Do
           </h2>
           <p className="font-body text-lg text-[rgba(254,248,236,0.55)] mb-4 max-w-lg mx-auto">
-            Three quick questions. Your council convenes. You get a personalized teaser verdict — free.
+            Swipe through what&rsquo;s inside &mdash; then try a sneak peek of the full questionnaire.
           </p>
           <p className="font-body text-sm text-[rgba(254,248,236,0.3)] mb-10">
-            Takes about 60 seconds. No sign-up required.
+            Takes about 30 seconds. No sign-up required.
           </p>
-
           <button
-            onClick={handleStart}
+            onClick={() => setStep("carousel")}
             className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-[#D4A04A] text-[#1A0F08] font-body font-bold text-base hover:bg-[#B8862E] transition-colors animate-pulse-glow"
           >
-            Start The Consultation
+            Take A Sneak Peek
           </button>
-
-          {/* Trust signals */}
           <div className="mt-8 flex items-center justify-center gap-6 text-[rgba(254,248,236,0.25)]">
             <span className="font-body text-xs flex items-center gap-1.5">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
               No data stored
             </span>
             <span className="font-body text-xs flex items-center gap-1.5">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" />
               </svg>
-              60 seconds
+              30 seconds
             </span>
             <span className="font-body text-xs flex items-center gap-1.5">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M20 6L9 17l-5-5"/>
+                <path d="M20 6L9 17l-5-5" />
               </svg>
               100% free
             </span>
@@ -158,26 +208,20 @@ export default function ConsultationQuiz() {
   // ─── Full-screen overlay ───
   return (
     <>
-      {/* Anchor for scroll */}
       <section id="quiz" />
-
-      {/* Overlay */}
       <div className="fixed inset-0 z-50 bg-[#1A0F08] flex flex-col">
         {/* Top bar */}
         <div className="flex-shrink-0 px-6 pt-4 pb-2">
-          {/* Close button */}
           <button
-            onClick={handleClose}
+            onClick={handleBack}
             className="text-[rgba(254,248,236,0.4)] hover:text-[#FEF8EC] transition-colors text-2xl mb-3"
-            aria-label="Close quiz"
+            aria-label="Back"
           >
             &larr;
           </button>
-
-          {/* Progress bar */}
           <div className="h-[3px] bg-[rgba(254,248,236,0.06)] rounded-full overflow-hidden">
             <div
-              className="h-full rounded-full transition-all duration-700 ease-out"
+              className="h-full rounded-full transition-all duration-500 ease-out"
               style={{
                 width: `${progress * 100}%`,
                 background: "linear-gradient(90deg, #D4A04A, #B8862E)",
@@ -186,228 +230,161 @@ export default function ConsultationQuiz() {
           </div>
         </div>
 
-        {/* Content area */}
-        <div className="flex-1 overflow-y-auto">
-          {/* ─── Curl Type ─── */}
-          {step === "curl" && (
-            <QuizStep
-              auntyId={HOSTS.curl}
-              question="Let Aunty see your pattern. Which one looks like you?"
-              prompt="Come sit, let Aunty see this hair."
-              onQuestionRevealed={() => setQuestionRevealed(true)}
-            >
-              {questionRevealed && (
-                <div className="animate-fade-in-up">
-                  {curlCategories.map((cat) => (
-                    <div key={cat.label} className="mb-6">
-                      <p className="font-body text-[10px] tracking-[3px] uppercase text-[rgba(254,248,236,0.4)] mb-3">
-                        {cat.label}
-                      </p>
-                      <div className="grid grid-cols-3 gap-3">
-                        {cat.types.map((type) => {
-                          const opt = curlOptions.find((o) => o.type === type)!;
-                          const selected = curl === type;
-                          return (
-                            <button
-                              key={type}
-                              onClick={() => setCurl(type)}
-                              className={`rounded-xl p-3 text-center border transition-all duration-200 ${
-                                selected
-                                  ? "border-[#D4A04A] bg-[rgba(212,160,74,0.12)]"
-                                  : "border-[rgba(254,248,236,0.08)] bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.08)]"
-                              }`}
-                            >
-                              <div className="flex justify-center mb-1">
-                                <CurlPatternIcon
-                                  type={type}
-                                  size={32}
-                                  color={selected ? "#D4A04A" : "rgba(254,248,236,0.3)"}
-                                />
-                              </div>
-                              <p
-                                className={`font-body text-sm font-bold ${
-                                  selected ? "text-[#D4A04A]" : "text-[rgba(254,248,236,0.5)]"
-                                }`}
-                              >
-                                {opt.label}
-                              </p>
-                              <p className="font-body text-[10px] text-[rgba(254,248,236,0.3)]">
-                                {opt.desc}
-                              </p>
-                            </button>
-                          );
-                        })}
+        {/* Content */}
+        <div className="flex-1 min-h-0 flex flex-col">
+          {/* ─── Carousel ─── */}
+          {step === "carousel" && (
+            <div className="flex flex-col flex-1 min-h-0">
+              <div
+                className="flex-1 min-h-0 overflow-hidden"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
+                <div
+                  className="flex h-full transition-transform duration-500 ease-out"
+                  style={{ transform: `translateX(-${slide * 100}%)` }}
+                >
+                  {features.map((feature, i) => (
+                    <div
+                      key={i}
+                      className="w-full flex-shrink-0 flex flex-col items-center justify-center px-8 text-center"
+                    >
+                      <div className="mb-5">
+                        {i === 0 && <CouncilVisual />}
+                        {i === 1 && <CurlChartVisual />}
+                        {i === 2 && <RitualVisual />}
+                        {i === 3 && <CheckInVisual />}
                       </div>
+
+                      <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-2">
+                        {feature.tag}
+                      </p>
+                      <h3 className="font-display text-2xl md:text-3xl font-bold text-[#FEF8EC] leading-snug mb-3">
+                        {feature.title}
+                      </h3>
+                      <p className="font-body text-sm md:text-base text-[rgba(254,248,236,0.5)] max-w-sm">
+                        {feature.desc}
+                      </p>
                     </div>
                   ))}
+                </div>
+              </div>
 
-                  {/* Aunty's reaction */}
-                  {curl && (
-                    <p className="mt-4 text-center font-display text-base italic text-[#D4A04A] animate-fade-in-up">
-                      {curl.startsWith("2")
-                        ? "Beautiful. Let's work with those waves."
-                        : curl.startsWith("3")
-                          ? "Love those curls. We know exactly what they need."
-                          : "Crown texture. Let's take care of it."}
+              {/* Bottom: dots + action */}
+              <div className="flex-shrink-0 px-6 pb-6 pt-3">
+                <div className="flex justify-center gap-2 mb-4">
+                  {features.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setSlide(i)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === slide
+                          ? "w-6 bg-[#D4A04A]"
+                          : "w-1.5 bg-[rgba(254,248,236,0.15)]"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                {slide < features.length - 1 ? (
+                  <button
+                    onClick={nextSlide}
+                    className="w-full py-3.5 rounded-full border border-[rgba(254,248,236,0.12)] text-[#FEF8EC] font-body font-medium hover:bg-[rgba(255,255,255,0.04)] transition-colors"
+                  >
+                    Next
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setStep("quiz")}
+                    className="w-full py-3.5 rounded-full bg-[#D4A04A] text-[#1A0F08] font-body font-bold hover:bg-[#B8862E] transition-colors"
+                  >
+                    Try The Sneak Peek Quiz
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ─── Curl Selection (sneak peek quiz) ─── */}
+          {step === "quiz" && (
+            <div className="flex-1 min-h-0 overflow-y-auto">
+              <div className="max-w-lg mx-auto px-6 py-4 md:py-8 animate-fade-in-up">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-body text-[10px] tracking-[2px] uppercase text-[#D4A04A] bg-[rgba(212,160,74,0.1)] px-2.5 py-1 rounded-full">
+                    Sneak Peek
+                  </span>
+                </div>
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-[#FEF8EC] leading-snug mb-2">
+                  What&rsquo;s your curl pattern?
+                </h3>
+                <p className="font-body text-sm text-[rgba(254,248,236,0.4)] mb-6">
+                  Pick your closest match. Your aunties will take it from here.
+                </p>
+
+                {curlCategories.map((cat) => (
+                  <div key={cat.label} className="mb-5">
+                    <p className="font-body text-[10px] tracking-[3px] uppercase text-[rgba(254,248,236,0.4)] mb-3">
+                      {cat.label}
                     </p>
-                  )}
-
-                  {/* Next button */}
-                  {showNext && (
-                    <div className="mt-6 text-center animate-fade-in-up">
-                      <button
-                        onClick={() => setStep("validate-curl")}
-                        className="px-8 py-3 rounded-full bg-[#D4A04A] text-[#1A0F08] font-body font-semibold hover:bg-[#B8862E] transition-colors"
-                      >
-                        That&rsquo;s my curl
-                      </button>
+                    <div className="grid grid-cols-3 gap-3">
+                      {cat.types.map((type) => {
+                        const opt = curlOptions.find((o) => o.type === type)!;
+                        const selected = curl === type;
+                        return (
+                          <button
+                            key={type}
+                            onClick={() => {
+                              setCurl(type);
+                              setTimeout(() => setStep("react"), 300);
+                            }}
+                            className={`rounded-xl px-2 py-3 text-center border transition-all duration-200 ${
+                              selected
+                                ? "border-[#D4A04A] bg-[rgba(212,160,74,0.12)] scale-[1.03]"
+                                : "border-[rgba(254,248,236,0.08)] bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.08)]"
+                            }`}
+                          >
+                            <div className="flex justify-center mb-1.5">
+                              <CurlPatternIcon
+                                type={type}
+                                size={52}
+                                color={selected ? "#D4A04A" : "rgba(254,248,236,0.45)"}
+                              />
+                            </div>
+                            <p className={`font-body text-sm font-bold ${selected ? "text-[#D4A04A]" : "text-[rgba(254,248,236,0.6)]"}`}>
+                              {opt.label}
+                            </p>
+                            <p className="font-body text-[10px] text-[rgba(254,248,236,0.3)]">
+                              {opt.desc}
+                            </p>
+                          </button>
+                        );
+                      })}
                     </div>
-                  )}
-                </div>
-              )}
-            </QuizStep>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
 
-          {/* ─── Validation: Curl ─── */}
-          {step === "validate-curl" && curl && (
-            <QuizValidation
-              auntyId={HOSTS.curl}
-              lines={getCurlValidation(curl)}
-              onComplete={() => setStep("struggle")}
-            />
+          {/* ─── Quick Reaction ─── */}
+          {step === "react" && curl && (
+            <div className="flex-1 flex flex-col items-center justify-center px-6 text-center animate-fade-in-up">
+              <AuntyAvatar
+                color={getAunty(getSneakPeekVerdict(curl).auntyId).color}
+                size={56}
+                glow
+              />
+              <p className="font-display text-xl md:text-2xl font-bold text-[#FEF8EC] mt-5 max-w-sm">
+                {getCurlReaction(curl)}
+              </p>
+            </div>
           )}
 
-          {/* ─── Struggle ─── */}
-          {step === "struggle" && (
-            <QuizStep
-              auntyId={HOSTS.struggle}
-              question="What's your biggest struggle right now?"
-              prompt="Tell me where it hurts, dear one."
-              onQuestionRevealed={() => setQuestionRevealed(true)}
-            >
-              {questionRevealed && (
-                <div className="animate-fade-in-up grid gap-3">
-                  {struggleOptions.map((opt) => {
-                    const selected = struggle === opt.value;
-                    const hostColor = getAunty(HOSTS.struggle).color;
-                    return (
-                      <button
-                        key={opt.value}
-                        onClick={() => setStruggle(opt.value)}
-                        className={`rounded-xl px-5 py-4 text-left border transition-all duration-200 ${
-                          selected
-                            ? "bg-[rgba(184,92,42,0.12)]"
-                            : "border-[rgba(254,248,236,0.08)] bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.08)]"
-                        }`}
-                        style={selected ? { borderColor: hostColor + "60" } : {}}
-                      >
-                        <p
-                          className={`font-body font-medium ${
-                            selected ? "text-[#FEF8EC]" : "text-[rgba(254,248,236,0.6)]"
-                          }`}
-                        >
-                          {opt.label}
-                        </p>
-                        <p className="font-body text-xs text-[rgba(254,248,236,0.3)] mt-0.5">
-                          {opt.sub}
-                        </p>
-                      </button>
-                    );
-                  })}
-
-                  {showNext && (
-                    <div className="mt-4 text-center animate-fade-in-up">
-                      <button
-                        onClick={() => setStep("validate-struggle")}
-                        className="px-8 py-3 rounded-full bg-[#D4A04A] text-[#1A0F08] font-body font-semibold hover:bg-[#B8862E] transition-colors"
-                      >
-                        Next
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
-            </QuizStep>
-          )}
-
-          {/* ─── Validation: Empathy ─── */}
-          {step === "validate-struggle" && (
-            <QuizValidation
-              auntyId="denise"
-              lines={empathyValidation}
-              onComplete={() => setStep("goal")}
-            />
-          )}
-
-          {/* ─── Goal ─── */}
-          {step === "goal" && (
-            <QuizStep
-              auntyId={HOSTS.goal}
-              question="What's your dream for your hair?"
-              prompt="Tell me what would make you feel amazing, mi amor."
-              onQuestionRevealed={() => setQuestionRevealed(true)}
-            >
-              {questionRevealed && (
-                <div className="animate-fade-in-up grid gap-3">
-                  {goalOptions.map((opt) => {
-                    const selected = goal === opt.value;
-                    const hostColor = getAunty(HOSTS.goal).color;
-                    return (
-                      <button
-                        key={opt.value}
-                        onClick={() => setGoal(opt.value)}
-                        className={`rounded-xl px-5 py-4 text-left border transition-all duration-200 ${
-                          selected
-                            ? "bg-[rgba(194,69,110,0.12)]"
-                            : "border-[rgba(254,248,236,0.08)] bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.08)]"
-                        }`}
-                        style={selected ? { borderColor: hostColor + "60" } : {}}
-                      >
-                        <p
-                          className={`font-body font-medium ${
-                            selected ? "text-[#FEF8EC]" : "text-[rgba(254,248,236,0.6)]"
-                          }`}
-                        >
-                          {opt.label}
-                        </p>
-                        <p className="font-body text-xs text-[rgba(254,248,236,0.3)] mt-0.5">
-                          {opt.sub}
-                        </p>
-                      </button>
-                    );
-                  })}
-
-                  {showNext && (
-                    <div className="mt-4 text-center animate-fade-in-up">
-                      <button
-                        onClick={() => setStep("convening")}
-                        className="px-8 py-3 rounded-full bg-[#D4A04A] text-[#1A0F08] font-body font-semibold hover:bg-[#B8862E] transition-colors"
-                      >
-                        Summon The Council
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
-            </QuizStep>
-          )}
-
-          {/* ─── Convening ─── */}
-          {step === "convening" && curl && struggle && goal && (
-            <ConveningCeremony
-              curl={curl}
-              struggle={struggle}
-              goal={goal}
-              onComplete={() => setStep("verdict")}
-            />
-          )}
-
-          {/* ─── Verdict ─── */}
-          {step === "verdict" && curl && struggle && goal && (
-            <VerdictReveal
-              verdicts={getVerdicts(curl, struggle, goal)}
-              onComplete={handleClose}
-            />
+          {/* ─── Sneak Peek Verdict ─── */}
+          {step === "verdict" && curl && (
+            <div className="flex-1 min-h-0 overflow-y-auto">
+              <SneakPeekVerdict curl={curl} onComplete={handleComplete} />
+            </div>
           )}
         </div>
       </div>
@@ -415,59 +392,226 @@ export default function ConsultationQuiz() {
   );
 }
 
-// ─── Reusable question step layout ───
+// ─── Carousel Visuals ───
 
-function QuizStep({
-  auntyId,
-  question,
-  prompt,
-  onQuestionRevealed,
-  children,
-}: {
-  auntyId: string;
-  question: string;
-  prompt: string;
-  onQuestionRevealed: () => void;
-  children: React.ReactNode;
-}) {
-  const aunty = getAunty(auntyId);
+function CouncilVisual() {
+  return (
+    <div className="flex items-center justify-center -space-x-1">
+      {aunties.map((aunty) => (
+        <AuntyAvatar key={aunty.id} color={aunty.color} size={38} />
+      ))}
+    </div>
+  );
+}
 
-  // Show options immediately
-  useEffect(() => {
-    const t = setTimeout(onQuestionRevealed, 100);
-    return () => clearTimeout(t);
-  }, [onQuestionRevealed]);
+function CurlChartVisual() {
+  const categories = [
+    { label: "Wavy", types: ["2a", "2b", "2c"] as CurlType[] },
+    { label: "Curly", types: ["3a", "3b", "3c"] as CurlType[] },
+    { label: "Coily", types: ["4a", "4b", "4c"] as CurlType[] },
+  ];
 
   return (
-    <div className="max-w-lg mx-auto px-6 py-8">
-      {/* Aunty host */}
-      <div className="flex items-center gap-3 mb-6 animate-fade-in-up">
-        <AuntyAvatar color={aunty.color} size={40} />
-        <div>
-          <p
-            className="font-body text-sm font-semibold"
-            style={{ color: aunty.color }}
-          >
-            {aunty.name}
+    <div className="grid grid-cols-3 gap-x-4 md:gap-x-6 gap-y-1">
+      {categories.map((cat) => (
+        <div key={cat.label} className="flex flex-col items-center">
+          <p className="font-body text-[7px] md:text-[8px] tracking-[2px] uppercase text-[rgba(254,248,236,0.3)] mb-1">
+            {cat.label}
           </p>
-          <p className="font-body text-[10px] text-[rgba(254,248,236,0.4)]">
-            {aunty.title} &middot; {aunty.dialect}
-          </p>
+          <div className="flex flex-col gap-1">
+            {cat.types.map((type) => {
+              const opt = curlOptions.find((o) => o.type === type)!;
+              return (
+                <div
+                  key={type}
+                  className="flex items-center gap-1.5 rounded-lg bg-[rgba(255,255,255,0.03)] border border-[rgba(254,248,236,0.06)] pl-1.5 pr-2.5 py-1"
+                >
+                  <CurlPatternIcon type={type} size={22} color="rgba(254,248,236,0.5)" />
+                  <p className="font-body text-[9px] md:text-[10px] font-bold text-[rgba(254,248,236,0.5)]">
+                    {opt.label}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
+      ))}
+    </div>
+  );
+}
+
+function RitualVisual() {
+  return (
+    <div className="flex items-center justify-center gap-2.5">
+      {ritualDays.map((d, i) => (
+        <div key={i} className="flex flex-col items-center gap-1.5">
+          <span className="font-body text-[10px] text-[rgba(254,248,236,0.4)]">
+            {d.day}
+          </span>
+          <div
+            className="w-8 h-8 rounded-full flex items-center justify-center"
+            style={{ backgroundColor: d.color + "20" }}
+          >
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: d.color }}
+            />
+          </div>
+          <span className="font-body text-[7px] text-[rgba(254,248,236,0.3)]">
+            {d.label}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CheckInVisual() {
+  const weeks = [
+    { label: "Wk 1", height: 24, opacity: "30" },
+    { label: "Wk 2", height: 40, opacity: "50" },
+    { label: "Wk 3", height: 56, opacity: "80" },
+    { label: "Wk 4", height: 72, opacity: "CC" },
+  ];
+
+  return (
+    <div className="flex items-end justify-center gap-3">
+      {weeks.map((w) => (
+        <div key={w.label} className="flex flex-col items-center gap-2">
+          <div
+            className="w-10 rounded-t-md"
+            style={{
+              height: `${w.height}px`,
+              backgroundColor: `#D4A04A${w.opacity}`,
+            }}
+          />
+          <span className="font-body text-[8px] text-[rgba(254,248,236,0.3)]">
+            {w.label}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── Sneak Peek Verdict ───
+
+function SneakPeekVerdict({
+  curl,
+  onComplete,
+}: {
+  curl: CurlType;
+  onComplete: () => void;
+}) {
+  const [visible, setVisible] = useState(false);
+  const verdict = getSneakPeekVerdict(curl);
+  const aunty = getAunty(verdict.auntyId);
+
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 300);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center px-6 py-8">
+      <div className="text-center mb-8 animate-fade-in-up">
+        <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-3">
+          Sneak Peek Result
+        </p>
+        <h3 className="font-display text-2xl md:text-3xl font-bold text-[#FEF8EC]">
+          Here&rsquo;s a taste
+        </h3>
       </div>
 
-      {/* Question */}
-      <h3 className="font-display text-2xl md:text-3xl font-bold text-[#FEF8EC] leading-snug mb-2 animate-fade-in-up">
-        {question}
-      </h3>
+      <div className="w-full max-w-lg space-y-4 mb-8">
+        {/* Unlocked verdict */}
+        <div
+          className="rounded-xl p-5 transition-all duration-500"
+          style={{
+            backgroundColor: `${aunty.color}10`,
+            border: `1px solid ${aunty.color}25`,
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(16px)",
+          }}
+        >
+          <div className="flex items-center gap-3 mb-3">
+            <AuntyAvatar color={aunty.color} size={36} />
+            <div>
+              <p className="font-body text-sm font-semibold" style={{ color: aunty.color }}>
+                {aunty.name}
+              </p>
+              <p className="font-body text-[10px] text-[rgba(254,248,236,0.4)]">
+                {aunty.title}
+              </p>
+            </div>
+          </div>
+          <p className="font-display text-base italic text-[#FEF8EC] leading-relaxed">
+            &ldquo;{verdict.message}&rdquo;
+          </p>
+        </div>
 
-      {/* Aunty prompt */}
-      <p className="font-display text-base italic text-[rgba(254,248,236,0.5)] mb-8 animate-fade-in-up delay-100">
-        &ldquo;{prompt}&rdquo;
-      </p>
+        {/* Locked cards */}
+        {[getAunty("denise"), getAunty("fatou")].map((locked) => (
+          <div
+            key={locked.id}
+            className="rounded-xl p-5 relative overflow-hidden transition-all duration-500"
+            style={{
+              backgroundColor: "rgba(254,248,236,0.03)",
+              border: "1px solid rgba(254,248,236,0.06)",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(16px)",
+              transitionDelay: "200ms",
+            }}
+          >
+            <div className="blur-[6px] pointer-events-none">
+              <div className="flex items-center gap-3 mb-3">
+                <AuntyAvatar color={locked.color} size={36} />
+                <div>
+                  <p className="font-body text-sm font-semibold text-[rgba(254,248,236,0.3)]">
+                    {locked.name}
+                  </p>
+                  <p className="font-body text-[10px] text-[rgba(254,248,236,0.2)]">
+                    {locked.title}
+                  </p>
+                </div>
+              </div>
+              <p className="font-display text-base italic text-[rgba(254,248,236,0.15)] leading-relaxed">
+                &ldquo;Your personalized advice is waiting inside the full app...&rdquo;
+              </p>
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="font-body text-xs text-[rgba(254,248,236,0.5)] bg-[rgba(26,15,8,0.85)] px-4 py-2 rounded-full border border-[rgba(254,248,236,0.08)]">
+                Unlock in the full app
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
 
-      {/* Options */}
-      {children}
+      {/* CTA */}
+      <div
+        className="w-full max-w-lg transition-all duration-500"
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(16px)",
+          transitionDelay: "400ms",
+        }}
+      >
+        <div className="rounded-2xl bg-[rgba(212,160,74,0.08)] border border-[rgba(212,160,74,0.2)] p-6 text-center">
+          <p className="font-display text-xl font-bold text-[#FEF8EC] mb-2">
+            Your full plan is ready.
+          </p>
+          <p className="font-body text-sm text-[rgba(254,248,236,0.5)] mb-5">
+            Get early access to your complete personalized ritual.
+          </p>
+          <button
+            onClick={onComplete}
+            className="px-8 py-3.5 rounded-full bg-[#D4A04A] text-[#1A0F08] font-body font-bold hover:bg-[#B8862E] transition-colors"
+          >
+            Get Early Access
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme inline {
   --color-canvas: #FEF8EC;
   --color-canvas-deep: #F5EBD5;

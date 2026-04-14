@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   icons: { icon: "/logo.png", apple: "/logo.png" },
   title: "Aunty Curl Council — Your Aunties Have Been Waiting",
   description:
-    "Seven culturally-rooted AI aunties. Centuries of natural hair wisdom. One council — just for your curls. Take the quiz and meet your council.",
+    "AI-powered personalized hair care from seven aunties who actually understand your texture. Take the free consultation and get your routine.",
   openGraph: {
     title: "Aunty Curl Council",
     description: "Your Aunties Have Been Waiting.",

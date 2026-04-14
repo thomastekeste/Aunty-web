@@ -57,7 +57,7 @@ export default function Waitlist() {
           Launching Soon
         </p>
         <h2 className="font-display text-4xl md:text-5xl font-bold text-[#FEF8EC] mb-4 leading-tight">
-          Your Council Is <br className="hidden md:block" />Almost Ready
+          Your Aunties Are <br className="hidden md:block" />Almost Ready
         </h2>
         <p className="font-body text-lg text-[rgba(254,248,236,0.55)] mb-4 max-w-lg mx-auto">
           Join 2,400+ women already on the waitlist. Be the first to meet your aunties
@@ -68,7 +68,7 @@ export default function Waitlist() {
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(212,160,74,0.2)] bg-[rgba(212,160,74,0.06)] mb-8">
           <div className="w-2 h-2 rounded-full bg-[#D4A04A] animate-pulse" />
           <p className="font-body text-xs text-[#D4A04A]">
-            Early access members get their first month free
+            Free forever &mdash; no credit card required
           </p>
         </div>
 
@@ -126,7 +126,7 @@ export default function Waitlist() {
             </div>
 
             <WordReveal
-              text="Your aunties have been notified. They're preparing your council."
+              text="Your aunties have been notified. They're getting ready for you."
               as="p"
               stagger={85}
               className="font-display text-2xl font-bold text-[#FEF8EC] mb-3"

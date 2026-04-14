@@ -29,8 +29,8 @@ export default function AppPreview() {
             Everything Your Hair Needs.<br className="hidden md:block" /> In One Place.
           </h2>
           <p className="font-body text-lg text-[#5C4433] max-w-2xl mx-auto">
-            A personalized ritual calendar. Daily step-by-step guidance. Weekly check-ins
-            that adapt your plan. All guided by your council.
+            A personalized ritual calendar. Daily step-by-step guidance. Hair education
+            from aunties that know your texture. Weekly check-ins that adapt your plan.
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export default function AppPreview() {
             <PhoneMockup className="scale-[0.85] md:scale-100">
               <div className="h-full flex flex-col items-center justify-center p-5 pb-14 text-center relative">
                 <p className="font-body text-[8px] tracking-[2px] uppercase text-[#D4A04A] mb-4">
-                  Council Verdict
+                  Aunty's Advice
                 </p>
 
                 {/* Aunty speaking */}
@@ -131,7 +131,7 @@ export default function AppPreview() {
               </div>
             </PhoneMockup>
             <div className="text-center">
-              <h3 className="font-display text-lg font-bold text-[#2D1B0E] mb-1">Personal Verdicts</h3>
+              <h3 className="font-display text-lg font-bold text-[#2D1B0E] mb-1">Personal Advice</h3>
               <p className="font-body text-sm text-[#5C4433]">Each aunty speaks to YOUR hair</p>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default function AppPreview() {
                   </p>
                 </div>
 
-                <MockTabBar activeTab="Journey" />
+                <MockTabBar activeTab="Learn" />
               </div>
             </PhoneMockup>
             <div className="text-center">
@@ -191,6 +191,26 @@ export default function AppPreview() {
               <p className="font-body text-sm text-[#5C4433]">Your aunties follow up</p>
             </div>
           </div>
+        </div>
+
+        {/* Guide to quiz */}
+        <div
+          className="text-center mt-16"
+          style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : "translateY(20px)",
+            transition: "all 0.7s ease-out 500ms",
+          }}
+        >
+          <button
+            onClick={() => document.getElementById("quiz")?.scrollIntoView({ behavior: "smooth" })}
+            className="px-10 py-4 rounded-full bg-gradient-to-r from-[#D4A04A] to-[#B8862E] text-[#1A0F08] font-body font-bold text-base hover:opacity-90 transition-opacity shadow-lg shadow-[#D4A04A]/20"
+          >
+            Find Your Perfect Ritual
+          </button>
+          <p className="font-body text-sm text-[#9E8C7A] mt-3">
+            Free 60-second consultation with your aunties
+          </p>
         </div>
       </div>
     </section>
