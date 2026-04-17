@@ -9,12 +9,12 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#1A0F08] noise pt-20">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#FEF8EC] noise pt-20">
       {/* Gradient mesh background */}
       <div className="absolute inset-0">
-        <div className="absolute top-[-20%] right-[-10%] w-[700px] h-[700px] rounded-full bg-[#D4A04A] opacity-[0.04] blur-[150px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#C2456E] opacity-[0.03] blur-[120px]" />
-        <div className="absolute top-[30%] left-[20%] w-[400px] h-[400px] rounded-full bg-[#3D5A99] opacity-[0.03] blur-[100px]" />
+        <div className="absolute top-[-20%] right-[-10%] w-[700px] h-[700px] rounded-full bg-[#D4A04A] opacity-[0.08] blur-[150px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#C2456E] opacity-[0.08] blur-[120px]" />
+        <div className="absolute top-[30%] left-[20%] w-[400px] h-[400px] rounded-full bg-[#3D5A99] opacity-[0.08] blur-[100px]" />
       </div>
 
       {/* Floating aunty orbs */}
@@ -48,7 +48,7 @@ export default function Hero() {
               Your Aunties Have Been Waiting
             </h1>
 
-            <p className="font-body text-base md:text-lg text-[rgba(254,248,236,0.55)] max-w-lg mx-auto lg:mx-0 mb-5 leading-relaxed">
+            <p className="font-body text-base md:text-lg text-[rgba(26,15,8,0.55)] max-w-lg mx-auto lg:mx-0 mb-5 leading-relaxed">
               Seven aunties that know the texture of your hair. Real wisdom — just for your curls.
             </p>
 
@@ -73,7 +73,7 @@ export default function Hero() {
                 {/* Tertiary — just notify me */}
                 <button
                   onClick={() => scrollTo("waitlist")}
-                  className="font-body text-xs text-[rgba(254,248,236,0.4)] hover:text-[#D4A04A] transition-colors underline underline-offset-4 decoration-[rgba(254,248,236,0.15)]"
+                  className="font-body text-xs text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors underline underline-offset-4 decoration-[rgba(26,15,8,0.15)]"
                 >
                   Just want to be notified when it launches? →
                 </button>
@@ -84,7 +84,7 @@ export default function Hero() {
                     {aunties.slice(0, 4).map((a) => (
                       <div
                         key={a.id}
-                        className="w-6 h-6 rounded-full border-2 border-[#1A0F08]"
+                        className="w-6 h-6 rounded-full border-2 border-[#FEF8EC]"
                         style={{ backgroundColor: a.color + "40" }}
                       >
                         <div className="w-full h-full rounded-full flex items-center justify-center" style={{ backgroundColor: a.color + "30" }}>
@@ -93,7 +93,7 @@ export default function Hero() {
                       </div>
                     ))}
                   </div>
-                  <p className="font-body text-xs text-[rgba(254,248,236,0.4)]">
+                  <p className="font-body text-xs text-[rgba(26,15,8,0.4)]">
                     Only <span className="text-[#D4A04A] font-semibold">500</span> founding spots available
                   </p>
                 </div>
@@ -114,7 +114,7 @@ export default function Hero() {
               </span>
               <p className="font-body text-[11px] text-[#D4A04A] font-medium">Interactive</p>
             </div>
-            <div className="md:hidden absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[rgba(212,160,74,0.25)] bg-[#1A0F08]/90 backdrop-blur whitespace-nowrap">
+            <div className="md:hidden absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[rgba(212,160,74,0.25)] bg-[#FEF8EC]/90 backdrop-blur whitespace-nowrap">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4A04A] opacity-75" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#D4A04A]" />
@@ -126,7 +126,7 @@ export default function Hero() {
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FEF8EC] to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FEF8EC] to-transparent pointer-events-none" />
     </section>
   );
 }

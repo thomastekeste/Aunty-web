@@ -58,10 +58,10 @@ export default function PricingTiers() {
   };
 
   return (
-    <section id="pricing" className="py-16 md:py-24 bg-[#1A0F08] noise relative overflow-hidden" ref={ref}>
+    <section id="pricing" className="py-16 md:py-24 bg-[#FEF8EC] noise relative overflow-hidden" ref={ref}>
       {/* Background glows */}
-      <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-[#D4A04A] opacity-[0.03] blur-[150px]" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-[#C2456E] opacity-[0.02] blur-[120px]" />
+      <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-[#D4A04A] opacity-[0.08] blur-[150px]" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-[#C2456E] opacity-[0.08] blur-[120px]" />
 
       <div className="relative max-w-5xl mx-auto px-6">
         {/* Header */}
@@ -76,12 +76,12 @@ export default function PricingTiers() {
           <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
             Become a Founding Member
           </p>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-[#FEF8EC] mb-4 leading-tight">
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A0F08] mb-4 leading-tight">
             Back us early.{" "}
             <br className="hidden md:block" />
             Keep the founding price forever.
           </h2>
-          <p className="font-body text-lg text-[rgba(254,248,236,0.55)] max-w-2xl mx-auto">
+          <p className="font-body text-lg text-[rgba(26,15,8,0.55)] max-w-2xl mx-auto">
             Founding Members help us launch. In return, you lock in your price, get
             access before everyone else, and keep perks that never come back.
           </p>
@@ -111,8 +111,8 @@ export default function PricingTiers() {
                 </svg>
               </div>
               <div>
-                <p className="font-body text-sm font-semibold text-[#FEF8EC]">100% refund guarantee</p>
-                <p className="font-body text-xs text-[rgba(254,248,236,0.5)]">
+                <p className="font-body text-sm font-semibold text-[#1A0F08]">100% refund guarantee</p>
+                <p className="font-body text-xs text-[rgba(26,15,8,0.5)]">
                   If we don&rsquo;t launch in the coming weeks.{" "}
                   <a href="/refund" className="text-[#D4A04A] hover:underline underline-offset-2">
                     See policy →
@@ -128,8 +128,8 @@ export default function PricingTiers() {
                 </svg>
               </div>
               <div>
-                <p className="font-body text-sm font-semibold text-[#FEF8EC]">Secure checkout</p>
-                <p className="font-body text-xs text-[rgba(254,248,236,0.5)]">256-bit SSL via Stripe</p>
+                <p className="font-body text-sm font-semibold text-[#1A0F08]">Secure checkout</p>
+                <p className="font-body text-xs text-[rgba(26,15,8,0.5)]">256-bit SSL via Stripe</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -140,8 +140,8 @@ export default function PricingTiers() {
                 </svg>
               </div>
               <div>
-                <p className="font-body text-sm font-semibold text-[#FEF8EC]">Founding price locked</p>
-                <p className="font-body text-xs text-[rgba(254,248,236,0.5)]">Even if public pricing rises</p>
+                <p className="font-body text-sm font-semibold text-[#1A0F08]">Founding price locked</p>
+                <p className="font-body text-xs text-[rgba(26,15,8,0.5)]">Even if public pricing rises</p>
               </div>
             </div>
           </div>
@@ -181,10 +181,11 @@ export default function PricingTiers() {
                     isPopular ? "ring-2" : ""
                   }`}
                   style={{
-                    background: "rgba(255,255,255,0.03)",
+                    background: "white",
+                    boxShadow: "0 2px 16px rgba(26,15,8,0.07)",
                     border: isPopular
                       ? `2px solid ${accent}40`
-                      : "1px solid rgba(254,248,236,0.06)",
+                      : "1px solid rgba(26,15,8,0.08)",
                   }}
                 >
                   {/* Top accent */}
@@ -211,7 +212,7 @@ export default function PricingTiers() {
                     {isPopular && <div className="h-6" />}
 
                     {/* Plan name */}
-                    <h3 className="font-display text-xl font-bold text-[#FEF8EC] mb-1">
+                    <h3 className="font-display text-xl font-bold text-[#1A0F08] mb-1">
                       {plan.name}
                     </h3>
 
@@ -223,7 +224,7 @@ export default function PricingTiers() {
                       >
                         {plan.display}
                       </span>
-                      <span className="font-body text-sm text-[rgba(254,248,236,0.35)]">
+                      <span className="font-body text-sm text-[rgba(26,15,8,0.4)]">
                         {key === "lifetime"
                           ? "once"
                           : key === "yearly"
@@ -232,7 +233,7 @@ export default function PricingTiers() {
                       </span>
                     </div>
 
-                    <p className="font-body text-sm text-[rgba(254,248,236,0.4)] mb-6">
+                    <p className="font-body text-sm text-[rgba(26,15,8,0.4)] mb-6">
                       {plan.description}
                     </p>
 
@@ -254,7 +255,7 @@ export default function PricingTiers() {
                               strokeLinejoin="round"
                             />
                           </svg>
-                          <span className="font-body text-sm text-[rgba(254,248,236,0.55)]">
+                          <span className="font-body text-sm text-[rgba(26,15,8,0.55)]">
                             {perk}
                           </span>
                         </li>
@@ -318,7 +319,7 @@ export default function PricingTiers() {
             transition: "opacity 0.7s ease-out 400ms",
           }}
         >
-          <div className="flex items-center justify-center gap-4 text-[rgba(254,248,236,0.3)]">
+          <div className="flex items-center justify-center gap-4 text-[rgba(26,15,8,0.3)]">
             <div className="flex items-center gap-1.5">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -337,7 +338,7 @@ export default function PricingTiers() {
             onClick={() =>
               document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })
             }
-            className="font-body text-sm text-[rgba(254,248,236,0.35)] hover:text-[#FEF8EC] transition-colors underline underline-offset-4 decoration-[rgba(254,248,236,0.15)]"
+            className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#1A0F08] transition-colors underline underline-offset-4 decoration-[rgba(26,15,8,0.15)]"
           >
             Not ready? Just notify me at launch →
           </button>

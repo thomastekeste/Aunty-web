@@ -28,7 +28,7 @@ export default function VerdictReveal({ verdicts, onComplete }: Props) {
         <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-3">
           Your Results
         </p>
-        <h3 className="font-display text-2xl md:text-3xl font-bold text-[#FEF8EC]">
+        <h3 className="font-display text-2xl md:text-3xl font-bold text-[#1A0F08]">
           Here&rsquo;s what your aunties think
         </h3>
       </div>
@@ -54,12 +54,12 @@ export default function VerdictReveal({ verdicts, onComplete }: Props) {
                   <p className="font-body text-sm font-semibold" style={{ color: aunty.color }}>
                     {aunty.name}
                   </p>
-                  <p className="font-body text-[10px] text-[rgba(254,248,236,0.4)]">
+                  <p className="font-body text-[10px] text-[rgba(26,15,8,0.4)]">
                     {aunty.title}
                   </p>
                 </div>
               </div>
-              <p className="font-display text-base italic text-[#FEF8EC] leading-relaxed">
+              <p className="font-display text-base italic text-[#1A0F08] leading-relaxed">
                 &ldquo;{v.message}&rdquo;
               </p>
             </div>
@@ -76,10 +76,10 @@ export default function VerdictReveal({ verdicts, onComplete }: Props) {
         }}
       >
         <div className="rounded-2xl bg-[rgba(212,160,74,0.08)] border border-[rgba(212,160,74,0.2)] p-6 text-center">
-          <p className="font-display text-xl font-bold text-[#FEF8EC] mb-2">
+          <p className="font-display text-xl font-bold text-[#1A0F08] mb-2">
             Your full plan is ready.
           </p>
-          <p className="font-body text-sm text-[rgba(254,248,236,0.5)] mb-5">
+          <p className="font-body text-sm text-[rgba(26,15,8,0.5)] mb-5">
             Get early access to your personalized hair care ritual.
           </p>
           <button

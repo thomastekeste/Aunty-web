@@ -7,11 +7,11 @@ export default function FounderNote() {
 
   return (
     <section
-      className="relative py-20 md:py-28 bg-[#1A0F08] noise overflow-hidden"
+      className="relative py-20 md:py-28 bg-[#FEF8EC] noise overflow-hidden"
       ref={ref}
     >
       {/* Soft glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-[#D4A04A] opacity-[0.04] blur-[140px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-[#D4A04A] opacity-[0.08] blur-[140px]" />
 
       <div
         className="relative max-w-2xl mx-auto px-6"
@@ -28,7 +28,7 @@ export default function FounderNote() {
         {/* Wordmark emblem in place of a face */}
         <div className="flex items-center justify-center mb-8">
           <div className="relative">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#D4A04A] to-[#B8862E] flex items-center justify-center ring-2 ring-[#D4A04A]/20 ring-offset-4 ring-offset-[#1A0F08]">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#D4A04A] to-[#B8862E] flex items-center justify-center ring-2 ring-[#D4A04A]/20 ring-offset-4 ring-offset-[#FEF8EC]">
               {/* Curl glyph */}
               <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
                 <path
@@ -45,7 +45,7 @@ export default function FounderNote() {
         </div>
 
         {/* Letter — "we" voice, no personal details */}
-        <div className="space-y-5 font-body text-[rgba(254,248,236,0.75)] text-base md:text-lg leading-relaxed">
+        <div className="space-y-5 font-body text-[rgba(26,15,8,0.75)] text-base md:text-lg leading-relaxed">
           <p>
             We built Aunty Curl Council because every hair care app we tried treated
             curls like a generic problem to solve. Pick a product. Follow a routine.
@@ -70,7 +70,7 @@ export default function FounderNote() {
         {/* Signature line */}
         <div className="flex items-center gap-4 mt-8 justify-center">
           <div className="h-px w-8 bg-[rgba(212,160,74,0.3)]" />
-          <p className="font-body text-xs text-[rgba(254,248,236,0.4)] tracking-[2px] uppercase">
+          <p className="font-body text-xs text-[rgba(26,15,8,0.4)] tracking-[2px] uppercase">
             The Aunty Curl Council team
           </p>
           <div className="h-px w-8 bg-[rgba(212,160,74,0.3)]" />

@@ -157,20 +157,20 @@ export default function ConsultationQuiz() {
   // ─── Intro (in-page) ───
   if (step === "intro") {
     return (
-      <section id="quiz" className="relative py-24 md:py-32 bg-[#1A0F08] noise overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#D4A04A] opacity-[0.03] blur-[120px]" />
+      <section id="quiz" className="relative py-24 md:py-32 bg-[#FEF8EC] noise overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#D4A04A] opacity-[0.08] blur-[120px]" />
         <div className="relative max-w-3xl mx-auto px-6 text-center">
           <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
             Inside The App
           </p>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-[#FEF8EC] mb-4 leading-tight">
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A0F08] mb-4 leading-tight">
             See What Your <br className="hidden md:block" />
             Aunties Can Do
           </h2>
-          <p className="font-body text-lg text-[rgba(254,248,236,0.55)] mb-4 max-w-lg mx-auto">
+          <p className="font-body text-lg text-[rgba(26,15,8,0.55)] mb-4 max-w-lg mx-auto">
             Swipe through what&rsquo;s inside &mdash; then try a sneak peek of the full questionnaire.
           </p>
-          <p className="font-body text-sm text-[rgba(254,248,236,0.3)] mb-10">
+          <p className="font-body text-sm text-[rgba(26,15,8,0.3)] mb-10">
             Takes about 30 seconds. No sign-up required.
           </p>
           <button
@@ -179,7 +179,7 @@ export default function ConsultationQuiz() {
           >
             Take A Sneak Peek
           </button>
-          <div className="mt-8 flex items-center justify-center gap-6 text-[rgba(254,248,236,0.25)]">
+          <div className="mt-8 flex items-center justify-center gap-6 text-[rgba(26,15,8,0.3)]">
             <span className="font-body text-xs flex items-center gap-1.5">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -209,17 +209,17 @@ export default function ConsultationQuiz() {
   return (
     <>
       <section id="quiz" />
-      <div className="fixed inset-0 z-50 bg-[#1A0F08] flex flex-col">
+      <div className="fixed inset-0 z-50 bg-[#FEF8EC] flex flex-col">
         {/* Top bar */}
         <div className="flex-shrink-0 px-6 pt-4 pb-2">
           <button
             onClick={handleBack}
-            className="text-[rgba(254,248,236,0.4)] hover:text-[#FEF8EC] transition-colors text-2xl mb-3"
+            className="text-[rgba(26,15,8,0.4)] hover:text-[#1A0F08] transition-colors text-2xl mb-3"
             aria-label="Back"
           >
             &larr;
           </button>
-          <div className="h-[3px] bg-[rgba(254,248,236,0.06)] rounded-full overflow-hidden">
+          <div className="h-[3px] bg-[rgba(26,15,8,0.08)] rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-500 ease-out"
               style={{
@@ -259,10 +259,10 @@ export default function ConsultationQuiz() {
                       <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-2">
                         {feature.tag}
                       </p>
-                      <h3 className="font-display text-2xl md:text-3xl font-bold text-[#FEF8EC] leading-snug mb-3">
+                      <h3 className="font-display text-2xl md:text-3xl font-bold text-[#1A0F08] leading-snug mb-3">
                         {feature.title}
                       </h3>
-                      <p className="font-body text-sm md:text-base text-[rgba(254,248,236,0.5)] max-w-sm">
+                      <p className="font-body text-sm md:text-base text-[rgba(26,15,8,0.5)] max-w-sm">
                         {feature.desc}
                       </p>
                     </div>
@@ -280,7 +280,7 @@ export default function ConsultationQuiz() {
                       className={`h-1.5 rounded-full transition-all duration-300 ${
                         i === slide
                           ? "w-6 bg-[#D4A04A]"
-                          : "w-1.5 bg-[rgba(254,248,236,0.15)]"
+                          : "w-1.5 bg-[rgba(26,15,8,0.15)]"
                       }`}
                     />
                   ))}
@@ -289,7 +289,7 @@ export default function ConsultationQuiz() {
                 {slide < features.length - 1 ? (
                   <button
                     onClick={nextSlide}
-                    className="w-full py-3.5 rounded-full border border-[rgba(254,248,236,0.12)] text-[#FEF8EC] font-body font-medium hover:bg-[rgba(255,255,255,0.04)] transition-colors"
+                    className="w-full py-3.5 rounded-full border border-[rgba(26,15,8,0.12)] text-[#1A0F08] font-body font-medium hover:bg-[rgba(26,15,8,0.04)] transition-colors"
                   >
                     Next
                   </button>
@@ -314,16 +314,16 @@ export default function ConsultationQuiz() {
                     Sneak Peek
                   </span>
                 </div>
-                <h3 className="font-display text-2xl md:text-3xl font-bold text-[#FEF8EC] leading-snug mb-2">
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-[#1A0F08] leading-snug mb-2">
                   What&rsquo;s your curl pattern?
                 </h3>
-                <p className="font-body text-sm text-[rgba(254,248,236,0.4)] mb-6">
+                <p className="font-body text-sm text-[rgba(26,15,8,0.4)] mb-6">
                   Pick your closest match. Your aunties will take it from here.
                 </p>
 
                 {curlCategories.map((cat) => (
                   <div key={cat.label} className="mb-5">
-                    <p className="font-body text-[10px] tracking-[3px] uppercase text-[rgba(254,248,236,0.4)] mb-3">
+                    <p className="font-body text-[10px] tracking-[3px] uppercase text-[rgba(26,15,8,0.4)] mb-3">
                       {cat.label}
                     </p>
                     <div className="grid grid-cols-3 gap-3">
@@ -340,20 +340,20 @@ export default function ConsultationQuiz() {
                             className={`rounded-xl px-2 py-3 text-center border transition-all duration-200 ${
                               selected
                                 ? "border-[#D4A04A] bg-[rgba(212,160,74,0.12)] scale-[1.03]"
-                                : "border-[rgba(254,248,236,0.08)] bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.08)]"
+                                : "border-[rgba(26,15,8,0.08)] bg-white hover:bg-[rgba(26,15,8,0.04)]"
                             }`}
                           >
                             <div className="flex justify-center mb-1.5">
                               <CurlPatternIcon
                                 type={type}
                                 size={52}
-                                color={selected ? "#D4A04A" : "rgba(254,248,236,0.45)"}
+                                color={selected ? "#D4A04A" : "rgba(26,15,8,0.45)"}
                               />
                             </div>
-                            <p className={`font-body text-sm font-bold ${selected ? "text-[#D4A04A]" : "text-[rgba(254,248,236,0.6)]"}`}>
+                            <p className={`font-body text-sm font-bold ${selected ? "text-[#D4A04A]" : "text-[rgba(26,15,8,0.6)]"}`}>
                               {opt.label}
                             </p>
-                            <p className="font-body text-[10px] text-[rgba(254,248,236,0.3)]">
+                            <p className="font-body text-[10px] text-[rgba(26,15,8,0.3)]">
                               {opt.desc}
                             </p>
                           </button>
@@ -374,7 +374,7 @@ export default function ConsultationQuiz() {
                 size={56}
                 glow
               />
-              <p className="font-display text-xl md:text-2xl font-bold text-[#FEF8EC] mt-5 max-w-sm">
+              <p className="font-display text-xl md:text-2xl font-bold text-[#1A0F08] mt-5 max-w-sm">
                 {getCurlReaction(curl)}
               </p>
             </div>
@@ -415,7 +415,7 @@ function CurlChartVisual() {
     <div className="grid grid-cols-3 gap-x-4 md:gap-x-6 gap-y-1">
       {categories.map((cat) => (
         <div key={cat.label} className="flex flex-col items-center">
-          <p className="font-body text-[7px] md:text-[8px] tracking-[2px] uppercase text-[rgba(254,248,236,0.3)] mb-1">
+          <p className="font-body text-[7px] md:text-[8px] tracking-[2px] uppercase text-[rgba(26,15,8,0.3)] mb-1">
             {cat.label}
           </p>
           <div className="flex flex-col gap-1">
@@ -424,10 +424,10 @@ function CurlChartVisual() {
               return (
                 <div
                   key={type}
-                  className="flex items-center gap-1.5 rounded-lg bg-[rgba(255,255,255,0.03)] border border-[rgba(254,248,236,0.06)] pl-1.5 pr-2.5 py-1"
+                  className="flex items-center gap-1.5 rounded-lg bg-white border border-[rgba(26,15,8,0.08)] pl-1.5 pr-2.5 py-1" style={{ boxShadow: '0 1px 4px rgba(26,15,8,0.05)' }}
                 >
-                  <CurlPatternIcon type={type} size={22} color="rgba(254,248,236,0.5)" />
-                  <p className="font-body text-[9px] md:text-[10px] font-bold text-[rgba(254,248,236,0.5)]">
+                  <CurlPatternIcon type={type} size={22} color="rgba(26,15,8,0.5)" />
+                  <p className="font-body text-[9px] md:text-[10px] font-bold text-[rgba(26,15,8,0.5)]">
                     {opt.label}
                   </p>
                 </div>
@@ -445,7 +445,7 @@ function RitualVisual() {
     <div className="flex items-center justify-center gap-2.5">
       {ritualDays.map((d, i) => (
         <div key={i} className="flex flex-col items-center gap-1.5">
-          <span className="font-body text-[10px] text-[rgba(254,248,236,0.4)]">
+          <span className="font-body text-[10px] text-[rgba(26,15,8,0.4)]">
             {d.day}
           </span>
           <div
@@ -457,7 +457,7 @@ function RitualVisual() {
               style={{ backgroundColor: d.color }}
             />
           </div>
-          <span className="font-body text-[7px] text-[rgba(254,248,236,0.3)]">
+          <span className="font-body text-[7px] text-[rgba(26,15,8,0.3)]">
             {d.label}
           </span>
         </div>
@@ -485,7 +485,7 @@ function CheckInVisual() {
               backgroundColor: `#D4A04A${w.opacity}`,
             }}
           />
-          <span className="font-body text-[8px] text-[rgba(254,248,236,0.3)]">
+          <span className="font-body text-[8px] text-[rgba(26,15,8,0.3)]">
             {w.label}
           </span>
         </div>
@@ -518,7 +518,7 @@ function SneakPeekVerdict({
         <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-3">
           Sneak Peek Result
         </p>
-        <h3 className="font-display text-2xl md:text-3xl font-bold text-[#FEF8EC]">
+        <h3 className="font-display text-2xl md:text-3xl font-bold text-[#1A0F08]">
           Here&rsquo;s a taste
         </h3>
       </div>
@@ -540,12 +540,12 @@ function SneakPeekVerdict({
               <p className="font-body text-sm font-semibold" style={{ color: aunty.color }}>
                 {aunty.name}
               </p>
-              <p className="font-body text-[10px] text-[rgba(254,248,236,0.4)]">
+              <p className="font-body text-[10px] text-[rgba(26,15,8,0.4)]">
                 {aunty.title}
               </p>
             </div>
           </div>
-          <p className="font-display text-base italic text-[#FEF8EC] leading-relaxed">
+          <p className="font-display text-base italic text-[#1A0F08] leading-relaxed">
             &ldquo;{verdict.message}&rdquo;
           </p>
         </div>
@@ -556,8 +556,9 @@ function SneakPeekVerdict({
             key={locked.id}
             className="rounded-xl p-5 relative overflow-hidden transition-all duration-500"
             style={{
-              backgroundColor: "rgba(254,248,236,0.03)",
-              border: "1px solid rgba(254,248,236,0.06)",
+              backgroundColor: "rgba(26,15,8,0.03)",
+              border: "1px solid rgba(26,15,8,0.08)",
+              boxShadow: "0 2px 16px rgba(26,15,8,0.07)",
               opacity: visible ? 1 : 0,
               transform: visible ? "translateY(0)" : "translateY(16px)",
               transitionDelay: "200ms",
@@ -567,20 +568,20 @@ function SneakPeekVerdict({
               <div className="flex items-center gap-3 mb-3">
                 <AuntyAvatar color={locked.color} size={36} />
                 <div>
-                  <p className="font-body text-sm font-semibold text-[rgba(254,248,236,0.3)]">
+                  <p className="font-body text-sm font-semibold text-[rgba(26,15,8,0.3)]">
                     {locked.name}
                   </p>
-                  <p className="font-body text-[10px] text-[rgba(254,248,236,0.2)]">
+                  <p className="font-body text-[10px] text-[rgba(26,15,8,0.2)]">
                     {locked.title}
                   </p>
                 </div>
               </div>
-              <p className="font-display text-base italic text-[rgba(254,248,236,0.15)] leading-relaxed">
+              <p className="font-display text-base italic text-[rgba(26,15,8,0.15)] leading-relaxed">
                 &ldquo;Your personalized advice is waiting inside the full app...&rdquo;
               </p>
             </div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-body text-xs text-[rgba(254,248,236,0.5)] bg-[rgba(26,15,8,0.85)] px-4 py-2 rounded-full border border-[rgba(254,248,236,0.08)]">
+              <span className="font-body text-xs text-[rgba(26,15,8,0.7)] bg-white/90 px-4 py-2 rounded-full border border-[rgba(26,15,8,0.12)]">
                 Unlock in the full app
               </span>
             </div>
@@ -598,10 +599,10 @@ function SneakPeekVerdict({
         }}
       >
         <div className="rounded-2xl bg-[rgba(212,160,74,0.08)] border border-[rgba(212,160,74,0.2)] p-6 text-center">
-          <p className="font-display text-xl font-bold text-[#FEF8EC] mb-2">
+          <p className="font-display text-xl font-bold text-[#1A0F08] mb-2">
             Your full plan is ready.
           </p>
-          <p className="font-body text-sm text-[rgba(254,248,236,0.5)] mb-5">
+          <p className="font-body text-sm text-[rgba(26,15,8,0.5)] mb-5">
             Get early access to your complete personalized ritual.
           </p>
           <button

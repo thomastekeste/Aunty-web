@@ -35,7 +35,7 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled || menuOpen
-            ? "bg-[#1A0F08]/95 backdrop-blur-xl border-b border-[rgba(254,248,236,0.06)]"
+            ? "bg-[#FEF8EC]/95 backdrop-blur-xl border-b border-[rgba(26,15,8,0.08)]"
             : "bg-transparent"
         }`}
       >
@@ -47,7 +47,7 @@ export default function Navbar() {
               alt="Aunty Curl Council"
               className="w-8 h-8 rounded-lg object-cover"
             />
-            <span className="font-display text-lg font-bold text-[#FEF8EC]">
+            <span className="font-display text-lg font-bold text-[#1A0F08]">
               Aunty Curl Council
             </span>
           </a>
@@ -58,7 +58,7 @@ export default function Navbar() {
               <a
                 key={l.href}
                 href={l.href}
-                className="font-body text-sm text-[rgba(254,248,236,0.5)] hover:text-[#FEF8EC] transition-colors"
+                className="font-body text-sm text-[rgba(26,15,8,0.5)] hover:text-[#1A0F08] transition-colors"
               >
                 {l.label}
               </a>
@@ -82,7 +82,7 @@ export default function Navbar() {
               aria-label="Toggle menu"
             >
               <span
-                className="block w-5 h-[2px] bg-[#FEF8EC] transition-all duration-300 origin-center"
+                className="block w-5 h-[2px] bg-[#1A0F08] transition-all duration-300 origin-center"
                 style={{
                   transform: menuOpen
                     ? "translateY(3.5px) rotate(45deg)"
@@ -90,11 +90,11 @@ export default function Navbar() {
                 }}
               />
               <span
-                className="block w-5 h-[2px] bg-[#FEF8EC] transition-all duration-300"
+                className="block w-5 h-[2px] bg-[#1A0F08] transition-all duration-300"
                 style={{ opacity: menuOpen ? 0 : 1 }}
               />
               <span
-                className="block w-5 h-[2px] bg-[#FEF8EC] transition-all duration-300 origin-center"
+                className="block w-5 h-[2px] bg-[#1A0F08] transition-all duration-300 origin-center"
                 style={{
                   transform: menuOpen
                     ? "translateY(-3.5px) rotate(-45deg)"
@@ -108,7 +108,7 @@ export default function Navbar() {
 
       {/* Mobile menu overlay */}
       <div
-        className="fixed inset-0 z-30 bg-[#1A0F08]/98 backdrop-blur-xl md:hidden flex flex-col items-center justify-center gap-8 transition-all duration-300"
+        className="fixed inset-0 z-30 bg-[#FEF8EC]/98 backdrop-blur-xl md:hidden flex flex-col items-center justify-center gap-8 transition-all duration-300"
         style={{
           opacity: menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
@@ -119,7 +119,7 @@ export default function Navbar() {
             key={l.href}
             href={l.href}
             onClick={handleLinkClick}
-            className="font-display text-2xl font-bold text-[#FEF8EC] hover:text-[#D4A04A] transition-colors"
+            className="font-display text-2xl font-bold text-[#1A0F08] hover:text-[#D4A04A] transition-colors"
           >
             {l.label}
           </a>
@@ -134,7 +134,7 @@ export default function Navbar() {
         <a
           href="#waitlist"
           onClick={handleLinkClick}
-          className="font-body text-sm text-[rgba(254,248,236,0.4)] hover:text-[#FEF8EC] transition-colors"
+          className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#1A0F08] transition-colors"
         >
           or just get notified at launch
         </a>

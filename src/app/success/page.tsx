@@ -39,13 +39,13 @@ export default async function SuccessPage({ searchParams }: Props) {
       : null;
 
   return (
-    <main className="min-h-screen bg-[#1A0F08] noise flex flex-col">
+    <main className="min-h-screen bg-[#FEF8EC] noise flex flex-col">
       {/* Soft glow */}
-      <div className="fixed top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#D4A04A] opacity-[0.06] blur-[150px] pointer-events-none" />
-      <div className="fixed bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#C2456E] opacity-[0.04] blur-[150px] pointer-events-none" />
+      <div className="fixed top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#D4A04A] opacity-[0.08] blur-[150px] pointer-events-none" />
+      <div className="fixed bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#C2456E] opacity-[0.08] blur-[150px] pointer-events-none" />
 
       {/* Top nav */}
-      <header className="relative z-10 backdrop-blur-sm bg-[#1A0F08]/80 border-b border-[rgba(254,248,236,0.06)]">
+      <header className="relative z-10 backdrop-blur-sm bg-[#FEF8EC]/80 border-b border-[rgba(26,15,8,0.08)]">
         <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -60,7 +60,7 @@ export default async function SuccessPage({ searchParams }: Props) {
       <div className="relative flex-1 flex items-center justify-center px-6 py-16 md:py-24">
         <div className="max-w-xl w-full text-center">
           {/* Success emblem */}
-          <div className="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-[#D4A04A] to-[#B8862E] flex items-center justify-center mb-8 ring-4 ring-[#D4A04A]/10 ring-offset-4 ring-offset-[#1A0F08]">
+          <div className="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-[#D4A04A] to-[#B8862E] flex items-center justify-center mb-8 ring-4 ring-[#D4A04A]/10 ring-offset-4 ring-offset-[#FEF8EC]">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
               <path
                 d="M5 13L10 18L19 7"
@@ -78,33 +78,33 @@ export default async function SuccessPage({ searchParams }: Props) {
           <h1 className="font-display text-4xl md:text-5xl font-bold text-shimmer mb-5 leading-tight">
             You&rsquo;re in.
           </h1>
-          <p className="font-body text-lg text-[rgba(254,248,236,0.65)] mb-10 leading-relaxed">
+          <p className="font-body text-lg text-[rgba(26,15,8,0.65)] mb-10 leading-relaxed">
             Your spot is reserved. The aunties will be ready for you at launch —
             in the coming weeks.
           </p>
 
           {/* Order summary */}
           {details && (
-            <div className="rounded-2xl bg-[rgba(255,255,255,0.03)] border border-[rgba(254,248,236,0.08)] p-6 mb-10 text-left">
-              <p className="font-body text-xs uppercase tracking-[2px] text-[rgba(254,248,236,0.35)] mb-4">
+            <div className="rounded-2xl bg-white border border-[rgba(26,15,8,0.08)] p-6 mb-10 text-left" style={{ boxShadow: '0 2px 16px rgba(26,15,8,0.07)' }}>
+              <p className="font-body text-xs uppercase tracking-[2px] text-[rgba(26,15,8,0.35)] mb-4">
                 Order summary
               </p>
               <div className="space-y-2 font-body text-sm">
                 {details.plan && (
-                  <div className="flex justify-between text-[rgba(254,248,236,0.7)]">
+                  <div className="flex justify-between text-[rgba(26,15,8,0.7)]">
                     <span>Plan</span>
-                    <span className="text-[#FEF8EC] capitalize">{details.plan}</span>
+                    <span className="text-[#1A0F08] capitalize">{details.plan}</span>
                   </div>
                 )}
                 {details.email && (
-                  <div className="flex justify-between text-[rgba(254,248,236,0.7)]">
+                  <div className="flex justify-between text-[rgba(26,15,8,0.7)]">
                     <span>Email</span>
-                    <span className="text-[#FEF8EC]">{details.email}</span>
+                    <span className="text-[#1A0F08]">{details.email}</span>
                   </div>
                 )}
                 {amountDisplay && (
-                  <div className="flex justify-between pt-2 border-t border-[rgba(254,248,236,0.06)] mt-2">
-                    <span className="text-[rgba(254,248,236,0.7)]">Total paid</span>
+                  <div className="flex justify-between pt-2 border-t border-[rgba(26,15,8,0.08)] mt-2">
+                    <span className="text-[rgba(26,15,8,0.7)]">Total paid</span>
                     <span className="text-[#D4A04A] font-semibold">{amountDisplay}</span>
                   </div>
                 )}
@@ -114,10 +114,10 @@ export default async function SuccessPage({ searchParams }: Props) {
 
           {/* What happens next */}
           <div className="text-left rounded-2xl bg-[rgba(212,160,74,0.06)] border border-[rgba(212,160,74,0.2)] p-6 mb-10">
-            <p className="font-display text-lg font-bold text-[#FEF8EC] mb-4">
+            <p className="font-display text-lg font-bold text-[#1A0F08] mb-4">
               What happens next
             </p>
-            <ol className="space-y-3 font-body text-sm text-[rgba(254,248,236,0.7)]">
+            <ol className="space-y-3 font-body text-sm text-[rgba(26,15,8,0.7)]">
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#D4A04A] text-[#1A0F08] font-bold text-xs flex items-center justify-center">1</span>
                 <span>A receipt from Stripe just hit your inbox.</span>
@@ -143,21 +143,21 @@ export default async function SuccessPage({ searchParams }: Props) {
             </Link>
             <a
               href="mailto:hello@auntycurlcouncil.com"
-              className="font-body text-sm text-[rgba(254,248,236,0.4)] hover:text-[#D4A04A] transition-colors"
+              className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors"
             >
               Questions? hello@auntycurlcouncil.com
             </a>
           </div>
 
           {/* Legal footer */}
-          <div className="mt-16 pt-8 border-t border-[rgba(254,248,236,0.06)] flex flex-wrap justify-center gap-6 text-xs">
-            <Link href="/terms" className="text-[rgba(254,248,236,0.35)] hover:text-[#D4A04A] transition-colors">
+          <div className="mt-16 pt-8 border-t border-[rgba(26,15,8,0.08)] flex flex-wrap justify-center gap-6 text-xs">
+            <Link href="/terms" className="text-[rgba(26,15,8,0.35)] hover:text-[#D4A04A] transition-colors">
               Terms
             </Link>
-            <Link href="/privacy" className="text-[rgba(254,248,236,0.35)] hover:text-[#D4A04A] transition-colors">
+            <Link href="/privacy" className="text-[rgba(26,15,8,0.35)] hover:text-[#D4A04A] transition-colors">
               Privacy
             </Link>
-            <Link href="/refund" className="text-[rgba(254,248,236,0.35)] hover:text-[#D4A04A] transition-colors">
+            <Link href="/refund" className="text-[rgba(26,15,8,0.35)] hover:text-[#D4A04A] transition-colors">
               Refund policy
             </Link>
           </div>
