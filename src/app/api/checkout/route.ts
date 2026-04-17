@@ -18,14 +18,7 @@ export async function POST(req: NextRequest) {
       customer_email: email || undefined,
       line_items: [
         {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: `Aunty Curl — ${selectedPlan.name}`,
-              description: selectedPlan.description,
-            },
-            unit_amount: selectedPlan.price,
-          },
+          price: selectedPlan.priceId,
           quantity: 1,
         },
       ],

@@ -34,7 +34,7 @@ export default function PricingTiers() {
   };
 
   return (
-    <section id="pricing" className="py-24 md:py-32 bg-[#1A0F08] noise relative overflow-hidden" ref={ref}>
+    <section id="pricing" className="py-16 md:py-24 bg-[#1A0F08] noise relative overflow-hidden" ref={ref}>
       {/* Background glows */}
       <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-[#D4A04A] opacity-[0.03] blur-[150px]" />
       <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-[#C2456E] opacity-[0.02] blur-[120px]" />
@@ -42,7 +42,7 @@ export default function PricingTiers() {
       <div className="relative max-w-5xl mx-auto px-6">
         {/* Header */}
         <div
-          className="text-center mb-16"
+          className="text-center mb-10"
           style={{
             opacity: inView ? 1 : 0,
             transform: inView ? "translateY(0)" : "translateY(24px)",
@@ -50,16 +50,16 @@ export default function PricingTiers() {
           }}
         >
           <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
-            Founding Member
+            Become a Founding Member
           </p>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#FEF8EC] mb-4 leading-tight">
-            Skip the Waitlist.{" "}
+            Back us early.{" "}
             <br className="hidden md:block" />
-            Meet Your Aunties First.
+            Keep the founding price forever.
           </h2>
           <p className="font-body text-lg text-[rgba(254,248,236,0.55)] max-w-2xl mx-auto">
-            Lock in your spot as a Founding Member. Get early access, every feature,
-            and a price that won&rsquo;t come back.
+            Founding Members help us launch. In return, you lock in your price, get
+            access before everyone else, and keep perks that never come back.
           </p>
 
           {/* Scarcity */}
@@ -68,6 +68,58 @@ export default function PricingTiers() {
             <p className="font-body text-xs text-[#D4A04A]">
               Limited to the first 500 founding members
             </p>
+          </div>
+        </div>
+
+        {/* Risk reversal bar — our promise */}
+        <div
+          className="relative mb-8 rounded-2xl overflow-hidden"
+          style={{
+            background: "linear-gradient(90deg, rgba(42, 123, 123, 0.12) 0%, rgba(212, 160, 74, 0.12) 50%, rgba(194, 69, 110, 0.12) 100%)",
+            border: "1px solid rgba(212, 160, 74, 0.2)",
+          }}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-2 p-5 md:p-6">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 flex-shrink-0 rounded-full bg-[rgba(42,123,123,0.18)] flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5FB8B8" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2L3 7v5c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7l-9-5z" />
+                </svg>
+              </div>
+              <div>
+                <p className="font-body text-sm font-semibold text-[#FEF8EC]">100% refund guarantee</p>
+                <p className="font-body text-xs text-[rgba(254,248,236,0.5)]">
+                  If we don&rsquo;t launch in the coming weeks.{" "}
+                  <a href="/refund" className="text-[#D4A04A] hover:underline underline-offset-2">
+                    See policy →
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 flex-shrink-0 rounded-full bg-[rgba(212,160,74,0.18)] flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A04A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </div>
+              <div>
+                <p className="font-body text-sm font-semibold text-[#FEF8EC]">Secure checkout</p>
+                <p className="font-body text-xs text-[rgba(254,248,236,0.5)]">256-bit SSL via Stripe</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 flex-shrink-0 rounded-full bg-[rgba(194,69,110,0.18)] flex items-center justify-center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E879A4" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2v4m0 12v4m10-10h-4M6 12H2" />
+                  <circle cx="12" cy="12" r="4" />
+                </svg>
+              </div>
+              <div>
+                <p className="font-body text-sm font-semibold text-[#FEF8EC]">Founding price locked</p>
+                <p className="font-body text-xs text-[rgba(254,248,236,0.5)]">Even if public pricing rises</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -262,7 +314,7 @@ export default function PricingTiers() {
             }
             className="font-body text-sm text-[rgba(254,248,236,0.35)] hover:text-[#FEF8EC] transition-colors underline underline-offset-4 decoration-[rgba(254,248,236,0.15)]"
           >
-            or join the free waitlist instead
+            Not ready? Just notify me at launch →
           </button>
         </div>
       </div>

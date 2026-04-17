@@ -72,7 +72,7 @@ export default function Navbar() {
               className="hidden sm:block font-body text-sm font-semibold px-5 py-2 rounded-full bg-[#D4A04A] text-[#1A0F08] hover:bg-[#B8862E] transition-colors"
               onClick={handleLinkClick}
             >
-              Get Early Access
+              Become a Founder
             </a>
 
             {/* Hamburger — mobile only */}
@@ -129,14 +129,14 @@ export default function Navbar() {
           onClick={handleLinkClick}
           className="mt-4 px-8 py-3.5 rounded-full bg-[#D4A04A] text-[#1A0F08] font-body font-bold text-base hover:bg-[#B8862E] transition-colors"
         >
-          Get Early Access
+          Become a Founder
         </a>
         <a
           href="#waitlist"
           onClick={handleLinkClick}
           className="font-body text-sm text-[rgba(254,248,236,0.4)] hover:text-[#FEF8EC] transition-colors"
         >
-          or join the free waitlist
+          or just get notified at launch
         </a>
       </div>
     </>

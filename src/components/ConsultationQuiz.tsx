@@ -608,7 +608,7 @@ function SneakPeekVerdict({
             onClick={onComplete}
             className="px-8 py-3.5 rounded-full bg-[#D4A04A] text-[#1A0F08] font-body font-bold hover:bg-[#B8862E] transition-colors"
           >
-            Get Early Access
+            Become a Founding Member
           </button>
         </div>
       </div>

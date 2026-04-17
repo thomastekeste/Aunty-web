@@ -41,7 +41,7 @@ export default function Waitlist() {
   };
 
   return (
-    <section id="waitlist" className="relative py-24 md:py-32 bg-[#1A0F08] noise overflow-hidden" ref={ref}>
+    <section id="waitlist" className="relative py-16 md:py-24 bg-[#1A0F08] noise overflow-hidden" ref={ref}>
       {/* Background glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-[#D4A04A] opacity-[0.03] blur-[150px]" />
 
@@ -54,23 +54,15 @@ export default function Waitlist() {
         }}
       >
         <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
-          Launching Soon
+          Not ready yet?
         </p>
         <h2 className="font-display text-4xl md:text-5xl font-bold text-[#FEF8EC] mb-4 leading-tight">
-          Your Aunties Are <br className="hidden md:block" />Almost Ready
+          No pressure. <br className="hidden md:block" />We&rsquo;ll keep you posted.
         </h2>
         <p className="font-body text-lg text-[rgba(254,248,236,0.55)] mb-4 max-w-lg mx-auto">
-          Join 2,400+ women already on the waitlist. Be the first to meet your aunties
-          when the app goes live.
+          Drop your email and we&rsquo;ll let you know when the aunties go live.
+          No spam. No drip campaigns. Just a heads-up when it&rsquo;s ready.
         </p>
-
-        {/* Urgency */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(212,160,74,0.2)] bg-[rgba(212,160,74,0.06)] mb-8">
-          <div className="w-2 h-2 rounded-full bg-[#D4A04A] animate-pulse" />
-          <p className="font-body text-xs text-[#D4A04A]">
-            Free forever &mdash; no credit card required
-          </p>
-        </div>
 
         {!submitted ? (
           <>
@@ -92,7 +84,7 @@ export default function Waitlist() {
                 disabled={loading}
                 className="px-8 py-4 rounded-full bg-gradient-to-r from-[#D4A04A] to-[#B8862E] text-[#1A0F08] font-body font-bold hover:opacity-90 transition-opacity whitespace-nowrap shadow-lg shadow-[#D4A04A]/20 disabled:opacity-60"
               >
-                {loading ? "Notifying your aunties…" : "Get Early Access"}
+                {loading ? "Saving…" : "Notify Me"}
               </button>
             </form>
             {error && (

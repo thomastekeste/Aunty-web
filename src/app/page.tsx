@@ -7,6 +7,7 @@ import ConsultationQuiz from "@/components/ConsultationQuiz";
 import PricingTiers from "@/components/PricingTiers";
 import Waitlist from "@/components/Waitlist";
 import MeetTheCouncil from "@/components/MeetTheCouncil";
+import FounderNote from "@/components/FounderNote";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -16,11 +17,12 @@ export default function Home() {
       <Navbar />
       <Hero />
       <HowItWorks />
+      <MeetTheCouncil />
       <AppPreview />
       <ConsultationQuiz />
+      <FounderNote />
       <PricingTiers />
       <Waitlist />
-      <MeetTheCouncil />
       <Footer />
     </main>
   );

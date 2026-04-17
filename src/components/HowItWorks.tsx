@@ -45,9 +45,9 @@ export default function HowItWorks() {
   const [ref, inView] = useInView({ threshold: 0.15 });
 
   return (
-    <section id="features" className="py-24 md:py-32 bg-[#F5EBD5]" ref={ref}>
+    <section id="features" className="py-16 md:py-24 bg-[#F5EBD5]" ref={ref}>
       <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
             How It Works
           </p>

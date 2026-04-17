@@ -111,7 +111,7 @@ export default function MeetTheCouncil() {
   const visibleAunties = showAll ? aunties : aunties.slice(0, 4);
 
   return (
-    <section id="council" className="py-24 md:py-32 bg-[#FEF8EC]" ref={ref}>
+    <section id="council" className="py-16 md:py-24 bg-[#FEF8EC]" ref={ref}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">

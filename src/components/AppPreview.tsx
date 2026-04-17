@@ -19,9 +19,9 @@ export default function AppPreview() {
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (
-    <section className="py-24 md:py-32 bg-[#FEF8EC] overflow-hidden" ref={ref}>
+    <section className="py-16 md:py-24 bg-[#FEF8EC] overflow-hidden" ref={ref}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
             Inside The App
           </p>
