@@ -14,10 +14,34 @@ const tierAccent: Record<PlanKey, string> = {
 
 export default function PricingTiers() {
   const [loading, setLoading] = useState<PlanKey | null>(null);
+  const [prewarm, setPrewarm] = useState<Partial<Record<PlanKey, string>>>({});
   const [ref, inView] = useInView({ threshold: 0.1 });
+
+  // Pre-create the checkout session on hover so redirect is instant on click
+  const handleHover = async (plan: PlanKey) => {
+    if (prewarm[plan] || loading) return;
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        setPrewarm((prev) => ({ ...prev, [plan]: data.url }));
+      }
+    } catch {
+      // silent — fallback to on-click fetch
+    }
+  };
 
   const handleCheckout = async (plan: PlanKey) => {
     setLoading(plan);
+    // Use pre-warmed URL if available
+    if (prewarm[plan]) {
+      window.location.href = prewarm[plan]!;
+      return;
+    }
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -135,6 +159,7 @@ export default function PricingTiers() {
               <div
                 key={key}
                 className="relative"
+                onMouseEnter={() => handleHover(key)}
                 style={{
                   opacity: inView ? 1 : 0,
                   transform: inView ? "translateY(0)" : "translateY(32px)",

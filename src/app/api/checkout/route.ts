@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { PLANS, PlanKey } from "@/lib/plans";
 
+export const runtime = "edge";
+
 export async function POST(req: NextRequest) {
   try {
     const { plan, email } = await req.json();
