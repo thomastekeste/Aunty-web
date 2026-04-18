@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useInView } from "@/hooks/useInView";
 import { aunties } from "@/data/aunties";
-import AuntyAvatar from "./AuntyAvatar";
+import AuntyCharacterIcon from "./AuntyCharacterIcon";
 import WordReveal from "./WordReveal";
 
 function AuntyCard({
@@ -46,7 +46,7 @@ function AuntyCard({
         <div className="p-5 bg-white">
           {/* Header row */}
           <div className="flex items-start gap-3 mb-3">
-            <AuntyAvatar color={aunty.color} size={44} glow={active} />
+            <AuntyCharacterIcon auntyId={aunty.id} color={aunty.color} size={52} glow={active} />
             <div className="flex-1 min-w-0">
               <h3 className="font-display text-lg font-bold text-[#2D1B0E]">
                 {aunty.name}

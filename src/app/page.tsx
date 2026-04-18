@@ -3,6 +3,7 @@ import FullScreenIntro from "@/components/FullScreenIntro";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import AppPreview from "@/components/AppPreview";
+import MoreFeatures from "@/components/MoreFeatures";
 import ConsultationQuiz from "@/components/ConsultationQuiz";
 import PricingTiers from "@/components/PricingTiers";
 import Waitlist from "@/components/Waitlist";
@@ -19,6 +20,7 @@ export default function Home() {
       <HowItWorks />
       <MeetTheCouncil />
       <AppPreview />
+      <MoreFeatures />
       <ConsultationQuiz />
       <FounderNote />
       <PricingTiers />

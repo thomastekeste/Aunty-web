@@ -4,6 +4,7 @@ import { useInView } from "@/hooks/useInView";
 import PhoneMockup from "./PhoneMockup";
 import MockTabBar from "./MockTabBar";
 import { aunties } from "@/data/aunties";
+import AuntyCharacterIcon from "./AuntyCharacterIcon";
 
 const ritualColors = [
   { day: "M", color: "#D4A04A", label: "Wash" },
@@ -110,9 +111,7 @@ export default function AppPreview() {
                 </p>
 
                 {/* Aunty speaking */}
-                <div className="w-12 h-12 rounded-full mb-3 flex items-center justify-center" style={{ backgroundColor: "#D4A04A20", border: "2px solid #D4A04A40" }}>
-                  <div className="w-4 h-4 rounded-full bg-[#D4A04A]" />
-                </div>
+                <AuntyCharacterIcon auntyId="ngozi" color="#D4A04A" size={52} className="mb-3" />
                 <p className="font-body text-[10px] font-semibold text-[#D4A04A] mb-1">Ngozi</p>
                 <p className="font-body text-[8px] text-[rgba(254,248,236,0.4)] mb-4">The Bold One &middot; West Africa</p>
 
@@ -154,9 +153,7 @@ export default function AppPreview() {
                 {/* Aunty card */}
                 <div className="rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(254,248,236,0.06)] p-4 mb-3">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: "#3D5A9920", border: "1.5px solid #3D5A9940" }}>
-                      <div className="w-3 h-3 rounded-full bg-[#3D5A99]" />
-                    </div>
+                    <AuntyCharacterIcon auntyId="denise" color="#3D5A99" size={32} />
                     <div>
                       <p className="font-body text-[10px] font-semibold text-[#3D5A99]">Denise</p>
                       <p className="font-body text-[7px] text-[rgba(254,248,236,0.3)]">The Wise One</p>
