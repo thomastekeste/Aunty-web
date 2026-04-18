@@ -3,7 +3,7 @@
 import { useState } from "react";
 import PhoneMockup from "./PhoneMockup";
 
-type Tab = "Home" | "Ritual" | "Products" | "Chat" | "Learn";
+type Tab = "Home" | "Plan" | "Products" | "Chat" | "Learn";
 
 const tabs: { name: Tab; icon: (c: string) => React.ReactNode }[] = [
   {
@@ -15,7 +15,7 @@ const tabs: { name: Tab; icon: (c: string) => React.ReactNode }[] = [
     ),
   },
   {
-    name: "Ritual",
+    name: "Plan",
     icon: (c) => (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
         <path d="M4 7C4 5.89543 4.89543 5 6 5H18C19.1046 5 20 5.89543 20 7V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V7Z" stroke={c} strokeWidth="2"/>
@@ -76,17 +76,17 @@ function HomeScreen() {
         </div>
       </div>
 
-      {/* Ritual card */}
+      {/* Today's Plan card */}
       <div className="rounded-2xl p-3.5 mb-3.5" style={{ backgroundColor: '#2A7B7B' }}>
         <div className="flex items-center justify-between mb-1">
-          <p className="font-body text-[7px] font-semibold tracking-[1.5px] uppercase text-[rgba(254,248,236,0.7)]">Today&rsquo;s Ritual</p>
+          <p className="font-body text-[7px] font-semibold tracking-[1.5px] uppercase text-[rgba(254,248,236,0.7)]">Today&rsquo;s Plan</p>
           <span className="font-body text-[7px] font-semibold px-2 py-0.5 rounded-full bg-[rgba(254,248,236,0.15)] text-[#FEF8EC]">30 min</span>
         </div>
         <p className="font-display text-[15px] font-bold text-[#FEF8EC] mb-1">Wash Day</p>
         <p className="font-body text-[8px] text-[rgba(254,248,236,0.7)] mb-3 leading-relaxed">Deep cleanse &amp; moisture reset for your curls</p>
         <div className="flex gap-2">
           <div className="flex-1 h-[28px] rounded-lg bg-[#FEF8EC] flex items-center justify-center">
-            <span className="font-body text-[8px] font-bold text-[#2A7B7B]">Start Ritual</span>
+            <span className="font-body text-[8px] font-bold text-[#2A7B7B]">Start Plan</span>
           </div>
           <div className="h-[28px] w-[28px] rounded-lg bg-[rgba(254,248,236,0.15)] flex items-center justify-center">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -156,7 +156,7 @@ function HomeScreen() {
   );
 }
 
-function RitualScreen() {
+function PlanScreen() {
   const rituals = [
     { time: "Morning", name: "Pre-poo Treatment", duration: "15 min", color: "#D4A04A", done: false },
     { time: "Morning", name: "Gentle Cleanse", duration: "10 min", color: "#2A7B7B", done: false },
@@ -169,7 +169,7 @@ function RitualScreen() {
       <div className="flex items-center justify-between mb-3">
         <div>
           <p className="font-body text-[7px] font-semibold tracking-[2px] uppercase text-[#D4A04A] mb-0.5">Wednesday</p>
-          <p className="font-display text-[16px] font-bold text-[#2D1B0E] leading-tight">Wash Day Ritual</p>
+          <p className="font-display text-[16px] font-bold text-[#2D1B0E] leading-tight">Wash Day Plan</p>
         </div>
         <span className="font-body text-[8px] font-semibold px-2.5 py-1 rounded-full bg-[#2A7B7B] text-[#FEF8EC]">4 steps</span>
       </div>
@@ -386,7 +386,7 @@ export default function InteractivePhone() {
 
   const screens: Record<Tab, React.ReactNode> = {
     Home: <HomeScreen />,
-    Ritual: <RitualScreen />,
+    Plan: <PlanScreen />,
     Products: <ProductsScreen />,
     Chat: <ChatScreen />,
     Learn: <LearnScreen />,

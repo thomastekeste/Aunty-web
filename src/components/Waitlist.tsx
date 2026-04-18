@@ -54,14 +54,14 @@ export default function Waitlist() {
         }}
       >
         <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
-          Not ready yet?
+          Join the waitlist
         </p>
         <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A0F08] mb-4 leading-tight">
-          No pressure. <br className="hidden md:block" />We&rsquo;ll keep you posted.
+          Your aunties are<br className="hidden md:block" /> almost ready.
         </h2>
         <p className="font-body text-lg text-[rgba(26,15,8,0.55)] mb-4 max-w-lg mx-auto">
-          Drop your email and we&rsquo;ll let you know when the aunties go live.
-          No spam. No drip campaigns. Just a heads-up when it&rsquo;s ready.
+          Drop your email and we&rsquo;ll let you know the moment they go live.
+          No spam. Just one email when it&rsquo;s ready.
         </p>
 
         {!submitted ? (

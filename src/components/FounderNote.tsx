@@ -75,6 +75,22 @@ export default function FounderNote() {
           </p>
           <div className="h-px w-8 bg-[rgba(212,160,74,0.3)]" />
         </div>
+
+        {/* CTA */}
+        <div className="mt-10 text-center">
+          <button
+            onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#D4A04A] to-[#B8862E] text-[#1A0F08] font-body font-bold text-base hover:opacity-90 transition-opacity shadow-lg shadow-[#D4A04A]/25"
+          >
+            Become a Founding Member
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+          <p className="font-body text-xs text-[rgba(26,15,8,0.4)] mt-3">
+            Limited to 500 spots · Price locked forever
+          </p>
+        </div>
       </div>
     </section>
   );

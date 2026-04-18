@@ -5,7 +5,7 @@ import { useInView } from "@/hooks/useInView";
 const stats = [
   { value: "7", label: "Aunties that know your texture" },
   { value: "9", label: "Curl types supported (2A\u20134C)" },
-  { value: "365", label: "Days of personalized rituals" },
+  { value: "365", label: "Days of personalized care" },
   { value: "2.4K+", label: "On the waitlist" },
 ];
 
@@ -67,7 +67,7 @@ export default function SocialProof() {
               key={q.name}
               className="rounded-2xl bg-white p-6"
               style={{
-                boxShadow: "0 1px 8px rgba(45,27,14,0.04), 0 0 0 1px rgba(45,27,14,0.04)",
+                boxShadow: "0 4px 20px rgba(45,27,14,0.07), 0 0 0 1px rgba(45,27,14,0.07)",
               }}
             >
               {/* Stars */}

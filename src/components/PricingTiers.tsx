@@ -217,7 +217,7 @@ export default function PricingTiers() {
                     </h3>
 
                     {/* Price */}
-                    <div className="flex items-baseline gap-1 mb-2">
+                    <div className="flex items-baseline gap-1 mb-1">
                       <span
                         className="font-display text-4xl font-bold"
                         style={{ color: accent }}
@@ -232,6 +232,20 @@ export default function PricingTiers() {
                           : "/first month"}
                       </span>
                     </div>
+
+                    {/* Savings callout for yearly */}
+                    {key === "yearly" && (
+                      <p className="font-body text-xs font-semibold text-[#1A7A4A] mb-2">
+                        Save $1.89 vs paying monthly
+                      </p>
+                    )}
+                    {/* Savings callout for lifetime */}
+                    {key === "lifetime" && (
+                      <p className="font-body text-xs font-semibold text-[#C2456E] mb-2">
+                        Pays for itself after 3 months
+                      </p>
+                    )}
+                    {key === "monthly" && <div className="mb-2" />}
 
                     <p className="font-body text-sm text-[rgba(26,15,8,0.4)] mb-6">
                       {plan.description}

@@ -80,7 +80,7 @@ export default function VerdictReveal({ verdicts, onComplete }: Props) {
             Your full plan is ready.
           </p>
           <p className="font-body text-sm text-[rgba(26,15,8,0.5)] mb-5">
-            Get early access to your personalized hair care ritual.
+            Get early access to your personalized hair care plan.
           </p>
           <button
             onClick={onComplete}

@@ -24,7 +24,7 @@ const features = [
     desc: "From 2A waves to 4C coils \u2014 your aunties know every texture and exactly how to care for it.",
   },
   {
-    tag: "Custom Rituals",
+    tag: "Custom Routines",
     title: "A Routine Built for You",
     desc: "Wash days, styling days, rest days \u2014 all mapped to your curl pattern and lifestyle.",
   },
@@ -63,7 +63,7 @@ function getSneakPeekVerdict(curl: CurlType) {
     return {
       auntyId: "ngozi",
       message:
-        "I KNOW those curls. In the full app, I\u2019d give you a whole wash day ritual, product picks, the works.",
+        "I KNOW those curls. In the full app, I\u2019d give you a whole wash day plan, product picks, the works.",
     };
   }
   return {
@@ -603,7 +603,7 @@ function SneakPeekVerdict({
             Your full plan is ready.
           </p>
           <p className="font-body text-sm text-[rgba(26,15,8,0.5)] mb-5">
-            Get early access to your complete personalized ritual.
+            Get early access to your complete personalized plan.
           </p>
           <button
             onClick={onComplete}

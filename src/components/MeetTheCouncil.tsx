@@ -30,11 +30,11 @@ function AuntyCard({
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}
         onClick={() => setActive(!active)}
-        className="relative rounded-2xl overflow-hidden cursor-pointer group transition-all duration-300"
+        className="relative rounded-2xl overflow-hidden cursor-pointer group transition-all duration-300 bg-white"
         style={{
           boxShadow: active
-            ? `0 8px 40px ${aunty.color}20, 0 0 0 1px ${aunty.color}30`
-            : `0 2px 12px rgba(45,27,14,0.06), 0 0 0 1px ${aunty.color}15`,
+            ? `0 12px 48px ${aunty.color}30, 0 0 0 1.5px ${aunty.color}55`
+            : `0 6px 24px rgba(45,27,14,0.08), 0 0 0 1px rgba(26,15,8,0.08)`,
         }}
       >
         {/* Top accent band */}
@@ -43,7 +43,7 @@ function AuntyCard({
           style={{ background: `linear-gradient(90deg, ${aunty.color}, ${aunty.color}60)` }}
         />
 
-        <div className="p-5" style={{ backgroundColor: aunty.bg }}>
+        <div className="p-5 bg-white">
           {/* Header row */}
           <div className="flex items-start gap-3 mb-3">
             <AuntyAvatar color={aunty.color} size={44} glow={active} />
@@ -132,6 +132,14 @@ export default function MeetTheCouncil() {
             <div key={aunty.id} className="snap-start">
               <AuntyCard aunty={aunty} index={i} inView={inView} />
             </div>
+          ))}
+          {/* Spacer so last card isn't flush to edge */}
+          <div className="flex-shrink-0 w-6" />
+        </div>
+        {/* Scroll hint — mobile only */}
+        <div className="flex md:hidden items-center justify-center gap-1.5 mt-3">
+          {aunties.map((_, i) => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full bg-[rgba(26,15,8,0.15)]" />
           ))}
         </div>
 

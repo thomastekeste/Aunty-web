@@ -19,7 +19,7 @@ export default function AppPreview() {
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (
-    <section className="py-16 md:py-24 bg-[#FEF8EC] overflow-hidden" ref={ref}>
+    <section className="py-16 md:py-24 bg-[#F5EBD5] overflow-hidden" ref={ref}>
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-10">
           <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
@@ -29,7 +29,7 @@ export default function AppPreview() {
             Everything Your Hair Needs.<br className="hidden md:block" /> In One Place.
           </h2>
           <p className="font-body text-lg text-[#5C4433] max-w-2xl mx-auto">
-            A personalized ritual calendar. Daily step-by-step guidance. Hair education
+            A personalized care calendar. Daily step-by-step guidance. Hair education
             from aunties that know your texture. Weekly check-ins that adapt your plan.
           </p>
         </div>
@@ -85,11 +85,11 @@ export default function AppPreview() {
                   </div>
                 </div>
 
-                <MockTabBar activeTab="Ritual" />
+                <MockTabBar activeTab="Plan" />
               </div>
             </PhoneMockup>
             <div className="text-center">
-              <h3 className="font-display text-lg font-bold text-[#2D1B0E] mb-1">Ritual Calendar</h3>
+              <h3 className="font-display text-lg font-bold text-[#2D1B0E] mb-1">Care Calendar</h3>
               <p className="font-body text-sm text-[#5C4433]">Every day has a purpose</p>
             </div>
           </div>
@@ -206,7 +206,7 @@ export default function AppPreview() {
             onClick={() => document.getElementById("quiz")?.scrollIntoView({ behavior: "smooth" })}
             className="px-10 py-4 rounded-full bg-gradient-to-r from-[#D4A04A] to-[#B8862E] text-[#1A0F08] font-body font-bold text-base hover:opacity-90 transition-opacity shadow-lg shadow-[#D4A04A]/20"
           >
-            Find Your Perfect Ritual
+            Find Your Perfect Routine
           </button>
           <p className="font-body text-sm text-[#9E8C7A] mt-3">
             Free 60-second consultation with your aunties

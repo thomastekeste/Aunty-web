@@ -26,6 +26,7 @@ export default function Navbar() {
     { href: "#features", label: "How It Works" },
     { href: "#council", label: "The Aunties" },
     { href: "#quiz", label: "Try The Quiz" },
+    { href: "#pricing", label: "Pricing" },
   ];
 
   const handleLinkClick = () => setMenuOpen(false);
@@ -35,7 +36,7 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled || menuOpen
-            ? "bg-[#FEF8EC]/95 backdrop-blur-xl border-b border-[rgba(26,15,8,0.08)]"
+            ? "bg-[#FEF8EC]/95 backdrop-blur-xl border-b border-[rgba(26,15,8,0.08)] shadow-[0_2px_16px_rgba(26,15,8,0.06)]"
             : "bg-transparent"
         }`}
       >
