@@ -14,10 +14,22 @@ interface SmoothTyperProps {
   enabled?: boolean;
 }
 
-function getDelay(char: string, base: number): number {
-  if ('.!?'.includes(char)) return base * 10;
-  if (',;:'.includes(char)) return base * 4;
-  return base + Math.round((Math.random() - 0.5) * 30);
+function getDelay(char: string, prevChar: string, base: number): number {
+  // Sentence-ending punctuation — dramatic breath
+  if ('.!?'.includes(char)) return base * 8 + Math.random() * base * 4;
+  // Mid-sentence pause
+  if (',;:'.includes(char)) return base * 3 + Math.random() * base * 1.5;
+  // Space — word boundary hesitation, highly variable
+  if (char === ' ') return base * 0.7 + Math.random() * base * 2;
+  // First char after space — reaching for the next key
+  if (prevChar === ' ' || prevChar === '') return base * 1.3 + Math.random() * base * 0.7;
+  // Occasional organic hesitation (~7% of chars)
+  if (Math.random() < 0.07) return base * 2.2 + Math.random() * base * 1.8;
+  // Normal typing — skewed toward fast bursts
+  const r = Math.random();
+  if (r < 0.55) return base * 0.55 + Math.random() * base * 0.5;   // fast burst
+  if (r < 0.82) return base * 0.9 + Math.random() * base * 0.45;   // normal
+  return base * 1.4 + Math.random() * base * 0.9;                  // momentary slow
 }
 
 export default function SmoothTyper({
@@ -43,9 +55,10 @@ export default function SmoothTyper({
 
     const typeNext = () => {
       if (idx < text.length) {
+        const prevChar = idx > 0 ? text[idx - 1] : '';
         idx++;
         setCharCount(idx);
-        const delay = getDelay(text[idx - 1], baseSpeed);
+        const delay = getDelay(text[idx - 1], prevChar, baseSpeed);
         timeoutRef.current = setTimeout(typeNext, delay);
       } else {
         setIsComplete(true);

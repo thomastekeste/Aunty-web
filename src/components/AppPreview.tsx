@@ -5,6 +5,7 @@ import PhoneMockup from "./PhoneMockup";
 import MockTabBar from "./MockTabBar";
 import { aunties } from "@/data/aunties";
 import AuntyCharacterIcon from "./AuntyCharacterIcon";
+import SmoothTyper from "./SmoothTyper";
 
 const ritualColors = [
   { day: "M", color: "#D4A04A", label: "Wash" },
@@ -115,9 +116,17 @@ export default function AppPreview() {
                 <p className="font-body text-[10px] font-semibold text-[#D4A04A] mb-1">Ngozi</p>
                 <p className="font-body text-[8px] text-[rgba(254,248,236,0.4)] mb-4">The Bold One &middot; West Africa</p>
 
-                <p className="font-display text-sm italic text-[#FEF8EC] leading-relaxed px-2">
-                  &ldquo;Ahn ahn! I knew it. Dis hair is THIRSTY. I already know what you need — come, let me show you.&rdquo;
-                </p>
+                <div className="px-2">
+                  <SmoothTyper
+                    text='"Ahn ahn! I knew it. Dis hair is THIRSTY. I already know what you need — come, let me show you."'
+                    as="p"
+                    baseSpeed={38}
+                    startDelay={600}
+                    enabled={inView}
+                    cursor
+                    className="font-display text-sm italic text-[#FEF8EC] leading-relaxed"
+                  />
+                </div>
 
                 {/* Progress dots */}
                 <div className="flex gap-1.5 mt-6">
@@ -159,9 +168,15 @@ export default function AppPreview() {
                       <p className="font-body text-[7px] text-[rgba(254,248,236,0.3)]">The Wise One</p>
                     </div>
                   </div>
-                  <p className="font-display text-xs italic text-[rgba(254,248,236,0.7)] leading-relaxed">
-                    &ldquo;Hey sugar. How&rsquo;s your hair this week? Tell me everything.&rdquo;
-                  </p>
+                  <SmoothTyper
+                    text={`"Hey sugar. How's your hair this week? Tell me everything."`}
+                    as="p"
+                    baseSpeed={42}
+                    startDelay={900}
+                    enabled={inView}
+                    cursor
+                    className="font-display text-xs italic text-[rgba(254,248,236,0.7)] leading-relaxed"
+                  />
                 </div>
 
                 {/* Mood buttons */}
