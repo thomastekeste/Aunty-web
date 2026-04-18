@@ -17,7 +17,7 @@ const steps = [
   },
   {
     number: "02",
-    title: "Your Council Convenes",
+    title: "Your Aunties Review",
     description:
       "Seven aunties analyze your hair profile using AI. They cross-reference their specialties — moisture, technique, strength, scalp health — to build YOUR plan.",
     color: "#3D5A99",
@@ -29,7 +29,7 @@ const steps = [
   },
   {
     number: "03",
-    title: "Follow Your Ritual",
+    title: "Follow Your Plan",
     description:
       "Every day has a purpose: wash day, style day, rest day. A different aunty guides each one. Weekly check-ins adjust your plan as your hair evolves.",
     color: "#1A7A4A",
@@ -45,17 +45,17 @@ export default function HowItWorks() {
   const [ref, inView] = useInView({ threshold: 0.15 });
 
   return (
-    <section id="features" className="py-24 md:py-32 bg-[#F5EBD5]" ref={ref}>
+    <section id="features" className="py-16 md:py-24 bg-[#F5EBD5]" ref={ref}>
       <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
             How It Works
           </p>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#2D1B0E] mb-4">
-            Not a Routine. A Ritual.
+            A plan built around your hair.
           </h2>
           <p className="font-body text-lg text-[#5C4433] max-w-2xl mx-auto">
-            Your aunties don&rsquo;t hand you a product list and disappear. They build a practice with you —
+            Your aunties don&rsquo;t hand you a product list and disappear. They build a plan with you —
             one that adapts as your hair changes.
           </p>
         </div>
@@ -69,7 +69,7 @@ export default function HowItWorks() {
                 opacity: inView ? 1 : 0,
                 transform: inView ? "translateY(0)" : "translateY(24px)",
                 transition: `all 0.6s ease-out ${i * 150}ms`,
-                boxShadow: `0 1px 8px rgba(45,27,14,0.04), 0 0 0 1px ${s.color}15`,
+                boxShadow: `0 4px 20px rgba(45,27,14,0.07), 0 0 0 1.5px ${s.color}30`,
               }}
             >
               {/* Top accent */}

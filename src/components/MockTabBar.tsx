@@ -10,7 +10,7 @@ export default function MockTabBar({ activeTab = "Home" }: { activeTab?: string 
       ),
     },
     {
-      name: "Ritual",
+      name: "Plan",
       icon: (c: string) => (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
           <path d="M4 7C4 5.89543 4.89543 5 6 5H18C19.1046 5 20 5.89543 20 7V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V7Z" stroke={c} strokeWidth="2"/>
@@ -39,13 +39,11 @@ export default function MockTabBar({ activeTab = "Home" }: { activeTab?: string 
       ),
     },
     {
-      name: "Journey",
+      name: "Learn",
       icon: (c: string) => (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-          <path d="M12 21C12 21 3 14.5 3 8.5C3 5.46243 5.46243 3 8.5 3C10.2817 3 11.8578 3.88213 12.8066 5.22022" stroke={c} strokeWidth="2" strokeLinecap="round"/>
-          <path d="M12 21C12 21 21 14.5 21 8.5C21 5.46243 18.5376 3 15.5 3C13.7183 3 12.1422 3.88213 11.1934 5.22022" stroke={c} strokeWidth="2" strokeLinecap="round"/>
-          <path d="M12 8V14" stroke={c} strokeWidth="2" strokeLinecap="round"/>
-          <path d="M9 11H15" stroke={c} strokeWidth="2" strokeLinecap="round"/>
+          <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       ),
     },

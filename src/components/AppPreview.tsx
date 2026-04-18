@@ -4,6 +4,7 @@ import { useInView } from "@/hooks/useInView";
 import PhoneMockup from "./PhoneMockup";
 import MockTabBar from "./MockTabBar";
 import { aunties } from "@/data/aunties";
+import AuntyCharacterIcon from "./AuntyCharacterIcon";
 
 const ritualColors = [
   { day: "M", color: "#D4A04A", label: "Wash" },
@@ -19,9 +20,9 @@ export default function AppPreview() {
   const [ref, inView] = useInView({ threshold: 0.1 });
 
   return (
-    <section className="py-24 md:py-32 bg-[#FEF8EC] overflow-hidden" ref={ref}>
+    <section className="py-16 md:py-24 bg-[#F5EBD5] overflow-hidden" ref={ref}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <p className="font-body text-[#D4A04A] text-xs tracking-[4px] uppercase mb-4">
             Inside The App
           </p>
@@ -29,8 +30,8 @@ export default function AppPreview() {
             Everything Your Hair Needs.<br className="hidden md:block" /> In One Place.
           </h2>
           <p className="font-body text-lg text-[#5C4433] max-w-2xl mx-auto">
-            A personalized ritual calendar. Daily step-by-step guidance. Weekly check-ins
-            that adapt your plan. All guided by your council.
+            A personalized care calendar. Daily step-by-step guidance. Hair education
+            from aunties that know your texture. Weekly check-ins that adapt your plan.
           </p>
         </div>
 
@@ -85,11 +86,11 @@ export default function AppPreview() {
                   </div>
                 </div>
 
-                <MockTabBar activeTab="Ritual" />
+                <MockTabBar activeTab="Plan" />
               </div>
             </PhoneMockup>
             <div className="text-center">
-              <h3 className="font-display text-lg font-bold text-[#2D1B0E] mb-1">Ritual Calendar</h3>
+              <h3 className="font-display text-lg font-bold text-[#2D1B0E] mb-1">Care Calendar</h3>
               <p className="font-body text-sm text-[#5C4433]">Every day has a purpose</p>
             </div>
           </div>
@@ -106,13 +107,11 @@ export default function AppPreview() {
             <PhoneMockup className="scale-[0.85] md:scale-100">
               <div className="h-full flex flex-col items-center justify-center p-5 pb-14 text-center relative">
                 <p className="font-body text-[8px] tracking-[2px] uppercase text-[#D4A04A] mb-4">
-                  Council Verdict
+                  Aunty's Advice
                 </p>
 
                 {/* Aunty speaking */}
-                <div className="w-12 h-12 rounded-full mb-3 flex items-center justify-center" style={{ backgroundColor: "#D4A04A20", border: "2px solid #D4A04A40" }}>
-                  <div className="w-4 h-4 rounded-full bg-[#D4A04A]" />
-                </div>
+                <AuntyCharacterIcon auntyId="ngozi" color="#D4A04A" size={52} className="mb-3" />
                 <p className="font-body text-[10px] font-semibold text-[#D4A04A] mb-1">Ngozi</p>
                 <p className="font-body text-[8px] text-[rgba(254,248,236,0.4)] mb-4">The Bold One &middot; West Africa</p>
 
@@ -131,7 +130,7 @@ export default function AppPreview() {
               </div>
             </PhoneMockup>
             <div className="text-center">
-              <h3 className="font-display text-lg font-bold text-[#2D1B0E] mb-1">Personal Verdicts</h3>
+              <h3 className="font-display text-lg font-bold text-[#2D1B0E] mb-1">Personal Advice</h3>
               <p className="font-body text-sm text-[#5C4433]">Each aunty speaks to YOUR hair</p>
             </div>
           </div>
@@ -154,9 +153,7 @@ export default function AppPreview() {
                 {/* Aunty card */}
                 <div className="rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(254,248,236,0.06)] p-4 mb-3">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: "#3D5A9920", border: "1.5px solid #3D5A9940" }}>
-                      <div className="w-3 h-3 rounded-full bg-[#3D5A99]" />
-                    </div>
+                    <AuntyCharacterIcon auntyId="denise" color="#3D5A99" size={32} />
                     <div>
                       <p className="font-body text-[10px] font-semibold text-[#3D5A99]">Denise</p>
                       <p className="font-body text-[7px] text-[rgba(254,248,236,0.3)]">The Wise One</p>
@@ -183,7 +180,7 @@ export default function AppPreview() {
                   </p>
                 </div>
 
-                <MockTabBar activeTab="Journey" />
+                <MockTabBar activeTab="Learn" />
               </div>
             </PhoneMockup>
             <div className="text-center">
@@ -191,6 +188,26 @@ export default function AppPreview() {
               <p className="font-body text-sm text-[#5C4433]">Your aunties follow up</p>
             </div>
           </div>
+        </div>
+
+        {/* Guide to quiz */}
+        <div
+          className="text-center mt-16"
+          style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : "translateY(20px)",
+            transition: "all 0.7s ease-out 500ms",
+          }}
+        >
+          <button
+            onClick={() => document.getElementById("quiz")?.scrollIntoView({ behavior: "smooth" })}
+            className="px-10 py-4 rounded-full bg-gradient-to-r from-[#D4A04A] to-[#B8862E] text-[#1A0F08] font-body font-bold text-base hover:opacity-90 transition-opacity shadow-lg shadow-[#D4A04A]/20"
+          >
+            Find Your Perfect Routine
+          </button>
+          <p className="font-body text-sm text-[#9E8C7A] mt-3">
+            Free 60-second consultation with your aunties
+          </p>
         </div>
       </div>
     </section>
