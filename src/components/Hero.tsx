@@ -2,6 +2,7 @@
 
 import InteractivePhone from "./InteractivePhone";
 import { aunties } from "@/data/aunties";
+import SmoothTyper from "./SmoothTyper";
 
 export default function Hero() {
   const scrollTo = (id: string) => {
@@ -44,9 +45,14 @@ export default function Hero() {
               Personalized Hair Care
             </p>
 
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-shimmer leading-[1.05] mb-3">
-              Your Aunties Have Been Waiting
-            </h1>
+            <SmoothTyper
+              text="Your Aunties Have Been Waiting"
+              as="h1"
+              baseSpeed={62}
+              startDelay={300}
+              cursor
+              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-shimmer leading-[1.05] mb-3"
+            />
 
             <p className="font-body text-base md:text-lg text-[rgba(26,15,8,0.55)] max-w-lg mx-auto lg:mx-0 mb-5 leading-relaxed">
               Seven aunties that know the texture of your hair. Real wisdom — just for your curls.
