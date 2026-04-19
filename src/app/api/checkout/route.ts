@@ -26,7 +26,11 @@ export async function POST(req: NextRequest) {
       customer_email: email || undefined,
       line_items: [
         {
-          price: selectedPlan.priceId,
+          price_data: {
+            currency: "usd",
+            product: selectedPlan.productId,
+            unit_amount: selectedPlan.price,
+          },
           quantity: 1,
         },
       ],

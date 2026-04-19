@@ -4,7 +4,7 @@ export const PLANS = {
     price: 2999, // cents
     display: "$29.99",
     description: "One payment. Forever access.",
-    priceId: "price_1TN2y3PgiKreFK4CQqx8vubd",
+    productId: "prod_UMnam0v05h2GVo",
     perks: [
       "Lifetime access — never pay again",
       "Beta access 2 weeks before public launch",
@@ -19,7 +19,7 @@ export const PLANS = {
     price: 999, // cents
     display: "$9.99",
     description: "One year of founding access.",
-    priceId: "price_1TN2y4PgiKreFK4C4YF1x38z",
+    productId: "prod_UMnajegbshwxPf",
     perks: [
       "Full access for 12 months",
       "Beta access 1 week before public launch",
@@ -34,7 +34,7 @@ export const PLANS = {
     price: 99, // cents
     display: "$0.99",
     description: "Lowest-risk way to try it.",
-    priceId: "price_1TN2y5PgiKreFK4CETp02Ur3",
+    productId: "prod_UMna6hxv94Pc0a",
     perks: [
       "Full access for 30 days",
       "Beta access at public launch",
