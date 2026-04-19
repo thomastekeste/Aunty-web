@@ -58,10 +58,11 @@ export async function POST(req: NextRequest) {
     );
 
     if (!res.ok && res.status !== 409) {
-      // 409 = duplicate (already recorded), safe to ignore
+      // 409 = duplicate (already recorded via idempotency), safe to ignore
       const text = await res.text();
       console.error("Supabase insert failed:", res.status, text);
-      // Return 200 anyway so Stripe doesn't retry — log and move on
+      // Return 500 so Stripe retries — do NOT silently swallow data loss
+      return NextResponse.json({ error: "Order recording failed" }, { status: 500 });
     }
   }
 

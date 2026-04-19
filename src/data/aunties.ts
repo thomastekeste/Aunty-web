@@ -159,5 +159,5 @@ export const aunties: Aunty[] = [
 ];
 
 export function getAunty(id: string) {
-  return aunties.find((a) => a.id === id)!;
+  return aunties.find((a) => a.id === id) ?? null;
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -8,8 +9,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 pb-8 border-b border-[rgba(26,15,8,0.08)]">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="Aunty Curl Council" className="w-7 h-7 rounded-lg object-cover" />
+            <Image src="/logo.png" alt="Aunty Curl Council" width={28} height={28} className="rounded-lg object-cover" />
             <span className="font-display text-base font-bold text-[#D4A04A] group-hover:opacity-80 transition-opacity">
               Aunty Curl Council
             </span>
@@ -17,19 +17,19 @@ export default function Footer() {
 
           {/* Product links */}
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            <a href="#features" className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
+            <a href="/#features" className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
               How It Works
             </a>
-            <a href="#council" className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
+            <a href="/#council" className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
               The Aunties
             </a>
-            <a href="#quiz" className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
+            <a href="/#quiz" className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
               Take The Quiz
             </a>
-            <a href="#pricing" className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
+            <a href="/#pricing" className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
               Pricing
             </a>
-            <a href="#waitlist" className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
+            <a href="/#waitlist" className="font-body text-sm text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
               Get Notified
             </a>
           </div>

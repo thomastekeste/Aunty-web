@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useInView } from "@/hooks/useInView";
 import { PLANS, PlanKey } from "@/lib/plans";
+import { FOUNDING_SPOTS, YEARLY_SAVINGS_DISPLAY } from "@/lib/constants";
 
 const tierOrder: PlanKey[] = ["monthly", "yearly", "lifetime"];
 
@@ -51,6 +52,8 @@ export default function PricingTiers() {
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
+      } else {
+        setLoading(null);
       }
     } catch {
       setLoading(null);
@@ -90,7 +93,7 @@ export default function PricingTiers() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(212,160,74,0.2)] bg-[rgba(212,160,74,0.06)] mt-6">
             <div className="w-2 h-2 rounded-full bg-[#D4A04A] animate-pulse" />
             <p className="font-body text-xs text-[#D4A04A]">
-              Limited to the first 500 founding members
+              Limited to the first {FOUNDING_SPOTS} founding members
             </p>
           </div>
         </div>
@@ -236,7 +239,7 @@ export default function PricingTiers() {
                     {/* Savings callout for yearly */}
                     {key === "yearly" && (
                       <p className="font-body text-xs font-semibold text-[#1A7A4A] mb-2">
-                        Save $1.89 vs paying monthly
+                        Save {YEARLY_SAVINGS_DISPLAY} vs paying monthly
                       </p>
                     )}
                     {/* Savings callout for lifetime */}
@@ -279,7 +282,7 @@ export default function PricingTiers() {
                     {/* CTA */}
                     <button
                       onClick={() => handleCheckout(key)}
-                      disabled={isLoading || loading !== null}
+                      disabled={isLoading}
                       className="w-full py-3.5 rounded-full font-body font-bold text-sm transition-all duration-200 disabled:opacity-50"
                       style={
                         isPopular

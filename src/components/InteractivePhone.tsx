@@ -214,10 +214,10 @@ function PlanScreen() {
 
 function ProductsScreen() {
   const products = [
-    { name: "Olaplex No.3 Hair Perfector", match: "98%", color: "#1A7A4A" },
-    { name: "Bread Beauty Supply Hair Oil", match: "95%", color: "#2A7B7B" },
-    { name: "Pattern Beauty Leave-In", match: "92%", color: "#D4A04A" },
-    { name: "Briogeo Don't Despair Repair Mask", match: "89%", color: "#7B3F6B" },
+    { name: "Kéra Revival Repair Treatment", match: "98%", color: "#1A7A4A" },
+    { name: "Soleil Curl Nourishing Hair Oil", match: "95%", color: "#2A7B7B" },
+    { name: "Lumina Botanics Leave-In Cream", match: "92%", color: "#D4A04A" },
+    { name: "Coilcraft Deep Repair Mask", match: "89%", color: "#7B3F6B" },
   ];
 
   return (

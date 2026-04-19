@@ -30,6 +30,11 @@ function AuntyCard({
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}
         onClick={() => setActive(!active)}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActive(!active); } }}
+        role="button"
+        tabIndex={0}
+        aria-pressed={active}
+        aria-label={`${aunty.name} — ${aunty.title}. Press to hear her greeting.`}
         className="relative rounded-2xl overflow-hidden cursor-pointer group transition-all duration-300 bg-white"
         style={{
           boxShadow: active
@@ -94,7 +99,7 @@ function AuntyCard({
               </div>
             ) : (
               <p className="font-body text-xs text-[#9E8C7A] italic">
-                Hover to hear from {aunty.name}&hellip;
+                Click to hear from {aunty.name}&hellip;
               </p>
             )}
           </div>

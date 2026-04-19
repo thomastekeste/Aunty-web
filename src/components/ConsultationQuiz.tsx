@@ -171,7 +171,7 @@ export default function ConsultationQuiz() {
             Swipe through what&rsquo;s inside &mdash; then try a sneak peek of the full questionnaire.
           </p>
           <p className="font-body text-sm text-[rgba(26,15,8,0.3)] mb-10">
-            Takes about 30 seconds. No sign-up required.
+            Takes about 60 seconds. No sign-up required.
           </p>
           <button
             onClick={() => setStep("carousel")}
@@ -191,7 +191,7 @@ export default function ConsultationQuiz() {
                 <circle cx="12" cy="12" r="10" />
                 <path d="M12 6v6l4 2" />
               </svg>
-              30 seconds
+              60 seconds
             </span>
             <span className="font-body text-xs flex items-center gap-1.5">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -277,6 +277,8 @@ export default function ConsultationQuiz() {
                     <button
                       key={i}
                       onClick={() => setSlide(i)}
+                      aria-label={`Go to slide ${i + 1}`}
+                      aria-current={i === slide ? 'true' : undefined}
                       className={`h-1.5 rounded-full transition-all duration-300 ${
                         i === slide
                           ? "w-6 bg-[#D4A04A]"
@@ -370,7 +372,7 @@ export default function ConsultationQuiz() {
           {step === "react" && curl && (
             <div className="flex-1 flex flex-col items-center justify-center px-6 text-center animate-fade-in-up">
               <AuntyAvatar
-                color={getAunty(getSneakPeekVerdict(curl).auntyId).color}
+                color={getAunty(getSneakPeekVerdict(curl).auntyId)?.color ?? '#D4A04A'}
                 size={56}
                 glow
               />
@@ -507,6 +509,8 @@ function SneakPeekVerdict({
   const verdict = getSneakPeekVerdict(curl);
   const aunty = getAunty(verdict.auntyId);
 
+  if (!aunty) return null;
+
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 300);
     return () => clearTimeout(t);
@@ -551,7 +555,9 @@ function SneakPeekVerdict({
         </div>
 
         {/* Locked cards */}
-        {[getAunty("denise"), getAunty("fatou")].map((locked) => (
+        {([getAunty("denise"), getAunty("fatou")] as ReturnType<typeof getAunty>[])
+          .filter((a): a is NonNullable<ReturnType<typeof getAunty>> => a !== null)
+          .map((locked) => (
           <div
             key={locked.id}
             className="rounded-xl p-5 relative overflow-hidden transition-all duration-500"

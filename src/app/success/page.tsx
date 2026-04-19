@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { getStripe } from "@/lib/stripe";
 
 export const metadata: Metadata = {
@@ -48,8 +49,7 @@ export default async function SuccessPage({ searchParams }: Props) {
       <header className="relative z-10 backdrop-blur-sm bg-[#FEF8EC]/80 border-b border-[rgba(26,15,8,0.08)]">
         <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="Aunty Curl Council" className="w-7 h-7 rounded-lg object-cover" />
+            <Image src="/logo.png" alt="Aunty Curl Council" width={28} height={28} className="rounded-lg object-cover" />
             <span className="font-display text-base font-bold text-[#D4A04A] group-hover:opacity-80 transition-opacity">
               Aunty Curl Council
             </span>

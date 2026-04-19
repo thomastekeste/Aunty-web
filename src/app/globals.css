@@ -3,8 +3,6 @@
 html {
   scroll-behavior: smooth;
 }
-
-@theme inline {
   --color-canvas: #FEF8EC;
   --color-canvas-deep: #F5EBD5;
   --color-ink: #2D1B0E;
@@ -171,6 +169,18 @@ body {
 /* ─── Scrollbar hide ─── */
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 /* ─── Legal / long-form prose ─── */
 .legal-prose h2 {

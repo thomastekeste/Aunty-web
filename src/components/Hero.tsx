@@ -3,6 +3,7 @@
 import InteractivePhone from "./InteractivePhone";
 import { aunties } from "@/data/aunties";
 import SmoothTyper from "./SmoothTyper";
+import { FOUNDING_SPOTS } from "@/lib/constants";
 
 export default function Hero() {
   const scrollTo = (id: string) => {
@@ -100,7 +101,7 @@ export default function Hero() {
                     ))}
                   </div>
                   <p className="font-body text-xs text-[rgba(26,15,8,0.4)]">
-                    Only <span className="text-[#D4A04A] font-semibold">500</span> founding spots available
+                    Only <span className="text-[#D4A04A] font-semibold">{FOUNDING_SPOTS}</span> founding spots available
                   </p>
                 </div>
               </div>

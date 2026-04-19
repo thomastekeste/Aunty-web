@@ -27,7 +27,7 @@ const ROWS = [
 
 function MarqueeRow({ items, reverse = false }: { items: typeof ROWS[0]; reverse?: boolean }) {
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden" aria-hidden="true">
       <div
         className="flex gap-3 w-max"
         style={{

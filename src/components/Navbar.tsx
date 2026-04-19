@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -42,11 +43,13 @@ export default function Navbar() {
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5" onClick={handleLinkClick}>
-            <img
+          <a href="/" className="flex items-center gap-2.5" onClick={handleLinkClick}>
+            <Image
               src="/logo.png"
               alt="Aunty Curl Council"
-              className="w-8 h-8 rounded-lg object-cover"
+              width={32}
+              height={32}
+              className="rounded-lg object-cover"
             />
             <span className="font-display text-lg font-bold text-[#1A0F08]">
               Aunty Curl Council

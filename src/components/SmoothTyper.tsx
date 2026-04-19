@@ -48,8 +48,20 @@ export default function SmoothTyper({
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const firedRef = useRef(false);
 
+  // Respect prefers-reduced-motion — show text instantly if user prefers no motion
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   useEffect(() => {
     if (!enabled) return;
+
+    // Skip animation entirely for users who prefer reduced motion
+    if (prefersReducedMotion) {
+      setCharCount(text.length);
+      setIsComplete(true);
+      return;
+    }
 
     let idx = 0;
 
@@ -70,7 +82,7 @@ export default function SmoothTyper({
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [text, baseSpeed, startDelay, enabled]);
+  }, [text, baseSpeed, startDelay, enabled, prefersReducedMotion]);
 
   useEffect(() => {
     if (isComplete && !firedRef.current) {
@@ -79,33 +91,52 @@ export default function SmoothTyper({
     }
   }, [isComplete, onComplete]);
 
-  const visibleText = text.substring(0, charCount);
+  const chars = Array.from(text);
 
   return (
     <Tag className={`${className} relative`} style={style}>
-      {/* Visible text */}
-      <span>{visibleText}</span>
+      {/* Per-character fade-in for a smoother, cinematic typing feel.
+          All chars are always rendered so layout stays rock-stable. */}
+      <span style={{ whiteSpace: 'pre-wrap' }}>
+        {chars.map((c, i) => {
+          const revealed = i < charCount;
+          return (
+            <span
+              key={i}
+              aria-hidden={!revealed}
+              style={{
+                display: 'inline-block',
+                whiteSpace: 'pre',
+                opacity: revealed ? 1 : 0,
+                transform: revealed ? 'translateY(0)' : 'translateY(4px)',
+                filter: revealed ? 'blur(0)' : 'blur(6px)',
+                transition: prefersReducedMotion
+                  ? 'none'
+                  : 'opacity 260ms ease-out, transform 260ms ease-out, filter 260ms ease-out',
+              }}
+            >
+              {c}
+            </span>
+          );
+        })}
+      </span>
 
       {/* Cursor */}
       {cursor && !isComplete && (
         <span
-          className="inline-block"
+          className="inline-block align-baseline"
           style={{
             width: '2px',
             height: '0.85em',
             verticalAlign: '-0.1em',
-            marginLeft: '1px',
+            marginLeft: '2px',
             backgroundColor: '#D4A04A',
-            boxShadow: '0 0 8px #D4A04A, 0 0 16px rgba(212,160,74,0.4)',
-            animation: 'blink 1s step-end infinite',
+            borderRadius: '1px',
+            boxShadow: '0 0 10px #D4A04A, 0 0 22px rgba(212,160,74,0.45)',
+            animation: prefersReducedMotion ? 'none' : 'blink 1s step-end infinite',
           }}
         />
       )}
-
-      {/* Ghost text for layout stability */}
-      <span className="invisible select-none" aria-hidden="true">
-        {text.substring(charCount)}
-      </span>
     </Tag>
   );
 }
