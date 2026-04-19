@@ -61,7 +61,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#FEF8EC] noise pt-20">
+    <section className="relative min-h-[100svh] lg:h-[100svh] flex items-center overflow-hidden bg-[#FEF8EC] noise pt-16 lg:pt-20">
       {/* Gradient mesh background */}
       <div className="absolute inset-0">
         <div className="absolute top-[-20%] right-[-10%] w-[700px] h-[700px] rounded-full bg-[#D4A04A] opacity-[0.1] blur-[150px]" />
@@ -88,13 +88,13 @@ export default function Hero() {
         />
       ))}
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-6 md:py-12 w-full">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-4 md:py-8 w-full">
+        <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-10">
           {/* Left: Copy */}
           <div className="flex-1 text-center lg:text-left max-w-2xl">
             {/* Overline pill */}
             <div
-              className="inline-flex items-center gap-2 mb-5 px-3.5 py-1.5 rounded-full border border-[rgba(212,160,74,0.25)] bg-[rgba(212,160,74,0.06)]"
+              className="inline-flex items-center gap-2 mb-4 px-3.5 py-1.5 rounded-full border border-[rgba(212,160,74,0.25)] bg-[rgba(212,160,74,0.06)]"
               style={{
                 opacity: 0,
                 animation: "introFade 500ms ease-out forwards",
@@ -117,11 +117,11 @@ export default function Hero() {
               baseDelay={250}
               stagger={75}
               duration={700}
-              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-shimmer leading-[1.05] mb-4 tracking-[-0.01em]"
+              className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-shimmer leading-[1.05] mb-3 tracking-[-0.01em]"
             />
 
             <p
-              className="font-body text-base md:text-lg text-[rgba(26,15,8,0.6)] max-w-lg mx-auto lg:mx-0 mb-7 leading-relaxed"
+              className="font-body text-sm md:text-base text-[rgba(26,15,8,0.6)] max-w-lg mx-auto lg:mx-0 mb-5 leading-relaxed"
               style={{
                 opacity: 0,
                 animation: "introFade 600ms ease-out forwards",
@@ -134,7 +134,7 @@ export default function Hero() {
 
             {/* Aunty strip — the council at a glance */}
             <div
-              className="mb-7"
+              className="mb-5"
               style={{
                 opacity: 0,
                 animation: "introFade 700ms ease-out forwards",
@@ -160,7 +160,7 @@ export default function Hero() {
                       }}
                       title={`${a.name} · ${a.title}`}
                     >
-                      <AuntyCharacterIcon auntyId={a.id} size={48} />
+                      <AuntyCharacterIcon auntyId={a.id} size={40} />
                     </div>
                     <span
                       className="font-body text-[10px] sm:text-[11px] font-medium tracking-wide"
@@ -174,45 +174,44 @@ export default function Hero() {
             </div>
 
             <div
-              className="flex flex-col items-center lg:items-start gap-3"
+              className="flex flex-col items-center lg:items-start gap-2"
               style={{
                 opacity: 0,
                 animation: "introFade 700ms ease-out forwards",
                 animationDelay: "1400ms",
               }}
             >
-              {/* Primary CTA */}
-              <button
-                onClick={() => scrollTo("pricing")}
-                className="animate-pulse-glow px-8 py-4 rounded-full bg-gradient-to-r from-[#D4A04A] to-[#B8862E] text-[#1A0F08] font-body font-bold text-base hover:opacity-90 transition-opacity shadow-lg shadow-[#D4A04A]/30"
-              >
-                Become a Founding Member
-              </button>
+              {/* CTA row */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                <button
+                  onClick={() => scrollTo("pricing")}
+                  className="animate-pulse-glow px-7 py-3.5 rounded-full bg-gradient-to-r from-[#D4A04A] to-[#B8862E] text-[#1A0F08] font-body font-bold text-sm md:text-base hover:opacity-90 transition-opacity shadow-lg shadow-[#D4A04A]/30"
+                >
+                  Become a Founding Member
+                </button>
 
-              {/* Secondary CTA */}
-              <button
-                onClick={() => scrollTo("quiz")}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-[rgba(212,160,74,0.3)] bg-[rgba(212,160,74,0.04)] text-[#D4A04A] font-body text-sm font-medium hover:bg-[rgba(212,160,74,0.1)] hover:border-[#D4A04A]/50 transition-all"
-              >
-                Try the consultation first
-                <span aria-hidden="true">→</span>
-              </button>
+                <button
+                  onClick={() => scrollTo("quiz")}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-[rgba(212,160,74,0.3)] bg-[rgba(212,160,74,0.04)] text-[#D4A04A] font-body text-sm font-medium hover:bg-[rgba(212,160,74,0.1)] hover:border-[#D4A04A]/50 transition-all"
+                >
+                  Try the consultation
+                  <span aria-hidden="true">→</span>
+                </button>
+              </div>
 
-              {/* Tertiary */}
-              <button
-                onClick={() => scrollTo("waitlist")}
-                className="font-body text-xs text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors underline underline-offset-4 decoration-[rgba(26,15,8,0.15)]"
-              >
-                Just want to be notified when it launches? →
-              </button>
-
-              {/* Social proof */}
-              <p className="font-body text-xs text-[rgba(26,15,8,0.45)] mt-1">
+              {/* Social proof + tertiary inline */}
+              <p className="font-body text-xs text-[rgba(26,15,8,0.5)] mt-1">
                 Only{" "}
                 <span className="text-[#D4A04A] font-semibold">
                   {FOUNDING_SPOTS}
                 </span>{" "}
-                founding spots available
+                founding spots ·{" "}
+                <button
+                  onClick={() => scrollTo("waitlist")}
+                  className="underline underline-offset-4 decoration-[rgba(26,15,8,0.2)] hover:text-[#D4A04A] transition-colors"
+                >
+                  notify me at launch
+                </button>
               </p>
             </div>
           </div>
@@ -226,7 +225,7 @@ export default function Hero() {
                 animationDelay: "400ms",
               }}
             >
-              <div className="scale-[0.72] md:scale-[0.9] lg:scale-100 origin-top">
+              <div className="scale-[0.65] sm:scale-[0.75] md:scale-[0.82] lg:scale-[0.88] origin-top">
                 <InteractivePhone />
               </div>
             </div>
@@ -260,7 +259,7 @@ export default function Hero() {
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FEF8EC] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#FEF8EC] to-transparent pointer-events-none" />
     </section>
   );
 }

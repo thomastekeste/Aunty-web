@@ -204,7 +204,12 @@ export default function FullScreenIntro({ onComplete }: FullScreenIntroProps) {
           text={LINE_2}
           delay={line2Delay}
           as="h1"
-          className="font-display text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold text-shimmer leading-[1.05] tracking-[-0.02em]"
+          className="font-display text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-[-0.02em]"
+          style={{
+            color: "#F5DFA0",
+            textShadow:
+              "0 0 30px rgba(212,160,74,0.35), 0 2px 20px rgba(212,160,74,0.25)",
+          }}
         />
 
         {/* Quiet handoff */}
