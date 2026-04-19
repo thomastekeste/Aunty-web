@@ -119,6 +119,36 @@ body {
   }
 }
 
+@keyframes cinematicReveal {
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(40%) scale(1.1);
+  }
+  55% {
+    opacity: 0.75;
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes wordBlurIn {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
 @keyframes pulseGlow {
   0%, 100% { box-shadow: 0 0 20px rgba(212, 160, 74, 0.3); }
   50% { box-shadow: 0 0 40px rgba(212, 160, 74, 0.6); }
