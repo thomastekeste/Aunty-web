@@ -37,31 +37,60 @@ function CinematicLine({
   style,
   as: Tag = 'p',
 }: CinematicLineProps) {
-  const chars = useMemo(() => text.split(''), [text]);
   const reduced =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Split into words; track each character's global index for stagger delay
+  const words = useMemo(() => {
+    const result: { word: string; startIndex: number }[] = [];
+    let idx = 0;
+    text.split(' ').forEach((w, wi) => {
+      result.push({ word: w, startIndex: idx });
+      idx += w.length + 1; // +1 for the space
+    });
+    return result;
+  }, [text]);
+
   return (
     <Tag className={className} style={style} aria-label={text}>
-      {chars.map((c, i) => (
-        <span
-          key={i}
-          aria-hidden="true"
-          style={{
-            display: 'inline-block',
-            opacity: reduced ? 1 : 0,
-            filter: reduced ? 'none' : 'blur(12px)',
-            transform: reduced ? 'none' : 'translateY(40%) scale(1.1)',
-            animation: reduced
-              ? undefined
-              : `cinematicReveal ${CHAR_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1) forwards`,
-            animationDelay: `${delay + i * CHAR_STAGGER}ms`,
-            whiteSpace: c === ' ' ? 'pre' : undefined,
-            willChange: 'transform, opacity, filter',
-          }}
-        >
-          {c === ' ' ? '\u00A0' : c}
+      {words.map(({ word, startIndex }, wi) => (
+        <span key={wi} aria-hidden="true" style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+          {word.split('').map((c, ci) => {
+            const globalIdx = startIndex + ci;
+            return (
+              <span
+                key={ci}
+                style={{
+                  display: 'inline-block',
+                  opacity: reduced ? 1 : 0,
+                  filter: reduced ? 'none' : 'blur(12px)',
+                  transform: reduced ? 'none' : 'translateY(40%) scale(1.1)',
+                  animation: reduced
+                    ? undefined
+                    : `cinematicReveal ${CHAR_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1) forwards`,
+                  animationDelay: `${delay + globalIdx * CHAR_STAGGER}ms`,
+                  willChange: 'transform, opacity, filter',
+                }}
+              >
+                {c}
+              </span>
+            );
+          })}
+          {wi < words.length - 1 && (
+            <span
+              style={{
+                display: 'inline-block',
+                opacity: reduced ? 1 : 0,
+                animation: reduced
+                  ? undefined
+                  : `cinematicReveal ${CHAR_DURATION}ms cubic-bezier(0.16, 1, 0.3, 1) forwards`,
+                animationDelay: `${delay + (startIndex + word.length) * CHAR_STAGGER}ms`,
+              }}
+            >
+              {'\u00A0'}
+            </span>
+          )}
         </span>
       ))}
     </Tag>
@@ -204,7 +233,7 @@ export default function FullScreenIntro({ onComplete }: FullScreenIntroProps) {
           text={LINE_2}
           delay={line2Delay}
           as="h1"
-          className="font-display text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-[-0.02em]"
+          className="font-display text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-[-0.02em]"
           style={{
             color: "#F5DFA0",
             textShadow:
