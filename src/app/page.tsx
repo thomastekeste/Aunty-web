@@ -4,6 +4,7 @@ import ValuesMarquee from "@/components/ValuesMarquee";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import AppPreview from "@/components/AppPreview";
 import MeetTheCouncil from "@/components/MeetTheCouncil";
+import HairTypes from "@/components/HairTypes";
 import SkinTypes from "@/components/SkinTypes";
 import ConsultationQuiz from "@/components/ConsultationQuiz";
 import Footer from "@/components/Footer";
@@ -17,6 +18,7 @@ export default function Home() {
       <FeaturedProducts />
       <AppPreview />
       <MeetTheCouncil />
+      <HairTypes />
       <SkinTypes />
       <Footer />
       <ConsultationQuiz />
