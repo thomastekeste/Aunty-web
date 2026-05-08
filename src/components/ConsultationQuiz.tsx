@@ -14,8 +14,9 @@ import {
   type HairCategory, type Porosity,
   type MoistureLevel, type HairLoss, type ScalpHealth, type StylingFrustration, type HairGoal,
   type WashFeel, type AshyLevel, type ProductReaction, type MiddayFinish,
-  type AuntySkinType, type TieredMatches,
+  type AuntySkinType, type TieredMatches, type TeaserVerdict,
 } from "@/data/quiz";
+import { getAunty } from "@/data/aunties";
 
 const BROWN = "#2D1B0E";
 const MUTED = "#6B5040";
@@ -284,7 +285,7 @@ function OptionButton({
   selected: boolean; onClick: () => void; label: string; sub?: string; accent: string;
 }) {
   return (
-    <button onClick={onClick}
+    <button onClick={onClick} aria-label={label}
       className="w-full text-left px-5 py-4 rounded-xl border transition-all duration-150"
       style={{
         borderColor: selected ? accent : "rgba(26,15,8,0.12)",
@@ -442,7 +443,7 @@ export default function ConsultationQuiz() {
     return map[phase];
   })();
 
-  const hairCat: HairCategory | null = curl ? curlTypes.find((c) => c.id === curl)!.cat : null;
+  const hairCat: HairCategory | null = curl ? (curlTypes.find((c) => c.id === curl)?.cat ?? null) : null;
 
   const hairTiered: TieredMatches | null =
     hairCat && porosity && moisture && hairLoss && scalpHealth && stylingFrustration && hairGoal
@@ -691,6 +692,7 @@ export default function ConsultationQuiz() {
           title="Here's what we chose — and why."
           journey="hair"
           tiered={hairTiered}
+          verdicts={hairVerdicts}
           onClose={close} onReset={() => { reset(); setPhase("journey-pick"); }} />
       )}
 
@@ -781,6 +783,7 @@ export default function ConsultationQuiz() {
           title={auntySkinTypes.find((t) => t.value === detectedSkinType)?.headline ?? "Here's what we chose — and why."}
           journey="skin"
           tiered={skinTiered}
+          verdicts={skinVerdicts}
           onClose={close} onReset={() => { reset(); setPhase("journey-pick"); }} />
       )}
     </div>
@@ -805,14 +808,17 @@ function TierHeader({ number, label, sublabel, accent }: { number: string; label
 
 // ── Tiered Results screen ────────────────────────────────────────────────
 function TieredResults({
-  eyebrow, title, accent, journey, tiered, onClose, onReset,
+  eyebrow, title, accent, journey, tiered, verdicts, onClose, onReset,
 }: {
   eyebrow: string; title: string; accent: string;
   journey: "hair" | "skin";
   tiered: TieredMatches;
+  verdicts: TeaserVerdict[];
   onClose: () => void; onReset: () => void;
 }) {
   const [checkingOut, setCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [confirmTier, setConfirmTier] = useState<"basics" | "essentials" | "everything" | null>(null);
 
   const tierPrice = (items: { productId: string }[]) =>
     items.reduce((sum, m) => sum + (getProductById(m.productId)?.price ?? 0), 0);
@@ -821,13 +827,26 @@ function TieredResults({
   const essentialsPrice = tierPrice(tiered.essentials);
   const addonsPrice = tierPrice(tiered.addons);
 
+  const getCartForTier = (tier: "basics" | "essentials" | "everything") =>
+    tier === "basics" ? tiered.basics
+    : tier === "essentials" ? [...tiered.basics, ...tiered.essentials]
+    : [...tiered.basics, ...tiered.essentials, ...tiered.addons];
+
+  const getPriceForTier = (tier: "basics" | "essentials" | "everything") =>
+    tier === "basics" ? basicsPrice
+    : tier === "essentials" ? basicsPrice + essentialsPrice
+    : basicsPrice + essentialsPrice + addonsPrice;
+
+  const getTierLabel = (tier: "basics" | "essentials" | "everything") =>
+    tier === "basics" ? "The Basics"
+    : tier === "essentials" ? "Basics + Essentials"
+    : "The Full Stack";
+
   const handleCheckout = async (tier: "basics" | "essentials" | "everything") => {
     if (checkingOut) return;
     setCheckingOut(true);
-    const cart =
-      tier === "basics" ? tiered.basics
-      : tier === "essentials" ? [...tiered.basics, ...tiered.essentials]
-      : [...tiered.basics, ...tiered.essentials, ...tiered.addons];
+    setCheckoutError(null);
+    const cart = getCartForTier(tier);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -836,7 +855,10 @@ function TieredResults({
       });
       const data = await res.json();
       if (data.url) { window.location.href = data.url; return; }
-    } catch { /* fallback below */ }
+      setCheckoutError(data.error || "Something went wrong. Please try again.");
+    } catch {
+      setCheckoutError("Connection error. Please check your internet and try again.");
+    }
     setCheckingOut(false);
   };
 
@@ -847,6 +869,25 @@ function TieredResults({
         <path d="M2 2 L12 12 M12 2 L2 12" stroke="#2D1B0E" strokeWidth="1.6" strokeLinecap="round"/>
       </svg>
     </button>
+  );
+
+  const TierCTA = ({ tier, label, count, price, featured }: {
+    tier: "basics" | "essentials" | "everything"; label: string; count: number; price: number; featured?: boolean;
+  }) => (
+    <div className={`p-5 rounded-2xl mb-10 ${featured ? "border-2" : "bg-[#F7F5F0] border border-[rgba(26,15,8,0.06)]"}`}
+      style={featured ? { borderColor: accent, backgroundColor: accent + "08" } : undefined}>
+      <div className="flex items-center justify-between mb-3">
+        <div>
+          <p className="font-display text-base font-bold text-[#2D1B0E]">{label}</p>
+          <p className="font-body text-xs text-[#9E8C7A]">{count} products</p>
+        </div>
+        <p className="font-display text-2xl font-bold text-[#2D1B0E]">${price}</p>
+      </div>
+      <button onClick={() => setConfirmTier(tier)} disabled={checkingOut}
+        className="w-full py-3.5 rounded-full font-body text-[12px] font-semibold tracking-[1px] uppercase transition-all hover:bg-[#1A0F08] active:scale-[0.98] disabled:opacity-60 bg-[#2D1B0E] text-[#FDFCF8]">
+        {label} — ${price}
+      </button>
+    </div>
   );
 
   return (
@@ -865,9 +906,49 @@ function TieredResults({
           <h2 className="font-display text-3xl md:text-[2.5rem] font-bold text-[#2D1B0E] text-center mb-2 leading-[1.1]">
             {title}
           </h2>
-          <p className="font-body text-sm text-[#9E8C7A] text-center mb-10">
+          <p className="font-body text-sm text-[#9E8C7A] text-center mb-8">
             Three tiers. Start with the basics, add on when you&apos;re ready.
           </p>
+
+          {/* ── Aunty verdicts ──────────────────────────────────────────── */}
+          {verdicts.length > 0 && (
+            <div className="mb-10 space-y-3">
+              {verdicts.map((v) => {
+                const aunty = getAunty(v.auntyId);
+                if (!aunty) return null;
+                return (
+                  <div key={v.auntyId} className="rounded-xl p-4 flex items-start gap-3"
+                    style={{ backgroundColor: aunty.color + "0A", border: `1px solid ${aunty.color}18` }}>
+                    <div className="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white"
+                      style={{ backgroundColor: aunty.color }}>
+                      {aunty.name[0]}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-body text-xs font-semibold mb-0.5" style={{ color: aunty.color }}>
+                        Aunty {aunty.name}
+                      </p>
+                      <p className="font-display text-sm italic text-[rgba(45,27,14,0.7)] leading-relaxed">
+                        &ldquo;{v.message}&rdquo;
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Error toast */}
+          {checkoutError && (
+            <div className="mb-6 rounded-xl bg-red-50 border border-red-200 px-5 py-4 flex items-start gap-3 animate-fade-in-up">
+              <svg className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <circle cx="12" cy="12" r="10" /><path d="M12 8v4m0 4h.01" />
+              </svg>
+              <p className="font-body text-sm text-red-800 flex-1">{checkoutError}</p>
+              <button onClick={() => setCheckoutError(null)} className="text-red-400 hover:text-red-600">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
+              </button>
+            </div>
+          )}
 
           {/* ── TIER 1: BASICS ─────────────────────────────────────────── */}
           <TierHeader number="Tier 1" label="The Basics" accent={accent}
@@ -877,19 +958,7 @@ function TieredResults({
               <TierProductCard key={m.productId} productId={m.productId} reason={m.reason} accent={accent} />
             ))}
           </div>
-          <div className="p-5 rounded-2xl bg-[#F7F5F0] border border-[rgba(26,15,8,0.06)] mb-10">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <p className="font-display text-base font-bold text-[#2D1B0E]">Start with the basics</p>
-                <p className="font-body text-xs text-[#9E8C7A]">{tiered.basics.length} products · the essentials</p>
-              </div>
-              <p className="font-display text-2xl font-bold text-[#2D1B0E]">${basicsPrice}</p>
-            </div>
-            <button onClick={() => handleCheckout("basics")} disabled={checkingOut}
-              className="w-full py-3.5 rounded-full font-body text-[12px] font-semibold tracking-[1px] uppercase transition-all hover:bg-[#1A0F08] active:scale-[0.98] disabled:opacity-60 bg-[#2D1B0E] text-[#FDFCF8]">
-              {checkingOut ? "Sending to checkout…" : `Order Basics ($${basicsPrice}) →`}
-            </button>
-          </div>
+          <TierCTA tier="basics" label="Start with the basics" count={tiered.basics.length} price={basicsPrice} />
 
           {/* ── TIER 2: BASICS + ESSENTIALS ────────────────────────────── */}
           <TierHeader number="Tier 2" label="Basics + Essentials" accent={accent}
@@ -899,19 +968,7 @@ function TieredResults({
               <TierProductCard key={m.productId} productId={m.productId} reason={m.reason} accent={accent} />
             ))}
           </div>
-          <div className="p-5 rounded-2xl bg-[#F7F5F0] border border-[rgba(26,15,8,0.06)] mb-10">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <p className="font-display text-base font-bold text-[#2D1B0E]">Basics + Essentials</p>
-                <p className="font-body text-xs text-[#9E8C7A]">{tiered.basics.length + tiered.essentials.length} products · the full active routine</p>
-              </div>
-              <p className="font-display text-2xl font-bold text-[#2D1B0E]">${basicsPrice + essentialsPrice}</p>
-            </div>
-            <button onClick={() => handleCheckout("essentials")} disabled={checkingOut}
-              className="w-full py-3.5 rounded-full font-body text-[12px] font-semibold tracking-[1px] uppercase transition-all hover:bg-[#1A0F08] active:scale-[0.98] disabled:opacity-60 bg-[#2D1B0E] text-[#FDFCF8]">
-              {checkingOut ? "Sending to checkout…" : `Order Basics + Essentials ($${basicsPrice + essentialsPrice}) →`}
-            </button>
-          </div>
+          <TierCTA tier="essentials" label="Basics + Essentials" count={tiered.basics.length + tiered.essentials.length} price={basicsPrice + essentialsPrice} />
 
           {/* ── TIER 3: EVERYTHING ─────────────────────────────────────── */}
           <TierHeader number="Tier 3" label="The Full Stack" accent={accent}
@@ -921,19 +978,9 @@ function TieredResults({
               <TierProductCard key={m.productId} productId={m.productId} reason={m.reason} accent={accent} />
             ))}
           </div>
-          <div className="p-5 rounded-2xl border-2 mb-10" style={{ borderColor: accent, backgroundColor: accent + "08" }}>
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <p className="font-display text-base font-bold text-[#2D1B0E]">Everything — the complete routine</p>
-                <p className="font-body text-xs text-[#9E8C7A]">{tiered.basics.length + tiered.essentials.length + tiered.addons.length} products · basics + essentials + add-ons</p>
-              </div>
-              <p className="font-display text-2xl font-bold text-[#2D1B0E]">${basicsPrice + essentialsPrice + addonsPrice}</p>
-            </div>
-            <button onClick={() => handleCheckout("everything")} disabled={checkingOut}
-              className="w-full py-3.5 rounded-full font-body text-[12px] font-semibold tracking-[1px] uppercase transition-all hover:bg-[#1A0F08] active:scale-[0.98] disabled:opacity-60 bg-[#2D1B0E] text-[#FDFCF8]">
-              {checkingOut ? "Sending to checkout…" : `Order Everything ($${basicsPrice + essentialsPrice + addonsPrice}) →`}
-            </button>
-          </div>
+          <TierCTA tier="everything" label="Everything — the complete routine"
+            count={tiered.basics.length + tiered.essentials.length + tiered.addons.length}
+            price={basicsPrice + essentialsPrice + addonsPrice} featured />
 
           {/* App preview */}
           <div className="border-t border-[rgba(26,15,8,0.06)] pt-8 pb-4 text-center">
@@ -952,6 +999,126 @@ function TieredResults({
               className="font-body text-sm text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
               Close consultation
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Checkout confirmation drawer ─────────────────────────────── */}
+      {confirmTier && (
+        <CheckoutConfirm
+          tier={confirmTier}
+          tierLabel={getTierLabel(confirmTier)}
+          price={getPriceForTier(confirmTier)}
+          items={getCartForTier(confirmTier)}
+          accent={accent}
+          loading={checkingOut}
+          onConfirm={() => handleCheckout(confirmTier)}
+          onClose={() => { setConfirmTier(null); setCheckingOut(false); }}
+        />
+      )}
+    </div>
+  );
+}
+
+// ── Checkout confirmation drawer ──────────────────────────────────────────
+function CheckoutConfirm({
+  tier, tierLabel, price, items, accent, loading, onConfirm, onClose,
+}: {
+  tier: string; tierLabel: string; price: number;
+  items: { productId: string; reason: string }[];
+  accent: string; loading: boolean;
+  onConfirm: () => void; onClose: () => void;
+}) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => { requestAnimationFrame(() => setVisible(true)); }, []);
+
+  const handleClose = () => {
+    setVisible(false);
+    setTimeout(onClose, 250);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[200] flex items-end md:items-center justify-center">
+      <div className="absolute inset-0 bg-[#1A0F08]/50 backdrop-blur-sm transition-opacity duration-300"
+        style={{ opacity: visible ? 1 : 0 }} onClick={handleClose} />
+      <div className="relative w-full max-w-md mx-4 bg-white rounded-t-3xl md:rounded-3xl overflow-hidden transition-all duration-300 ease-out"
+        style={{ transform: visible ? "translateY(0)" : "translateY(100%)", opacity: visible ? 1 : 0, boxShadow: "0 -8px 40px rgba(26,15,8,0.15)" }}>
+
+        <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${accent}, ${accent}80)` }} />
+        <div className="flex justify-center pt-3 md:hidden">
+          <div className="w-10 h-1 rounded-full bg-[rgba(26,15,8,0.12)]" />
+        </div>
+
+        <div className="p-6 pt-4 md:pt-6 max-h-[80vh] overflow-y-auto">
+          <button onClick={handleClose} aria-label="Close"
+            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[rgba(26,15,8,0.06)] flex items-center justify-center hover:bg-[rgba(26,15,8,0.12)] transition-colors">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A0F08" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
+          </button>
+
+          <div className="text-center mb-5">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-3" style={{ backgroundColor: accent + "15" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style={{ color: accent }}>
+                <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+              </svg>
+            </div>
+            <h3 className="font-display text-xl font-bold text-[#2D1B0E] mb-1">
+              Review your order
+            </h3>
+            <p className="font-body text-sm text-[#9E8C7A]">
+              {tierLabel}
+            </p>
+          </div>
+
+          {/* Item list */}
+          <div className="rounded-xl bg-[rgba(26,15,8,0.03)] border border-[rgba(26,15,8,0.08)] p-4 mb-5">
+            <div className="space-y-2.5">
+              {items.map((item) => {
+                const product = getProductById(item.productId);
+                if (!product) return null;
+                return (
+                  <div key={item.productId} className="flex items-center justify-between">
+                    <div className="flex-1 min-w-0 mr-3">
+                      <p className="font-body text-sm font-semibold text-[#2D1B0E] truncate">{product.name}</p>
+                    </div>
+                    <p className="font-body text-sm text-[#6B5040] flex-shrink-0">${product.price}</p>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="border-t border-[rgba(26,15,8,0.08)] mt-3 pt-3 flex items-center justify-between">
+              <p className="font-body text-sm font-semibold text-[#2D1B0E]">Total</p>
+              <p className="font-display text-xl font-bold" style={{ color: accent }}>${price}</p>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <button onClick={onConfirm} disabled={loading}
+            className="w-full py-4 rounded-full font-body font-bold text-sm transition-all duration-200 disabled:opacity-60 mb-3 text-[#FDFCF8]"
+            style={{ backgroundColor: "#2D1B0E" }}>
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeDasharray="40 60" />
+                </svg>
+                Connecting to Stripe...
+              </span>
+            ) : (
+              `Checkout — $${price}`
+            )}
+          </button>
+
+          {/* Trust */}
+          <div className="flex items-center justify-center gap-3 text-[rgba(26,15,8,0.35)]">
+            <div className="flex items-center gap-1">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <span className="font-body text-[10px]">Secure via Stripe</span>
+            </div>
+            <span className="text-[8px]">&middot;</span>
+            <span className="font-body text-[10px]">Free shipping</span>
           </div>
         </div>
       </div>

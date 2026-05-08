@@ -101,13 +101,13 @@ function HomeScreen() {
         <p className="font-body text-[7px] font-semibold tracking-[2px] uppercase text-[#9E8C7A] mb-2">This Week</p>
         <div className="flex gap-1.5 overflow-hidden">
           {[
-            { day: "Mon", date: 7, ritual: "Rest", color: "#9E8C7A", done: true },
-            { day: "Tue", date: 8, ritual: "Scalp", color: "#C75B2A", done: true },
-            { day: "Wed", date: 9, ritual: "Wash", color: "#2A7B7B", done: false, today: true },
-            { day: "Thu", date: 10, ritual: "Style", color: "#7B3F6B", done: false },
-            { day: "Fri", date: 11, ritual: "Protect", color: "#3D5A99", done: false },
-            { day: "Sat", date: 12, ritual: "Refresh", color: "#C2456E", done: false },
-            { day: "Sun", date: 13, ritual: "Rest", color: "#9E8C7A", done: false },
+            { day: "Mon", date: 7, activity: "Rest", color: "#9E8C7A", done: true },
+            { day: "Tue", date: 8, activity: "Scalp", color: "#C75B2A", done: true },
+            { day: "Wed", date: 9, activity: "Wash", color: "#2A7B7B", done: false, today: true },
+            { day: "Thu", date: 10, activity: "Style", color: "#7B3F6B", done: false },
+            { day: "Fri", date: 11, activity: "Protect", color: "#3D5A99", done: false },
+            { day: "Sat", date: 12, activity: "Refresh", color: "#C2456E", done: false },
+            { day: "Sun", date: 13, activity: "Rest", color: "#9E8C7A", done: false },
           ].map((d) => (
             <div
               key={d.day}
@@ -126,7 +126,7 @@ function HomeScreen() {
               )}
               {d.today && <div className="w-[5px] h-[5px] rounded-full bg-[#FEF8EC]" />}
               {!d.done && !d.today && <div className="w-[5px] h-[5px] rounded-full" style={{ backgroundColor: `${d.color}30` }} />}
-              <span className={`font-body text-[5px] mt-0.5 ${d.today ? 'text-[rgba(254,248,236,0.7)]' : 'text-[#9E8C7A]'}`}>{d.ritual}</span>
+              <span className={`font-body text-[5px] mt-0.5 ${d.today ? 'text-[rgba(254,248,236,0.7)]' : 'text-[#9E8C7A]'}`}>{d.activity}</span>
             </div>
           ))}
         </div>
@@ -157,7 +157,7 @@ function HomeScreen() {
 }
 
 function PlanScreen() {
-  const rituals = [
+  const steps = [
     { time: "Morning", name: "Pre-poo Treatment", duration: "15 min", color: "#D4A04A", done: false },
     { time: "Morning", name: "Gentle Cleanse", duration: "10 min", color: "#2A7B7B", done: false },
     { time: "Afternoon", name: "Deep Condition", duration: "30 min", color: "#1A7A4A", done: false },
@@ -184,7 +184,7 @@ function PlanScreen() {
 
       {/* Steps */}
       <div className="space-y-2.5">
-        {rituals.map((r, i) => (
+        {steps.map((r, i) => (
           <div key={i} className="rounded-xl bg-white p-3 flex items-center gap-3" style={{ boxShadow: '0 1px 4px rgba(45,27,14,0.05)' }}>
             <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: r.color + '15' }}>
               <span className="font-display text-[11px] font-bold" style={{ color: r.color }}>{i + 1}</span>

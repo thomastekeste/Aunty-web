@@ -31,11 +31,17 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "Too many items" }, { status: 400 });
       }
 
-      const lineItems = cart.map((item) => {
+      const lineItems = [];
+      for (const item of cart) {
         const product = getProductById(item.productId);
-        if (!product) throw new Error(`Unknown product: ${item.productId}`);
+        if (!product) {
+          return NextResponse.json(
+            { error: `Unknown product: ${item.productId}` },
+            { status: 400 }
+          );
+        }
         const qty = Math.max(1, Math.min(10, Math.floor(item.quantity ?? 1)));
-        return {
+        lineItems.push({
           price_data: {
             currency: "usd",
             unit_amount: product.price * 100,
@@ -46,8 +52,8 @@ export async function POST(req: NextRequest) {
             },
           },
           quantity: qty,
-        };
-      });
+        });
+      }
 
       const session = await getStripe().checkout.sessions.create({
         mode: "payment",

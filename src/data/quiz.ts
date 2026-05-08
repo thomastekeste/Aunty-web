@@ -410,7 +410,7 @@ export function getVerdicts(
       goal === "length"
         ? "Baby, I been retaining length since before it was a hashtag. Your aunties got you."
         : goal === "moisture"
-          ? "Honey, moisture is the foundation of EVERYTHING. We about to build you a whole ritual."
+          ? "Honey, moisture is the foundation of EVERYTHING. We about to build you a whole routine."
           : goal === "scalp-health"
             ? "The scalp is everything, baby. You can't grow from unhealthy soil. We fixing the root first."
             : goal === "simplify"
