@@ -22,10 +22,9 @@ export default function Navbar() {
   }, [menuOpen]);
 
   const links = [
-    { href: "/products",  label: "Shop" },
     { href: "/#council",  label: "The Aunties" },
-    { href: "/#quiz",     label: "Consultation" },
-    { href: "/#pricing",  label: "Subscribe & Save" },
+    { href: "/#science",  label: "Our Science" },
+    { href: "/products",  label: "Shop" },
   ];
 
   const close = () => setMenuOpen(false);
@@ -69,25 +68,14 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right side — cart icon + account */}
+          {/* Right side — CTA + hamburger */}
           <div className="flex items-center gap-4">
-            <Link
-              href="/products"
-              className="hidden sm:flex items-center gap-1.5 font-body text-[13px] font-medium text-[#6B5040] hover:text-[#2D1B0E] transition-colors"
-              onClick={close}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-              </svg>
-            </Link>
             <a
               href="#quiz"
-              className="hidden sm:block font-body text-[13px] font-medium text-[#6B5040] hover:text-[#2D1B0E] transition-colors"
+              className="hidden sm:block px-5 py-2 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[12px] font-semibold tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors"
               onClick={close}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
-              </svg>
+              Get Your Formula
             </a>
 
             {/* Hamburger */}
@@ -128,6 +116,13 @@ export default function Navbar() {
             {l.label}
           </Link>
         ))}
+        <a
+          href="#quiz"
+          onClick={close}
+          className="mt-4 px-8 py-3.5 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[13px] font-semibold tracking-[1px] uppercase"
+        >
+          Get Your Formula
+        </a>
       </div>
     </>
   );

@@ -123,6 +123,19 @@ export default function MeetTheCouncil() {
             </button>
           </div>
         )}
+
+        {/* Funnel CTA */}
+        <div className="flex flex-col items-center text-center mt-14 pt-10 border-t border-[rgba(26,15,8,0.06)]">
+          <p className="font-body text-[15px] text-[#6B5040] mb-5 max-w-md leading-[1.7]">
+            Take the consultation and see which aunties pick for you.
+          </p>
+          <a
+            href="#quiz"
+            className="px-8 py-3.5 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body font-semibold text-[13px] tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors"
+          >
+            Start Your Consultation
+          </a>
+        </div>
       </div>
     </section>
   );

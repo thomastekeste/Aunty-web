@@ -69,7 +69,7 @@ const ACTIVES = [
 
 export default function IngredientCredibility() {
   return (
-    <section className="py-20 bg-[#FDFCF8]">
+    <section id="science" className="py-20 bg-[#FDFCF8]">
       <div className="max-w-[1200px] mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-14">

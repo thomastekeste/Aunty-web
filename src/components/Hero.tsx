@@ -35,20 +35,14 @@ export default function Hero() {
           by an aunty who knows exactly what you need.
         </p>
 
-        {/* CTA row */}
+        {/* CTA — single, funnel-focused */}
         <div
-          className="flex flex-wrap items-center justify-center gap-4 mt-2"
+          className="mt-2"
           style={{ opacity: 0, animation: "introFade 600ms ease-out forwards", animationDelay: "600ms" }}
         >
-          <Link
-            href="/products"
-            className="px-7 py-3.5 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body font-semibold text-[13px] tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors"
-          >
-            Shop Collection
-          </Link>
           <a
             href="#quiz"
-            className="px-7 py-3.5 rounded-full border border-[rgba(26,15,8,0.15)] font-body text-[13px] font-semibold tracking-[1px] uppercase text-[#2D1B0E] hover:border-[#2D1B0E] transition-all"
+            className="inline-block px-9 py-4 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body font-semibold text-[13px] tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors"
           >
             Get Your Formula
           </a>
