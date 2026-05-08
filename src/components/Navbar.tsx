@@ -81,7 +81,7 @@ export default function Navbar() {
             {/* Hamburger */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px]"
+              className="md:hidden flex flex-col justify-center items-center w-11 h-11 gap-[5px]"
               aria-label="Toggle menu"
             >
               <span

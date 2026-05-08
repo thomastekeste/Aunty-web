@@ -227,7 +227,7 @@ export default function SocialProof() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 mt-12 text-center">
         <a
           href="#quiz"
-          className="font-body text-[12px] font-bold tracking-[2px] uppercase text-[#1A0F08] border-b-2 border-[#1A0F08]/30 hover:border-[#1A0F08] pb-1 transition-all"
+          className="inline-flex items-center justify-center font-body text-[12px] font-bold tracking-[2px] uppercase text-[#1A0F08] border-b-2 border-[#1A0F08]/30 hover:border-[#1A0F08] py-3 px-4 transition-all"
         >
           Join 12,000+ aunty-matched routines
         </a>

@@ -50,6 +50,28 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ─── Global focus-visible (keyboard a11y) ─── */
+:focus { outline: none; }
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 8px;
+  transition: outline-offset 120ms ease;
+}
+
+/* Inputs already have a border/ring — tighten the offset */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline-offset: 2px;
+}
+
 /* ─── Font shortcuts ─── */
 .font-display { font-family: var(--font-display), system-ui, sans-serif; }
 .font-body    { font-family: var(--font-body),    system-ui, sans-serif; }

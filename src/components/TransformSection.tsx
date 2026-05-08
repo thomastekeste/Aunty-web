@@ -65,10 +65,13 @@ function QuizUICard() {
         ))}
       </div>
 
-      {/* Continue button */}
-      <button className="mt-auto w-full py-2.5 rounded-full bg-[#1A0F08] text-[#FDFCF8] font-body text-[10px] font-bold tracking-[1.5px] uppercase">
+      {/* Continue button (visual mockup, not interactive) */}
+      <div
+        aria-hidden
+        className="mt-auto w-full py-2.5 rounded-full bg-[#1A0F08] text-[#FDFCF8] font-body text-[10px] font-bold tracking-[1.5px] uppercase text-center"
+      >
         Continue
-      </button>
+      </div>
     </div>
   );
 }
