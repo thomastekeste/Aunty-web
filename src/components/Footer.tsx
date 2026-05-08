@@ -16,16 +16,16 @@ export default function Footer() {
           </Link>
 
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            <a href="/#council" className="font-body text-[13px] text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
+            <Link href="/aunties" className="font-body text-[13px] text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
               The Aunties
-            </a>
-            <a href="/#science" className="font-body text-[13px] text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
+            </Link>
+            <Link href="/science" className="font-body text-[13px] text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
               Our Science
-            </a>
+            </Link>
             <Link href="/products" className="font-body text-[13px] text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
               Shop
             </Link>
-            <a href="#quiz" className="font-body text-[13px] text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
+            <a href="/#quiz" className="font-body text-[13px] text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
               Get Your Formula
             </a>
           </div>

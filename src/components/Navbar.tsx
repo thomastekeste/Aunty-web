@@ -22,8 +22,8 @@ export default function Navbar() {
   }, [menuOpen]);
 
   const links = [
-    { href: "/#council",  label: "The Aunties" },
-    { href: "/#science",  label: "Our Science" },
+    { href: "/aunties",   label: "The Aunties" },
+    { href: "/science",   label: "Our Science" },
     { href: "/products",  label: "Shop" },
   ];
 
