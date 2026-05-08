@@ -150,17 +150,9 @@ export default function ProductsPage() {
             <div className="py-4 flex flex-col gap-3">
 
               {/* Title row */}
-              <div className="flex items-center justify-between">
-                <h1 className="font-display text-[1.25rem] md:text-[1.5rem] font-bold text-[#2D1B0E] tracking-[-0.02em]">
-                  Shop
-                </h1>
-                <Link
-                  href="/#quiz"
-                  className="font-body text-[11px] font-semibold tracking-[1.5px] uppercase text-[#FDFCF8] bg-[#2D1B0E] px-4 py-2 rounded-full hover:bg-[#1A0F08] transition-colors"
-                >
-                  Get Your Formula
-                </Link>
-              </div>
+              <h1 className="font-display text-[1.25rem] md:text-[1.5rem] font-bold text-[#2D1B0E] tracking-[-0.02em]">
+                Shop
+              </h1>
 
               {/* Category pills */}
               <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mb-0.5">
