@@ -6,6 +6,8 @@ import AppPreview from "@/components/AppPreview";
 import MeetTheCouncil from "@/components/MeetTheCouncil";
 import HairTypes from "@/components/HairTypes";
 import SkinTypes from "@/components/SkinTypes";
+import SocialProof from "@/components/SocialProof";
+import StickyCTA from "@/components/StickyCTA";
 import ConsultationQuiz from "@/components/ConsultationQuiz";
 import Footer from "@/components/Footer";
 
@@ -16,12 +18,14 @@ export default function Home() {
       <Hero />
       <ValuesMarquee />
       <FeaturedProducts />
+      <SocialProof />
       <AppPreview />
       <MeetTheCouncil />
       <HairTypes />
       <SkinTypes />
       <Footer />
       <ConsultationQuiz />
+      <StickyCTA />
     </main>
   );
 }

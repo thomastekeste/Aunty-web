@@ -158,6 +158,11 @@ body {
   100% { transform: scale(1) translate(var(--scatter-x), var(--scatter-y)); opacity: 0; }
 }
 
+@keyframes stickySlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ─── Stagger delays ─── */
 .delay-100 { animation-delay: 100ms; }
 .delay-200 { animation-delay: 200ms; }
