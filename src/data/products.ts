@@ -7,7 +7,8 @@ export type ProductStatus = "pre-order" | "ships-now";
 export type ProductType =
   | "shampoo" | "conditioner" | "deep-conditioner" | "curl-cream"
   | "scalp-serum" | "growth-oil" | "face-serum" | "lotion"
-  | "spf" | "face-wash" | "scar-gel" | "accessory";
+  | "spf" | "face-wash" | "scar-gel" | "accessory"
+  | "serum" | "scalp-treatment";
 
 export interface Product {
   id: string;
@@ -133,6 +134,73 @@ export const products: Product[] = [
     productType: "growth-oil",
     keyIngredients: ["Jamaican Black Castor Oil", "Peppermint Oil", "Rosemary Oil", "Vitamin E"],
     whyItWorks: "You're growing hair — you're just not keeping it. Rosemary and peppermint stimulate blood flow to the follicle; castor oil seals the scalp and strengthens the base of each strand so length doesn't break off.",
+  },
+
+  // ── HAIR: Pain Point Specials ────────────────────────────────────
+  {
+    id: "hygral-fatigue-conditioner",
+    name: "Aunty Hygral Fatigue Conditioner",
+    category: "hair",
+    sub: "high-porosity",
+    auntyId: "marcia",
+    painPoint: "Over-moisturizing is just as damaging as dryness. Nobody told you that.",
+    price: 26,
+    status: "pre-order",
+    productType: "conditioner",
+    keyIngredients: ["Hydrolyzed Keratin", "Coconut Oil", "Silk Amino Acids", "Ceramides"],
+    whyItWorks: "Protein-moisture balance. Seals with protein first, then moisture. Prevents cuticle swelling from over-wetting.",
+  },
+  {
+    id: "edge-repair-serum",
+    name: "Aunty Edge Repair Serum",
+    category: "hair",
+    sub: "scalp",
+    auntyId: "denise",
+    painPoint: "Braids. Cornrows. Extensions. Your edges remember everything.",
+    price: 26,
+    status: "pre-order",
+    productType: "serum",
+    keyIngredients: ["Castor Oil", "Peptides", "Biotin", "Saw Palmetto"],
+    whyItWorks: "Castor oil + peptides + biotin. Lightweight, anti-inflammatory. Targets hairline damage from traction and tight styling specifically.",
+  },
+  {
+    id: "ccca-scalp-treatment",
+    name: "Aunty CCCA Scalp Treatment",
+    category: "hair",
+    sub: "scalp",
+    auntyId: "amara",
+    painPoint: "Scarring alopecia affects 1 in 20 Black women. Nobody is talking about it. We are.",
+    price: 30,
+    status: "pre-order",
+    productType: "scalp-treatment",
+    keyIngredients: ["Centella Asiatica", "Salicylic Acid", "Zinc Pyrithione", "Allantoin"],
+    whyItWorks: "Anti-inflammatory. Calms scalp before scarring progresses. Centella asiatica + salicylic acid + zinc pyrithione work together to reduce inflammation and protect follicles.",
+  },
+  {
+    id: "protein-moisture-conditioner",
+    name: "Aunty Protein-Moisture Balance Conditioner",
+    category: "hair",
+    sub: "high-porosity",
+    auntyId: "ngozi",
+    painPoint: "Too much moisture. Too much protein. Your hair knows the difference.",
+    price: 28,
+    status: "pre-order",
+    productType: "conditioner",
+    keyIngredients: ["Hydrolyzed Wheat Protein", "Glycerin", "Baobab Oil", "Panthenol"],
+    whyItWorks: "Three variants — protein-heavy, moisture-heavy, or balanced — matched to your hair via the in-app quiz. Because the ratio matters more than the ingredients.",
+  },
+  {
+    id: "scalp-microbiome-shampoo",
+    name: "Aunty Scalp Microbiome Shampoo",
+    category: "hair",
+    sub: "scalp",
+    auntyId: "amara",
+    painPoint: "Protective styles are beautiful. What builds up underneath them isn't.",
+    price: 24,
+    status: "pre-order",
+    productType: "shampoo",
+    keyIngredients: ["Zinc Pyrithione", "Tea Tree Oil", "Prebiotic Complex", "Aloe Vera"],
+    whyItWorks: "Balances scalp microbiome. Zinc pyrithione + tea tree + prebiotic complex. Recommended based on how often you wash and whether you wear protective styles.",
   },
 
   // ── SKIN ────────────────────────────────────────────────────────

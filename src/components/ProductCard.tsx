@@ -49,12 +49,22 @@ function ProductIllustration({ type, color }: { type: string; color: string }) {
     case "scalp-serum":
     case "growth-oil":
     case "face-serum":
+    case "serum":
       return (
         <svg width="40" height="74" viewBox="0 0 46 86" fill="none">
           <rect x="13" y="32" width="20" height="46" rx="7" fill={fill} stroke={stroke} strokeWidth="1.5"/>
           <rect x="16" y="18" width="14" height="18" rx="4" fill={fill} stroke={stroke} strokeWidth="1.5"/>
           <circle cx="23" cy="11" r="5" fill={fill} stroke={stroke} strokeWidth="1.5"/>
           <line x1="23" y1="3" x2="23" y2="9" stroke={stroke} strokeWidth="1.4" strokeLinecap="round"/>
+        </svg>
+      );
+    case "scalp-treatment":
+      return (
+        <svg width="52" height="68" viewBox="0 0 60 78" fill="none">
+          <rect x="7" y="16" width="46" height="54" rx="12" fill={fill} stroke={stroke} strokeWidth="1.5"/>
+          <rect x="16" y="6" width="28" height="14" rx="5" fill={fill} stroke={stroke} strokeWidth="1.5"/>
+          <circle cx="30" cy="43" r="8" fill="none" stroke={stroke} strokeWidth="1.2" opacity="0.4"/>
+          <path d="M30 38 L30 48 M25 43 L35 43" stroke={stroke} strokeWidth="1.2" strokeLinecap="round" opacity="0.5"/>
         </svg>
       );
     case "lotion":
