@@ -108,7 +108,10 @@ export type Struggle =
   | "knots"
   | "heat-damage"
   | "transition"
-  | "growth";
+  | "growth"
+  | "over-moisturized"
+  | "thinning-crown"
+  | "protective-buildup";
 
 export const struggleOptions: {
   value: Struggle;
@@ -123,9 +126,12 @@ export const struggleOptions: {
   { value: "edges",       label: "Thinning edges or hairline", sub: "Edges are sparse, fragile, or slow to grow back" },
   { value: "detangling",  label: "Detangling takes forever",   sub: "Every wash day is a battle" },
   { value: "knots",       label: "Single-strand knots",        sub: "Tiny knots along the strand that keep forming" },
-  { value: "heat-damage", label: "Heat or color damage",       sub: "Curls won't spring back the way they used to" },
-  { value: "transition",  label: "Transitioning to natural",   sub: "Two textures, dealing with the line between them" },
-  { value: "growth",      label: "Slow growth / length loss",  sub: "Growing but not keeping length" },
+  { value: "heat-damage",        label: "Heat or color damage",          sub: "Curls won't spring back the way they used to" },
+  { value: "transition",         label: "Transitioning to natural",      sub: "Two textures, dealing with the line between them" },
+  { value: "growth",             label: "Slow growth / length loss",     sub: "Growing but not keeping length" },
+  { value: "over-moisturized",   label: "Mushy or gummy hair",           sub: "Hair feels limp and weak — too soft, no bounce" },
+  { value: "thinning-crown",     label: "Thinning at the crown",         sub: "Hair loss focused at the top or center of the head" },
+  { value: "protective-buildup", label: "Buildup from protective styles",sub: "Flaking, itching, or odor under braids, wigs, or locs" },
 ];
 
 // ── Goals ──────────────────────────────────────────────────────────────────
@@ -138,7 +144,8 @@ export type Goal =
   | "simplify"
   | "go-natural"
   | "edges-back"
-  | "stronger-strands";
+  | "stronger-strands"
+  | "protein-balance";
 
 export const goalOptions: {
   value: Goal;
@@ -152,8 +159,9 @@ export const goalOptions: {
   { value: "scalp-health",    label: "Scalp health",              sub: "Stop the itch, flaking, and buildup at the root" },
   { value: "simplify",        label: "Simpler routine",           sub: "Fewer products, less time, better results" },
   { value: "go-natural",      label: "Embrace my natural texture",sub: "Navigate the transition or learn my real curl" },
-  { value: "edges-back",      label: "Grow my edges back",        sub: "Rebuild the hairline and protect it" },
-  { value: "stronger-strands",label: "Stronger strands",          sub: "Less shedding, less single-strand knots, more resilience" },
+  { value: "edges-back",       label: "Grow my edges back",           sub: "Rebuild the hairline and protect it" },
+  { value: "stronger-strands", label: "Stronger strands",            sub: "Less shedding, less single-strand knots, more resilience" },
+  { value: "protein-balance",  label: "Fix protein-moisture balance", sub: "Hair that's strong AND soft — not one or the other" },
 ];
 
 // ── Validation copy shown after each step ────────────────────────────────
@@ -192,8 +200,11 @@ export function getStruggleValidation(struggle: Struggle): string[] {
     case "detangling":  return ["Detangling struggles.", "Your wash day shouldn't take half a day. Let's fix the approach."];
     case "knots":       return ["Single-strand knots.", "Common in tight coils. The fix is moisture, slip, and protection."];
     case "heat-damage": return ["Heat or color damage.", "The pattern is disrupted — but it can be rebuilt. Slowly and correctly."];
-    case "transition":  return ["Transitioning.", "Two textures is real work. I'll make it manageable."];
-    case "growth":      return ["Length retention.", "The hair is growing. We just need to stop it from breaking off at the same pace."];
+    case "transition":         return ["Transitioning.", "Two textures is real work. I'll make it manageable."];
+    case "growth":             return ["Length retention.", "The hair is growing. We just need to stop it from breaking off at the same pace."];
+    case "over-moisturized":   return ["Hygral fatigue.", "Your hair is waterlogged — the cuticle swells every wash and never fully recovers. We rebalance with protein first."];
+    case "thinning-crown":     return ["Crown thinning.", "This could be CCCA — scarring alopecia that affects 1 in 20 Black women. Early intervention matters. We act now."];
+    case "protective-buildup": return ["Protective style buildup.", "Beautiful on the outside, buildup underneath. Your scalp microbiome needs rebalancing."];
   }
 }
 
@@ -213,8 +224,13 @@ export function getProductMatches(
 ): ProductMatch[] {
   const matches: ProductMatch[] = [];
 
-  // ── Shampoo (porosity-driven) ──────────────────────────────────────────
-  if (porosity === "low") {
+  // ── Shampoo (porosity-driven + protective style buildup) ───────────────
+  if (struggle === "protective-buildup" || (struggle === "scalp" && goal === "scalp-health")) {
+    matches.push({
+      productId: "scalp-microbiome-shampoo",
+      reason: "Protective styles trap sebum, product residue, and bacteria against the scalp for weeks. This shampoo rebalances your scalp microbiome with zinc pyrithione + tea tree + prebiotics — clearing what built up without stripping everything else.",
+    });
+  } else if (porosity === "low") {
     matches.push({
       productId: "clarifying-shampoo",
       reason: "Your low porosity hair builds up product on the cuticle instead of absorbing it. This shampoo clears that congestion so every product after it can actually get in.",
@@ -227,7 +243,17 @@ export function getProductMatches(
   }
 
   // ── Conditioner / Deep Conditioner ────────────────────────────────────
-  if (porosity === "high" || struggle === "dryness" || struggle === "breakage" || goal === "moisture" || goal === "damage-repair") {
+  if (struggle === "over-moisturized" || goal === "protein-balance") {
+    matches.push({
+      productId: "hygral-fatigue-conditioner",
+      reason: "Your hair is over-moisturized — the cuticle swells every wash and never fully recovers. This conditioner seals with protein first, then moisture, preventing the swelling cycle that's making your hair mushy and weak.",
+    });
+  } else if (struggle === "breakage" && goal === "stronger-strands") {
+    matches.push({
+      productId: "protein-moisture-conditioner",
+      reason: "Your hair needs the ratio dialed in — not just more of everything. This comes in three variants matched via the app quiz: protein-heavy, moisture-heavy, or balanced. Because the ratio matters more than the ingredients.",
+    });
+  } else if (porosity === "high" || struggle === "dryness" || struggle === "breakage" || goal === "moisture" || goal === "damage-repair") {
     matches.push({
       productId: "deep-conditioner",
       reason: `${porosity === "high" ? "High porosity hair needs deep conditioning every wash day — not as a treat, as a requirement." : "Your struggle with " + struggle + " starts with moisture."} Marcia's formula floods the strand and uses protein to seal the gains in.`,
@@ -239,11 +265,35 @@ export function getProductMatches(
     });
   }
 
+  // ── Protein-moisture balance (add-on when relevant) ───────────────────
+  if (goal === "protein-balance" && struggle !== "over-moisturized") {
+    matches.push({
+      productId: "protein-moisture-conditioner",
+      reason: "Three variants — protein-heavy, moisture-heavy, or balanced — matched to your hair via the in-app quiz. Because the ratio matters more than the ingredients.",
+    });
+  }
+
+  // ── CCCA Scalp Treatment ──────────────────────────────────────────────
+  if (struggle === "thinning-crown") {
+    matches.push({
+      productId: "ccca-scalp-treatment",
+      reason: "Crown thinning in Black women is often CCCA — scarring alopecia that destroys follicles permanently if untreated. Centella asiatica + salicylic acid + zinc pyrithione calm inflammation and protect follicles before scarring progresses. Early action is everything.",
+    });
+  }
+
   // ── Scalp care ────────────────────────────────────────────────────────
-  if (struggle === "scalp" || struggle === "growth" || struggle === "edges" || goal === "scalp-health" || goal === "length-retention" || goal === "edges-back") {
+  if (struggle === "scalp" || struggle === "growth" || struggle === "edges" || struggle === "thinning-crown" || struggle === "protective-buildup" || goal === "scalp-health" || goal === "length-retention" || goal === "edges-back") {
     matches.push({
       productId: "scalp-serum",
       reason: `${struggle === "edges" || goal === "edges-back" ? "Thinning edges start at the scalp." : "Healthy hair starts at the root."} Salicylic acid clears buildup that's blocking your follicles; niacinamide calms the inflammation underneath.`,
+    });
+  }
+
+  // ── Edge Repair Serum ─────────────────────────────────────────────────
+  if (struggle === "edges" || goal === "edges-back") {
+    matches.push({
+      productId: "edge-repair-serum",
+      reason: "Braids, cornrows, extensions — your edges remember every style. Castor oil + peptides + biotin target hairline damage from traction specifically. Lightweight and anti-inflammatory so it heals without weighing down fragile baby hairs.",
     });
   }
 
