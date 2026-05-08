@@ -13,30 +13,30 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://auntycurlcouncil.co
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   icons: { icon: "/logo.png", apple: "/logo.png" },
-  title: "Aunty Curl Council — Your Aunties Have Been Waiting",
+  title: "Aunty Council — Hair & Skin, Aunty Curated",
   description:
-    "AI-powered personalized hair care from seven aunties who actually understand your texture. Take the free consultation and get your routine.",
+    "A curated marketplace of hair and skin products — each one recommended by an aunty who knows your texture. Take the free consultation and shop your picks.",
   openGraph: {
-    title: "Aunty Curl Council — Your Aunties Have Been Waiting",
+    title: "Aunty Council — Hair & Skin, Aunty Curated",
     description:
-      "AI-powered personalized hair care from seven aunties who actually understand your texture.",
+      "A curated marketplace of hair and skin products recommended by seven aunties who actually know your texture.",
     type: "website",
     url: siteUrl,
-    siteName: "Aunty Curl Council",
+    siteName: "Aunty Council",
     images: [
       {
         url: "/logo.png",
         width: 512,
         height: 512,
-        alt: "Aunty Curl Council",
+        alt: "Aunty Council",
       },
     ],
   },
   twitter: {
     card: "summary",
-    title: "Aunty Curl Council — Your Aunties Have Been Waiting",
+    title: "Aunty Council — Hair & Skin, Aunty Curated",
     description:
-      "AI-powered personalized hair care from seven aunties who actually understand your texture.",
+      "A curated marketplace of hair and skin products recommended by seven aunties who actually know your texture.",
     images: ["/logo.png"],
   },
 };
@@ -44,11 +44,11 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Aunty Curl Council",
+  name: "Aunty Council",
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   description:
-    "AI-powered personalized hair care from seven aunties who actually understand your texture.",
+    "A curated marketplace of hair and skin products — each one recommended by an aunty who knows your texture.",
   contactPoint: {
     "@type": "ContactPoint",
     email: "hello@auntycurlcouncil.com",

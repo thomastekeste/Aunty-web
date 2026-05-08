@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import LegalLayout from "@/components/LegalLayout";
 
 export const metadata: Metadata = {
-  title: "Refund Policy — Aunty Curl Council",
+  title: "Refund Policy — Aunty Council",
   description: "Our refund policy for Founding Members.",
 };
 
@@ -23,7 +23,7 @@ export default function RefundPage() {
 
       <h2>1. If we don&rsquo;t launch</h2>
       <p>
-        Aunty Curl Council plans to launch in the coming weeks. If we are unable
+        Aunty Council plans to launch in the coming weeks. If we are unable
         to launch the app for any reason &mdash; technical, business, or
         otherwise &mdash; every Founding Member will receive a{" "}
         <strong>100% refund</strong> of the amount paid, processed back to the

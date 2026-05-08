@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import LegalLayout from "@/components/LegalLayout";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Aunty Curl Council",
-  description: "How Aunty Curl Council collects, uses, and protects your data.",
+  title: "Privacy Policy — Aunty Council",
+  description: "How Aunty Council collects, uses, and protects your data.",
 };
 
 export default function PrivacyPage() {
