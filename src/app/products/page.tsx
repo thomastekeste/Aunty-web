@@ -18,24 +18,22 @@ const TOP_FILTERS: { value: TopFilter; label: string }[] = [
 
 const SUB_FILTERS: Record<string, { value: ProductSub; label: string }[]> = {
   hair: [
-    { value: "low-porosity",  label: "Low Porosity" },
-    { value: "high-porosity", label: "High Porosity" },
-    { value: "scalp",         label: "Scalp" },
+    { value: "low-porosity",    label: "Low Porosity" },
+    { value: "high-porosity",   label: "High Porosity" },
+    { value: "normal-porosity", label: "Normal Porosity" },
+    { value: "scalp",           label: "Scalp" },
   ],
   skin: [
-    { value: "hyperpigmentation", label: "Hyperpigmentation" },
-    { value: "glow",              label: "Glow" },
-    { value: "dryness",           label: "Dryness" },
-    { value: "spf",               label: "SPF" },
-    { value: "oily",              label: "Oily" },
-    { value: "dry-ashy",          label: "Dry & Ashy" },
-    { value: "combination",       label: "Combination" },
-    { value: "balanced",          label: "Balanced" },
-    { value: "sensitive",         label: "Sensitive" },
+    { value: "universal",   label: "Universal" },
+    { value: "oily",        label: "Oily + Dehydrated" },
+    { value: "dry-ashy",    label: "Dry + Ashy" },
+    { value: "combination", label: "Combination" },
+    { value: "balanced",    label: "Glowy + Balanced" },
+    { value: "sensitive",   label: "Sensitive" },
   ],
   accessories: [
-    { value: "hair", label: "Hair" },
-    { value: "skin", label: "Skin" },
+    { value: "hair", label: "Hair Tools" },
+    { value: "skin", label: "Skin Tools" },
   ],
 };
 
@@ -45,19 +43,22 @@ const CATEGORY_ACCENT: Record<ProductCategory, string> = {
   accessories: "#9E8C7A",
 };
 
+const CATEGORY_META: Record<ProductCategory, { title: string; desc: string }> = {
+  hair: { title: "Haircare", desc: "Shampoos, conditioners & treatments matched to your porosity" },
+  skin: { title: "Skincare", desc: "Serums, cleansers & treatments built for melanin-rich skin" },
+  accessories: { title: "Accessories", desc: "Tools your aunty swears by" },
+};
+
 function BundleCard({ bundle }: { bundle: typeof bundles[number] }) {
   return (
-    <div className="rounded-2xl p-8 flex flex-col gap-5 bg-[#F7F5F0] border border-[rgba(26,15,8,0.06)]">
+    <div className="rounded-2xl p-6 md:p-8 flex flex-col gap-4 bg-[#F7F5F0] border border-[rgba(26,15,8,0.06)]">
       <div>
-        <h3 className="font-display text-lg font-bold text-[#2D1B0E] mb-1.5">{bundle.name}</h3>
+        <h3 className="font-display text-base md:text-lg font-bold text-[#2D1B0E] mb-1">{bundle.name}</h3>
         <p className="font-body text-[13px] text-[#6B5040] leading-relaxed">{bundle.description}</p>
-        <p className="font-body text-[11px] font-semibold tracking-[1px] uppercase text-[#9E8C7A] mt-2">
-          {bundle.includes}
-        </p>
       </div>
       <div className="flex items-end justify-between mt-auto">
         <div>
-          <div className="font-display text-2xl font-bold text-[#2D1B0E]">${bundle.price}</div>
+          <div className="font-display text-xl md:text-2xl font-bold text-[#2D1B0E]">${bundle.price}</div>
           <div className="font-body text-[12px] text-[#9E8C7A]">
             <span className="line-through">${bundle.originalPrice}</span>
             <span className="ml-1.5 font-semibold text-[#2D1B0E]">Save ${bundle.savings}</span>
@@ -71,6 +72,37 @@ function BundleCard({ bundle }: { bundle: typeof bundles[number] }) {
         </Link>
       </div>
     </div>
+  );
+}
+
+function CategorySection({
+  category,
+  items,
+}: {
+  category: ProductCategory;
+  items: typeof products;
+}) {
+  const meta = CATEGORY_META[category];
+  const accent = CATEGORY_ACCENT[category];
+  return (
+    <section className="mb-14">
+      <div className="flex items-baseline justify-between mb-6">
+        <div>
+          <h2 className="font-display text-[1.25rem] md:text-[1.5rem] font-bold text-[#2D1B0E] tracking-[-0.01em]">
+            {meta.title}
+          </h2>
+          <p className="font-body text-[13px] text-[#9E8C7A] mt-0.5">{meta.desc}</p>
+        </div>
+        <span className="font-body text-[12px] text-[#9E8C7A] hidden sm:block">
+          {items.length} {items.length === 1 ? "product" : "products"}
+        </span>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+        {items.map((p) => (
+          <ProductCard key={p.id} product={p} accent={accent} />
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -88,68 +120,93 @@ export default function ProductsPage() {
     });
   }, [top, sub]);
 
+  const countByCategory = useMemo(() => {
+    const counts: Record<string, number> = {};
+    products.forEach((p) => { counts[p.category] = (counts[p.category] || 0) + 1; });
+    return counts;
+  }, []);
+
   const handleTopChange = (val: TopFilter) => {
     setTop(val);
     setSub(null);
   };
+
+  const grouped = useMemo(() => {
+    if (top !== "all") return null;
+    const cats: ProductCategory[] = ["hair", "skin", "accessories"];
+    return cats
+      .map((c) => ({ category: c, items: products.filter((p) => p.category === c) }))
+      .filter((g) => g.items.length > 0);
+  }, [top]);
 
   return (
     <>
       <Navbar />
       <main className="min-h-screen bg-[#FDFCF8] pt-[72px]">
 
-        {/* Page header */}
-        <div className="border-b border-[rgba(26,15,8,0.06)]">
-          <div className="max-w-[1400px] mx-auto px-8 py-10">
-            <h1 className="font-display text-[2rem] md:text-[2.5rem] font-bold text-[#2D1B0E] leading-[1.1] tracking-[-0.02em] mb-2">
-              The shop
-            </h1>
-            <p className="font-body text-[15px] text-[#6B5040] max-w-lg leading-[1.7]">
-              Every product is recommended by a specific aunty based on your hair or skin profile.
-              Not sure which is yours?{" "}
-              <Link href="/#quiz" className="text-[#2D1B0E] underline underline-offset-4 hover:opacity-60 transition-opacity">
-                Take the free consultation.
-              </Link>
-            </p>
-          </div>
-        </div>
-
-        {/* Filter bar */}
+        {/* Compact header + filters */}
         <div className="sticky top-[72px] z-30 bg-[#FDFCF8]/95 backdrop-blur-md border-b border-[rgba(26,15,8,0.06)]">
-          <div className="max-w-[1400px] mx-auto px-8">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-8">
             <div className="py-4 flex flex-col gap-3">
-              <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide">
-                {TOP_FILTERS.map((f) => (
-                  <button
-                    key={f.value}
-                    onClick={() => handleTopChange(f.value)}
-                    className={`flex-shrink-0 font-body text-[13px] font-medium pb-1 transition-all ${
-                      top === f.value
-                        ? "text-[#2D1B0E] border-b-[1.5px] border-[#2D1B0E]"
-                        : "text-[#9E8C7A] hover:text-[#6B5040]"
-                    }`}
-                  >
-                    {f.label}
-                  </button>
-                ))}
+
+              {/* Title row */}
+              <div className="flex items-center justify-between">
+                <h1 className="font-display text-[1.25rem] md:text-[1.5rem] font-bold text-[#2D1B0E] tracking-[-0.02em]">
+                  Shop
+                </h1>
+                <Link
+                  href="/#quiz"
+                  className="font-body text-[11px] font-semibold tracking-[1.5px] uppercase text-[#FDFCF8] bg-[#2D1B0E] px-4 py-2 rounded-full hover:bg-[#1A0F08] transition-colors"
+                >
+                  Get Your Formula
+                </Link>
               </div>
 
+              {/* Category pills */}
+              <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mb-0.5">
+                {TOP_FILTERS.map((f) => {
+                  const count = f.value === "all" ? products.length : (countByCategory[f.value] || 0);
+                  const active = top === f.value;
+                  return (
+                    <button
+                      key={f.value}
+                      onClick={() => handleTopChange(f.value)}
+                      className={`flex-shrink-0 font-body text-[12px] font-medium px-4 py-1.5 rounded-full transition-all ${
+                        active
+                          ? "bg-[#2D1B0E] text-[#FDFCF8]"
+                          : "bg-[#F7F5F0] text-[#6B5040] hover:bg-[#EDE9E3]"
+                      }`}
+                    >
+                      {f.label}
+                      <span className={`ml-1.5 text-[10px] ${active ? "text-[rgba(253,252,248,0.5)]" : "text-[#9E8C7A]"}`}>
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Sub-filters */}
               {subOptions.length > 0 && (
-                <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide">
+                <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
                   <button
                     onClick={() => setSub(null)}
-                    className={`flex-shrink-0 font-body text-[12px] font-medium pb-0.5 transition-all ${
-                      !sub ? "text-[#2D1B0E] border-b border-[#2D1B0E]" : "text-[#9E8C7A] hover:text-[#6B5040]"
+                    className={`flex-shrink-0 font-body text-[11px] font-medium px-3 py-1 rounded-full transition-all ${
+                      !sub
+                        ? "bg-[#2D1B0E] text-[#FDFCF8]"
+                        : "bg-transparent text-[#9E8C7A] border border-[rgba(26,15,8,0.1)] hover:text-[#6B5040]"
                     }`}
                   >
-                    All {top.charAt(0).toUpperCase() + top.slice(1)}
+                    All
                   </button>
                   {subOptions.map((s) => (
                     <button
                       key={s.value}
                       onClick={() => setSub(s.value)}
-                      className={`flex-shrink-0 font-body text-[12px] font-medium pb-0.5 transition-all ${
-                        sub === s.value ? "text-[#2D1B0E] border-b border-[#2D1B0E]" : "text-[#9E8C7A] hover:text-[#6B5040]"
+                      className={`flex-shrink-0 font-body text-[11px] font-medium px-3 py-1 rounded-full transition-all ${
+                        sub === s.value
+                          ? "bg-[#2D1B0E] text-[#FDFCF8]"
+                          : "bg-transparent text-[#9E8C7A] border border-[rgba(26,15,8,0.1)] hover:text-[#6B5040]"
                       }`}
                     >
                       {s.label}
@@ -161,14 +218,18 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        {/* Product grid */}
-        <div className="max-w-[1400px] mx-auto px-8 py-10">
-          {filtered.length === 0 ? (
+        {/* Products */}
+        <div className="max-w-[1400px] mx-auto px-6 md:px-8 pt-8 pb-10">
+          {grouped ? (
+            grouped.map((g) => (
+              <CategorySection key={g.category} category={g.category} items={g.items} />
+            ))
+          ) : filtered.length === 0 ? (
             <div className="text-center py-16 text-[#9E8C7A] font-body">
               No products found for that filter.
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {filtered.map((p) => (
                 <ProductCard
                   key={p.id}
@@ -181,17 +242,22 @@ export default function ProductsPage() {
         </div>
 
         {/* Bundles */}
-        <div className="border-t border-[rgba(26,15,8,0.06)]">
-          <div className="max-w-[1400px] mx-auto px-8 py-16">
-            <div className="mb-8">
-              <p className="font-body text-[11px] font-semibold tracking-[4px] uppercase text-[#9E8C7A] mb-3">
-                Bundles
-              </p>
-              <h2 className="font-display text-[2rem] md:text-[2.5rem] font-bold text-[#2D1B0E] tracking-[-0.02em]">
-                The aunty-approved starter sets
-              </h2>
+        <div className="border-t border-[rgba(26,15,8,0.06)] bg-[#FDFCF8]">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-8 py-14">
+            <div className="flex items-baseline justify-between mb-6">
+              <div>
+                <p className="font-body text-[11px] font-semibold tracking-[3px] uppercase text-[#9E8C7A] mb-1">
+                  Save more
+                </p>
+                <h2 className="font-display text-[1.25rem] md:text-[1.5rem] font-bold text-[#2D1B0E] tracking-[-0.02em]">
+                  Starter bundles
+                </h2>
+              </div>
+              <span className="font-body text-[12px] text-[#9E8C7A] hidden sm:block">
+                {bundles.length} bundles
+              </span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
               {bundles.map((b) => (
                 <BundleCard key={b.id} bundle={b} />
               ))}
@@ -201,18 +267,18 @@ export default function ProductsPage() {
 
         {/* Quiz CTA */}
         <div className="bg-[#2D1B0E] text-[#FDFCF8]">
-          <div className="max-w-[1400px] mx-auto px-8 py-16 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-              <h2 className="font-display text-[1.75rem] md:text-[2rem] font-bold mb-2 tracking-[-0.02em]">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-8 py-12 md:py-14 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-left">
+              <h2 className="font-display text-[1.5rem] md:text-[1.75rem] font-bold mb-1.5 tracking-[-0.02em]">
                 Not sure which products are yours?
               </h2>
-              <p className="font-body text-[15px] text-[rgba(253,252,248,0.55)]">
+              <p className="font-body text-[14px] text-[rgba(253,252,248,0.5)]">
                 Let your aunty decide. Two minutes. Personalised picks.
               </p>
             </div>
             <Link
               href="/#quiz"
-              className="flex-shrink-0 font-body text-[12px] font-semibold tracking-[2px] uppercase px-8 py-4 rounded-full bg-[#FDFCF8] text-[#2D1B0E] hover:bg-white transition-colors"
+              className="flex-shrink-0 font-body text-[11px] font-semibold tracking-[2px] uppercase px-7 py-3.5 rounded-full bg-[#FDFCF8] text-[#2D1B0E] hover:bg-white transition-colors"
             >
               Take the free consultation
             </Link>
