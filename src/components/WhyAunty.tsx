@@ -125,8 +125,9 @@ export default function WhyAunty() {
             <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[#C9903A] text-[#1A0F08] font-body text-[9px] font-bold tracking-[1.5px] uppercase whitespace-nowrap">
               ★ Best fit
             </span>
-            <span className="font-body text-[10px] md:text-[11px] font-bold tracking-[1.5px] md:tracking-[2px] uppercase text-[#FDFCF8] text-center">
-              Aunty Council
+            <span className="font-body text-[10px] md:text-[11px] font-bold tracking-[1px] md:tracking-[2px] uppercase text-[#FDFCF8] text-center">
+              <span className="hidden md:inline">Aunty Council</span>
+              <span className="md:hidden">Aunty</span>
             </span>
             <span className="font-body text-[10px] text-[#C9903A]/80 mt-1 text-center hidden md:block">
               The whole council

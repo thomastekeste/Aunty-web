@@ -1,5 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import StatsBand from "@/components/StatsBand";
+import Manifesto from "@/components/Manifesto";
 import ValuesMarquee from "@/components/ValuesMarquee";
 import QuizOnramp from "@/components/QuizOnramp";
 import WhyAunty from "@/components/WhyAunty";
@@ -14,6 +16,8 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
+      <StatsBand />
+      <Manifesto />
       <ValuesMarquee />
       <QuizOnramp />
       <WhyAunty />
