@@ -71,97 +71,74 @@ export const porosityOptions: {
   },
 ];
 
-// ── Density ────────────────────────────────────────────────────────────────
-export type Density = "thin" | "medium" | "thick";
+// ── Q3: How does your hair feel most days? ───────────────────────────────
+export type MoistureLevel = "dry-crunchy" | "mushy-limp" | "balanced";
 
-export const densityOptions: {
-  value: Density;
-  label: string;
-  desc: string;
-}[] = [
-  {
-    value: "thin",
-    label: "Thin",
-    desc: "I can easily see my scalp when I part my hair",
-  },
-  {
-    value: "medium",
-    label: "Medium",
-    desc: "I can see my scalp if I look closely or part it",
-  },
-  {
-    value: "thick",
-    label: "Thick",
-    desc: "Hard to see my scalp — a lot of hair",
-  },
-];
-
-// ── Struggles ──────────────────────────────────────────────────────────────
-export type Struggle =
-  | "dryness"
-  | "breakage"
-  | "frizz"
-  | "shrinkage"
-  | "scalp"
-  | "edges"
-  | "detangling"
-  | "knots"
-  | "heat-damage"
-  | "transition"
-  | "growth"
-  | "over-moisturized"
-  | "thinning-crown"
-  | "protective-buildup";
-
-export const struggleOptions: {
-  value: Struggle;
+export const moistureLevelOptions: {
+  value: MoistureLevel;
   label: string;
   sub: string;
 }[] = [
-  { value: "dryness",     label: "Dryness & crunch",           sub: "Products absorb but hair still feels dry" },
-  { value: "breakage",    label: "Breakage & shedding",        sub: "Losing length no matter what I do" },
-  { value: "frizz",       label: "Frizz I can't tame",         sub: "Especially in humidity or after drying" },
-  { value: "shrinkage",   label: "Shrinkage frustration",      sub: "Can't see my length when it's dry" },
-  { value: "scalp",       label: "Itchy or flaky scalp",       sub: "Buildup, dandruff, or irritation" },
-  { value: "edges",       label: "Thinning edges or hairline", sub: "Edges are sparse, fragile, or slow to grow back" },
-  { value: "detangling",  label: "Detangling takes forever",   sub: "Every wash day is a battle" },
-  { value: "knots",       label: "Single-strand knots",        sub: "Tiny knots along the strand that keep forming" },
-  { value: "heat-damage",        label: "Heat or color damage",          sub: "Curls won't spring back the way they used to" },
-  { value: "transition",         label: "Transitioning to natural",      sub: "Two textures, dealing with the line between them" },
-  { value: "growth",             label: "Slow growth / length loss",     sub: "Growing but not keeping length" },
-  { value: "over-moisturized",   label: "Mushy or gummy hair",           sub: "Hair feels limp and weak — too soft, no bounce" },
-  { value: "thinning-crown",     label: "Thinning at the crown",         sub: "Hair loss focused at the top or center of the head" },
-  { value: "protective-buildup", label: "Buildup from protective styles",sub: "Flaking, itching, or odor under braids, wigs, or locs" },
+  { value: "dry-crunchy", label: "Dry and crunchy",   sub: "Stiff, straw-like — needs moisture constantly" },
+  { value: "mushy-limp",  label: "Mushy and limp",    sub: "Too soft, no bounce — like it's waterlogged" },
+  { value: "balanced",    label: "Pretty balanced",   sub: "Not too dry, not too soft — holds its shape" },
 ];
 
-// ── Goals ──────────────────────────────────────────────────────────────────
-export type Goal =
-  | "moisture"
-  | "length-retention"
-  | "definition"
-  | "damage-repair"
-  | "scalp-health"
-  | "simplify"
-  | "go-natural"
-  | "edges-back"
-  | "stronger-strands"
-  | "protein-balance";
+// ── Q4: How much hair are you losing? ────────────────────────────────────
+export type HairLoss = "heavy-breakage" | "edges-thinning" | "crown-thinning" | "normal";
 
-export const goalOptions: {
-  value: Goal;
+export const hairLossOptions: {
+  value: HairLoss;
   label: string;
   sub: string;
 }[] = [
-  { value: "moisture",        label: "Moisture & softness",       sub: "Hair that feels soft, not crunchy or straw-like" },
-  { value: "length-retention",label: "Keep my length",            sub: "Grow it AND keep it — stop the breakage cycle" },
-  { value: "definition",      label: "Curl definition",           sub: "Bouncy, clumped, uniform curls or coils" },
-  { value: "damage-repair",   label: "Repair damage",             sub: "Rebuild from heat, color, or chemical treatment" },
-  { value: "scalp-health",    label: "Scalp health",              sub: "Stop the itch, flaking, and buildup at the root" },
-  { value: "simplify",        label: "Simpler routine",           sub: "Fewer products, less time, better results" },
-  { value: "go-natural",      label: "Embrace my natural texture",sub: "Navigate the transition or learn my real curl" },
-  { value: "edges-back",       label: "Grow my edges back",           sub: "Rebuild the hairline and protect it" },
-  { value: "stronger-strands", label: "Stronger strands",            sub: "Less shedding, less single-strand knots, more resilience" },
-  { value: "protein-balance",  label: "Fix protein-moisture balance", sub: "Hair that's strong AND soft — not one or the other" },
+  { value: "heavy-breakage",  label: "A lot of breakage",       sub: "Hair snaps when I style or detangle" },
+  { value: "edges-thinning",  label: "My edges are thinning",   sub: "Hairline is receding from styles or tension" },
+  { value: "crown-thinning",  label: "Thinning at the crown",   sub: "Hair loss at the top of my head" },
+  { value: "normal",          label: "Normal shedding",          sub: "Nothing unusual — just typical shed" },
+];
+
+// ── Q5: How's your scalp? ────────────────────────────────────────────────
+export type ScalpHealth = "itchy-flaky" | "buildup-styles" | "fine";
+
+export const scalpHealthOptions: {
+  value: ScalpHealth;
+  label: string;
+  sub: string;
+}[] = [
+  { value: "itchy-flaky",    label: "Itchy or flaky",                  sub: "Dandruff, irritation, or buildup I can feel" },
+  { value: "buildup-styles", label: "Buildup from protective styles",  sub: "Braids, wigs, or locs leave residue and odor" },
+  { value: "fine",           label: "My scalp is fine",                sub: "No issues — it's comfortable" },
+];
+
+// ── Q6: Biggest styling frustration? ─────────────────────────────────────
+export type StylingFrustration = "frizz" | "shrinkage" | "no-definition" | "takes-forever";
+
+export const stylingFrustrationOptions: {
+  value: StylingFrustration;
+  label: string;
+  sub: string;
+}[] = [
+  { value: "frizz",          label: "Frizz I can't control",    sub: "Especially in humidity or after drying" },
+  { value: "shrinkage",      label: "Too much shrinkage",       sub: "Can't see my real length when it dries" },
+  { value: "no-definition",  label: "No curl definition",       sub: "Curls won't clump or hold their pattern" },
+  { value: "takes-forever",  label: "Everything takes too long", sub: "Wash day is an all-day event" },
+];
+
+// ── Q7: #1 hair goal? ───────────────────────────────────────────────────
+export type HairGoal = "moisture" | "length" | "definition" | "scalp-health" | "damage-repair" | "simplify";
+
+export const hairGoalOptions: {
+  value: HairGoal;
+  label: string;
+  sub: string;
+}[] = [
+  { value: "moisture",      label: "Moisture that lasts",       sub: "Soft hair that stays soft between wash days" },
+  { value: "length",        label: "Keep my length",            sub: "Grow it AND keep it" },
+  { value: "definition",    label: "Curl definition",           sub: "Bouncy, clumped curls or coils" },
+  { value: "scalp-health",  label: "Healthy scalp",             sub: "No more itch, flake, or buildup" },
+  { value: "damage-repair", label: "Repair damage",             sub: "Rebuild from heat, color, or chemical treatment" },
+  { value: "simplify",      label: "Simpler routine",           sub: "Fewer products, less time, same results" },
 ];
 
 // ── Validation copy shown after each step ────────────────────────────────
@@ -189,156 +166,204 @@ export function getPorosityValidation(porosity: Porosity): string[] {
   }
 }
 
-export function getStruggleValidation(struggle: Struggle): string[] {
-  switch (struggle) {
-    case "dryness":     return ["Dryness.", "You've been feeding it — it's just not absorbing. We'll fix that."];
-    case "breakage":    return ["Breakage.", "You're growing it. The strand just can't survive to length. That's fixable."];
-    case "frizz":       return ["Frizz.", "Your hair is asking for moisture and definition at the same time. I hear it."];
-    case "shrinkage":   return ["Shrinkage.", "Your curl is healthy — let's talk retention."];
-    case "scalp":       return ["Scalp issues.", "The scalp sets the foundation for everything. We start there."];
-    case "edges":       return ["Thinning edges.", "Fragile and often ignored. Aunty sees it. We protect what's left and bring it back."];
-    case "detangling":  return ["Detangling struggles.", "Your wash day shouldn't take half a day. Let's fix the approach."];
-    case "knots":       return ["Single-strand knots.", "Common in tight coils. The fix is moisture, slip, and protection."];
-    case "heat-damage": return ["Heat or color damage.", "The pattern is disrupted — but it can be rebuilt. Slowly and correctly."];
-    case "transition":         return ["Transitioning.", "Two textures is real work. I'll make it manageable."];
-    case "growth":             return ["Length retention.", "The hair is growing. We just need to stop it from breaking off at the same pace."];
-    case "over-moisturized":   return ["Hygral fatigue.", "Your hair is waterlogged — the cuticle swells every wash and never fully recovers. We rebalance with protein first."];
-    case "thinning-crown":     return ["Crown thinning.", "This could be CCCA — scarring alopecia that affects 1 in 20 Black women. Early intervention matters. We act now."];
-    case "protective-buildup": return ["Protective style buildup.", "Beautiful on the outside, buildup underneath. Your scalp microbiome needs rebalancing."];
-  }
-}
-
-// ── Product matching ──────────────────────────────────────────────────────
-// Returns ordered product IDs with a reason string for each
+// ── Tiered product matching ──────────────────────────────────────────────
 export interface ProductMatch {
   productId: string;
   reason: string;
 }
 
-export function getProductMatches(
+export interface TieredMatches {
+  basics: ProductMatch[];
+  essentials: ProductMatch[];
+  addons: ProductMatch[];
+}
+
+export function getHairTieredMatches(
   hairType: HairCategory,
   porosity: Porosity,
-  density: Density,
-  struggle: Struggle,
-  goal: Goal
-): ProductMatch[] {
-  const matches: ProductMatch[] = [];
+  moisture: MoistureLevel,
+  hairLoss: HairLoss,
+  scalp: ScalpHealth,
+  styling: StylingFrustration,
+  goal: HairGoal,
+): TieredMatches {
+  const basics: ProductMatch[] = [];
+  const essentials: ProductMatch[] = [];
+  const addons: ProductMatch[] = [];
 
-  // ── Shampoo (porosity-driven + protective style buildup) ───────────────
-  if (struggle === "protective-buildup" || (struggle === "scalp" && goal === "scalp-health")) {
-    matches.push({
+  // ── BASICS: Shampoo ───────────────────────────────────────────────────
+  if (scalp === "buildup-styles") {
+    basics.push({
       productId: "scalp-microbiome-shampoo",
-      reason: "Protective styles trap sebum, product residue, and bacteria against the scalp for weeks. This shampoo rebalances your scalp microbiome with zinc pyrithione + tea tree + prebiotics — clearing what built up without stripping everything else.",
+      reason: "You mentioned buildup from protective styles — braids, wigs, and locs trap sebum and bacteria against the scalp for weeks. This shampoo rebalances your scalp microbiome with zinc pyrithione + tea tree + prebiotics, clearing what built up without stripping everything else.",
     });
   } else if (porosity === "low") {
-    matches.push({
+    basics.push({
       productId: "clarifying-shampoo",
-      reason: "Your low porosity hair builds up product on the cuticle instead of absorbing it. This shampoo clears that congestion so every product after it can actually get in.",
+      reason: "With low porosity hair, products pile up on the cuticle instead of absorbing. This clarifying shampoo breaks down that congestion so every product after it can actually get in.",
     });
   } else {
-    matches.push({
+    basics.push({
       productId: "moisturizing-shampoo",
-      reason: "With high porosity hair, even cleansing can strip moisture. This shampoo cleanses while depositing hydration so you don't start wash day in a deficit.",
+      reason: porosity === "high"
+        ? "High porosity hair loses moisture even during cleansing. This shampoo deposits hydration while it cleans so you don't start wash day in a deficit."
+        : "A gentle cleanser that won't strip what your hair needs. Shea butter and aloe keep moisture in while castor oil strengthens from root to tip.",
     });
   }
 
-  // ── Conditioner / Deep Conditioner ────────────────────────────────────
-  if (struggle === "over-moisturized" || goal === "protein-balance") {
-    matches.push({
+  // ── BASICS: Conditioner ───────────────────────────────────────────────
+  if (moisture === "mushy-limp") {
+    basics.push({
       productId: "hygral-fatigue-conditioner",
-      reason: "Your hair is over-moisturized — the cuticle swells every wash and never fully recovers. This conditioner seals with protein first, then moisture, preventing the swelling cycle that's making your hair mushy and weak.",
+      reason: "You told us your hair feels mushy and limp — that's hygral fatigue. Your cuticle is swelling from too much moisture and not enough protein. This conditioner seals with protein first, then moisture, stopping the swelling cycle that's making your hair weak.",
     });
-  } else if (struggle === "breakage" && goal === "stronger-strands") {
-    matches.push({
-      productId: "protein-moisture-conditioner",
-      reason: "Your hair needs the ratio dialed in — not just more of everything. This comes in three variants matched via the app quiz: protein-heavy, moisture-heavy, or balanced. Because the ratio matters more than the ingredients.",
-    });
-  } else if (porosity === "high" || struggle === "dryness" || struggle === "breakage" || goal === "moisture" || goal === "damage-repair") {
-    matches.push({
+  } else if (moisture === "dry-crunchy" && (porosity === "high" || porosity === "normal")) {
+    basics.push({
       productId: "deep-conditioner",
-      reason: `${porosity === "high" ? "High porosity hair needs deep conditioning every wash day — not as a treat, as a requirement." : "Your struggle with " + struggle + " starts with moisture."} Marcia's formula floods the strand and uses protein to seal the gains in.`,
+      reason: "Your hair feels dry and crunchy — with " + porosity + " porosity, moisture escapes through lifted cuticles. This deep conditioner floods each strand with hydration, then wheat protein fills the gaps so moisture stays locked in.",
     });
-  } else {
-    matches.push({
-      productId: "lightweight-conditioner",
-      reason: "Low porosity hair gets weighed down fast. This conditioner gives you detangling slip without the heaviness that causes buildup.",
-    });
-  }
-
-  // ── Protein-moisture balance (add-on when relevant) ───────────────────
-  if (goal === "protein-balance" && struggle !== "over-moisturized") {
-    matches.push({
+  } else if (goal === "damage-repair") {
+    basics.push({
       productId: "protein-moisture-conditioner",
-      reason: "Three variants — protein-heavy, moisture-heavy, or balanced — matched to your hair via the in-app quiz. Because the ratio matters more than the ingredients.",
+      reason: "You're focused on damage repair — your hair needs the protein-moisture ratio dialed in precisely. This comes in three variants matched via the app: protein-heavy, moisture-heavy, or balanced. The ratio matters more than the ingredients.",
     });
-  }
-
-  // ── CCCA Scalp Treatment ──────────────────────────────────────────────
-  if (struggle === "thinning-crown") {
-    matches.push({
-      productId: "ccca-scalp-treatment",
-      reason: "Crown thinning in Black women is often CCCA — scarring alopecia that destroys follicles permanently if untreated. Centella asiatica + salicylic acid + zinc pyrithione calm inflammation and protect follicles before scarring progresses. Early action is everything.",
-    });
-  }
-
-  // ── Scalp care ────────────────────────────────────────────────────────
-  if (struggle === "scalp" || struggle === "growth" || struggle === "edges" || struggle === "thinning-crown" || struggle === "protective-buildup" || goal === "scalp-health" || goal === "length-retention" || goal === "edges-back") {
-    matches.push({
-      productId: "scalp-serum",
-      reason: `${struggle === "edges" || goal === "edges-back" ? "Thinning edges start at the scalp." : "Healthy hair starts at the root."} Salicylic acid clears buildup that's blocking your follicles; niacinamide calms the inflammation underneath.`,
-    });
-  }
-
-  // ── Edge Repair Serum ─────────────────────────────────────────────────
-  if (struggle === "edges" || goal === "edges-back") {
-    matches.push({
-      productId: "edge-repair-serum",
-      reason: "Braids, cornrows, extensions — your edges remember every style. Castor oil + peptides + biotin target hairline damage from traction specifically. Lightweight and anti-inflammatory so it heals without weighing down fragile baby hairs.",
-    });
-  }
-
-  if (struggle === "growth" || goal === "length-retention" || goal === "edges-back" || struggle === "breakage") {
-    matches.push({
-      productId: "growth-oil",
-      reason: "You're growing hair — you're just not keeping it. Rosemary and castor oil feed the follicle and strengthen the base of each strand so length survives past the breakage point.",
-    });
-  }
-
-  // ── Styler (curl type + porosity) ─────────────────────────────────────
-  if (hairType === "wavy" || hairType === "curly" || porosity === "low") {
-    matches.push({
-      productId: "liquid-curl-creme",
-      reason: `${hairType === "wavy" || hairType === "curly" ? "Lighter curl patterns need definition without weight." : "Low porosity hair gets gunky fast."} No crunch, no residue — just your curl pattern, amplified.`,
+  } else if (porosity === "low") {
+    basics.push({
+      productId: "lightweight-conditioner",
+      reason: "Low porosity hair gets weighed down by rich formulas. This lightweight conditioner gives you detangling slip without the heaviness — rice water and silk proteins smooth the cuticle without sealing it shut.",
     });
   } else {
-    matches.push({
-      productId: "rich-curl-creme",
-      reason: "Dense coily hair loses moisture fast once styled. The butter base seals the cuticle so your definition holds and your strands stay soft all day.",
+    basics.push({
+      productId: "deep-conditioner",
+      reason: "Your hair needs deep, lasting moisture. Mango butter and avocado oil flood the strand while wheat protein fills gaps in the cuticle so the hydration stays locked in between wash days.",
     });
   }
 
-  // Deduplicate (keep first occurrence)
-  const seen = new Set<string>();
-  return matches.filter((m) => {
-    if (seen.has(m.productId)) return false;
-    seen.add(m.productId);
-    return true;
+  // ── BASICS: Styler ────────────────────────────────────────────────────
+  if (hairType === "wavy" || hairType === "curly" || porosity === "low") {
+    basics.push({
+      productId: "liquid-curl-creme",
+      reason: styling === "frizz"
+        ? "You said frizz is your biggest frustration. This lightweight crème defines without weighing down — flaxseed gel holds the pattern and marshmallow root creates natural clumping, all without crunch or residue."
+        : styling === "no-definition"
+        ? "You want more curl definition. This liquid crème clumps your curls without weight — perfect for " + (hairType === "wavy" ? "waves" : "curls") + " that need definition without heaviness."
+        : (hairType === "wavy" || hairType === "curly" ? "Lighter curl patterns need definition without weight." : "Low porosity hair gets gunky fast.") + " No crunch, no residue — just your curl pattern, amplified.",
+    });
+  } else {
+    basics.push({
+      productId: "rich-curl-creme",
+      reason: styling === "shrinkage"
+        ? "You mentioned shrinkage frustration. This rich crème's butter base helps stretch and seal your coils, so your definition holds longer and your true length shows."
+        : styling === "frizz"
+        ? "Frizz on coily hair means moisture is escaping. This rich butter formula seals the cuticle so your definition holds and your strands stay soft — even in humidity."
+        : "Dense coily hair loses moisture fast once styled. The butter base seals the cuticle so your definition holds and your strands stay soft all day.",
+    });
+  }
+
+  // ── ESSENTIALS: Targeted treatments ───────────────────────────────────
+  if (hairLoss === "edges-thinning") {
+    essentials.push({
+      productId: "edge-repair-serum",
+      reason: "You told us your edges are thinning. Braids, cornrows, extensions — your hairline remembers every style. Castor oil + peptides + biotin target traction damage specifically. Lightweight and anti-inflammatory so it heals without weighing down fragile baby hairs.",
+    });
+    essentials.push({
+      productId: "growth-oil",
+      reason: "Paired with the edge serum, this growth oil feeds the follicle from the outside. Rosemary and peppermint stimulate blood flow; castor oil seals and strengthens the base of each strand so regrowth survives.",
+    });
+  } else if (hairLoss === "crown-thinning") {
+    essentials.push({
+      productId: "ccca-scalp-treatment",
+      reason: "You mentioned thinning at the crown — in Black women, this is often CCCA, a scarring alopecia that destroys follicles permanently if untreated. Centella asiatica + salicylic acid + zinc pyrithione calm inflammation and protect follicles before scarring progresses. Early action is everything.",
+    });
+    essentials.push({
+      productId: "scalp-serum",
+      reason: "Working alongside the CCCA treatment, this serum clears buildup blocking your follicles. Salicylic acid exfoliates; niacinamide calms inflammation underneath. Healthy scalp = healthy regrowth.",
+    });
+  } else if (hairLoss === "heavy-breakage") {
+    essentials.push({
+      productId: "growth-oil",
+      reason: "You're losing hair to breakage — you're growing it, just not keeping it. Rosemary and castor oil feed the follicle and strengthen the base of each strand so length survives past the breakage point.",
+    });
+    if (scalp !== "fine") {
+      essentials.push({
+        productId: "scalp-serum",
+        reason: "Breakage often starts at an unhealthy scalp. Salicylic acid clears the buildup blocking your follicles; niacinamide calms inflammation so new growth comes in stronger.",
+      });
+    }
+  } else {
+    // normal shedding — still recommend growth oil as a good essential
+    essentials.push({
+      productId: "growth-oil",
+      reason: goal === "length"
+        ? "Your #1 goal is keeping length. Rosemary and peppermint stimulate blood flow to the follicle; castor oil strengthens the base of each strand so your growth actually survives to length."
+        : "Even with normal shedding, this growth oil boosts follicle health. Rosemary stimulates circulation and castor oil strengthens strands from the root — a solid addition to any routine.",
+    });
+  }
+
+  // Add scalp serum if scalp issues and not already added
+  const hasScalpSerum = essentials.some((e) => e.productId === "scalp-serum");
+  if (!hasScalpSerum && (scalp === "itchy-flaky" || scalp === "buildup-styles" || goal === "scalp-health")) {
+    essentials.push({
+      productId: "scalp-serum",
+      reason: scalp === "itchy-flaky"
+        ? "You said your scalp is itchy and flaky. Salicylic acid dissolves the buildup; zinc PCA balances oil production; niacinamide calms the redness and irritation underneath. The itch stops when the scalp is clean."
+        : scalp === "buildup-styles"
+        ? "Protective styles trap product residue at the scalp. This serum clears that congestion between washes so your follicles can breathe and grow, even under braids."
+        : "You're focused on scalp health — and healthy hair starts at the root. This serum clears buildup, calms inflammation, and creates the clean foundation everything else builds on.",
+    });
+  }
+
+  // ── ADD-ONS: Accessories ──────────────────────────────────────────────
+  addons.push({
+    productId: "satin-bonnet",
+    reason: "Cotton pillowcases absorb moisture and create friction that breaks off coily strands overnight. Satin creates zero friction and keeps tonight's moisture locked in until morning.",
   });
+
+  if (porosity === "low") {
+    addons.push({
+      productId: "heat-cap",
+      reason: "Low porosity hair needs heat to lift the cuticle so deep conditioner can actually penetrate — instead of just coating the outside. This is the difference between conditioning and deep conditioning.",
+    });
+  }
+
+  if (styling === "frizz") {
+    addons.push({
+      productId: "microfiber-towel",
+      reason: "You said frizz is your biggest frustration. Regular terry cloth roughens the cuticle — that's frizz. Microfiber absorbs water by capillary action so you can scrunch instead of rub.",
+    });
+  }
+
+  if (scalp !== "fine" || goal === "scalp-health" || hairLoss !== "normal") {
+    addons.push({
+      productId: "scalp-massager",
+      reason: "Two minutes of scalp massage increases blood flow to the follicle, feeding hair growth. It also works your serum deeper into the scalp so active ingredients don't just sit on the surface.",
+    });
+  }
+
+  // Ensure at least 2 add-ons
+  if (addons.length < 2) {
+    addons.push({
+      productId: "satin-pillowcase",
+      reason: "Eight hours of protection while you sleep. Satin keeps your hair hydrated and prevents the friction that causes breakage and frizz overnight.",
+    });
+  }
+
+  return { basics, essentials, addons };
 }
 
 // ── Convening messages ────────────────────────────────────────────────────
 export function getConveningMessages(
   hairType: HairCategory,
   porosity: Porosity,
-  struggle: Struggle,
-  goal: Goal
+  moisture: MoistureLevel,
+  goal: HairGoal,
 ): string[] {
   const typeLabel = hairCategoryOptions.find((o) => o.value === hairType)?.label ?? hairType;
-  const goalLabel = goalOptions.find((o) => o.value === goal)?.label ?? goal;
+  const goalLabel = hairGoalOptions.find((o) => o.value === goal)?.label ?? goal;
   return [
     `Reading your ${typeLabel.toLowerCase()} hair profile…`,
     `Checking ${porosity} porosity needs…`,
-    `Matching products for ${struggleOptions.find((o) => o.value === struggle)?.label.toLowerCase() ?? struggle}…`,
+    `Analyzing moisture and protein balance…`,
     `Building your routine for ${goalLabel.toLowerCase()}…`,
     `Mapping your wash day steps…`,
     `Your aunties are finalizing your plan…`,
@@ -361,8 +386,8 @@ export interface TeaserVerdict {
 export function getVerdicts(
   hairType: HairCategory,
   porosity: Porosity,
-  struggle: Struggle,
-  goal: Goal
+  moisture: MoistureLevel,
+  goal: HairGoal,
 ): TeaserVerdict[] {
   const isCoily = hairType === "coily" || hairType === "coily-dense";
   const isWavy = hairType === "wavy";
@@ -370,11 +395,11 @@ export function getVerdicts(
   const ngozi: TeaserVerdict = {
     auntyId: "ngozi",
     message:
-      struggle === "dryness"
+      moisture === "dry-crunchy"
         ? "Ahn ahn! I knew it. This hair is THIRSTY. I already know what you need — come, let me show you."
-        : struggle === "breakage"
-          ? "You been rough with this hair, abi? No worry — Aunty has a plan. We start with moisture, always."
-          : struggle === "growth" || goal === "length-retention"
+        : moisture === "mushy-limp"
+          ? "Too much moisture, not enough protein. Your aunty sees it. We rebalancing everything today."
+          : goal === "length"
             ? "You growing it but it's not staying. Feed the root, protect the ends. That's the whole secret."
             : "I see you. I see this hair. And I already know what we doing first.",
   };
@@ -382,7 +407,7 @@ export function getVerdicts(
   const denise: TeaserVerdict = {
     auntyId: "denise",
     message:
-      goal === "length-retention"
+      goal === "length"
         ? "Baby, I been retaining length since before it was a hashtag. Your aunties got you."
         : goal === "moisture"
           ? "Honey, moisture is the foundation of EVERYTHING. We about to build you a whole ritual."
@@ -415,249 +440,326 @@ export function getVerdicts(
 }
 
 // ════════════════════════════════════════════════════════════════════════════
-// SKIN QUIZ DATA
+// SKIN QUIZ DATA — 4-question flow → 5 Aunty Skin Types
 // ════════════════════════════════════════════════════════════════════════════
 
-// ── Skin Concern ──────────────────────────────────────────────────────────
-export type SkinConcern = "pih" | "dry-ashy" | "bumpy" | "glow";
+// ── Aunty Skin Types ─────────────────────────────────────────────────────
+export type AuntySkinType = "oily" | "dry-ashy" | "combination" | "balanced" | "sensitive";
 
-export const skinConcernOptions: {
-  value: SkinConcern;
+export const auntySkinTypes: {
+  value: AuntySkinType;
   label: string;
-  desc: string;
-  detail: string;
+  headline: string;
+  description: string;
 }[] = [
   {
-    value: "pih",
-    label: "Dark spots & hyperpigmentation",
-    desc: "Post-acne marks, uneven tone, patches that linger",
-    detail: "Almost always PIH — melanin overproduction triggered by inflammation. The dark mark stays long after the original cause has healed.",
+    value: "oily",
+    label: "The Oily Type",
+    headline: "Your skin overproduces oil — not because it's oily, but because it's dehydrated.",
+    description: "Oil-free hydration + sebum control. We give your skin water so it stops producing oil as a substitute.",
   },
   {
     value: "dry-ashy",
-    label: "Dry & ashy skin",
-    desc: "White or grey cast, tightness, rough patches",
-    detail: "Ashiness is a visible sign of barrier breakdown — moisture escaping faster than it's replaced. More visible on darker skin tones because of the contrast.",
+    label: "The Dry & Ashy Type",
+    headline: "Your barrier is broken. Moisture escapes faster than it's replaced.",
+    description: "Ceramide repair + deep hydration. We rebuild the lipid barrier melanin-rich skin naturally lacks, then lock moisture in.",
   },
   {
-    value: "bumpy",
-    label: "Bumpy or rough texture",
-    desc: "Sandpaper texture, razor bumps, or small itchy bumps",
-    detail: "Bumpy skin has three common causes — KP, razor bumps, or fungal acne — and each needs a different fix. We identify yours first.",
+    value: "combination",
+    label: "The Combination Type",
+    headline: "Your T-zone and cheeks need different things. Most brands give them the same thing.",
+    description: "Zone-targeted care. Salicylic acid where you're oily, ceramides where you're dry. One routine, applied differently by zone.",
   },
   {
-    value: "glow",
-    label: "Glow & barrier health",
-    desc: "Dull, flat skin that doesn't look or feel healthy",
-    detail: "A damaged or undernourished barrier looks dull and feels reactive. Build the foundation right and the glow follows naturally.",
+    value: "balanced",
+    label: "The Balanced Type",
+    headline: "Your skin is working. The goal is to protect what you have.",
+    description: "Antioxidant protection + brightening. Vitamin C, niacinamide, and SPF to maintain and enhance what's already glowing.",
+  },
+  {
+    value: "sensitive",
+    label: "The Sensitive Type",
+    headline: "Your skin isn't weak — it just reacts before others do.",
+    description: "Centella calming + barrier support. We reduce reactivity first, then gently introduce actives your skin can tolerate.",
   },
 ];
 
-// ── Skin Type ─────────────────────────────────────────────────────────────
-export type SkinType = "oily" | "dry" | "combo" | "sensitive";
+// ── Q1: Wash Feel ────────────────────────────────────────────────────────
+export type WashFeel = "tight-dry" | "normal" | "oily-fast" | "mixed";
 
-export const skinTypeOptions: {
-  value: SkinType;
-  label: string;
-  desc: string;
-}[] = [
-  { value: "oily",      label: "Oily",        desc: "Shiny all over by midday — enlarged pores, prone to breakouts" },
-  { value: "dry",       label: "Dry",         desc: "Feels tight or rough after cleansing — prone to flaking" },
-  { value: "combo",     label: "Combination", desc: "Oily T-zone (forehead, nose, chin), drier or normal on cheeks" },
-  { value: "sensitive", label: "Sensitive",   desc: "Reacts to new products — redness, burning, or breakouts easily" },
-];
-
-// ── Skin Struggles ────────────────────────────────────────────────────────
-export type SkinStruggle =
-  | "dark-spots"
-  | "ashiness"
-  | "razor-bumps"
-  | "kp"
-  | "dullness"
-  | "tightness"
-  | "texture"
-  | "sensitivity"
-  | "oiliness";
-
-export const skinStruggleOptions: {
-  value: SkinStruggle;
+export const washFeelOptions: {
+  value: WashFeel;
   label: string;
   sub: string;
 }[] = [
-  { value: "dark-spots",  label: "Dark spots & marks",       sub: "PIH, post-acne marks, uneven patches that won't fade" },
-  { value: "ashiness",    label: "Ashiness & dryness",       sub: "White or grey cast — especially visible on darker skin" },
-  { value: "razor-bumps", label: "Razor bumps",              sub: "Ingrown hairs on beard, neck, or bikini area" },
-  { value: "kp",          label: "Keratosis pilaris",        sub: "Sandpaper bumps on arms, thighs, or cheeks" },
-  { value: "dullness",    label: "Dull, flat skin",          sub: "No glow — looks tired even when rested" },
-  { value: "tightness",   label: "Tightness after washing",  sub: "Skin feels stripped and uncomfortable post-cleanse" },
-  { value: "texture",     label: "Rough surface texture",    sub: "Uneven, not smooth to touch, pores look large" },
-  { value: "sensitivity", label: "Redness & sensitivity",    sub: "Reacts to actives — barrier feels compromised" },
-  { value: "oiliness",    label: "Excess oil & shine",       sub: "Shiny by midday, makeup doesn't hold" },
+  { value: "tight-dry", label: "Tight and dry", sub: "Skin feels stripped, uncomfortable, might even flake" },
+  { value: "normal",    label: "Fine — comfortable", sub: "No tightness, no oiliness, just normal" },
+  { value: "oily-fast", label: "Oily again within an hour", sub: "Shine comes back fast, even right after washing" },
+  { value: "mixed",     label: "Depends on the area", sub: "Forehead feels different from cheeks" },
 ];
 
-// ── Skin Goals ────────────────────────────────────────────────────────────
-export type SkinGoal =
-  | "fade-spots"
-  | "hydration"
-  | "even-tone"
-  | "protection"
-  | "smooth-texture"
-  | "barrier-repair"
-  | "radiance";
+// ── Q2: Ashy Patches ────────────────────────────────────────────────────
+export type AshyLevel = "yes-often" | "sometimes" | "rarely";
 
-export const skinGoalOptions: {
-  value: SkinGoal;
+export const ashyLevelOptions: {
+  value: AshyLevel;
   label: string;
   sub: string;
 }[] = [
-  { value: "fade-spots",     label: "Fade dark spots",        sub: "Consistent, visible reduction in PIH and marks" },
-  { value: "hydration",      label: "Deep hydration",         sub: "Skin that stays soft and moisturised all day" },
-  { value: "even-tone",      label: "Even, unified tone",     sub: "No patches, no ashiness — one consistent complexion" },
-  { value: "protection",     label: "Protect from damage",    sub: "Guard against UV triggers and further PIH" },
-  { value: "smooth-texture", label: "Smoother texture",       sub: "Less bumpy, refined surface, fewer rough patches" },
-  { value: "barrier-repair", label: "Repair my barrier",      sub: "Stop the reactivity and rebuild from scratch" },
-  { value: "radiance",       label: "Glow & radiance",        sub: "Luminous, healthy-looking skin from the inside out" },
+  { value: "yes-often",  label: "Yes, often", sub: "White or grey patches — especially around mouth, elbows, knees" },
+  { value: "sometimes",  label: "Sometimes", sub: "Only in winter or when I skip moisturiser" },
+  { value: "rarely",     label: "Rarely or never", sub: "Ashiness isn't really my issue" },
 ];
 
-// ── Skin validation copy ──────────────────────────────────────────────────
-export function getSkinConcernValidation(concern: SkinConcern): string[] {
-  switch (concern) {
-    case "pih":
-      return ["Post-Inflammatory Hyperpigmentation.", "Your melanocytes are overreacting to trauma. We block that pathway before it settles in."];
-    case "dry-ashy":
-      return ["Barrier breakdown.", "Melanin-rich skin naturally has fewer ceramides. We rebuild the foundation first."];
-    case "bumpy":
-      return ["Bumpy texture.", "Three possible causes — each needing a different fix. We identify yours before recommending anything."];
-    case "glow":
-      return ["Barrier health and glow.", "Radiance isn't a product. It's what the skin looks like when the barrier is right."];
+// ── Q3: New Product Reaction ────────────────────────────────────────────
+export type ProductReaction = "burns-stings" | "breaks-out" | "absorbs-fine" | "depends-area";
+
+export const productReactionOptions: {
+  value: ProductReaction;
+  label: string;
+  sub: string;
+}[] = [
+  { value: "burns-stings",  label: "Burns, stings, or turns red", sub: "My skin reacts fast — redness, irritation, sometimes breakouts" },
+  { value: "breaks-out",    label: "Breaks me out", sub: "New products often cause pimples or congestion" },
+  { value: "absorbs-fine",  label: "Absorbs fine — no issues", sub: "My skin handles most things well" },
+  { value: "depends-area",  label: "Depends on the area", sub: "Some zones handle it, others react" },
+];
+
+// ── Q4: Midday Finish ───────────────────────────────────────────────────
+export type MiddayFinish = "shiny-all" | "shiny-t-zone" | "matte-comfortable" | "tight-flaky" | "red-irritated";
+
+export const middayFinishOptions: {
+  value: MiddayFinish;
+  label: string;
+  sub: string;
+}[] = [
+  { value: "shiny-all",         label: "Shiny all over", sub: "Forehead, nose, cheeks — everything's glossy" },
+  { value: "shiny-t-zone",      label: "Shiny T-zone, dry cheeks", sub: "Oily down the middle, normal or dry on the sides" },
+  { value: "matte-comfortable", label: "Matte and comfortable", sub: "No excess shine, skin feels balanced" },
+  { value: "tight-flaky",       label: "Tight or flaky", sub: "Dry patches, ashiness, feels like it needs more moisture" },
+  { value: "red-irritated",     label: "Red or irritated", sub: "Sensitive, blotchy, or uncomfortable by afternoon" },
+];
+
+// ── Skin type determination ──────────────────────────────────────────────
+export function determineSkinType(
+  washFeel: WashFeel,
+  ashyLevel: AshyLevel,
+  reaction: ProductReaction,
+  finish: MiddayFinish,
+): AuntySkinType {
+  const scores: Record<AuntySkinType, number> = {
+    "oily": 0, "dry-ashy": 0, "combination": 0, "balanced": 0, "sensitive": 0,
+  };
+
+  // Q1: wash feel
+  if (washFeel === "tight-dry")  { scores["dry-ashy"] += 3; scores["sensitive"] += 1; }
+  if (washFeel === "normal")     { scores["balanced"] += 3; }
+  if (washFeel === "oily-fast")  { scores["oily"] += 3; }
+  if (washFeel === "mixed")      { scores["combination"] += 3; }
+
+  // Q2: ashy patches
+  if (ashyLevel === "yes-often")  { scores["dry-ashy"] += 3; }
+  if (ashyLevel === "sometimes")  { scores["dry-ashy"] += 1; scores["combination"] += 1; scores["sensitive"] += 1; }
+  if (ashyLevel === "rarely")     { scores["oily"] += 1; scores["balanced"] += 1; }
+
+  // Q3: product reaction
+  if (reaction === "burns-stings")  { scores["sensitive"] += 3; }
+  if (reaction === "breaks-out")    { scores["oily"] += 2; scores["sensitive"] += 1; }
+  if (reaction === "absorbs-fine")  { scores["balanced"] += 2; }
+  if (reaction === "depends-area")  { scores["combination"] += 2; }
+
+  // Q4: midday finish
+  if (finish === "shiny-all")          { scores["oily"] += 3; }
+  if (finish === "shiny-t-zone")       { scores["combination"] += 3; }
+  if (finish === "matte-comfortable")  { scores["balanced"] += 3; }
+  if (finish === "tight-flaky")        { scores["dry-ashy"] += 3; }
+  if (finish === "red-irritated")      { scores["sensitive"] += 3; }
+
+  let best: AuntySkinType = "balanced";
+  let bestScore = -1;
+  for (const [type, score] of Object.entries(scores)) {
+    if (score > bestScore) {
+      bestScore = score;
+      best = type as AuntySkinType;
+    }
   }
+  return best;
 }
 
-// ── Skin product matching ─────────────────────────────────────────────────
-export function getSkinProductMatches(
-  concern: SkinConcern,
-  skinType: SkinType,
-  struggle: SkinStruggle,
-  goal: SkinGoal
-): ProductMatch[] {
-  const matches: ProductMatch[] = [];
+// ── Skin product matching by type (tiered) ──────────────────────────────
+export function getSkinProductMatches(skinType: AuntySkinType): TieredMatches {
+  const basics: ProductMatch[] = [];
+  const essentials: ProductMatch[] = [];
+  const addons: ProductMatch[] = [];
 
-  // Cleanser — always first
-  matches.push({
-    productId: "gentle-face-wash",
-    reason:
-      concern === "pih" || struggle === "dark-spots"
-        ? "Stripping cleansers trigger inflammation — and inflammation on melanin-rich skin means PIH. This stays at pH 5.5 and uses a PHA that gently exfoliates without breaking the barrier."
-        : concern === "bumpy"
-        ? "Treating texture starts with a cleanser that doesn't worsen it. Gluconolactone lifts dead cells without micro-tears that trigger more PIH."
-        : "The foundation of every routine. A cleanser that respects your skin's natural pH so every active after it can actually work.",
+  // ── BASICS: Cleanser + primary treatments ─────────────────────────────
+  switch (skinType) {
+    case "oily":
+      basics.push(
+        { productId: "gentle-face-wash", reason: "Stripping cleansers make oily skin worse. This stays at pH 5.5 so your barrier stays intact and your glands don't panic-produce more oil." },
+        { productId: "oil-free-hydration-serum", reason: "Your skin is producing oil because it's desperate for water. Hyaluronic acid + glycerin flood your skin with water — so your glands stop overcompensating with oil." },
+        { productId: "sebum-control-serum", reason: "Niacinamide 10% + zinc PCA regulate sebum at the gland level. Matte without tightness — your skin stays balanced, not stripped." },
+      );
+      break;
+    case "dry-ashy":
+      basics.push(
+        { productId: "gentle-face-wash", reason: "Your barrier is compromised. The last thing it needs is a harsh cleanser. This stays at your skin's natural pH so nothing gets stripped." },
+        { productId: "ashy-skin-rescue", reason: "Ashiness is a broken barrier — moisture escaping faster than it's replaced. Ceramides rebuild the lipid matrix; urea draws water in; shea locks it there." },
+        { productId: "ceramide-barrier-cream", reason: "Clinical-grade barrier repair. Ceramide NP + ceramide AP + cholesterol rebuild the lipid matrix your melanin-rich skin naturally lacks." },
+      );
+      break;
+    case "combination":
+      basics.push(
+        { productId: "gentle-face-wash", reason: "Combination skin needs a cleanser that doesn't overstrip the dry zones or underclean the oily ones. This balances both." },
+        { productId: "zone-balancing-serum", reason: "Salicylic acid 0.5% for your oily T-zone + ceramides for your dry cheeks. One serum, applied differently by zone — aunty tells you how in the app." },
+        { productId: "pih-serum", reason: "Combination skin is prone to breakout-triggered PIH in the oily zones. Tranexamic acid + alpha-arbutin interrupt the pigment pathway before marks settle in." },
+      );
+      break;
+    case "balanced":
+      basics.push(
+        { productId: "gentle-face-wash", reason: "Balanced skin still needs a proper cleanser. This respects your pH so every active after it works at full strength." },
+        { productId: "antioxidant-glow-serum", reason: "Your skin is working. Vitamin C + niacinamide + ferulic acid protect what's already glowing — antioxidant defense, brightening, anti-pollution. Morning use only." },
+      );
+      break;
+    case "sensitive":
+      basics.push(
+        { productId: "gentle-face-wash", reason: "Sensitive skin reacts to everything — especially harsh cleansers. This is pH 5.5, PHA-based, and won't trigger redness or burning." },
+        { productId: "centella-calming-serum", reason: "Centella asiatica 10% + panthenol + allantoin. Reduces redness, calms inflammation, prevents the PIH that reactivity triggers. Fragrance-free, alcohol-free." },
+        { productId: "pih-serum", reason: "Every time sensitive skin reacts, it leaves a dark mark. This interrupts the PIH pathway so inflammation doesn't become permanent discoloration." },
+      );
+      break;
+  }
+
+  // ── ESSENTIALS: SPF + secondary treatments ────────────────────────────
+  essentials.push({
+    productId: "spf-40",
+    reason: skinType === "balanced"
+      ? "The #1 thing balanced skin needs is protection. Iron oxides block visible light that triggers PIH in deeper skin — something UV-only filters miss."
+      : skinType === "sensitive"
+      ? "Sensitive skin marks easily. SPF with iron oxides blocks visible light — the wavelength most responsible for PIH in melanin-rich skin. Non-irritating mineral formula."
+      : "Melanin-rich skin needs SPF that blocks visible light, not just UV. Iron oxides handle what chemical sunscreens miss — the #1 cause of dark marks on deeper skin tones.",
   });
 
-  // PIH serum — for dark spots / PIH concern / fade goals
-  if (concern === "pih" || struggle === "dark-spots" || goal === "fade-spots" || goal === "even-tone") {
-    matches.push({
+  if (skinType === "oily") {
+    essentials.push(
+      { productId: "pih-serum", reason: "Oily skin breaks out. Breakouts leave marks. Tranexamic acid + alpha-arbutin interrupt the pigment pathway so every pimple doesn't become a 6-month dark spot." },
+      { productId: "scar-defense-gel", reason: "Oily skin scars differently — keloids and raised scars are more common in melanin-rich skin. Silicone + onion extract flatten and fade while the scar is still forming." },
+    );
+  }
+
+  if (skinType === "dry-ashy") {
+    essentials.push({
       productId: "pih-serum",
-      reason: "This formula blocks melanin overproduction at multiple steps simultaneously: tranexamic acid interrupts the trigger, alpha-arbutin slows the melanin-producing enzyme, azelaic acid normalises cell turnover. One ingredient isn't enough — you need all three.",
+      reason: "Dry skin cracks. Cracks inflame. Inflammation triggers PIH on melanin-rich skin. This interrupts the pigment cascade so dryness doesn't leave permanent marks.",
     });
   }
 
-  // SPF — non-negotiable for PIH
-  if (concern === "pih" || struggle === "dark-spots" || goal === "fade-spots" || goal === "protection") {
-    matches.push({
-      productId: "spf-40",
-      reason: "UV light is the #1 trigger for PIH — every other ingredient fights a losing battle without this. The iron oxides in this formula also block visible light, which triggers PIH in deeper skin tones that standard UV filters miss entirely.",
+  if (skinType === "balanced") {
+    essentials.push({
+      productId: "pih-serum",
+      reason: "Even balanced skin marks from minor inflammation — a bump, a scratch, sun exposure. Tranexamic acid + alpha-arbutin keep your even tone even.",
     });
   }
 
-  // Ashy Skin Rescue — for dry/barrier concerns
-  if (concern === "dry-ashy" || struggle === "ashiness" || struggle === "tightness" || struggle === "sensitivity" || goal === "hydration" || goal === "barrier-repair") {
-    matches.push({
-      productId: "ashy-skin-rescue",
-      reason: "Melanin-rich skin naturally produces fewer ceramides — the lipids that hold the barrier together. This replenishes ceramides at a molecular level, urea draws water in, and shea locks it there. The three-layer moisturising system in one product.",
+  if (skinType === "sensitive") {
+    essentials.push({
+      productId: "ceramide-barrier-cream",
+      reason: "Sensitive skin has a weak barrier by definition. Ceramides strengthen it from the inside so fewer irritants get through. Layer this over your calming serum at night.",
     });
   }
 
-  // Scar Defense Gel — for bumpy / texture / razor bumps
-  if (concern === "bumpy" || struggle === "razor-bumps" || struggle === "kp" || struggle === "texture" || goal === "smooth-texture") {
-    matches.push({
-      productId: "scar-defense-gel",
-      reason:
-        struggle === "razor-bumps"
-          ? "Razor bumps on darker skin always leave PIH behind. Centella calms the inflammatory response so bumps heal flat; allantoin fades existing marks. Use alongside a BHA toner post-shave."
-          : "Centella asiatica calms the inflammation that causes bumps to heal as raised marks. Silicone keeps the skin surface flat while it heals. Allantoin dissolves and softens existing texture.",
+  // ── ADD-ONS: Accessories ──────────────────────────────────────────────
+  if (skinType === "oily" || skinType === "sensitive") {
+    addons.push({
+      productId: "ice-roller",
+      reason: skinType === "oily"
+        ? "Cold constricts pores and reduces morning puffiness. Two minutes before SPF gives you a tighter, more matte canvas without any product."
+        : "Cold calms inflammation on contact. When your skin is reacting, this brings immediate relief — reduces redness and swelling without adding any product.",
     });
   }
 
-  // Glow path with no barrier product yet — add it
-  if ((concern === "glow" || goal === "radiance") && !matches.find((m) => m.productId === "ashy-skin-rescue")) {
-    matches.push({
-      productId: "ashy-skin-rescue",
-      reason: "Glow is what the skin looks like when the barrier is intact and light reflects evenly off the surface. Ceramides rebuild that foundation from the inside out.",
+  if (skinType === "balanced" || skinType === "combination") {
+    addons.push({
+      productId: "gua-sha",
+      reason: "Lymphatic drainage and blood flow in one tool. Reduces puffiness, sculpts your jawline, and helps serums penetrate deeper. Two minutes, morning routine.",
     });
   }
 
-  // Deduplicate
-  const seen = new Set<string>();
-  return matches.filter((m) => {
-    if (seen.has(m.productId)) return false;
-    seen.add(m.productId);
-    return true;
+  addons.push({
+    productId: "silicone-face-scrubber",
+    reason: skinType === "sensitive"
+      ? "Silicone bristles are gentle enough for reactive skin. They clean pores without microabrasions that trigger inflammation and PIH."
+      : "Deeper cleanse without irritation. Silicone bristles clear pore congestion that fingers miss — and they're antibacterial, so no bacteria buildup like cloth or sponge.",
   });
+
+  if (skinType === "dry-ashy") {
+    addons.push({
+      productId: "ice-roller",
+      reason: "Seals your barrier cream by driving it deeper with cold compression. Also reduces the inflammation that triggers ashiness in the first place.",
+    });
+  }
+
+  if (skinType !== "sensitive") {
+    addons.push({
+      productId: "derma-roller",
+      reason: skinType === "dry-ashy"
+        ? "Micro-channels let your ceramide cream penetrate 4x deeper. Used weekly, it also stimulates collagen production to strengthen your barrier long-term."
+        : "Micro-needling boosts collagen and lets serums absorb 4x deeper. Used once a week, it amplifies everything else in your routine.",
+    });
+  }
+
+  if (addons.length < 2) {
+    addons.push({
+      productId: "gua-sha",
+      reason: "Lymphatic drainage reduces puffiness and helps your serums absorb. A simple addition that makes your whole routine work harder.",
+    });
+  }
+
+  return { basics, essentials, addons };
 }
 
 // ── Skin convening messages ───────────────────────────────────────────────
-export function getSkinConveningMessages(
-  concern: SkinConcern,
-  skinType: SkinType,
-  struggle: SkinStruggle,
-  goal: SkinGoal
-): string[] {
-  const concernLabel = skinConcernOptions.find((o) => o.value === concern)?.label ?? concern;
-  const goalLabel = skinGoalOptions.find((o) => o.value === goal)?.label ?? goal;
+export function getSkinConveningMessages(skinType: AuntySkinType): string[] {
+  const typeLabel = auntySkinTypes.find((t) => t.value === skinType)?.label ?? skinType;
   return [
-    `Reading your ${skinType} skin profile…`,
-    `Analyzing ${concernLabel.toLowerCase()}…`,
+    `Reading your skin profile…`,
+    `Analyzing wash response and barrier health…`,
     `Checking melanin reactivity factors…`,
-    `Matching active ingredients to your concern…`,
-    `Building your morning and evening routine…`,
+    `Determining your aunty skin type…`,
+    `Building your ${typeLabel.toLowerCase()} routine…`,
     `Your aunties are finalizing your skin plan…`,
   ];
 }
 
 // ── Skin verdict messages ─────────────────────────────────────────────────
-export function getSkinVerdicts(
-  concern: SkinConcern,
-  skinType: SkinType,
-  struggle: SkinStruggle,
-  goal: SkinGoal
-): TeaserVerdict[] {
+export function getSkinVerdicts(skinType: AuntySkinType): TeaserVerdict[] {
   const salma: TeaserVerdict = {
     auntyId: "salma",
     message:
-      concern === "pih"
-        ? "I've been formulating for melanin-rich skin for years. The ingredients in your routine don't just fade spots — they interrupt the pathway that creates them."
-        : concern === "bumpy"
-        ? "Bumpy skin on darker skin tones needs careful hands. Wrong ingredient means more PIH on top. Everything here was chosen to fix without triggering."
-        : "This isn't generic skincare rebadged. Every ingredient was selected for how it specifically behaves on melanin-rich skin. The difference is real.",
+      skinType === "oily"
+        ? "Oil isn't the enemy — dehydration is. We give your skin what it actually needs so it stops overcompensating."
+        : skinType === "sensitive"
+        ? "Sensitive skin on darker tones is misunderstood. Every reaction leaves a mark. We calm first, then build."
+        : "This isn't generic skincare rebadged. Every ingredient was selected for how it specifically behaves on melanin-rich skin.",
   };
 
   const denise: TeaserVerdict = {
     auntyId: "denise",
     message:
-      goal === "hydration" || goal === "barrier-repair" || concern === "dry-ashy"
+      skinType === "dry-ashy"
         ? "Baby, we don't throw actives at a broken barrier. We fix the barrier first. Everything else works twice as well when we do."
-        : goal === "fade-spots" || concern === "pih"
-        ? "Fading spots is a marathon, not a sprint. But with this routine, you will see it. Give it 8 weeks of consistency."
-        : "Healthy skin isn't complicated. The right cleanser, the right moisture, protection from UV. That's it. That's the whole secret.",
+        : skinType === "balanced"
+        ? "Your skin is already beautiful. Our job is just to protect it and keep it glowing."
+        : "Healthy skin isn't complicated. The right cleanser, the right moisture, protection from UV. That's the whole secret.",
   };
 
   const third: TeaserVerdict =
-    concern === "pih" || struggle === "dark-spots"
-      ? { auntyId: "amara", message: "Every dark spot has a story. The ingredients we chose interrupt the story before it settles into the skin." }
-      : concern === "dry-ashy" || struggle === "ashiness"
+    skinType === "dry-ashy"
       ? { auntyId: "fatou", message: "Ashiness is not a personality trait. It is a fixable barrier problem. These fix it." }
-      : concern === "bumpy"
-      ? { auntyId: "amara", message: "Texture on melanin-rich skin responds to patience and the right chemistry. This formula understands both." }
+      : skinType === "combination"
+      ? { auntyId: "amara", message: "Your face has zones. Most brands ignore that. We don't." }
+      : skinType === "sensitive"
+      ? { auntyId: "amara", message: "Your skin isn't weak — it's communicating. These products listen." }
       : { auntyId: "carmen", message: "Glow comes from within the skin, not on top of it. We build the foundation — the radiance follows." };
 
   return [salma, denise, third];

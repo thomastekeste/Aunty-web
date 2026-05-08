@@ -4,22 +4,25 @@ import { useEffect, useState } from "react";
 import { getProductById } from "@/data/products";
 import AppPreview from "@/components/AppPreview";
 import {
-  porosityOptions, densityOptions, struggleOptions, goalOptions,
-  getProductMatches, getConveningMessages, getVerdicts,
-  skinConcernOptions, skinTypeOptions, skinStruggleOptions, skinGoalOptions,
+  porosityOptions,
+  moistureLevelOptions, hairLossOptions, scalpHealthOptions,
+  stylingFrustrationOptions, hairGoalOptions,
+  getHairTieredMatches, getConveningMessages, getVerdicts,
+  washFeelOptions, ashyLevelOptions, productReactionOptions, middayFinishOptions,
+  auntySkinTypes, determineSkinType,
   getSkinProductMatches, getSkinConveningMessages, getSkinVerdicts,
-  type HairCategory, type Porosity, type Density, type Struggle, type Goal,
-  type SkinConcern, type SkinType, type SkinStruggle, type SkinGoal,
+  type HairCategory, type Porosity,
+  type MoistureLevel, type HairLoss, type ScalpHealth, type StylingFrustration, type HairGoal,
+  type WashFeel, type AshyLevel, type ProductReaction, type MiddayFinish,
+  type AuntySkinType, type TieredMatches,
 } from "@/data/quiz";
 
 const BROWN = "#2D1B0E";
 const MUTED = "#6B5040";
 const CANVAS = "#FDFCF8";
-const CANVAS_ALT = "#F7F5F0";
 
 type Journey = "hair" | "skin" | null;
 
-// 2A → 4C maps to the descriptive HairCategory used by the matcher
 type CurlType = "2a"|"2b"|"2c"|"3a"|"3b"|"3c"|"4a"|"4b"|"4c";
 
 const curlTypes: { id: CurlType; label: string; desc: string; cat: HairCategory }[] = [
@@ -36,18 +39,15 @@ const curlTypes: { id: CurlType; label: string; desc: string; cat: HairCategory 
 
 type QuizPhase =
   | "journey-pick"
-  // Hair
-  | "hair-type" | "porosity" | "density" | "hair-struggle" | "hair-goal"
+  | "hair-type" | "porosity" | "hair-moisture" | "hair-loss" | "hair-scalp" | "hair-styling" | "hair-goal"
   | "hair-convening" | "hair-results"
-  // Skin
-  | "skin-concern" | "skin-type" | "skin-struggle" | "skin-goal"
+  | "skin-wash-feel" | "skin-ashy" | "skin-reaction" | "skin-finish"
   | "skin-convening" | "skin-results";
 
 // ── Curl-pattern mini SVG ──────────────────────────────────────────────────
 function CurlGlyph({ type, color, size = 44 }: { type: CurlType; color: string; size?: number }) {
   const stroke = color;
   const w = 2.2;
-  // Procedural pattern based on category
   const isWavy = type.startsWith("2");
   const isCurly = type.startsWith("3");
   const isCoily = type.startsWith("4");
@@ -237,18 +237,21 @@ function ProductIllustration({ type, color }: { type: string; color: string }) {
   }
 }
 
-// ── Product card — ingredient-first, horizontal-scroll friendly ───────────
-function ProductCard({ productId, reason, accent }: { productId: string; reason: string; accent: string }) {
+// ── Product card — ingredient-first ─────────────────────────────────────
+function TierProductCard({ productId, reason, accent }: { productId: string; reason: string; accent: string }) {
   const product = getProductById(productId);
   if (!product) return null;
 
   return (
-    <div className="rounded-2xl overflow-hidden flex-shrink-0 w-[300px] border border-[rgba(26,15,8,0.06)]">
-      <div className="relative flex items-center justify-center py-10 bg-[#F7F5F0]">
+    <div className="rounded-2xl overflow-hidden border border-[rgba(26,15,8,0.06)]">
+      <div className="relative flex items-center justify-center py-8 bg-[#F7F5F0]">
         <ProductIllustration type={product.productType} color={accent} />
       </div>
       <div className="p-5">
-        <h4 className="font-display text-base font-bold text-[#2D1B0E] mb-2 leading-snug">{product.name}</h4>
+        <div className="flex items-start justify-between mb-2">
+          <h4 className="font-display text-base font-bold text-[#2D1B0E] leading-snug">{product.name}</h4>
+          <span className="font-display text-lg font-bold text-[#2D1B0E] ml-3 flex-shrink-0">${product.price}</span>
+        </div>
         {product.keyIngredients.length > 0 && (
           <div className="mb-3">
             <p className="font-body text-[9px] tracking-[2px] uppercase mb-1.5 font-semibold text-[#9E8C7A]">
@@ -263,41 +266,11 @@ function ProductCard({ productId, reason, accent }: { productId: string; reason:
             </div>
           </div>
         )}
-        <p className="font-body text-xs text-[#6B5040] leading-relaxed mb-4">{reason}</p>
-        <div className="flex items-center justify-between">
-          <span className="font-display text-xl font-bold text-[#2D1B0E]">${product.price}</span>
-          <span className="font-body text-[10px] font-semibold tracking-[1px] uppercase text-[#2D1B0E] border-b border-[#2D1B0E] pb-0.5">
-            Order
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Add-on card (compact) ────────────────────────────────────────────────────
-function AddonCard({ productId, accent }: { productId: string; accent: string }) {
-  const product = getProductById(productId);
-  if (!product) return null;
-  return (
-    <div className="rounded-2xl overflow-hidden flex-shrink-0 w-[200px] border border-[rgba(26,15,8,0.06)]">
-      <div className="flex items-center justify-center py-7 bg-[#F7F5F0]">
-        <ProductIllustration type={product.productType} color={accent} />
-      </div>
-      <div className="p-4">
-        <h4 className="font-display text-sm font-bold text-[#2D1B0E] mb-1.5 leading-snug">{product.name}</h4>
-        {product.keyIngredients.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-2.5">
-            {product.keyIngredients.slice(0, 2).map((ing) => (
-              <span key={ing} className="font-body text-[9px] px-2 py-0.5 rounded-full bg-[#F7F5F0] text-[#6B5040]">
-                {ing}
-              </span>
-            ))}
-          </div>
-        )}
-        <div className="flex items-center justify-between">
-          <span className="font-display text-base font-bold text-[#2D1B0E]">${product.price}</span>
-          <span className="font-body text-[9px] font-semibold tracking-[1px] uppercase text-[#2D1B0E] border-b border-[#2D1B0E] pb-0.5">+ Add</span>
+        <div className="p-3 rounded-lg bg-[#F7F5F0] border border-[rgba(26,15,8,0.04)]">
+          <p className="font-body text-[10px] tracking-[2px] uppercase font-semibold mb-1" style={{ color: accent }}>
+            Why your aunty picked this
+          </p>
+          <p className="font-body text-xs text-[#6B5040] leading-relaxed">{reason}</p>
         </div>
       </div>
     </div>
@@ -332,37 +305,6 @@ function OptionButton({
   );
 }
 
-// ── Multi-select chip ─────────────────────────────────────────────────────
-function ChipButton({
-  selected, onClick, label, sub, accent,
-}: {
-  selected: boolean; onClick: () => void; label: string; sub?: string; accent: string;
-}) {
-  return (
-    <button onClick={onClick}
-      className="text-left px-4 py-3 rounded-xl border transition-all duration-150"
-      style={{
-        borderColor: selected ? accent : "rgba(26,15,8,0.12)",
-        backgroundColor: selected ? accent + "0D" : "transparent",
-      }}>
-      <div className="flex items-center gap-2.5">
-        <div className="w-4 h-4 rounded-md border-2 flex-shrink-0 flex items-center justify-center"
-             style={{ borderColor: selected ? accent : "rgba(26,15,8,0.25)", backgroundColor: selected ? accent : "transparent" }}>
-          {selected && (
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <path d="M2 5 L4.2 7.2 L8 3" stroke="#FDFCF8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )}
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="font-body text-sm font-semibold text-[#2D1B0E] leading-snug">{label}</p>
-          {sub && <p className="font-body text-xs text-[#6B5040] mt-0.5 leading-snug">{sub}</p>}
-        </div>
-      </div>
-    </button>
-  );
-}
-
 // ── Quiz container w/ shared chrome ───────────────────────────────────────
 function QuizFrame({
   step, total, accent, eyebrow, title, hint, children, onBack, onClose,
@@ -375,7 +317,6 @@ function QuizFrame({
 }) {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Top bar */}
       <div className="flex items-center justify-between px-6 md:px-10 pt-6 pb-4">
         <button onClick={onBack} disabled={!onBack}
           className="font-body text-xs text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors disabled:opacity-0">
@@ -390,7 +331,6 @@ function QuizFrame({
         </button>
       </div>
 
-      {/* Body */}
       <div className="flex-1 flex flex-col items-center px-6 pb-10 md:pb-16 pt-4 md:pt-12">
         <div className="w-full max-w-2xl mx-auto">
           <p className="font-body text-[11px] tracking-[3px] uppercase mb-3 text-center" style={{ color: accent }}>
@@ -422,17 +362,19 @@ export default function ConsultationQuiz() {
   const [curl, setCurl] = useState<CurlType | null>(null);
   const [porosity, setPorosity] = useState<Porosity | null>(null);
   const [showPorosityHelp, setShowPorosityHelp] = useState(false);
-  const [density, setDensity] = useState<Density | null>(null);
-  const [hairStruggles, setHairStruggles] = useState<Struggle[]>([]);
-  const [hairGoals, setHairGoals] = useState<Goal[]>([]);
+  const [moisture, setMoisture] = useState<MoistureLevel | null>(null);
+  const [hairLoss, setHairLoss] = useState<HairLoss | null>(null);
+  const [scalpHealth, setScalpHealth] = useState<ScalpHealth | null>(null);
+  const [stylingFrustration, setStylingFrustration] = useState<StylingFrustration | null>(null);
+  const [hairGoal, setHairGoal] = useState<HairGoal | null>(null);
 
   // Skin state
-  const [skinConcern, setSkinConcern] = useState<SkinConcern | null>(null);
-  const [skinType, setSkinType] = useState<SkinType | null>(null);
-  const [skinStruggles, setSkinStruggles] = useState<SkinStruggle[]>([]);
-  const [skinGoal, setSkinGoal] = useState<SkinGoal | null>(null);
+  const [washFeel, setWashFeel] = useState<WashFeel | null>(null);
+  const [ashyLevel, setAshyLevel] = useState<AshyLevel | null>(null);
+  const [productReaction, setProductReaction] = useState<ProductReaction | null>(null);
+  const [middayFinish, setMiddayFinish] = useState<MiddayFinish | null>(null);
+  const [detectedSkinType, setDetectedSkinType] = useState<AuntySkinType | null>(null);
 
-  // Open / close via #quiz hash
   useEffect(() => {
     const sync = () => setOpen(window.location.hash === "#quiz");
     sync();
@@ -440,7 +382,6 @@ export default function ConsultationQuiz() {
     return () => window.removeEventListener("hashchange", sync);
   }, []);
 
-  // Lock body scroll when open
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
@@ -452,10 +393,11 @@ export default function ConsultationQuiz() {
 
   const reset = () => {
     setPhase("journey-pick"); setJourney(null);
-    setCurl(null); setPorosity(null); setShowPorosityHelp(false); setDensity(null);
-    setHairStruggles([]); setHairGoals([]);
-    setSkinConcern(null); setSkinType(null);
-    setSkinStruggles([]); setSkinGoal(null);
+    setCurl(null); setPorosity(null); setShowPorosityHelp(false);
+    setMoisture(null); setHairLoss(null); setScalpHealth(null);
+    setStylingFrustration(null); setHairGoal(null);
+    setWashFeel(null); setAshyLevel(null);
+    setProductReaction(null); setMiddayFinish(null); setDetectedSkinType(null);
   };
 
   const close = () => {
@@ -468,51 +410,52 @@ export default function ConsultationQuiz() {
 
   const startJourney = (j: "hair" | "skin") => {
     setJourney(j);
-    setPhase(j === "hair" ? "hair-type" : "skin-concern");
+    setPhase(j === "hair" ? "hair-type" : "skin-wash-feel");
   };
 
-  const HAIR_STEPS = 5;
+  const HAIR_STEPS = 7;
   const SKIN_STEPS = 4;
   const hairStep: Partial<Record<QuizPhase, number>> = {
-    "hair-type": 0, "porosity": 1, "density": 2, "hair-struggle": 3, "hair-goal": 4,
-    "hair-convening": 4, "hair-results": 4,
+    "hair-type": 0, "porosity": 1, "hair-moisture": 2, "hair-loss": 3,
+    "hair-scalp": 4, "hair-styling": 5, "hair-goal": 6,
+    "hair-convening": 6, "hair-results": 6,
   };
   const skinStep: Partial<Record<QuizPhase, number>> = {
-    "skin-concern": 0, "skin-type": 1, "skin-struggle": 2, "skin-goal": 3,
+    "skin-wash-feel": 0, "skin-ashy": 1, "skin-reaction": 2, "skin-finish": 3,
     "skin-convening": 3, "skin-results": 3,
   };
 
   const back = (() => {
     const map: Partial<Record<QuizPhase, () => void>> = {
-      "hair-type": () => { setPhase("journey-pick"); setJourney(null); },
-      "porosity": () => setPhase("hair-type"),
-      "density": () => setPhase("porosity"),
-      "hair-struggle": () => setPhase("density"),
-      "hair-goal": () => setPhase("hair-struggle"),
-      "skin-concern": () => { setPhase("journey-pick"); setJourney(null); },
-      "skin-type": () => setPhase("skin-concern"),
-      "skin-struggle": () => setPhase("skin-type"),
-      "skin-goal": () => setPhase("skin-struggle"),
+      "hair-type":     () => { setPhase("journey-pick"); setJourney(null); },
+      "porosity":      () => setPhase("hair-type"),
+      "hair-moisture": () => setPhase("porosity"),
+      "hair-loss":     () => setPhase("hair-moisture"),
+      "hair-scalp":    () => setPhase("hair-loss"),
+      "hair-styling":  () => setPhase("hair-scalp"),
+      "hair-goal":     () => setPhase("hair-styling"),
+      "skin-wash-feel": () => { setPhase("journey-pick"); setJourney(null); },
+      "skin-ashy":     () => setPhase("skin-wash-feel"),
+      "skin-reaction": () => setPhase("skin-ashy"),
+      "skin-finish":   () => setPhase("skin-reaction"),
     };
     return map[phase];
   })();
 
-  // Selected hair category derived from curl pick
   const hairCat: HairCategory | null = curl ? curlTypes.find((c) => c.id === curl)!.cat : null;
 
-  const hairMatches = hairCat && porosity && density && hairStruggles.length > 0 && hairGoals.length > 0
-    ? getProductMatches(hairCat, porosity, density, hairStruggles[0], hairGoals[0]) : [];
-  const hairVerdicts = hairCat && porosity && hairStruggles.length > 0 && hairGoals.length > 0
-    ? getVerdicts(hairCat, porosity, hairStruggles[0], hairGoals[0]) : [];
-  const hairMessages = hairCat && porosity && hairStruggles.length > 0 && hairGoals.length > 0
-    ? getConveningMessages(hairCat, porosity, hairStruggles[0], hairGoals[0]) : [];
+  const hairTiered: TieredMatches | null =
+    hairCat && porosity && moisture && hairLoss && scalpHealth && stylingFrustration && hairGoal
+      ? getHairTieredMatches(hairCat, porosity, moisture, hairLoss, scalpHealth, stylingFrustration, hairGoal)
+      : null;
+  const hairVerdicts = hairCat && porosity && moisture && hairGoal
+    ? getVerdicts(hairCat, porosity, moisture, hairGoal) : [];
+  const hairMessages = hairCat && porosity && moisture && hairGoal
+    ? getConveningMessages(hairCat, porosity, moisture, hairGoal) : [];
 
-  const skinMatches = skinConcern && skinType && skinStruggles.length > 0 && skinGoal
-    ? getSkinProductMatches(skinConcern, skinType, skinStruggles[0], skinGoal) : [];
-  const skinVerdicts = skinConcern && skinType && skinStruggles.length > 0 && skinGoal
-    ? getSkinVerdicts(skinConcern, skinType, skinStruggles[0], skinGoal) : [];
-  const skinMessages = skinConcern && skinType && skinStruggles.length > 0 && skinGoal
-    ? getSkinConveningMessages(skinConcern, skinType, skinStruggles[0], skinGoal) : [];
+  const skinTiered: TieredMatches | null = detectedSkinType ? getSkinProductMatches(detectedSkinType) : null;
+  const skinVerdicts = detectedSkinType ? getSkinVerdicts(detectedSkinType) : [];
+  const skinMessages = detectedSkinType ? getSkinConveningMessages(detectedSkinType) : [];
 
   const ContinueBtn = ({ disabled, onClick, label = "Continue" }: { disabled: boolean; onClick: () => void; label?: string }) => (
     <button disabled={disabled} onClick={onClick}
@@ -580,10 +523,10 @@ export default function ConsultationQuiz() {
         </div>
       )}
 
-      {/* HAIR: type — 9-grid 2A→4C */}
+      {/* HAIR Q1: curl type — 9-grid */}
       {phase === "hair-type" && (
         <QuizFrame step={hairStep[phase]!} total={HAIR_STEPS} accent={accent} onBack={back} onClose={close}
-          eyebrow="Hair · Step 1 of 5"
+          eyebrow={`Hair · Step 1 of ${HAIR_STEPS}`}
           title="Pick your curl type."
           hint="If you already know your number — go ahead. Not sure? Tap the closest match.">
           <div className="grid grid-cols-3 gap-3">
@@ -608,10 +551,10 @@ export default function ConsultationQuiz() {
         </QuizFrame>
       )}
 
-      {/* HAIR: porosity */}
+      {/* HAIR Q2: porosity */}
       {phase === "porosity" && (
         <QuizFrame step={hairStep[phase]!} total={HAIR_STEPS} accent={accent} onBack={back} onClose={close}
-          eyebrow="Hair · Step 2 of 5"
+          eyebrow={`Hair · Step 2 of ${HAIR_STEPS}`}
           title="What's your porosity?"
           hint="How well your hair absorbs and holds moisture.">
           <div className="flex flex-col gap-2.5">
@@ -642,65 +585,97 @@ export default function ConsultationQuiz() {
               </div>
             )}
           </div>
-          <ContinueBtn disabled={!porosity} onClick={() => setPhase("density")} />
+          <ContinueBtn disabled={!porosity} onClick={() => setPhase("hair-moisture")} />
         </QuizFrame>
       )}
 
-      {/* HAIR: density */}
-      {phase === "density" && (
+      {/* HAIR Q3: moisture level */}
+      {phase === "hair-moisture" && (
         <QuizFrame step={hairStep[phase]!} total={HAIR_STEPS} accent={accent} onBack={back} onClose={close}
-          eyebrow="Hair · Step 3 of 5"
-          title="How thick is your hair?"
-          hint="Part it and look at your scalp. Density, not length.">
+          eyebrow={`Hair · Step 3 of ${HAIR_STEPS}`}
+          title="How does your hair feel most days?"
+          hint="Think about an average day — not right after wash day.">
           <div className="flex flex-col gap-2.5">
-            {densityOptions.map((opt) => (
+            {moistureLevelOptions.map((opt) => (
               <OptionButton key={opt.value} accent={accent}
-                selected={density === opt.value}
-                onClick={() => setDensity(opt.value)}
-                label={opt.label} sub={opt.desc} />
-            ))}
-          </div>
-          <ContinueBtn disabled={!density} onClick={() => setPhase("hair-struggle")} />
-        </QuizFrame>
-      )}
-
-      {/* HAIR: struggle (multi-select) */}
-      {phase === "hair-struggle" && (
-        <QuizFrame step={hairStep[phase]!} total={HAIR_STEPS} accent={accent} onBack={back} onClose={close}
-          eyebrow="Hair · Step 4 of 5"
-          title="What are you struggling with?"
-          hint="Pick all that apply — be honest, aunty doesn't judge.">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {struggleOptions.map((opt) => (
-              <ChipButton key={opt.value} accent={accent}
-                selected={hairStruggles.includes(opt.value)}
-                onClick={() => setHairStruggles((cur) =>
-                  cur.includes(opt.value) ? cur.filter((s) => s !== opt.value) : [...cur, opt.value]
-                )}
+                selected={moisture === opt.value}
+                onClick={() => setMoisture(opt.value)}
                 label={opt.label} sub={opt.sub} />
             ))}
           </div>
-          <ContinueBtn disabled={hairStruggles.length === 0} onClick={() => setPhase("hair-goal")} />
+          <ContinueBtn disabled={!moisture} onClick={() => setPhase("hair-loss")} />
         </QuizFrame>
       )}
 
-      {/* HAIR: goal (multi-select) */}
+      {/* HAIR Q4: hair loss */}
+      {phase === "hair-loss" && (
+        <QuizFrame step={hairStep[phase]!} total={HAIR_STEPS} accent={accent} onBack={back} onClose={close}
+          eyebrow={`Hair · Step 4 of ${HAIR_STEPS}`}
+          title="How much hair are you losing?"
+          hint="Not shedding — breakage, thinning, or loss you've noticed.">
+          <div className="flex flex-col gap-2.5">
+            {hairLossOptions.map((opt) => (
+              <OptionButton key={opt.value} accent={accent}
+                selected={hairLoss === opt.value}
+                onClick={() => setHairLoss(opt.value)}
+                label={opt.label} sub={opt.sub} />
+            ))}
+          </div>
+          <ContinueBtn disabled={!hairLoss} onClick={() => setPhase("hair-scalp")} />
+        </QuizFrame>
+      )}
+
+      {/* HAIR Q5: scalp health */}
+      {phase === "hair-scalp" && (
+        <QuizFrame step={hairStep[phase]!} total={HAIR_STEPS} accent={accent} onBack={back} onClose={close}
+          eyebrow={`Hair · Step 5 of ${HAIR_STEPS}`}
+          title="How's your scalp?"
+          hint="The foundation of everything. Be honest.">
+          <div className="flex flex-col gap-2.5">
+            {scalpHealthOptions.map((opt) => (
+              <OptionButton key={opt.value} accent={accent}
+                selected={scalpHealth === opt.value}
+                onClick={() => setScalpHealth(opt.value)}
+                label={opt.label} sub={opt.sub} />
+            ))}
+          </div>
+          <ContinueBtn disabled={!scalpHealth} onClick={() => setPhase("hair-styling")} />
+        </QuizFrame>
+      )}
+
+      {/* HAIR Q6: styling frustration */}
+      {phase === "hair-styling" && (
+        <QuizFrame step={hairStep[phase]!} total={HAIR_STEPS} accent={accent} onBack={back} onClose={close}
+          eyebrow={`Hair · Step 6 of ${HAIR_STEPS}`}
+          title="Biggest styling frustration?"
+          hint="The thing that makes you want to give up on wash day.">
+          <div className="flex flex-col gap-2.5">
+            {stylingFrustrationOptions.map((opt) => (
+              <OptionButton key={opt.value} accent={accent}
+                selected={stylingFrustration === opt.value}
+                onClick={() => setStylingFrustration(opt.value)}
+                label={opt.label} sub={opt.sub} />
+            ))}
+          </div>
+          <ContinueBtn disabled={!stylingFrustration} onClick={() => setPhase("hair-goal")} />
+        </QuizFrame>
+      )}
+
+      {/* HAIR Q7: goal */}
       {phase === "hair-goal" && (
         <QuizFrame step={hairStep[phase]!} total={HAIR_STEPS} accent={accent} onBack={back} onClose={close}
-          eyebrow="Hair · Step 5 of 5"
-          title="What's the win you're after?"
-          hint="Pick everything you're working towards.">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {goalOptions.map((opt) => (
-              <ChipButton key={opt.value} accent={accent}
-                selected={hairGoals.includes(opt.value)}
-                onClick={() => setHairGoals((cur) =>
-                  cur.includes(opt.value) ? cur.filter((g) => g !== opt.value) : [...cur, opt.value]
-                )}
+          eyebrow={`Hair · Step 7 of ${HAIR_STEPS}`}
+          title="What's your #1 hair goal?"
+          hint="If you could only fix one thing, what would it be?">
+          <div className="flex flex-col gap-2.5">
+            {hairGoalOptions.map((opt) => (
+              <OptionButton key={opt.value} accent={accent}
+                selected={hairGoal === opt.value}
+                onClick={() => setHairGoal(opt.value)}
                 label={opt.label} sub={opt.sub} />
             ))}
           </div>
-          <ContinueBtn disabled={hairGoals.length === 0} onClick={() => setPhase("hair-convening")} label="See My Routine →" />
+          <ContinueBtn disabled={!hairGoal} onClick={() => setPhase("hair-convening")} label="See My Routine →" />
         </QuizFrame>
       )}
 
@@ -710,86 +685,89 @@ export default function ConsultationQuiz() {
       )}
 
       {/* HAIR: results */}
-      {phase === "hair-results" && (
-        <Results accent={accent}
+      {phase === "hair-results" && hairTiered && (
+        <TieredResults accent={accent}
           eyebrow="Your Hair Routine"
           title="Here's what we chose — and why."
           journey="hair"
-          matches={hairMatches}
+          tiered={hairTiered}
           onClose={close} onReset={() => { reset(); setPhase("journey-pick"); }} />
       )}
 
-      {/* SKIN: concern */}
-      {phase === "skin-concern" && (
+      {/* SKIN Q1: wash feel */}
+      {phase === "skin-wash-feel" && (
         <QuizFrame step={skinStep[phase]!} total={SKIN_STEPS} accent={accent} onBack={back} onClose={close}
           eyebrow="Skin · Step 1 of 4"
-          title="What's your main skin concern?"
-          hint="Pick the one you most want to fix. We'll build the routine around it.">
+          title="After washing your face, how does your skin feel?"
+          hint="Think about how it feels 10 minutes after cleansing — no products applied.">
           <div className="flex flex-col gap-2.5">
-            {skinConcernOptions.map((opt) => (
+            {washFeelOptions.map((opt) => (
               <OptionButton key={opt.value} accent={accent}
-                selected={skinConcern === opt.value}
-                onClick={() => setSkinConcern(opt.value)}
-                label={opt.label} sub={opt.desc} />
+                selected={washFeel === opt.value}
+                onClick={() => setWashFeel(opt.value)}
+                label={opt.label} sub={opt.sub} />
             ))}
           </div>
-          <ContinueBtn disabled={!skinConcern} onClick={() => setPhase("skin-type")} />
+          <ContinueBtn disabled={!washFeel} onClick={() => setPhase("skin-ashy")} />
         </QuizFrame>
       )}
 
-      {/* SKIN: type */}
-      {phase === "skin-type" && (
+      {/* SKIN Q2: ashy patches */}
+      {phase === "skin-ashy" && (
         <QuizFrame step={skinStep[phase]!} total={SKIN_STEPS} accent={accent} onBack={back} onClose={close}
           eyebrow="Skin · Step 2 of 4"
-          title="What's your skin type?"
-          hint="How your skin behaves on an average day.">
+          title="Do you get ashy patches?"
+          hint="White or grey cast on the skin — especially visible on darker skin tones.">
           <div className="flex flex-col gap-2.5">
-            {skinTypeOptions.map((opt) => (
+            {ashyLevelOptions.map((opt) => (
               <OptionButton key={opt.value} accent={accent}
-                selected={skinType === opt.value}
-                onClick={() => setSkinType(opt.value)}
-                label={opt.label} sub={opt.desc} />
+                selected={ashyLevel === opt.value}
+                onClick={() => setAshyLevel(opt.value)}
+                label={opt.label} sub={opt.sub} />
             ))}
           </div>
-          <ContinueBtn disabled={!skinType} onClick={() => setPhase("skin-struggle")} />
+          <ContinueBtn disabled={!ashyLevel} onClick={() => setPhase("skin-reaction")} />
         </QuizFrame>
       )}
 
-      {/* SKIN: struggle (multi-select) */}
-      {phase === "skin-struggle" && (
+      {/* SKIN Q3: new product reaction */}
+      {phase === "skin-reaction" && (
         <QuizFrame step={skinStep[phase]!} total={SKIN_STEPS} accent={accent} onBack={back} onClose={close}
           eyebrow="Skin · Step 3 of 4"
-          title="What's bothering you most?"
-          hint="Pick all that apply.">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {skinStruggleOptions.map((opt) => (
-              <ChipButton key={opt.value} accent={accent}
-                selected={skinStruggles.includes(opt.value)}
-                onClick={() => setSkinStruggles((cur) =>
-                  cur.includes(opt.value) ? cur.filter((s) => s !== opt.value) : [...cur, opt.value]
-                )}
+          title="How does your skin react to new products?"
+          hint="Think about the last time you tried something new.">
+          <div className="flex flex-col gap-2.5">
+            {productReactionOptions.map((opt) => (
+              <OptionButton key={opt.value} accent={accent}
+                selected={productReaction === opt.value}
+                onClick={() => setProductReaction(opt.value)}
                 label={opt.label} sub={opt.sub} />
             ))}
           </div>
-          <ContinueBtn disabled={skinStruggles.length === 0} onClick={() => setPhase("skin-goal")} />
+          <ContinueBtn disabled={!productReaction} onClick={() => setPhase("skin-finish")} />
         </QuizFrame>
       )}
 
-      {/* SKIN: goal */}
-      {phase === "skin-goal" && (
+      {/* SKIN Q4: midday finish */}
+      {phase === "skin-finish" && (
         <QuizFrame step={skinStep[phase]!} total={SKIN_STEPS} accent={accent} onBack={back} onClose={close}
           eyebrow="Skin · Step 4 of 4"
-          title="What does winning look like?"
-          hint="Your biggest skin goal.">
+          title="What's your natural finish by midday?"
+          hint="No touch-ups, no blotting — how does your skin look and feel?">
           <div className="flex flex-col gap-2.5">
-            {skinGoalOptions.map((opt) => (
+            {middayFinishOptions.map((opt) => (
               <OptionButton key={opt.value} accent={accent}
-                selected={skinGoal === opt.value}
-                onClick={() => setSkinGoal(opt.value)}
+                selected={middayFinish === opt.value}
+                onClick={() => setMiddayFinish(opt.value)}
                 label={opt.label} sub={opt.sub} />
             ))}
           </div>
-          <ContinueBtn disabled={!skinGoal} onClick={() => setPhase("skin-convening")} label="See My Routine →" />
+          <ContinueBtn disabled={!middayFinish} onClick={() => {
+            if (washFeel && ashyLevel && productReaction && middayFinish) {
+              setDetectedSkinType(determineSkinType(washFeel, ashyLevel, productReaction, middayFinish));
+            }
+            setPhase("skin-convening");
+          }} label="Find My Skin Type →" />
         </QuizFrame>
       )}
 
@@ -797,68 +775,69 @@ export default function ConsultationQuiz() {
         <Convening accent={accent} messages={skinMessages} onDone={() => setPhase("skin-results")} />
       )}
 
-      {phase === "skin-results" && (
-        <Results accent={accent}
-          eyebrow="Your Skin Routine"
-          title="Here's what we chose — and why."
+      {phase === "skin-results" && detectedSkinType && skinTiered && (
+        <TieredResults accent={accent}
+          eyebrow={`Your Skin Type: ${auntySkinTypes.find((t) => t.value === detectedSkinType)?.label ?? ""}`}
+          title={auntySkinTypes.find((t) => t.value === detectedSkinType)?.headline ?? "Here's what we chose — and why."}
           journey="skin"
-          matches={skinMatches}
+          tiered={skinTiered}
           onClose={close} onReset={() => { reset(); setPhase("journey-pick"); }} />
       )}
     </div>
   );
 }
 
-// ── Results screen ────────────────────────────────────────────────────────
-function Results({
-  eyebrow, title, accent, journey, matches, onClose, onReset,
+// ── Tier section header ──────────────────────────────────────────────────
+function TierHeader({ number, label, sublabel, accent }: { number: string; label: string; sublabel: string; accent: string }) {
+  return (
+    <div className="mb-5">
+      <div className="flex items-center gap-3 mb-1">
+        <span className="font-display text-[11px] font-bold tracking-[3px] uppercase px-2.5 py-1 rounded-full"
+              style={{ backgroundColor: accent + "15", color: accent }}>
+          {number}
+        </span>
+        <h3 className="font-display text-xl font-bold text-[#2D1B0E]">{label}</h3>
+      </div>
+      <p className="font-body text-sm text-[#6B5040] leading-relaxed">{sublabel}</p>
+    </div>
+  );
+}
+
+// ── Tiered Results screen ────────────────────────────────────────────────
+function TieredResults({
+  eyebrow, title, accent, journey, tiered, onClose, onReset,
 }: {
   eyebrow: string; title: string; accent: string;
   journey: "hair" | "skin";
-  matches: { productId: string; reason: string }[];
+  tiered: TieredMatches;
   onClose: () => void; onReset: () => void;
 }) {
-  const [step, setStep] = useState<"products" | "ordered">("products");
   const [checkingOut, setCheckingOut] = useState(false);
 
-  const addonIds = journey === "hair"
-    ? ["scalp-serum", "growth-oil", "satin-bonnet"]
-    : ["derma-roller", "ice-roller", "silicone-face-scrubber"];
-  const matchedIds = new Set(matches.map((m) => m.productId));
-  const addons = addonIds.filter((id) => !matchedIds.has(id));
+  const tierPrice = (items: { productId: string }[]) =>
+    items.reduce((sum, m) => sum + (getProductById(m.productId)?.price ?? 0), 0);
 
-  const allProducts = [
-    ...matches.map((m) => m.productId),
-    ...addons,
-  ];
-  const totalPrice = allProducts.reduce((sum, id) => {
-    const p = getProductById(id);
-    return sum + (p?.price ?? 0);
-  }, 0);
+  const basicsPrice = tierPrice(tiered.basics);
+  const essentialsPrice = tierPrice(tiered.essentials);
+  const addonsPrice = tierPrice(tiered.addons);
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (tier: "basics" | "essentials" | "everything") => {
     if (checkingOut) return;
     setCheckingOut(true);
+    const cart =
+      tier === "basics" ? tiered.basics
+      : tier === "essentials" ? [...tiered.basics, ...tiered.essentials]
+      : [...tiered.basics, ...tiered.essentials, ...tiered.addons];
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cart: allProducts.map((id) => ({ productId: id, quantity: 1 })),
-        }),
+        body: JSON.stringify({ cart: cart.map((m) => ({ productId: m.productId, quantity: 1 })) }),
       });
       const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-        return;
-      }
-      // Fallback: show local confirmation
-      setStep("ordered");
-    } catch {
-      setStep("ordered");
-    } finally {
-      setCheckingOut(false);
-    }
+      if (data.url) { window.location.href = data.url; return; }
+    } catch { /* fallback below */ }
+    setCheckingOut(false);
   };
 
   const CloseBtn = () => (
@@ -869,61 +848,6 @@ function Results({
       </svg>
     </button>
   );
-
-  if (step === "ordered") {
-    return (
-      <div className="min-h-screen flex flex-col overflow-y-auto">
-        <div className="flex items-center justify-between px-6 md:px-10 pt-6 pb-4 flex-shrink-0">
-          <button onClick={() => setStep("products")}
-            className="font-body text-xs text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
-            ← Back
-          </button>
-          <p className="font-body text-[11px] tracking-[3px] uppercase" style={{ color: accent }}>{eyebrow}</p>
-          <CloseBtn />
-        </div>
-
-        {/* Order confirmed */}
-        <div className="flex flex-col items-center px-6 text-center pt-6 pb-14">
-          <div className="max-w-lg mx-auto">
-            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border-2"
-                 style={{ borderColor: accent }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M5 13L10 18L19 7" stroke={accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <p className="font-body text-[11px] tracking-[3px] uppercase mb-3" style={{ color: accent }}>Order confirmed</p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#2D1B0E] mb-4 leading-[1.1]">
-              We&apos;re in the lab making it for you.
-            </h2>
-            <p className="font-body text-base text-[#6B5040] leading-relaxed">
-              Your products ship in 4–6 weeks, freshly formulated for your profile.
-            </p>
-          </div>
-        </div>
-
-        {/* App — not optional, it's part of what they get */}
-        <div className="border-t border-[rgba(26,15,8,0.06)] pt-3 pb-4 px-6 text-center">
-          <p className="font-body text-[11px] tracking-[3px] uppercase mb-1" style={{ color: accent }}>Included with your order</p>
-          <h3 className="font-display text-2xl md:text-3xl font-bold text-[#2D1B0E] mb-1">
-            Your aunties, in your pocket.
-          </h3>
-          <p className="font-body text-sm text-[#6B5040]">
-            Track your progress. Chat to your aunties. Get guided through every wash day.
-          </p>
-        </div>
-
-        {/* Interactive app mock — rendered inline */}
-        <AppPreview hideCta />
-
-        <div className="py-8 text-center">
-          <button onClick={onClose}
-            className="font-body text-sm text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
-            Close consultation
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -941,63 +865,94 @@ function Results({
           <h2 className="font-display text-3xl md:text-[2.5rem] font-bold text-[#2D1B0E] text-center mb-2 leading-[1.1]">
             {title}
           </h2>
-          <p className="font-body text-sm text-[#9E8C7A] text-center mb-8">
-            Ingredient-matched to your exact profile.
+          <p className="font-body text-sm text-[#9E8C7A] text-center mb-10">
+            Three tiers. Start with the basics, add on when you&apos;re ready.
           </p>
 
-          {/* Core products — horizontal scroll */}
-          <div className="-mx-6 md:-mx-10 px-6 md:px-10 overflow-x-auto pb-4 mb-8">
-            <div className="flex gap-4" style={{ width: "max-content" }}>
-              {matches.map((m) => (
-                <ProductCard key={m.productId} productId={m.productId} reason={m.reason} accent={accent} />
-              ))}
+          {/* ── TIER 1: BASICS ─────────────────────────────────────────── */}
+          <TierHeader number="Tier 1" label="The Basics" accent={accent}
+            sublabel={journey === "hair" ? "Your wash day foundation — cleanser, conditioner, styler." : "Cleanser + the core treatments for your skin type."} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            {tiered.basics.map((m) => (
+              <TierProductCard key={m.productId} productId={m.productId} reason={m.reason} accent={accent} />
+            ))}
+          </div>
+          <div className="p-5 rounded-2xl bg-[#F7F5F0] border border-[rgba(26,15,8,0.06)] mb-10">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="font-display text-base font-bold text-[#2D1B0E]">Start with the basics</p>
+                <p className="font-body text-xs text-[#9E8C7A]">{tiered.basics.length} products · the essentials</p>
+              </div>
+              <p className="font-display text-2xl font-bold text-[#2D1B0E]">${basicsPrice}</p>
             </div>
+            <button onClick={() => handleCheckout("basics")} disabled={checkingOut}
+              className="w-full py-3.5 rounded-full font-body text-[12px] font-semibold tracking-[1px] uppercase transition-all hover:bg-[#1A0F08] active:scale-[0.98] disabled:opacity-60 bg-[#2D1B0E] text-[#FDFCF8]">
+              {checkingOut ? "Sending to checkout…" : `Order Basics ($${basicsPrice}) →`}
+            </button>
           </div>
 
-          {/* Add-ons */}
-          {addons.length > 0 && (
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-[#2D1B0E]">Complete the routine</h3>
-                  <p className="font-body text-xs text-[#9E8C7A] mt-0.5">Aunty-recommended add-ons</p>
-                </div>
-              </div>
-              <div className="-mx-6 md:-mx-10 px-6 md:px-10 overflow-x-auto pb-2">
-                <div className="flex gap-3" style={{ width: "max-content" }}>
-                  {addons.map((id) => (
-                    <AddonCard key={id} productId={id} accent={accent} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Order CTA */}
-          <div className="p-6 rounded-2xl bg-[#F7F5F0] border border-[rgba(26,15,8,0.06)]">
-            <div className="flex items-start justify-between mb-5">
+          {/* ── TIER 2: BASICS + ESSENTIALS ────────────────────────────── */}
+          <TierHeader number="Tier 2" label="Basics + Essentials" accent={accent}
+            sublabel={journey === "hair" ? "Targeted treatments for your specific concerns." : "SPF + targeted serums for your skin's biggest needs."} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            {tiered.essentials.map((m) => (
+              <TierProductCard key={m.productId} productId={m.productId} reason={m.reason} accent={accent} />
+            ))}
+          </div>
+          <div className="p-5 rounded-2xl bg-[#F7F5F0] border border-[rgba(26,15,8,0.06)] mb-10">
+            <div className="flex items-center justify-between mb-3">
               <div>
-                <p className="font-display text-lg font-bold text-[#2D1B0E] mb-1">Your full routine</p>
-                <p className="font-body text-sm text-[#6B5040] leading-relaxed">
-                  {allProducts.length} products · formulated fresh for your profile<br />
-                  <span className="text-[#9E8C7A] text-xs">Ships in 4–6 weeks once we make it for you</span>
-                </p>
+                <p className="font-display text-base font-bold text-[#2D1B0E]">Basics + Essentials</p>
+                <p className="font-body text-xs text-[#9E8C7A]">{tiered.basics.length + tiered.essentials.length} products · the full active routine</p>
               </div>
-              <div className="text-right ml-4 flex-shrink-0">
-                <p className="font-display text-2xl font-bold text-[#2D1B0E]">${totalPrice}</p>
-                <p className="font-body text-[10px] text-[#9E8C7A]">{allProducts.length} items</p>
-              </div>
+              <p className="font-display text-2xl font-bold text-[#2D1B0E]">${basicsPrice + essentialsPrice}</p>
             </div>
-            <button onClick={handleCheckout} disabled={checkingOut}
-              className="w-full py-4 rounded-full font-body text-[13px] font-semibold tracking-[1px] uppercase transition-all hover:bg-[#1A0F08] active:scale-[0.98] disabled:opacity-60 bg-[#2D1B0E] text-[#FDFCF8]">
-              {checkingOut ? "Sending you to checkout…" : `Order all ${allProducts.length} ($${totalPrice}) →`}
+            <button onClick={() => handleCheckout("essentials")} disabled={checkingOut}
+              className="w-full py-3.5 rounded-full font-body text-[12px] font-semibold tracking-[1px] uppercase transition-all hover:bg-[#1A0F08] active:scale-[0.98] disabled:opacity-60 bg-[#2D1B0E] text-[#FDFCF8]">
+              {checkingOut ? "Sending to checkout…" : `Order Basics + Essentials ($${basicsPrice + essentialsPrice}) →`}
             </button>
-            <p className="font-body text-[10px] text-[#9E8C7A] text-center mt-3">
-              Secure checkout · ships in 4–6 weeks
+          </div>
+
+          {/* ── TIER 3: EVERYTHING ─────────────────────────────────────── */}
+          <TierHeader number="Tier 3" label="The Full Stack" accent={accent}
+            sublabel="Tools and accessories that amplify everything above." />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            {tiered.addons.map((m) => (
+              <TierProductCard key={m.productId} productId={m.productId} reason={m.reason} accent={accent} />
+            ))}
+          </div>
+          <div className="p-5 rounded-2xl border-2 mb-10" style={{ borderColor: accent, backgroundColor: accent + "08" }}>
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="font-display text-base font-bold text-[#2D1B0E]">Everything — the complete routine</p>
+                <p className="font-body text-xs text-[#9E8C7A]">{tiered.basics.length + tiered.essentials.length + tiered.addons.length} products · basics + essentials + add-ons</p>
+              </div>
+              <p className="font-display text-2xl font-bold text-[#2D1B0E]">${basicsPrice + essentialsPrice + addonsPrice}</p>
+            </div>
+            <button onClick={() => handleCheckout("everything")} disabled={checkingOut}
+              className="w-full py-3.5 rounded-full font-body text-[12px] font-semibold tracking-[1px] uppercase transition-all hover:bg-[#1A0F08] active:scale-[0.98] disabled:opacity-60 bg-[#2D1B0E] text-[#FDFCF8]">
+              {checkingOut ? "Sending to checkout…" : `Order Everything ($${basicsPrice + essentialsPrice + addonsPrice}) →`}
+            </button>
+          </div>
+
+          {/* App preview */}
+          <div className="border-t border-[rgba(26,15,8,0.06)] pt-8 pb-4 text-center">
+            <p className="font-body text-[11px] tracking-[3px] uppercase mb-1" style={{ color: accent }}>Included with every order</p>
+            <h3 className="font-display text-2xl md:text-3xl font-bold text-[#2D1B0E] mb-1">
+              Your aunties, in your pocket.
+            </h3>
+            <p className="font-body text-sm text-[#6B5040]">
+              Track your progress. Chat to your aunties. Get guided through every wash day.
             </p>
           </div>
+          <AppPreview hideCta />
 
-          <div className="h-8" />
+          <div className="py-8 text-center">
+            <button onClick={onClose}
+              className="font-body text-sm text-[#9E8C7A] hover:text-[#2D1B0E] transition-colors">
+              Close consultation
+            </button>
+          </div>
         </div>
       </div>
     </div>

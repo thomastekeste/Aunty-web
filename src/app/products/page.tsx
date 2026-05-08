@@ -27,6 +27,11 @@ const SUB_FILTERS: Record<string, { value: ProductSub; label: string }[]> = {
     { value: "glow",              label: "Glow" },
     { value: "dryness",           label: "Dryness" },
     { value: "spf",               label: "SPF" },
+    { value: "oily",              label: "Oily" },
+    { value: "dry-ashy",          label: "Dry & Ashy" },
+    { value: "combination",       label: "Combination" },
+    { value: "balanced",          label: "Balanced" },
+    { value: "sensitive",         label: "Sensitive" },
   ],
   accessories: [
     { value: "hair", label: "Hair" },

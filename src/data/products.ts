@@ -1,6 +1,6 @@
 export type ProductCategory = "hair" | "skin" | "accessories";
 export type HairSub = "low-porosity" | "high-porosity" | "scalp";
-export type SkinSub = "hyperpigmentation" | "glow" | "dryness" | "spf";
+export type SkinSub = "hyperpigmentation" | "glow" | "dryness" | "spf" | "oily" | "dry-ashy" | "combination" | "balanced" | "sensitive";
 export type AccessorySub = "hair" | "skin";
 export type ProductSub = HairSub | SkinSub | AccessorySub;
 export type ProductStatus = "pre-order" | "ships-now";
@@ -269,6 +269,86 @@ export const products: Product[] = [
     productType: "face-wash",
     keyIngredients: ["Gluconolactone", "Aloe Vera", "Oat Extract", "Panthenol"],
     whyItWorks: "Stripping cleansers trigger inflammation — and inflammation on melanin-rich skin means PIH. This stays at pH 5.5 (your skin's natural pH) and uses a PHA that cleanses without disrupting the barrier.",
+  },
+
+  // ── SKIN: By Skin Type ──────────────────────────────────────────
+  {
+    id: "oil-free-hydration-serum",
+    name: "Aunty Oil-Free Hydration Serum",
+    category: "skin",
+    sub: "oily",
+    auntyId: "salma",
+    painPoint: "Your skin is producing oil because it's desperate for water. These are not the same thing.",
+    price: 28,
+    status: "pre-order",
+    productType: "face-serum",
+    keyIngredients: ["Hyaluronic Acid", "Glycerin", "Niacinamide"],
+    whyItWorks: "Oil-free, lightweight, gel texture. Hyaluronic acid + glycerin flood dehydrated skin with water — so your sebaceous glands stop overcompensating with oil.",
+  },
+  {
+    id: "sebum-control-serum",
+    name: "Aunty Sebum Control Serum",
+    category: "skin",
+    sub: "oily",
+    auntyId: "salma",
+    painPoint: "Blotting papers are not a routine. Niacinamide is.",
+    price: 30,
+    status: "pre-order",
+    productType: "face-serum",
+    keyIngredients: ["Niacinamide 10%", "Zinc PCA", "Panthenol"],
+    whyItWorks: "Regulates sebum at the gland level. Niacinamide 10% + zinc PCA reduce shine without stripping — so skin stays matte without the tightness.",
+  },
+  {
+    id: "ceramide-barrier-cream",
+    name: "Aunty Ceramide Barrier Cream",
+    category: "skin",
+    sub: "dry-ashy",
+    auntyId: "denise",
+    painPoint: "Your skin barrier has been compromised. This rebuilds it.",
+    price: 26,
+    status: "pre-order",
+    productType: "lotion",
+    keyIngredients: ["Ceramide NP", "Ceramide AP", "Cholesterol", "Hyaluronic Acid"],
+    whyItWorks: "Clinical-grade barrier repair. Ceramide NP + ceramide AP + cholesterol rebuild the lipid matrix your skin lost. Fragrance-free, dye-free.",
+  },
+  {
+    id: "zone-balancing-serum",
+    name: "Aunty Zone Balancing Serum",
+    category: "skin",
+    sub: "combination",
+    auntyId: "salma",
+    painPoint: "Your T-zone and your cheeks need different things. Most brands give them the same thing.",
+    price: 28,
+    status: "pre-order",
+    productType: "face-serum",
+    keyIngredients: ["Salicylic Acid", "Ceramides", "Niacinamide"],
+    whyItWorks: "Salicylic acid 0.5% for oily zones + ceramides for dry zones. Apply differently by zone — aunty tells you how in the app.",
+  },
+  {
+    id: "antioxidant-glow-serum",
+    name: "Aunty Antioxidant Glow Serum",
+    category: "skin",
+    sub: "balanced",
+    auntyId: "fatou",
+    painPoint: "Your skin is working. This just protects it.",
+    price: 30,
+    status: "pre-order",
+    productType: "face-serum",
+    keyIngredients: ["Vitamin C", "Niacinamide", "Ferulic Acid"],
+    whyItWorks: "Antioxidant protection, brightening, anti-pollution. Vitamin C derivative + niacinamide + ferulic acid. Morning use only — preserves and protects what's already glowing.",
+  },
+  {
+    id: "centella-calming-serum",
+    name: "Aunty Centella Calming Serum",
+    category: "skin",
+    sub: "sensitive",
+    auntyId: "amara",
+    painPoint: "Your skin isn't weak. It just needs someone who understands it.",
+    price: 28,
+    status: "pre-order",
+    productType: "face-serum",
+    keyIngredients: ["Centella Asiatica", "Panthenol", "Allantoin"],
+    whyItWorks: "Centella asiatica 10% + panthenol + allantoin. Reduces redness, calms inflammation, prevents PIH triggered by reactivity. Fragrance-free, alcohol-free, dye-free.",
   },
 
   // ── ACCESSORIES ─────────────────────────────────────────────────
