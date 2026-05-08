@@ -7,7 +7,8 @@ import MeetTheCouncil from "@/components/MeetTheCouncil";
 import HairTypes from "@/components/HairTypes";
 import SkinTypes from "@/components/SkinTypes";
 import SocialProof from "@/components/SocialProof";
-import StickyCTA from "@/components/StickyCTA";
+import QuizOnramp from "@/components/QuizOnramp";
+import IngredientCredibility from "@/components/IngredientCredibility";
 import ConsultationQuiz from "@/components/ConsultationQuiz";
 import Footer from "@/components/Footer";
 
@@ -19,13 +20,14 @@ export default function Home() {
       <ValuesMarquee />
       <FeaturedProducts />
       <SocialProof />
+      <QuizOnramp />
+      <IngredientCredibility />
       <AppPreview />
       <MeetTheCouncil />
       <HairTypes />
       <SkinTypes />
       <Footer />
       <ConsultationQuiz />
-      <StickyCTA />
     </main>
   );
 }
