@@ -1,16 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { products, type ProductCategory } from "@/data/products";
+import { products } from "@/data/products";
 import ProductCard from "./ProductCard";
 
 const FEATURED_IDS = ["deep-conditioner", "pih-serum", "scalp-serum"];
-
-const CATEGORY_ACCENT: Record<ProductCategory, string> = {
-  hair: "#2D1B0E",
-  skin: "#6B5040",
-  accessories: "#9E8C7A",
-};
 
 export default function FeaturedProducts() {
   const featured = products.filter((p) => FEATURED_IDS.includes(p.id));
@@ -38,7 +32,7 @@ export default function FeaturedProducts() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
           {featured.map((product) => (
             <div key={product.id}>
-              <ProductCard product={product} accent={CATEGORY_ACCENT[product.category]} />
+              <ProductCard product={product} />
             </div>
           ))}
         </div>

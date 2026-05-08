@@ -2,6 +2,8 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ValuesMarquee from "@/components/ValuesMarquee";
 import QuizOnramp from "@/components/QuizOnramp";
+import WhyAunty from "@/components/WhyAunty";
+import TransformSection from "@/components/TransformSection";
 import SocialProof from "@/components/SocialProof";
 import StickyBar from "@/components/StickyBar";
 import ConsultationQuiz from "@/components/ConsultationQuiz";
@@ -14,6 +16,8 @@ export default function Home() {
       <Hero />
       <ValuesMarquee />
       <QuizOnramp />
+      <WhyAunty />
+      <TransformSection />
       <SocialProof />
       <Footer />
       <ConsultationQuiz />

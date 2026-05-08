@@ -181,6 +181,68 @@ body {
   animation: marquee 30s linear infinite;
 }
 
+/* ─── Testimonial marquees (paused on hover) ─── */
+@keyframes marqueeLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marqueeRight {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.animate-marquee-left  { animation: marqueeLeft 60s linear infinite; }
+.animate-marquee-right { animation: marqueeRight 70s linear infinite; }
+.marquee-pause-on-hover:hover .animate-marquee-left,
+.marquee-pause-on-hover:hover .animate-marquee-right {
+  animation-play-state: paused;
+}
+
+/* ─── Floating cards (hero) ─── */
+@keyframes floatA {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50%       { transform: translateY(-12px) rotate(-4deg); }
+}
+@keyframes floatB {
+  0%, 100% { transform: translateY(0) rotate(3deg); }
+  50%       { transform: translateY(-8px) rotate(3deg); }
+}
+@keyframes floatC {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%       { transform: translateY(-10px) rotate(-2deg); }
+}
+.float-a { animation: floatA 6s ease-in-out infinite; }
+.float-b { animation: floatB 7s ease-in-out infinite 0.4s; }
+.float-c { animation: floatC 8s ease-in-out infinite 0.8s; }
+
+/* ─── Magnetic-feel transition for CTAs ─── */
+.cta-magnetic {
+  transition: transform 200ms cubic-bezier(0.16,1,0.3,1), box-shadow 200ms ease;
+  will-change: transform;
+}
+.cta-magnetic:hover { transform: translateY(-2px); }
+
+/* ─── Soft 3D tilt support ─── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 400ms cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ─── Gradient mesh background utility ─── */
+.bg-mesh-warm {
+  background:
+    radial-gradient(at 20% 30%, rgba(201,144,58,0.18) 0%, transparent 45%),
+    radial-gradient(at 80% 20%, rgba(232,196,184,0.20) 0%, transparent 45%),
+    radial-gradient(at 50% 90%, rgba(245,236,212,0.55) 0%, transparent 55%),
+    #FDFCF8;
+}
+
+/* ─── Comparison row reveal ─── */
+@keyframes rowReveal {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.row-reveal { animation: rowReveal 0.4s ease-out forwards; opacity: 0; }
+
 /* ─── Scrollbar hide ─── */
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }

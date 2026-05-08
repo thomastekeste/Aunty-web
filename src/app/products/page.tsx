@@ -37,16 +37,25 @@ const SUB_FILTERS: Record<string, { value: ProductSub; label: string }[]> = {
   ],
 };
 
-const CATEGORY_ACCENT: Record<ProductCategory, string> = {
-  hair: "#2D1B0E",
-  skin: "#6B5040",
-  accessories: "#9E8C7A",
-};
-
-const CATEGORY_META: Record<ProductCategory, { title: string; desc: string }> = {
-  hair: { title: "Haircare", desc: "Shampoos, conditioners & treatments matched to your porosity" },
-  skin: { title: "Skincare", desc: "Serums, cleansers & treatments built for melanin-rich skin" },
-  accessories: { title: "Accessories", desc: "Tools your aunty swears by" },
+const CATEGORY_META: Record<ProductCategory, { title: string; desc: string; eyebrow: string; color: string }> = {
+  hair: {
+    title: "Haircare",
+    desc: "Shampoos, conditioners & treatments matched to your porosity",
+    eyebrow: "By porosity",
+    color: "#A0701E",
+  },
+  skin: {
+    title: "Skincare",
+    desc: "Serums, cleansers & treatments built for melanin-rich skin",
+    eyebrow: "By skin type",
+    color: "#8B4A3A",
+  },
+  accessories: {
+    title: "Accessories",
+    desc: "Tools your aunty swears by — ships from day one",
+    eyebrow: "Ready now",
+    color: "#3F6B52",
+  },
 };
 
 function BundleCard({ bundle }: { bundle: typeof bundles[number] }) {
@@ -83,23 +92,33 @@ function CategorySection({
   items: typeof products;
 }) {
   const meta = CATEGORY_META[category];
-  const accent = CATEGORY_ACCENT[category];
   return (
-    <section className="mb-14">
-      <div className="flex items-baseline justify-between mb-6">
-        <div>
-          <h2 className="font-display text-[1.25rem] md:text-[1.5rem] font-bold text-[#2D1B0E] tracking-[-0.01em]">
+    <section className="mb-16">
+      <div className="flex items-end justify-between mb-7 pb-5 border-b border-[rgba(26,15,8,0.06)]">
+        <div className="flex flex-col gap-1.5">
+          <span
+            className="font-body text-[10px] font-bold tracking-[2.5px] uppercase"
+            style={{ color: meta.color }}
+          >
+            {meta.eyebrow}
+          </span>
+          <h2 className="font-display text-[1.5rem] md:text-[2rem] font-bold text-[#1A0F08] tracking-[-0.02em] leading-tight">
             {meta.title}
           </h2>
-          <p className="font-body text-[13px] text-[#9E8C7A] mt-0.5">{meta.desc}</p>
+          <p className="font-body text-[13px] text-[#6B5040] max-w-md">{meta.desc}</p>
         </div>
-        <span className="font-body text-[12px] text-[#9E8C7A] hidden sm:block">
-          {items.length} {items.length === 1 ? "product" : "products"}
-        </span>
+        <div className="flex flex-col items-end gap-1">
+          <span className="font-display text-[24px] font-bold text-[#1A0F08]">
+            {items.length}
+          </span>
+          <span className="font-body text-[10px] tracking-[1.5px] uppercase text-[#9E8C7A]">
+            {items.length === 1 ? "product" : "products"}
+          </span>
+        </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
         {items.map((p) => (
-          <ProductCard key={p.id} product={p} accent={accent} />
+          <ProductCard key={p.id} product={p} />
         ))}
       </div>
     </section>
@@ -223,11 +242,7 @@ export default function ProductsPage() {
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {filtered.map((p) => (
-                <ProductCard
-                  key={p.id}
-                  product={p}
-                  accent={CATEGORY_ACCENT[p.category]}
-                />
+                <ProductCard key={p.id} product={p} />
               ))}
             </div>
           )}
