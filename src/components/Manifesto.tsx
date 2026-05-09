@@ -56,7 +56,7 @@ export default function Manifesto() {
   return (
     <section
       ref={containerRef}
-      className="relative py-32 md:py-40 bg-[#FDFCF8] overflow-hidden"
+      className="relative py-20 md:py-28 bg-[#FDFCF8] overflow-hidden"
     >
       <div className="relative max-w-[1100px] mx-auto px-6 md:px-10">
         <p className="font-body text-[11px] font-bold tracking-[4px] uppercase text-[#C9903A] mb-8">

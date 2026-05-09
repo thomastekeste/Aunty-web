@@ -1,19 +1,17 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import StatsBand from "@/components/StatsBand";
-import FeaturedIn from "@/components/FeaturedIn";
+import TrustBand from "@/components/TrustBand";
 import Manifesto from "@/components/Manifesto";
-import ValuesMarquee from "@/components/ValuesMarquee";
+import ProductFeature from "@/components/ProductFeature";
 import BentoFeatures from "@/components/BentoFeatures";
-import QuizOnramp from "@/components/QuizOnramp";
+import PhotoBreak from "@/components/PhotoBreak";
 import WhyAunty from "@/components/WhyAunty";
-import TransformSection from "@/components/TransformSection";
-import EditorialSpotlight from "@/components/EditorialSpotlight";
+import IngredientsStrip from "@/components/IngredientsStrip";
 import SocialProof from "@/components/SocialProof";
 import FAQ from "@/components/FAQ";
+import AppShowcase from "@/components/AppShowcase";
 import StickyBar from "@/components/StickyBar";
 import ConsultationQuiz from "@/components/ConsultationQuiz";
-import AskAuntyWidget from "@/components/AskAuntyWidget";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -21,21 +19,19 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
-      <StatsBand />
-      <FeaturedIn />
+      <ProductFeature />
       <Manifesto />
-      <ValuesMarquee />
       <BentoFeatures />
-      <QuizOnramp />
+      <PhotoBreak />
       <WhyAunty />
-      <TransformSection />
-      <EditorialSpotlight />
+      <IngredientsStrip />
+      <TrustBand />
       <SocialProof />
       <FAQ />
+      <AppShowcase />
       <Footer />
       <ConsultationQuiz />
       <StickyBar />
-      <AskAuntyWidget />
     </main>
   );
 }

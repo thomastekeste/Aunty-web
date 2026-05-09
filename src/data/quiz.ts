@@ -202,12 +202,18 @@ export function getHairTieredMatches(
       productId: "clarifying-shampoo",
       reason: "With low porosity hair, products pile up on the cuticle instead of absorbing. This clarifying shampoo breaks down that congestion so every product after it can actually get in.",
     });
-  } else {
+  } else if (porosity === "high") {
     basics.push({
-      productId: "moisturizing-shampoo",
-      reason: porosity === "high"
-        ? "High porosity hair loses moisture even during cleansing. This shampoo deposits hydration while it cleans so you don't start wash day in a deficit."
-        : "A gentle cleanser that won't strip what your hair needs. Shea butter and aloe keep moisture in while castor oil strengthens from root to tip.",
+      productId: "strengthening-shampoo",
+      reason: "High porosity hair loses moisture and protein even during cleansing. This shampoo deposits a hydrolyzed protein blend while it cleans — so you don't start wash day already in a deficit.",
+    });
+  } else {
+    // normal porosity, scalp is fine or just itchy
+    basics.push({
+      productId: "balancing-shampoo",
+      reason: scalp === "itchy-flaky"
+        ? "Your scalp needs gentle but thorough cleansing. This aloe and oat complex keeps the pH balanced and cuticle flat while clearing the buildup that feeds irritation — without the stripping that makes itchiness worse."
+        : "A gentle cleanser that maintains your hair's natural balance. Aloe and oat complex keep the pH right so every product after it works at full strength.",
     });
   }
 
@@ -231,6 +237,11 @@ export function getHairTieredMatches(
     basics.push({
       productId: "lightweight-conditioner",
       reason: "Low porosity hair gets weighed down by rich formulas. This lightweight conditioner gives you detangling slip without the heaviness — rice water and silk proteins smooth the cuticle without sealing it shut.",
+    });
+  } else if (porosity === "normal" && moisture === "balanced") {
+    basics.push({
+      productId: "balancing-conditioner",
+      reason: "Your hair is in a good place — normal porosity and balanced moisture. The balancing conditioner maintains that equilibrium: silk amino complex and jojoba derivative add conditioning and slip without tipping your hair into overloaded or underhydrated.",
     });
   } else {
     basics.push({

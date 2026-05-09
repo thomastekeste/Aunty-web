@@ -7,6 +7,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 interface Feature {
   title: string;
@@ -16,6 +17,8 @@ interface Feature {
   icon: React.ReactNode;
   bg?: string;
   dark?: boolean;
+  image?: string;
+  imageAlt?: string;
 }
 
 const FEATURES: Feature[] = [
@@ -26,6 +29,8 @@ const FEATURES: Feature[] = [
     span: "md:col-span-4 md:row-span-2",
     bg: "linear-gradient(155deg, #1A0F08 0%, #2D1B0E 60%, #3D2B1A 100%)",
     dark: true,
+    image: "/how-it-works.png",
+    imageAlt: "How it works: ingredient mixing, products on a bathroom shelf, and the consultation quiz on a phone",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
         <circle cx="12" cy="12" r="10" />
@@ -113,7 +118,7 @@ export default function BentoFeatures() {
   }, []);
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 bg-[#FDFCF8] overflow-hidden">
+    <section ref={ref} className="relative py-20 md:py-28 bg-[#FDFCF8] overflow-hidden">
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
@@ -202,6 +207,19 @@ export default function BentoFeatures() {
                   {f.blurb}
                 </p>
               </div>
+
+              {/* Image (if provided) */}
+              {f.image && (
+                <div className="relative mt-4 rounded-xl overflow-hidden aspect-[16/9]">
+                  <Image
+                    src={f.image}
+                    fill
+                    className="object-cover"
+                    alt={f.imageAlt ?? ""}
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                  />
+                </div>
+              )}
 
               {/* Hover chevron */}
               <div className="mt-5 flex items-center justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">

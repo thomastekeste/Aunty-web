@@ -39,7 +39,7 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="py-24 md:py-32 bg-[#FDFCF8]">
+    <section className="py-20 md:py-28 bg-[#FDFCF8]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-10 grid md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20">
 
         <ScrollReveal>

@@ -5,9 +5,9 @@ export type AccessorySub = "hair" | "skin";
 export type ProductSub = HairSub | SkinSub | AccessorySub;
 export type ProductStatus = "pre-order" | "ships-now";
 export type ProductType =
-  | "shampoo" | "conditioner" | "deep-conditioner"
+  | "shampoo" | "conditioner" | "deep-conditioner" | "curl-cream"
   | "scalp-serum" | "growth-oil" | "face-serum" | "face-cream" | "lotion"
-  | "face-wash" | "accessory" | "scalp-treatment";
+  | "face-wash" | "accessory" | "scalp-treatment" | "spf" | "scar-gel";
 
 export interface Product {
   id: string;
@@ -122,6 +122,49 @@ export const products: Product[] = [
     whyItWorks: "Silk amino complex and jojoba derivative add just enough slip and moisture to keep normal porosity hair moving — without weighing it down or loading it up.",
   },
 
+  // ── HAIR: Stylers / Curl Crèmes ─────────────────────────────────────────────
+  {
+    id: "liquid-curl-creme",
+    name: "Aunty Liquid Curl Crème",
+    category: "hair",
+    sub: "normal-porosity",
+    auntyId: "carmen",
+    painPoint: "Define your curls without the crunch. No cast, no residue.",
+    price: 24,
+    status: "pre-order",
+    productType: "curl-cream",
+    keyIngredients: ["Flaxseed Gel Complex", "Marshmallow Root Extract", "Aloe Vera", "Glycerin"],
+    whyItWorks: "Wavy and curly hair needs definition without weight. Flaxseed gel locks in curl pattern without crunch; marshmallow root creates natural clumping and slip so curls form, stay formed, and don't frizz.",
+  },
+  {
+    id: "rich-curl-creme",
+    name: "Aunty Rich Curl Crème",
+    category: "hair",
+    sub: "high-porosity",
+    auntyId: "ngozi",
+    painPoint: "Seal your coils. Lock in moisture. Show your real length.",
+    price: 26,
+    status: "pre-order",
+    productType: "curl-cream",
+    keyIngredients: ["Shea Butter Complex", "Mango Butter", "Black Castor Oil", "Rice Bran Oil"],
+    whyItWorks: "Dense coily hair loses moisture fast once styled. This butter-based formula seals the cuticle on contact so your definition holds all day without going stiff, flaking, or leaving white residue.",
+  },
+
+  // ── HAIR: Conditioner for Damage Repair ─────────────────────────────────────
+  {
+    id: "protein-moisture-conditioner",
+    name: "Aunty Protein-Moisture Conditioner",
+    category: "hair",
+    sub: "high-porosity",
+    auntyId: "marcia",
+    painPoint: "The protein-moisture ratio matters more than the ingredients.",
+    price: 26,
+    status: "pre-order",
+    productType: "conditioner",
+    keyIngredients: ["Hydrolysed Keratin", "Wheat Protein Matrix", "Shea Butter Blend", "Panthenol"],
+    whyItWorks: "Damaged hair — from heat, color, or chemical treatment — has gaps in the cuticle that let moisture escape. Keratin and wheat protein fill those gaps first; shea blend seals moisture in after. The ratio is calibrated via the app based on your exact damage level.",
+  },
+
   // ── HAIR: Treatments ────────────────────────────────────────────────────────
   {
     id: "scalp-microbiome-shampoo",
@@ -230,7 +273,34 @@ export const products: Product[] = [
     whyItWorks: "For deeper, older dark spots that need slow-release actives and an occlusive base. Alpha-arbutin complex inhibits melanin transfer; ceramide blend seals in treatment while repairing the barrier overnight.",
   },
 
+  {
+    id: "spf-40",
+    name: "Aunty SPF 40 — No White Cast",
+    category: "skin",
+    sub: "universal",
+    auntyId: "salma",
+    painPoint: "SPF designed for melanin-rich skin. No cast. No excuses.",
+    price: 28,
+    status: "pre-order",
+    productType: "spf",
+    keyIngredients: ["Iron Oxide Complex", "Zinc Oxide", "Niacinamide", "Vitamin E"],
+    whyItWorks: "Melanin-rich skin is more triggered by visible light than UV — and most sunscreens only block UV. Iron oxide complex blocks both, targeting the wavelength most responsible for PIH on deeper skin tones. No white cast by design.",
+  },
+
   // ── SKIN: By Skin Type ──────────────────────────────────────────────────────
+  {
+    id: "oil-free-hydration-serum",
+    name: "Aunty Oil-Free Hydration Serum",
+    category: "skin",
+    sub: "oily",
+    auntyId: "salma",
+    painPoint: "Oily skin needs water, not more oil. This is the difference.",
+    price: 28,
+    status: "pre-order",
+    productType: "face-serum",
+    keyIngredients: ["Hyaluronic Acid Complex", "Glycerin", "Panthenol", "Beta-Glucan"],
+    whyItWorks: "Oily skin is usually dehydrated skin — when there's no water, sebum glands overproduce as a substitute. This floods the skin with water-based hydration so the glands stop compensating. Zero oil, zero grease, full moisture.",
+  },
   {
     id: "sebum-control-serum",
     name: "Aunty Sebum Control Serum",
@@ -256,6 +326,32 @@ export const products: Product[] = [
     productType: "lotion",
     keyIngredients: ["Ceramide Complex", "Shea Butter Blend", "Glycerin", "Urea Actives"],
     whyItWorks: "Ashiness happens when the skin barrier is broken and water escapes faster than it should. Our ceramide complex rebuilds the barrier at a molecular level; urea actives draw water in; shea blend locks it there.",
+  },
+  {
+    id: "ceramide-barrier-cream",
+    name: "Aunty Ceramide Barrier Cream",
+    category: "skin",
+    sub: "dry-ashy",
+    auntyId: "denise",
+    painPoint: "Rebuild your barrier. Lock moisture in. No more ashiness.",
+    price: 30,
+    status: "pre-order",
+    productType: "face-cream",
+    keyIngredients: ["Ceramide NP", "Ceramide AP", "Cholesterol Complex", "Shea Butter"],
+    whyItWorks: "Melanin-rich skin naturally produces fewer ceramides — the lipid molecules that hold moisture inside the barrier. This clinical-grade ceramide trio rebuilds the lipid matrix so moisture stops escaping and dryness becomes a solved problem.",
+  },
+  {
+    id: "scar-defense-gel",
+    name: "Aunty Scar Defense Gel",
+    category: "skin",
+    sub: "oily",
+    auntyId: "salma",
+    painPoint: "Oily skin scars differently. This targets marks before they set.",
+    price: 26,
+    status: "pre-order",
+    productType: "scar-gel",
+    keyIngredients: ["Silicone Complex", "Onion Extract", "Centella Asiatica", "Allantoin"],
+    whyItWorks: "Melanin-rich skin produces more melanin in response to injury — so breakouts and cuts become dark spots faster and last longer. Silicone complex flattens and softens; onion extract fades pigment; centella calms the inflammation that triggers discoloration in the first place.",
   },
   {
     id: "zone-balancing-serum",

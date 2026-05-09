@@ -70,7 +70,7 @@ export default function WhyAunty() {
   }, []);
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 overflow-hidden bg-[#1A0F08]">
+    <section ref={ref} className="relative py-20 md:py-28 overflow-hidden bg-[#1A0F08]">
       {/* Backdrop pattern */}
       <div
         className="absolute inset-0 opacity-[0.04] pointer-events-none"
