@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -125,9 +126,24 @@ function CategorySection({
   );
 }
 
-export default function ProductsPage() {
-  const [top, setTop] = useState<TopFilter>("all");
+function ProductsPageInner() {
+  const searchParams = useSearchParams();
+  const [top, setTop] = useState<TopFilter>(() => {
+    const cat = searchParams.get("cat");
+    return (cat === "hair" || cat === "skin" || cat === "accessories") ? cat : "all";
+  });
   const [sub, setSub] = useState<ProductSub | null>(null);
+
+  // Sync filter when URL param changes (e.g. browser back/forward)
+  useEffect(() => {
+    const cat = searchParams.get("cat");
+    if (cat === "hair" || cat === "skin" || cat === "accessories") {
+      setTop(cat);
+    } else {
+      setTop("all");
+    }
+    setSub(null);
+  }, [searchParams]);
 
   const subOptions = top !== "all" ? (SUB_FILTERS[top] ?? []) : [];
 
@@ -295,5 +311,13 @@ export default function ProductsPage() {
         <Footer />
       </main>
     </>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={null}>
+      <ProductsPageInner />
+    </Suspense>
   );
 }

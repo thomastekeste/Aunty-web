@@ -6,17 +6,17 @@ import Link from "next/link";
 
 const SHOP_CATEGORIES = [
   {
-    href: "/products/hair",
+    href: "/products?cat=hair",
     label: "Hair Care",
     desc: "Shampoos, conditioners, curl creams & treatments",
   },
   {
-    href: "/products/skin",
+    href: "/products?cat=skin",
     label: "Skin Care",
     desc: "Serums, SPF, face wash & barrier creams",
   },
   {
-    href: "/products/accessories",
+    href: "/products?cat=accessories",
     label: "Accessories",
     desc: "Satin bonnets, combs & styling tools",
   },
