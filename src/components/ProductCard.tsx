@@ -340,52 +340,54 @@ export default function ProductCard({
       </div>
 
       {/* ── Info ── */}
-      <div className={`flex flex-col ${isCompact ? "gap-1" : "gap-1.5"}`}>
+      <div className={`flex flex-col text-center ${isCompact ? "gap-1" : "gap-2 pt-1"}`}>
         <h3
-          className={`font-display font-bold text-[#1A0F08] leading-snug ${
-            isCompact ? "text-sm" : "text-[15px]"
+          className={`font-display font-semibold text-[#1A0F08] leading-snug ${
+            isCompact ? "text-sm" : "text-[17px] md:text-[18px]"
           }`}
         >
           {displayName}
         </h3>
 
         {reason && (
-          <p className="font-body text-xs text-[#3D2B1A] leading-relaxed">{reason}</p>
+          <p className="font-body text-[13px] text-[#3D2B1A] leading-relaxed">{reason}</p>
         )}
 
         {!reason && !isCompact && product.painPoint && (
-          <p className="font-body text-[13px] text-[#6B5040] leading-relaxed line-clamp-2">
+          <p className="font-body text-[13px] text-[#6B5040]/70 leading-relaxed line-clamp-2">
             {product.painPoint}
           </p>
         )}
 
-        <div className="flex items-center justify-between mt-2 pt-2 border-t border-[rgba(26,15,8,0.08)]">
-          <span className={`font-display font-bold text-[#1A0F08] ${isCompact ? "text-sm" : "text-[16px]"}`}>
-            ${product.price}
+        <div className="flex items-center justify-center gap-3 mt-1">
+          <span className={`font-body text-[#6B5040] ${isCompact ? "text-sm" : "text-[15px]"}`}>
+            From ${product.price}
           </span>
-          <button
-            onClick={handleClick}
-            disabled={loading}
-            className={`group/btn inline-flex items-center gap-1.5 font-body font-bold tracking-[1.2px] uppercase transition-all disabled:opacity-60 ${
-              isCompact ? "text-[10px]" : "text-[11px]"
-            }`}
-            style={{ color: theme.accent }}
-          >
-            {loading ? "..." : "Add"}
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              className="transition-transform group-hover/btn:translate-x-0.5"
-            >
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
-          </button>
         </div>
+
+        <button
+          onClick={handleClick}
+          disabled={loading}
+          className={`group/btn mt-1 inline-flex items-center justify-center gap-1.5 font-body font-semibold tracking-[1px] uppercase transition-all disabled:opacity-60 hover:text-[#1A0F08] ${
+            isCompact ? "text-[10px]" : "text-[11px]"
+          }`}
+          style={{ color: theme.accent }}
+        >
+          {loading ? "..." : "Add to bag"}
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            className="transition-transform group-hover/btn:translate-x-0.5"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </div>
   );
