@@ -48,8 +48,14 @@ export default function QuizOnramp() {
             className="w-full max-w-sm flex flex-col gap-3 mt-2"
           >
             <div className="relative">
+              <label htmlFor="quiz-onramp-name" className="sr-only">
+                Your name
+              </label>
               <input
+                id="quiz-onramp-name"
+                name="name"
                 type="text"
+                autoComplete="given-name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name"
@@ -58,9 +64,10 @@ export default function QuizOnramp() {
               {name.length > 0 && (
                 <button
                   type="submit"
+                  aria-label="Start consultation"
                   className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[#2D1B0E] text-[#FDFCF8] flex items-center justify-center hover:bg-[#1A0F08] transition-colors"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                     <path d="M9 18l6-6-6-6" />
                   </svg>
                 </button>

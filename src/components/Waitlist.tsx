@@ -23,21 +23,30 @@ export default function Waitlist() {
     if (!email) return;
     setLoading(true);
     setError("");
-    const res = await fetch("/api/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-    setLoading(false);
-    if (res.status === 409) {
-      setError("You're already on the waitlist.");
-      return;
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.status === 409) {
+        setError("You're already on the waitlist.");
+        return;
+      }
+      if (res.status === 429) {
+        setError("Too many requests. Please wait a moment and try again.");
+        return;
+      }
+      if (!res.ok) {
+        setError("Something went wrong. Try again.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setError("Network error. Check your connection and try again.");
+    } finally {
+      setLoading(false);
     }
-    if (!res.ok) {
-      setError("Something went wrong. Try again.");
-      return;
-    }
-    setSubmitted(true);
   };
 
   return (
@@ -70,13 +79,21 @@ export default function Waitlist() {
               onSubmit={handleSubmit}
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
             >
+              <label htmlFor="waitlist-email" className="sr-only">
+                Email address
+              </label>
               <input
+                id="waitlist-email"
+                name="email"
                 type="email"
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 required
                 disabled={loading}
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? "waitlist-error" : undefined}
                 className="flex-1 px-5 py-4 rounded-full bg-white border border-[rgba(26,15,8,0.12)] text-[#1A0F08] font-body placeholder:text-[rgba(26,15,8,0.3)] focus:outline-none focus:border-[#D4A04A] focus:ring-1 focus:ring-[#D4A04A]/30 transition-all disabled:opacity-50 shadow-sm"
               />
               <button
@@ -88,7 +105,13 @@ export default function Waitlist() {
               </button>
             </form>
             {error && (
-              <p className="mt-3 font-body text-sm text-[#C75B2A]">{error}</p>
+              <p
+                id="waitlist-error"
+                role="alert"
+                className="mt-3 font-body text-sm text-[#C75B2A]"
+              >
+                {error}
+              </p>
             )}
           </>
         ) : (

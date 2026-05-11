@@ -154,6 +154,7 @@ export default function ProductCard({
   onOrder,
 }: ProductCardProps) {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -184,16 +185,22 @@ export default function ProductCard({
     }
     if (loading) return;
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cart: [{ productId: product.id, quantity: 1 }] }),
       });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-      else setLoading(false);
+      const data = await res.json().catch(() => ({}));
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      setError(data.error || "Couldn’t start checkout. Please try again.");
     } catch {
+      setError("Connection error. Please check your internet and try again.");
+    } finally {
       setLoading(false);
     }
   };
@@ -323,6 +330,8 @@ export default function ProductCard({
           <button
             onClick={handleClick}
             disabled={loading}
+            aria-busy={loading}
+            aria-label={`Add ${product.name} to checkout`}
             className={`group/btn inline-flex items-center gap-1.5 font-body font-bold tracking-[1.2px] uppercase transition-all disabled:opacity-60 ${
               isCompact ? "text-[10px]" : "text-[11px]"
             }`}
@@ -337,12 +346,19 @@ export default function ProductCard({
               stroke="currentColor"
               strokeWidth="2.5"
               strokeLinecap="round"
+              aria-hidden
               className="transition-transform group-hover/btn:translate-x-0.5"
             >
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>
           </button>
         </div>
+
+        {error && (
+          <p role="alert" className="font-body text-xs text-[#C75B2A] mt-1">
+            {error}
+          </p>
+        )}
       </div>
     </div>
   );

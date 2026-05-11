@@ -90,17 +90,20 @@ export default function Navbar() {
             <div ref={shopRef} className="relative">
               <button
                 onClick={() => { if (!shopOpen) setActiveTab(0); setShopOpen(!shopOpen); }}
+                aria-expanded={shopOpen}
+                aria-haspopup="menu"
+                aria-controls="shop-menu"
                 className="flex items-center gap-1 font-body text-[13px] font-medium text-[#6B5040] hover:text-[#2D1B0E] transition-colors"
               >
                 Shop
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden
                   className={`transition-transform duration-200 ${shopOpen ? "rotate-180" : ""}`}>
                   <path d="M6 9l6 6 6-6" />
                 </svg>
               </button>
 
               {shopOpen && (
-                <div className="absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[400px] bg-[#FDFCF8] rounded-2xl border border-[rgba(26,15,8,0.08)] shadow-[0_24px_60px_-8px_rgba(26,15,8,0.14)] z-50 overflow-hidden">
+                <div id="shop-menu" role="menu" className="absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[400px] bg-[#FDFCF8] rounded-2xl border border-[rgba(26,15,8,0.08)] shadow-[0_24px_60px_-8px_rgba(26,15,8,0.14)] z-50 overflow-hidden">
                   {/* Tab row */}
                   <div className="flex border-b border-[rgba(26,15,8,0.06)]">
                     {SHOP_CATEGORIES.map((cat, i) => (
@@ -157,6 +160,8 @@ export default function Navbar() {
               Get Your Formula
             </a>
             <button onClick={() => setMenuOpen(!menuOpen)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
               className="md:hidden flex flex-col justify-center items-center w-11 h-11 gap-[5px]" aria-label="Toggle menu">
               <span className="block w-5 h-[1.5px] bg-[#2D1B0E] transition-all duration-300 origin-center"
                 style={{ transform: menuOpen ? "translateY(3.25px) rotate(45deg)" : "none" }} />
@@ -170,15 +175,16 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile overlay */}
-      <div className="fixed inset-0 z-40 bg-[#FDFCF8]/98 backdrop-blur-xl md:hidden flex flex-col items-center justify-center gap-6 transition-all duration-300"
+      <div id="mobile-menu" aria-hidden={!menuOpen} className="fixed inset-0 z-40 bg-[#FDFCF8]/98 backdrop-blur-xl md:hidden flex flex-col items-center justify-center gap-6 transition-all duration-300"
         style={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "auto" : "none" }}>
         <Link href="/aunties" onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">The Aunties</Link>
         <Link href="/science" onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">Our Science</Link>
 
         <button onClick={() => setMobileShopOpen(!mobileShopOpen)}
+          aria-expanded={mobileShopOpen}
           className="flex items-center gap-2 font-display text-xl font-medium text-[#2D1B0E]">
           Shop
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden
             className={`transition-transform ${mobileShopOpen ? "rotate-180" : ""}`}>
             <path d="M6 9l6 6 6-6"/>
           </svg>
