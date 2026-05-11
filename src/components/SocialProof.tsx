@@ -84,7 +84,7 @@ export default function SocialProof() {
                   <p className="font-body text-[13px] font-semibold text-[#1A0F08]">
                     {r.name}
                   </p>
-                  <p className="font-body text-[11px] text-[#9E8C7A] mt-0.5">
+                  <p className="font-body text-[11px] text-[#6B5040] mt-0.5">
                     {r.texture} &middot; {r.date}
                   </p>
                 </div>

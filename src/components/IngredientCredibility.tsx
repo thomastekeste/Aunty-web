@@ -123,7 +123,7 @@ export default function IngredientCredibility() {
                 </div>
 
                 <div className="border-t border-[#1A0F08]/8 pt-4">
-                  <p className="font-body text-[10px] font-bold tracking-[2px] uppercase text-[#9E8C7A] mb-1.5">
+                  <p className="font-body text-[10px] font-bold tracking-[2px] uppercase text-[#6B5040] mb-1.5">
                     Why it happens
                   </p>
                   <p className="font-body text-[13px] text-[#3D2B1A] leading-[1.6]">

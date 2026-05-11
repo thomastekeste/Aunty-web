@@ -79,30 +79,30 @@ function CategorySection({
 }) {
   const meta = CATEGORY_META[category]!;
   return (
-    <section className="mb-16">
-      <div className="flex items-end justify-between mb-7 pb-5 border-b border-[rgba(26,15,8,0.06)]">
-        <div className="flex flex-col gap-1.5">
+    <section className="mb-12">
+      <div className="flex items-end justify-between mb-5 pb-4 border-b border-[rgba(26,15,8,0.06)]">
+        <div className="flex flex-col gap-1">
           <span
             className="font-body text-[10px] font-bold tracking-[2.5px] uppercase"
             style={{ color: meta.color }}
           >
             {meta.eyebrow}
           </span>
-          <h2 className="font-display text-[1.5rem] md:text-[2rem] font-bold text-[#1A0F08] tracking-[-0.02em] leading-tight">
+          <h2 className="font-display text-[1.25rem] md:text-[1.5rem] font-bold text-[#1A0F08] tracking-[-0.02em] leading-tight">
             {meta.title}
           </h2>
-          <p className="font-body text-[13px] text-[#6B5040] max-w-md">{meta.desc}</p>
+          <p className="font-body text-[12px] text-[#6B5040] max-w-md">{meta.desc}</p>
         </div>
         <div className="flex flex-col items-end gap-1">
-          <span className="font-display text-[24px] font-bold text-[#1A0F08]">
+          <span className="font-display text-[20px] font-bold text-[#1A0F08]">
             {items.length}
           </span>
-          <span className="font-body text-[10px] tracking-[1.5px] uppercase text-[#9E8C7A]">
+          <span className="font-body text-[10px] tracking-[1.5px] uppercase text-[#6B5040]">
             {items.length === 1 ? "product" : "products"}
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
         {items.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
@@ -165,7 +165,7 @@ function ProductsPageInner() {
       <main className="min-h-screen bg-[#FDFCF8] pt-[72px]">
 
         {/* Compact header + filters */}
-        <div className="sticky top-[72px] z-30 bg-[#FDFCF8]/95 backdrop-blur-md border-b border-[rgba(26,15,8,0.06)]">
+        <div className="sticky z-30 bg-[#FDFCF8]/95 backdrop-blur-md border-b border-[rgba(26,15,8,0.06)]" style={{ top: "var(--nav-offset, 72px)", transition: "top 300ms cubic-bezier(0.16,1,0.3,1)" }}>
           <div className="max-w-[1400px] mx-auto px-6 md:px-8">
             <div className="py-3 flex items-center gap-4 flex-wrap">
 
@@ -234,17 +234,17 @@ function ProductsPageInner() {
         </div>
 
         {/* Products */}
-        <div className="max-w-[1400px] mx-auto px-6 md:px-8 pt-8 pb-10">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-8 pt-6 pb-10">
           {grouped ? (
             grouped.map((g) => (
               <CategorySection key={g.category} category={g.category} items={g.items} />
             ))
           ) : filtered.length === 0 ? (
-            <div className="text-center py-16 text-[#9E8C7A] font-body">
+            <div className="text-center py-16 text-[#6B5040] font-body">
               No products found for that filter.
             </div>
           ) : (
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
               {filtered.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}

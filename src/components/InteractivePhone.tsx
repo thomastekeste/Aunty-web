@@ -55,7 +55,7 @@ const tabs: { name: Tab; icon: (c: string) => React.ReactNode }[] = [
 ];
 
 const gold = "#D4A04A";
-const muted = "#9E8C7A";
+const muted = "#6B5040";
 
 // ─── Screen content for each tab ───
 
@@ -98,7 +98,7 @@ function HomeScreen() {
 
       {/* Week progress */}
       <div className="mb-3.5">
-        <p className="font-body text-[7px] font-semibold tracking-[2px] uppercase text-[#9E8C7A] mb-2">This Week</p>
+        <p className="font-body text-[7px] font-semibold tracking-[2px] uppercase text-[#6B5040] mb-2">This Week</p>
         <div className="flex gap-1.5 overflow-hidden">
           {[
             { day: "Mon", date: 7, activity: "Rest", color: "#9E8C7A", done: true },
@@ -117,7 +117,7 @@ function HomeScreen() {
                 border: d.today ? 'none' : d.done ? 'none' : '1px solid #E8DCC8',
               }}
             >
-              <span className={`font-body text-[6px] ${d.today ? 'text-[rgba(254,248,236,0.7)]' : 'text-[#9E8C7A]'}`}>{d.day}</span>
+              <span className={`font-body text-[6px] ${d.today ? 'text-[rgba(254,248,236,0.7)]' : 'text-[#6B5040]'}`}>{d.day}</span>
               <span className={`font-display text-[11px] font-bold my-0.5 ${d.today ? 'text-[#FEF8EC]' : 'text-[#2D1B0E]'}`}>{d.date}</span>
               {d.done && !d.today && (
                 <svg width="8" height="8" viewBox="0 0 24 24" fill="none">
@@ -126,7 +126,7 @@ function HomeScreen() {
               )}
               {d.today && <div className="w-[5px] h-[5px] rounded-full bg-[#FEF8EC]" />}
               {!d.done && !d.today && <div className="w-[5px] h-[5px] rounded-full" style={{ backgroundColor: `${d.color}30` }} />}
-              <span className={`font-body text-[5px] mt-0.5 ${d.today ? 'text-[rgba(254,248,236,0.7)]' : 'text-[#9E8C7A]'}`}>{d.activity}</span>
+              <span className={`font-body text-[5px] mt-0.5 ${d.today ? 'text-[rgba(254,248,236,0.7)]' : 'text-[#6B5040]'}`}>{d.activity}</span>
             </div>
           ))}
         </div>
@@ -179,7 +179,7 @@ function PlanScreen() {
         <div className="flex-1 h-[4px] rounded-full bg-[#E8DCC8]">
           <div className="h-full rounded-full bg-[#D4A04A]" style={{ width: '0%' }} />
         </div>
-        <span className="font-body text-[7px] text-[#9E8C7A]">0/4</span>
+        <span className="font-body text-[7px] text-[#6B5040]">0/4</span>
       </div>
 
       {/* Steps */}
@@ -191,7 +191,7 @@ function PlanScreen() {
             </div>
             <div className="flex-1">
               <p className="font-display text-[11px] font-bold text-[#2D1B0E]">{r.name}</p>
-              <p className="font-body text-[7px] text-[#9E8C7A]">{r.time} &middot; {r.duration}</p>
+              <p className="font-body text-[7px] text-[#6B5040]">{r.time} &middot; {r.duration}</p>
             </div>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
               <path d="M9 18L15 12L9 6" stroke="#9E8C7A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -235,7 +235,7 @@ function ProductsScreen() {
             className="font-body text-[7px] px-2.5 py-1 rounded-full"
             style={{
               backgroundColor: i === 0 ? '#2D1B0E' : '#FEF8EC',
-              color: i === 0 ? '#FEF8EC' : '#9E8C7A',
+              color: i === 0 ? '#FEF8EC' : '#6B5040',
               border: i === 0 ? 'none' : '1px solid #E8DCC8',
             }}
           >
@@ -255,7 +255,7 @@ function ProductsScreen() {
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-display text-[10px] font-bold text-[#2D1B0E] truncate">{p.name}</p>
-              <p className="font-body text-[7px] text-[#9E8C7A]">Match score</p>
+              <p className="font-body text-[7px] text-[#6B5040]">Match score</p>
             </div>
             <span className="font-display text-[12px] font-bold" style={{ color: p.color }}>{p.match}</span>
           </div>
@@ -291,12 +291,12 @@ function ChatScreen() {
             >
               {a.initial}
             </div>
-            <span className="font-body text-[6px]" style={{ color: i === 0 ? a.color : '#9E8C7A' }}>{a.name}</span>
+            <span className="font-body text-[6px]" style={{ color: i === 0 ? a.color : '#6B5040' }}>{a.name}</span>
           </div>
         ))}
         <div className="flex flex-col items-center gap-1">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center bg-[#E8DCC8] text-[10px] text-[#9E8C7A]">+4</div>
-          <span className="font-body text-[6px] text-[#9E8C7A]">More</span>
+          <div className="w-9 h-9 rounded-full flex items-center justify-center bg-[#E8DCC8] text-[10px] text-[#6B5040]">+4</div>
+          <span className="font-body text-[6px] text-[#6B5040]">More</span>
         </div>
       </div>
 
@@ -324,7 +324,7 @@ function ChatScreen() {
       {/* Input */}
       <div className="mt-2 flex items-center gap-2">
         <div className="flex-1 h-[28px] rounded-full bg-[#F5EDE0] flex items-center px-3">
-          <span className="font-body text-[8px] text-[#9E8C7A]">Ask your aunty...</span>
+          <span className="font-body text-[8px] text-[#6B5040]">Ask your aunty...</span>
         </div>
         <div className="w-[28px] h-[28px] rounded-full bg-[#D4A04A] flex items-center justify-center">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -361,7 +361,7 @@ function LearnScreen() {
       </div>
 
       {/* Article list */}
-      <p className="font-body text-[7px] font-semibold tracking-[2px] uppercase text-[#9E8C7A] mb-2">Recent</p>
+      <p className="font-body text-[7px] font-semibold tracking-[2px] uppercase text-[#6B5040] mb-2">Recent</p>
       <div className="space-y-2.5">
         {articles.map((a) => (
           <div key={a.title} className="rounded-xl bg-white p-3 flex items-start gap-2.5" style={{ boxShadow: '0 1px 4px rgba(45,27,14,0.05)' }}>

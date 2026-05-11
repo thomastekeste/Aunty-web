@@ -1,0 +1,33 @@
+{
+  "agents": {
+    "eslint-env-agent": {
+      "agentId": "eslint-env-agent",
+      "agentType": "code-fixer",
+      "status": "idle",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "model": "haiku"
+      },
+      "createdAt": "2026-05-11T14:01:48.982Z",
+      "domain": "tooling",
+      "model": "haiku",
+      "modelRoutedBy": "explicit"
+    },
+    "a11y-agent": {
+      "agentId": "a11y-agent",
+      "agentType": "code-fixer",
+      "status": "idle",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "model": "sonnet"
+      },
+      "createdAt": "2026-05-11T14:01:50.407Z",
+      "domain": "accessibility",
+      "model": "sonnet",
+      "modelRoutedBy": "explicit"
+    }
+  },
+  "version": "3.0.0"
+}

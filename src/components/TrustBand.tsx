@@ -76,13 +76,13 @@ export default function TrustBand() {
               {s.suffix && (
                 <span
                   className={`font-display text-[1.1rem] md:text-[1.4rem] font-bold leading-none ${
-                    s.suffix === "★" ? "text-[#C9903A]" : "text-[#9E8C7A]"
+                    s.suffix === "★" ? "text-[#C9903A]" : "text-[#6B5040]"
                   }`}
                 >
                   {s.suffix}
                 </span>
               )}
-              <span className="font-body text-[12px] md:text-[13px] text-[#9E8C7A] ml-1.5 tracking-[0.3px]">
+              <span className="font-body text-[12px] md:text-[13px] text-[#6B5040] ml-1.5 tracking-[0.3px]">
                 {s.label}
               </span>
             </div>
@@ -91,7 +91,7 @@ export default function TrustBand() {
 
         {/* Press divider + wordmarks */}
         <div className="pt-8 border-t border-[rgba(26,15,8,0.06)] flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10">
-          <span className="font-body text-[10px] font-bold tracking-[3px] uppercase text-[#9E8C7A] flex-shrink-0">
+          <span className="font-body text-[10px] font-bold tracking-[3px] uppercase text-[#6B5040] flex-shrink-0">
             As mentioned in
           </span>
           <div className="flex-1 overflow-hidden relative">
@@ -103,7 +103,7 @@ export default function TrustBand() {
               {PRESS.map((p) => (
                 <span
                   key={p.name}
-                  className="font-display text-[#9E8C7A]/70 hover:text-[#1A0F08] transition-colors duration-300 whitespace-nowrap select-none flex-shrink-0"
+                  className="font-display text-[#6B5040]/80 hover:text-[#1A0F08] transition-colors duration-300 whitespace-nowrap select-none flex-shrink-0"
                   style={{
                     fontStyle: p.font,
                     fontWeight: p.weight,

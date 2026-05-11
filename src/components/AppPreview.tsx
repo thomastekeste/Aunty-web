@@ -26,7 +26,7 @@ export default function AppPreview({ hideCta = false }: AppPreviewProps) {
 
           {/* Content — right side */}
           <div className="flex-1 max-w-lg">
-            <p className="font-body text-[11px] font-semibold tracking-[4px] uppercase text-[#9E8C7A] mb-3">
+            <p className="font-body text-[11px] font-semibold tracking-[4px] uppercase text-[#6B5040] mb-3">
               The Aunty Council App
             </p>
             <h2 className="font-display text-[2rem] md:text-[2.5rem] font-bold text-[#2D1B0E] leading-[1.1] tracking-[-0.02em] mb-4">
@@ -41,7 +41,7 @@ export default function AppPreview({ hideCta = false }: AppPreviewProps) {
             <div className="flex flex-col gap-6">
               {features.map((f) => (
                 <div key={f.num} className="flex gap-4">
-                  <span className="font-display text-[15px] font-bold text-[#9E8C7A] flex-shrink-0 w-6">
+                  <span className="font-display text-[15px] font-bold text-[#6B5040] flex-shrink-0 w-6">
                     {f.num}
                   </span>
                   <div>

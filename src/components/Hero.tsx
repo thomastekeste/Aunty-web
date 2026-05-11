@@ -115,7 +115,7 @@ export default function Hero() {
                   </div>
                   <div>
                     <p className="font-body font-semibold text-[9px] text-[#1A0F08] leading-none">Aunty Ife</p>
-                    <p className="font-body text-[8px] text-[#9E8C7A] leading-none mt-0.5">Your consultation guide</p>
+                    <p className="font-body text-[8px] text-[#6B5040] leading-none mt-0.5">Your consultation guide</p>
                   </div>
                 </div>
 
@@ -151,7 +151,7 @@ export default function Hero() {
                       />
                     ))}
                   </div>
-                  <p className="font-body text-[9px] text-[#9E8C7A]">Question 1 of 7</p>
+                  <p className="font-body text-[9px] text-[#6B5040]">Question 1 of 7</p>
                 </div>
 
               </div>

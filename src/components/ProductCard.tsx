@@ -229,7 +229,7 @@ export default function ProductCard({
     >
       {/* ── Visual top section ── */}
       <div
-        className={`relative rounded-3xl overflow-hidden mb-4 ${isCompact ? "aspect-[4/3]" : "aspect-[3/4]"}`}
+        className={`relative rounded-2xl overflow-hidden mb-3 ${isCompact ? "aspect-[4/3]" : "aspect-[4/5]"}`}
         style={{
           background: theme.gradient,
           boxShadow: hovered
@@ -313,7 +313,7 @@ export default function ProductCard({
         )}
 
         {!reason && !isCompact && product.painPoint && (
-          <p className="font-body text-[13px] text-[#9E8C7A] leading-relaxed line-clamp-2">
+          <p className="font-body text-[13px] text-[#6B5040] leading-relaxed line-clamp-2">
             {product.painPoint}
           </p>
         )}

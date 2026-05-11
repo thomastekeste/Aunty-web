@@ -33,11 +33,10 @@ export default function Navbar() {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 40);
-      // Hide on scroll down, show on scroll up
-      if (y > 120 && y > lastScrollY.current + 5) {
+      if (y > 60 && y > lastScrollY.current + 2) {
         setHidden(true);
         setShopOpen(false);
-      } else if (y < lastScrollY.current - 5) {
+      } else if (y < lastScrollY.current - 2) {
         setHidden(false);
       }
       lastScrollY.current = y;
@@ -59,6 +58,11 @@ export default function Navbar() {
       return () => { document.body.style.overflow = ""; };
     }
   }, [menuOpen]);
+
+  useEffect(() => {
+    const navGone = hidden && !hovered && !menuOpen;
+    document.documentElement.style.setProperty("--nav-offset", navGone ? "0px" : "72px");
+  }, [hidden, hovered, menuOpen]);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {

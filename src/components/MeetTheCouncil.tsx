@@ -84,7 +84,7 @@ function AuntyCard({ aunty, expanded, onToggle }: { aunty: Aunty; expanded: bool
               {aunty.title}
             </p>
           </div>
-          <span className="font-body text-[10px] font-medium text-[#9E8C7A] flex-shrink-0">
+          <span className="font-body text-[10px] font-medium text-[#6B5040] flex-shrink-0">
             {aunty.dialect}
           </span>
         </div>
@@ -99,7 +99,7 @@ function AuntyCard({ aunty, expanded, onToggle }: { aunty: Aunty; expanded: bool
           onClick={onToggle}
           className="flex items-center justify-between w-full text-left mt-1 pt-3 border-t border-[rgba(26,15,8,0.06)] group/btn"
         >
-          <span className="font-body text-[10px] font-bold tracking-[2px] uppercase text-[#9E8C7A] group-hover/btn:text-[#1A0F08] transition-colors">
+          <span className="font-body text-[10px] font-bold tracking-[2px] uppercase text-[#6B5040] group-hover/btn:text-[#1A0F08] transition-colors">
             {expanded ? "Hide" : "Hear"} her greeting
           </span>
           <svg
