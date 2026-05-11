@@ -70,7 +70,9 @@ export default function Waitlist() {
               onSubmit={handleSubmit}
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
             >
+              <label htmlFor="waitlist-email" className="sr-only">Email address</label>
               <input
+                id="waitlist-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

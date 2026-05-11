@@ -48,7 +48,9 @@ export default function QuizOnramp() {
             className="w-full max-w-sm flex flex-col gap-3 mt-2"
           >
             <div className="relative">
+              <label htmlFor="quiz-name" className="sr-only">Your name</label>
               <input
+                id="quiz-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -60,7 +62,7 @@ export default function QuizOnramp() {
                   type="submit"
                   className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[#2D1B0E] text-[#FDFCF8] flex items-center justify-center hover:bg-[#1A0F08] transition-colors"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M9 18l6-6-6-6" />
                   </svg>
                 </button>

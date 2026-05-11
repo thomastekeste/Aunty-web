@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import Hero from "@/components/Hero";
 import TrustBand from "@/components/TrustBand";
 import Manifesto from "@/components/Manifesto";
@@ -11,7 +12,7 @@ import SocialProof from "@/components/SocialProof";
 import FAQ from "@/components/FAQ";
 import AppShowcase from "@/components/AppShowcase";
 import StickyBar from "@/components/StickyBar";
-import ConsultationQuiz from "@/components/ConsultationQuiz";
+import QuizLoader from "@/components/QuizLoader";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -30,7 +31,7 @@ export default function Home() {
       <FAQ />
       <AppShowcase />
       <Footer />
-      <ConsultationQuiz />
+      <ErrorBoundary><QuizLoader /></ErrorBoundary>
       <StickyBar />
     </main>
   );

@@ -25,19 +25,19 @@ export const metadata: Metadata = {
     siteName: "Aunty Council",
     images: [
       {
-        url: "/logo.png",
-        width: 512,
-        height: 512,
-        alt: "Aunty Council",
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Aunty Council — Hair & Skin, Aunty Curated",
       },
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Aunty Council — Hair & Skin, Aunty Curated",
     description:
       "A curated marketplace of hair and skin products recommended by seven aunties who actually know your texture.",
-    images: ["/logo.png"],
+    images: ["/og-image.png"],
   },
 };
 
@@ -69,6 +69,16 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GA_ID}');`,
+              }}
+            />
+          </>
+        )}
       </body>
     </html>
   );

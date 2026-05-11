@@ -11,10 +11,9 @@ import { products, bundles, type ProductCategory, type ProductSub } from "@/data
 type TopFilter = "all" | ProductCategory;
 
 const TOP_FILTERS: { value: TopFilter; label: string }[] = [
-  { value: "all",         label: "All" },
-  { value: "hair",        label: "Haircare" },
-  { value: "skin",        label: "Skincare" },
-  { value: "accessories", label: "Accessories" },
+  { value: "all",  label: "All" },
+  { value: "hair", label: "Haircare" },
+  { value: "skin", label: "Skincare" },
 ];
 
 const SUB_FILTERS: Record<string, { value: ProductSub; label: string }[]> = {
@@ -25,37 +24,23 @@ const SUB_FILTERS: Record<string, { value: ProductSub; label: string }[]> = {
     { value: "scalp",           label: "Scalp" },
   ],
   skin: [
-    { value: "universal",   label: "Universal" },
-    { value: "oily",        label: "Oily + Dehydrated" },
-    { value: "dry-ashy",    label: "Dry + Ashy" },
-    { value: "combination", label: "Combination" },
-    { value: "balanced",    label: "Glowy + Balanced" },
-    { value: "sensitive",   label: "Sensitive" },
-  ],
-  accessories: [
-    { value: "hair", label: "Hair Tools" },
-    { value: "skin", label: "Skin Tools" },
+    { value: "universal", label: "Universal" },
+    { value: "oily",      label: "Oily" },
   ],
 };
 
-const CATEGORY_META: Record<ProductCategory, { title: string; desc: string; eyebrow: string; color: string }> = {
+const CATEGORY_META: Partial<Record<ProductCategory, { title: string; desc: string; eyebrow: string; color: string }>> = {
   hair: {
     title: "Haircare",
-    desc: "Shampoos, conditioners & treatments matched to your porosity",
+    desc: "Shampoos, conditioners & curl cremes matched to your porosity",
     eyebrow: "By porosity",
     color: "#A0701E",
   },
   skin: {
     title: "Skincare",
-    desc: "Serums, cleansers & treatments built for melanin-rich skin",
+    desc: "Face wash, serums & moisturizers built for melanin-rich skin",
     eyebrow: "By skin type",
     color: "#8B4A3A",
-  },
-  accessories: {
-    title: "Accessories",
-    desc: "Tools your aunty swears by — ships from day one",
-    eyebrow: "Ready now",
-    color: "#3F6B52",
   },
 };
 
@@ -92,7 +77,7 @@ function CategorySection({
   category: ProductCategory;
   items: typeof products;
 }) {
-  const meta = CATEGORY_META[category];
+  const meta = CATEGORY_META[category]!;
   return (
     <section className="mb-16">
       <div className="flex items-end justify-between mb-7 pb-5 border-b border-[rgba(26,15,8,0.06)]">
@@ -130,14 +115,14 @@ function ProductsPageInner() {
   const searchParams = useSearchParams();
   const [top, setTop] = useState<TopFilter>(() => {
     const cat = searchParams.get("cat");
-    return (cat === "hair" || cat === "skin" || cat === "accessories") ? cat : "all";
+    return (cat === "hair" || cat === "skin") ? cat : "all";
   });
   const [sub, setSub] = useState<ProductSub | null>(null);
 
   // Sync filter when URL param changes (e.g. browser back/forward)
   useEffect(() => {
     const cat = searchParams.get("cat");
-    if (cat === "hair" || cat === "skin" || cat === "accessories") {
+    if (cat === "hair" || cat === "skin") {
       setTop(cat);
     } else {
       setTop("all");
@@ -168,7 +153,7 @@ function ProductsPageInner() {
 
   const grouped = useMemo(() => {
     if (top !== "all") return null;
-    const cats: ProductCategory[] = ["hair", "skin", "accessories"];
+    const cats: ProductCategory[] = ["hair", "skin"];
     return cats
       .map((c) => ({ category: c, items: products.filter((p) => p.category === c) }))
       .filter((g) => g.items.length > 0);
@@ -182,15 +167,15 @@ function ProductsPageInner() {
         {/* Compact header + filters */}
         <div className="sticky top-[72px] z-30 bg-[#FDFCF8]/95 backdrop-blur-md border-b border-[rgba(26,15,8,0.06)]">
           <div className="max-w-[1400px] mx-auto px-6 md:px-8">
-            <div className="py-4 flex flex-col gap-3">
+            <div className="py-3 flex items-center gap-4 flex-wrap">
 
-              {/* Title row */}
-              <h1 className="font-display text-[1.25rem] md:text-[1.5rem] font-bold text-[#2D1B0E] tracking-[-0.02em]">
+              {/* Title */}
+              <h1 className="font-display text-[1.1rem] md:text-[1.25rem] font-bold text-[#2D1B0E] tracking-[-0.02em] mr-2">
                 Shop
               </h1>
 
               {/* Category pills */}
-              <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mb-0.5">
+              <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
                 {TOP_FILTERS.map((f) => {
                   const count = f.value === "all" ? products.length : (countByCategory[f.value] || 0);
                   const active = top === f.value;
@@ -198,14 +183,14 @@ function ProductsPageInner() {
                     <button
                       key={f.value}
                       onClick={() => handleTopChange(f.value)}
-                      className={`flex-shrink-0 font-body text-[12px] font-medium px-4 py-1.5 rounded-full transition-all ${
+                      className={`flex-shrink-0 font-body text-[11px] font-medium px-3.5 py-1 rounded-full transition-all ${
                         active
                           ? "bg-[#2D1B0E] text-[#FDFCF8]"
                           : "bg-[#F7F5F0] text-[#6B5040] hover:bg-[#EDE9E3]"
                       }`}
                     >
                       {f.label}
-                      <span className={`ml-1.5 text-[10px] ${active ? "text-[rgba(253,252,248,0.5)]" : "text-[#9E8C7A]"}`}>
+                      <span className={`ml-1 text-[9px] ${active ? "text-[rgba(253,252,248,0.5)]" : "text-[#9E8C7A]"}`}>
                         {count}
                       </span>
                     </button>
@@ -213,33 +198,36 @@ function ProductsPageInner() {
                 })}
               </div>
 
-              {/* Sub-filters */}
+              {/* Divider + Sub-filters inline */}
               {subOptions.length > 0 && (
-                <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
-                  <button
-                    onClick={() => setSub(null)}
-                    className={`flex-shrink-0 font-body text-[11px] font-medium px-3 py-1 rounded-full transition-all ${
-                      !sub
-                        ? "bg-[#2D1B0E] text-[#FDFCF8]"
-                        : "bg-transparent text-[#9E8C7A] border border-[rgba(26,15,8,0.1)] hover:text-[#6B5040]"
-                    }`}
-                  >
-                    All
-                  </button>
-                  {subOptions.map((s) => (
+                <>
+                  <div className="w-px h-4 bg-[rgba(26,15,8,0.1)]" />
+                  <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
                     <button
-                      key={s.value}
-                      onClick={() => setSub(s.value)}
-                      className={`flex-shrink-0 font-body text-[11px] font-medium px-3 py-1 rounded-full transition-all ${
-                        sub === s.value
+                      onClick={() => setSub(null)}
+                      className={`flex-shrink-0 font-body text-[10px] font-medium px-2.5 py-0.5 rounded-full transition-all ${
+                        !sub
                           ? "bg-[#2D1B0E] text-[#FDFCF8]"
-                          : "bg-transparent text-[#9E8C7A] border border-[rgba(26,15,8,0.1)] hover:text-[#6B5040]"
+                          : "text-[#9E8C7A] border border-[rgba(26,15,8,0.1)] hover:text-[#6B5040]"
                       }`}
                     >
-                      {s.label}
+                      All
                     </button>
-                  ))}
-                </div>
+                    {subOptions.map((s) => (
+                      <button
+                        key={s.value}
+                        onClick={() => setSub(s.value)}
+                        className={`flex-shrink-0 font-body text-[10px] font-medium px-2.5 py-0.5 rounded-full transition-all ${
+                          sub === s.value
+                            ? "bg-[#2D1B0E] text-[#FDFCF8]"
+                            : "text-[#9E8C7A] border border-[rgba(26,15,8,0.1)] hover:text-[#6B5040]"
+                        }`}
+                      >
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -280,7 +268,7 @@ function ProductsPageInner() {
                 {bundles.length} bundles
               </span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
               {bundles.map((b) => (
                 <BundleCard key={b.id} bundle={b} />
               ))}

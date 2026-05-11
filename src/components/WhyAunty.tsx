@@ -121,8 +121,8 @@ export default function WhyAunty() {
               Random pick
             </span>
           </div>
-          <div className="relative flex flex-col items-center justify-end pb-5 px-2 rounded-t-3xl bg-gradient-to-b from-[#C9903A]/12 to-transparent">
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[#C9903A] text-[#1A0F08] font-body text-[9px] font-bold tracking-[1.5px] uppercase whitespace-nowrap">
+          <div className="relative flex flex-col items-center justify-end pb-5 pt-6 px-2 rounded-t-3xl bg-gradient-to-b from-[#C9903A]/12 to-transparent">
+            <span className="absolute -top-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[#C9903A] text-[#1A0F08] font-body text-[9px] font-bold tracking-[1.5px] uppercase whitespace-nowrap">
               ★ Best fit
             </span>
             <span className="font-body text-[10px] md:text-[11px] font-bold tracking-[1px] md:tracking-[2px] uppercase text-[#FDFCF8] text-center">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import type { Product, ProductCategory } from "@/data/products";
 
 interface ProductCardProps {
@@ -107,6 +108,24 @@ function ProductSilhouette({
           <path d="M9 36 Q9 24 26 24 Q43 24 43 36 L43 70 Q43 78 26 78 Q9 78 9 70 Z" fill={fill} stroke={stroke} {...common} />
           <rect x="17" y="9" width="18" height="18" rx="6" fill={fill} stroke={stroke} {...common} />
           <rect x="22" y="3" width="8" height="9" rx="2.5" fill={stroke} opacity="0.4" />
+        </svg>
+      );
+    case "spf":
+      return (
+        <svg width="72" height="72" viewBox="0 0 68 68" fill="none">
+          <rect x="8" y="20" width="52" height="32" rx="10" fill={fill} stroke={stroke} {...common} />
+          <rect x="20" y="12" width="28" height="12" rx="5" fill={fill} stroke={stroke} {...common} />
+          <line x1="16" y1="36" x2="52" y2="36" stroke={stroke} strokeOpacity="0.25" strokeWidth="1.2" />
+          <circle cx="34" cy="44" r="4" fill="none" stroke={stroke} strokeWidth="1.2" opacity="0.5" />
+        </svg>
+      );
+    case "scar-gel":
+      return (
+        <svg width="52" height="88" viewBox="0 0 48 84" fill="none">
+          <path d="M10 28 Q10 20 24 20 Q38 20 38 28 L40 68 Q40 76 24 76 Q8 76 8 68 Z" fill={fill} stroke={stroke} {...common} />
+          <rect x="17" y="10" width="14" height="13" rx="4" fill={fill} stroke={stroke} {...common} />
+          <rect x="20" y="5" width="8" height="7" rx="2" fill={stroke} opacity="0.4" />
+          <line x1="14" y1="50" x2="34" y2="50" stroke={stroke} strokeOpacity="0.25" strokeWidth="1.2" />
         </svg>
       );
     case "accessory":
@@ -238,14 +257,24 @@ export default function ProductCard({
           </span>
         </div>
 
-        {/* Centered illustration */}
+        {/* Product visual */}
         <div
           className="relative z-[2] h-full w-full flex items-center justify-center transition-transform duration-700"
           style={{
             transform: hovered ? "translateY(-8px) scale(1.05)" : "translateY(0) scale(1)",
           }}
         >
-          <ProductSilhouette type={product.productType} color="#1A0F08" />
+          {product.image ? (
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            />
+          ) : (
+            <ProductSilhouette type={product.productType} color="#1A0F08" />
+          )}
         </div>
 
         {/* Plan A description hover panel */}
