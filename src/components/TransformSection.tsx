@@ -142,7 +142,7 @@ const STAGES: Stage[] = [
   {
     step: "Before",
     title: "The guessing game",
-    body: "A bathroom shelf full of products that don&apos;t know your texture. Trial, error, and a lot of wasted money.",
+    body: "A bathroom shelf full of products that don't know your texture. Trial, error, and a lot of wasted money.",
     bg: "#EDE9DF",
     cardBg: "#F7F5F0",
     badge: "$240+ wasted",
@@ -252,8 +252,9 @@ export default function TransformSection() {
                   <p
                     className="font-body text-[14px] leading-[1.6]"
                     style={{ color: isDark ? "#9E8C7A" : "#3D2B1A" }}
-                    dangerouslySetInnerHTML={{ __html: stage.body }}
-                  />
+                  >
+                    {stage.body}
+                  </p>
 
                   {/* Decorative corner */}
                   <div
