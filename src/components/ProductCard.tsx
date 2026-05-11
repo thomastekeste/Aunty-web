@@ -2,8 +2,6 @@
 
 import { useRef, useState } from "react";
 import type { Product, ProductCategory } from "@/data/products";
-import { aunties } from "@/data/aunties";
-import AuntyCharacterIcon from "./AuntyCharacterIcon";
 
 interface ProductCardProps {
   product: Product;
@@ -158,10 +156,10 @@ export default function ProductCard({
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const aunty = aunties.find((a) => a.id === product.auntyId);
   const theme = CATEGORY_THEME[product.category];
   const isCompact = size === "compact";
   const isPreOrder = product.status === "pre-order";
+  const displayName = product.name.startsWith("Aunty ") ? product.name.slice(6) : product.name;
 
   /* ── 3D tilt on pointer move (desktop only) ── */
   function handleMove(e: React.MouseEvent<HTMLDivElement>) {
@@ -212,7 +210,7 @@ export default function ProductCard({
     >
       {/* ── Visual top section ── */}
       <div
-        className={`relative rounded-3xl overflow-hidden mb-4 ${isCompact ? "aspect-[4/3]" : "aspect-square"}`}
+        className={`relative rounded-3xl overflow-hidden mb-4 ${isCompact ? "aspect-[4/3]" : "aspect-[3/4]"}`}
         style={{
           background: theme.gradient,
           boxShadow: hovered
@@ -240,70 +238,45 @@ export default function ProductCard({
           </span>
         </div>
 
-        {/* Aunty pill */}
-        {aunty && !isCompact && (
-          <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1.5 px-2 py-1 rounded-full bg-[#1A0F08]/75 backdrop-blur-md">
-            <div className="w-4 h-4 rounded-full overflow-hidden">
-              <AuntyCharacterIcon auntyId={aunty.id} size={16} />
-            </div>
-            <span className="font-body text-[9px] font-bold tracking-[0.5px] uppercase text-[#FDFCF8]">
-              {aunty.name}
-            </span>
-          </div>
-        )}
-
         {/* Centered illustration */}
         <div
           className="relative z-[2] h-full w-full flex items-center justify-center transition-transform duration-700"
           style={{
-            transform: hovered ? "translateY(-6px) scale(1.04)" : "translateY(0) scale(1)",
+            transform: hovered ? "translateY(-8px) scale(1.05)" : "translateY(0) scale(1)",
           }}
         >
           <ProductSilhouette type={product.productType} color="#1A0F08" />
         </div>
 
-        {/* Ingredient peek panel */}
-        {!isCompact && product.keyIngredients.length > 0 && (
+        {/* Plan A description hover panel */}
+        {!isCompact && (
           <div
-            className="absolute left-0 right-0 bottom-0 px-4 pb-4 pt-6 transition-all duration-500 ease-out z-[3]"
+            className="absolute inset-0 flex flex-col justify-end px-5 pb-5 pt-4 z-[3] transition-all duration-500 ease-out"
             style={{
-              background: "linear-gradient(to top, rgba(26,15,8,0.85) 30%, transparent 100%)",
+              background: "linear-gradient(to top, rgba(14,7,2,0.96) 55%, rgba(14,7,2,0.0) 100%)",
               opacity: hovered ? 1 : 0,
-              transform: hovered ? "translateY(0)" : "translateY(20px)",
+              transform: hovered ? "translateY(0)" : "translateY(12px)",
               pointerEvents: hovered ? "auto" : "none",
             }}
           >
-            <p className="font-body text-[8.5px] font-bold tracking-[1.5px] uppercase text-[#C9903A] mb-1.5">
-              Key actives
+            <p className="font-body text-[8px] font-bold tracking-[2.5px] uppercase mb-2" style={{ color: theme.accent }}>
+              Plan A
             </p>
-            <div className="flex flex-wrap gap-1">
-              {product.keyIngredients.slice(0, 3).map((ing) => (
-                <span
-                  key={ing}
-                  className="px-2 py-0.5 rounded-full bg-[#FDFCF8]/15 border border-[#FDFCF8]/20 font-body text-[10px] font-medium text-[#FDFCF8] backdrop-blur-sm"
-                >
-                  {ing}
-                </span>
-              ))}
-            </div>
+            <p className="font-body text-[11.5px] leading-relaxed text-[#FDFCF8]/90 line-clamp-5">
+              {product.whyItWorks}
+            </p>
           </div>
         )}
       </div>
 
       {/* ── Info ── */}
       <div className={`flex flex-col ${isCompact ? "gap-1" : "gap-1.5"}`}>
-        {aunty && !isCompact && (
-          <p className="font-body text-[10px] font-bold tracking-[2px] uppercase text-[#9E8C7A]">
-            {aunty.name}&apos;s pick
-          </p>
-        )}
-
         <h3
           className={`font-display font-bold text-[#1A0F08] leading-snug ${
             isCompact ? "text-sm" : "text-[15px]"
           }`}
         >
-          {product.name}
+          {displayName}
         </h3>
 
         {reason && (
