@@ -16,6 +16,11 @@ const SHOP_CATEGORIES = [
     label: "Skin Care",
     desc: "Face wash, serums & moisturizers for melanin-rich skin",
   },
+  {
+    href: "/products?cat=accessories",
+    label: "Accessories",
+    desc: "Bonnets, durags, tools & skincare devices",
+  },
 ];
 
 export default function Navbar() {

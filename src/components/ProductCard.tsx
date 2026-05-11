@@ -128,6 +128,47 @@ function ProductSilhouette({
           <line x1="14" y1="50" x2="34" y2="50" stroke={stroke} strokeOpacity="0.25" strokeWidth="1.2" />
         </svg>
       );
+    case "bonnet":
+      return (
+        <svg width="72" height="72" viewBox="0 0 64 64" fill="none">
+          <ellipse cx="32" cy="34" rx="24" ry="18" fill={fill} stroke={stroke} {...common} />
+          <path d="M12 34 Q12 18 32 14 Q52 18 52 34" fill={fill} stroke={stroke} {...common} />
+          <ellipse cx="32" cy="34" rx="10" ry="3" fill={stroke} opacity="0.3" />
+        </svg>
+      );
+    case "durag":
+      return (
+        <svg width="72" height="72" viewBox="0 0 64 64" fill="none">
+          <path d="M10 30 Q10 14 32 12 Q54 14 54 30 L54 36 Q54 42 32 44 Q10 42 10 36 Z" fill={fill} stroke={stroke} {...common} />
+          <path d="M28 44 L24 58 M36 44 L40 58" stroke={stroke} strokeWidth="1.4" strokeLinecap="round" opacity="0.5" />
+          <ellipse cx="32" cy="28" rx="14" ry="4" fill="none" stroke={stroke} strokeWidth="1.2" opacity="0.4" />
+        </svg>
+      );
+    case "tool":
+      return (
+        <svg width="68" height="72" viewBox="0 0 60 66" fill="none">
+          <rect x="24" y="6" width="12" height="40" rx="6" fill={fill} stroke={stroke} {...common} />
+          <ellipse cx="30" cy="52" rx="16" ry="8" fill={fill} stroke={stroke} {...common} />
+          <line x1="30" y1="46" x2="30" y2="44" stroke={stroke} strokeWidth="1.4" />
+        </svg>
+      );
+    case "roller":
+      return (
+        <svg width="68" height="78" viewBox="0 0 60 70" fill="none">
+          <rect x="26" y="30" width="8" height="28" rx="4" fill={fill} stroke={stroke} {...common} />
+          <ellipse cx="30" cy="18" rx="18" ry="14" fill={fill} stroke={stroke} {...common} />
+          <ellipse cx="30" cy="18" rx="8" ry="5" fill="none" stroke={stroke} strokeWidth="1.2" opacity="0.4" />
+        </svg>
+      );
+    case "mask":
+      return (
+        <svg width="76" height="72" viewBox="0 0 68 64" fill="none">
+          <ellipse cx="34" cy="32" rx="28" ry="26" fill={fill} stroke={stroke} {...common} />
+          <ellipse cx="22" cy="26" rx="6" ry="4" fill="none" stroke={stroke} strokeWidth="1.2" opacity="0.5" />
+          <ellipse cx="46" cy="26" rx="6" ry="4" fill="none" stroke={stroke} strokeWidth="1.2" opacity="0.5" />
+          <path d="M26 40 Q34 46 42 40" fill="none" stroke={stroke} strokeWidth="1.2" opacity="0.4" />
+        </svg>
+      );
     case "accessory":
     default:
       return (

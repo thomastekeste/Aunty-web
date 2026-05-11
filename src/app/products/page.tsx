@@ -11,9 +11,10 @@ import { products, bundles, type ProductCategory, type ProductSub } from "@/data
 type TopFilter = "all" | ProductCategory;
 
 const TOP_FILTERS: { value: TopFilter; label: string }[] = [
-  { value: "all",  label: "All" },
-  { value: "hair", label: "Haircare" },
-  { value: "skin", label: "Skincare" },
+  { value: "all",         label: "All" },
+  { value: "hair",        label: "Haircare" },
+  { value: "skin",        label: "Skincare" },
+  { value: "accessories", label: "Accessories" },
 ];
 
 const SUB_FILTERS: Record<string, { value: ProductSub; label: string }[]> = {
@@ -26,6 +27,10 @@ const SUB_FILTERS: Record<string, { value: ProductSub; label: string }[]> = {
   skin: [
     { value: "universal", label: "Universal" },
     { value: "oily",      label: "Oily" },
+  ],
+  accessories: [
+    { value: "hair", label: "Hair Tools" },
+    { value: "skin", label: "Skin Tools" },
   ],
 };
 
@@ -41,6 +46,12 @@ const CATEGORY_META: Partial<Record<ProductCategory, { title: string; desc: stri
     desc: "Face wash, serums & moisturizers built for melanin-rich skin",
     eyebrow: "By skin type",
     color: "#8B4A3A",
+  },
+  accessories: {
+    title: "Accessories",
+    desc: "Tools, bonnets, durags & skincare devices — everything your routine needs",
+    eyebrow: "By type",
+    color: "#3F6B52",
   },
 };
 
@@ -115,14 +126,14 @@ function ProductsPageInner() {
   const searchParams = useSearchParams();
   const [top, setTop] = useState<TopFilter>(() => {
     const cat = searchParams.get("cat");
-    return (cat === "hair" || cat === "skin") ? cat : "all";
+    return (cat === "hair" || cat === "skin" || cat === "accessories") ? cat : "all";
   });
   const [sub, setSub] = useState<ProductSub | null>(null);
 
   // Sync filter when URL param changes (e.g. browser back/forward)
   useEffect(() => {
     const cat = searchParams.get("cat");
-    if (cat === "hair" || cat === "skin") {
+    if (cat === "hair" || cat === "skin" || cat === "accessories") {
       setTop(cat);
     } else {
       setTop("all");
@@ -153,7 +164,7 @@ function ProductsPageInner() {
 
   const grouped = useMemo(() => {
     if (top !== "all") return null;
-    const cats: ProductCategory[] = ["hair", "skin"];
+    const cats: ProductCategory[] = ["hair", "skin", "accessories"];
     return cats
       .map((c) => ({ category: c, items: products.filter((p) => p.category === c) }))
       .filter((g) => g.items.length > 0);
