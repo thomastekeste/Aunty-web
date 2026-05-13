@@ -50,7 +50,7 @@ export default function IngredientsStrip() {
             <p className="font-body text-[11px] font-bold tracking-[4px] uppercase text-[#C9903A] mb-5">
               The science
             </p>
-            <h2 className="font-display text-[2rem] md:text-[3.2rem] font-bold text-[#FDFCF8] leading-[1.05] tracking-[-0.025em] mb-6">
+            <h2 className="font-display text-[1.75rem] md:text-[2.4rem] font-bold text-[#FDFCF8] leading-[1.05] tracking-[-0.025em] mb-6">
               Formulated.{" "}
               <span className="italic font-light text-[#9E8C7A]">Not just foraged.</span>
             </h2>
@@ -70,7 +70,7 @@ export default function IngredientsStrip() {
                 key={s.label}
                 className="px-6 py-7 rounded-2xl border border-[#FDFCF8]/8 bg-[#FDFCF8]/[0.03]"
               >
-                <p className="font-display text-[2.8rem] md:text-[3.2rem] font-bold text-[#C9903A] leading-none mb-2">
+                <p className="font-display text-[2.2rem] md:text-[2.6rem] font-bold text-[#C9903A] leading-none mb-2">
                   {s.num}
                 </p>
                 <p className="font-body text-[11px] md:text-[12px] text-[#9E8C7A] uppercase tracking-[1px]">
@@ -91,7 +91,7 @@ export default function IngredientsStrip() {
               {ACTIVES.map((a) => (
                 <span
                   key={a}
-                  className="px-4 py-2 rounded-full border border-[#FDFCF8]/10 font-body text-[13px] text-[#FDFCF8]/65 bg-[#FDFCF8]/[0.04] hover:border-[#C9903A]/40 hover:text-[#FDFCF8] transition-all"
+                  className="px-4 py-2 rounded-full border border-[#FDFCF8]/10 font-body text-[14px] text-[#FDFCF8]/65 bg-[#FDFCF8]/[0.04] hover:border-[#C9903A]/40 hover:text-[#FDFCF8] transition-all"
                 >
                   {a}
                 </span>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/lib/cart";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -19,13 +20,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Aunty Council — Hair & Skin, Aunty Curated",
     description:
-      "A curated marketplace of hair and skin products recommended by seven aunties who actually know your texture.",
+      "A curated marketplace of hair and skin products — each one matched to your texture through a free AI consultation.",
     type: "website",
     url: siteUrl,
     siteName: "Aunty Council",
     images: [
       {
-        url: "/og-image.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "Aunty Council — Hair & Skin, Aunty Curated",
@@ -36,8 +37,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Aunty Council — Hair & Skin, Aunty Curated",
     description:
-      "A curated marketplace of hair and skin products recommended by seven aunties who actually know your texture.",
-    images: ["/og-image.png"],
+      "A curated marketplace of hair and skin products — each one matched to your texture through a free AI consultation.",
+    images: ["/logo.png"],
   },
 };
 
@@ -68,7 +69,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
+        <CartProvider>{children}</CartProvider>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />

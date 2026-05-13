@@ -8,10 +8,9 @@ import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { products, bundles, type ProductCategory, type ProductSub } from "@/data/products";
 
-type TopFilter = "all" | ProductCategory;
+type TopFilter = ProductCategory;
 
 const TOP_FILTERS: { value: TopFilter; label: string }[] = [
-  { value: "all",         label: "All" },
   { value: "hair",        label: "Haircare" },
   { value: "skin",        label: "Skincare" },
   { value: "accessories", label: "Accessories" },
@@ -126,7 +125,7 @@ function ProductsPageInner() {
   const searchParams = useSearchParams();
   const [top, setTop] = useState<TopFilter>(() => {
     const cat = searchParams.get("cat");
-    return (cat === "hair" || cat === "skin" || cat === "accessories") ? cat : "all";
+    return (cat === "hair" || cat === "skin" || cat === "accessories") ? cat : "hair";
   });
   const [sub, setSub] = useState<ProductSub | null>(null);
 
@@ -136,16 +135,16 @@ function ProductsPageInner() {
     if (cat === "hair" || cat === "skin" || cat === "accessories") {
       setTop(cat);
     } else {
-      setTop("all");
+      setTop("hair");
     }
     setSub(null);
   }, [searchParams]);
 
-  const subOptions = top !== "all" ? (SUB_FILTERS[top] ?? []) : [];
+  const subOptions = SUB_FILTERS[top] ?? [];
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
-      if (top !== "all" && p.category !== top) return false;
+      if (p.category !== top) return false;
       if (sub && p.sub !== sub) return false;
       return true;
     });
@@ -161,14 +160,6 @@ function ProductsPageInner() {
     setTop(val);
     setSub(null);
   };
-
-  const grouped = useMemo(() => {
-    if (top !== "all") return null;
-    const cats: ProductCategory[] = ["hair", "skin", "accessories"];
-    return cats
-      .map((c) => ({ category: c, items: products.filter((p) => p.category === c) }))
-      .filter((g) => g.items.length > 0);
-  }, [top]);
 
   return (
     <>
@@ -188,7 +179,7 @@ function ProductsPageInner() {
               {/* Category pills */}
               <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
                 {TOP_FILTERS.map((f) => {
-                  const count = f.value === "all" ? products.length : (countByCategory[f.value] || 0);
+                  const count = countByCategory[f.value] || 0;
                   const active = top === f.value;
                   return (
                     <button
@@ -246,11 +237,7 @@ function ProductsPageInner() {
 
         {/* Products */}
         <div className="max-w-[1400px] mx-auto px-6 md:px-8 pt-6 pb-10">
-          {grouped ? (
-            grouped.map((g) => (
-              <CategorySection key={g.category} category={g.category} items={g.items} />
-            ))
-          ) : filtered.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="text-center py-16 text-[#6B5040] font-body">
               No products found for that filter.
             </div>

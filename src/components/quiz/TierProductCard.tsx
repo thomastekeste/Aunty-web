@@ -33,7 +33,7 @@ export default function TierProductCard({ productId, reason, accent }: { product
         )}
         <div className="p-3 rounded-lg bg-[#F7F5F0] border border-[rgba(26,15,8,0.04)]">
           <p className="font-body text-[10px] tracking-[2px] uppercase font-semibold mb-1" style={{ color: accent }}>
-            Why your aunty picked this
+            Why the council picked this
           </p>
           <p className="font-body text-xs text-[#6B5040] leading-relaxed">{reason}</p>
         </div>

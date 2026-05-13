@@ -127,7 +127,7 @@ export default function TieredResults({
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-body text-xs font-semibold mb-0.5" style={{ color: aunty.color }}>
-                        Aunty {aunty.name}
+                        The Council
                       </p>
                       <p className="font-display text-sm italic text-[rgba(45,27,14,0.7)] leading-relaxed">
                         &ldquo;{v.message}&rdquo;
@@ -188,10 +188,10 @@ export default function TieredResults({
           <div className="border-t border-[rgba(26,15,8,0.06)] pt-8 pb-4 text-center">
             <p className="font-body text-[11px] tracking-[3px] uppercase mb-1" style={{ color: accent }}>Included with every order</p>
             <h3 className="font-display text-2xl md:text-3xl font-bold text-[#2D1B0E] mb-1">
-              Your aunties, in your pocket.
+              Your council, in your pocket.
             </h3>
             <p className="font-body text-sm text-[#6B5040]">
-              Track your progress. Chat to your aunties. Get guided through every wash day.
+              Track your progress. Chat the council. Get guided through every wash day.
             </p>
           </div>
           <AppPreview hideCta />

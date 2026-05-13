@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { useCart } from "@/lib/cart";
 
 const SHOP_CATEGORIES = [
   {
@@ -31,6 +32,7 @@ export default function Navbar() {
   const [shopOpen, setShopOpen] = useState(false);
   const [mobileShopOpen, setMobileShopOpen] = useState(false);
   const [authed, setAuthed] = useState(false);
+  const { count: cartCount } = useCart();
   const shopRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
 
@@ -83,6 +85,23 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Logo — completely independent, floats over page */}
+      <Link
+        href="/"
+        onClick={close}
+        className="absolute left-4 md:left-6 z-50 pointer-events-auto"
+        style={{ top: "8px" }}
+      >
+        <Image
+          src="/logo.png"
+          alt="Aunty Council"
+          width={400}
+          height={300}
+          className="object-contain h-[96px] md:h-[120px] lg:h-[140px] w-auto"
+          priority
+        />
+      </Link>
+
       {/* Hover trigger zone — reveals navbar when mouse reaches top */}
       {hidden && !hovered && (
         <div
@@ -102,26 +121,11 @@ export default function Navbar() {
           top: hidden && !hovered && !menuOpen ? "-80px" : "0px",
         }}
       >
-        <div className="max-w-[1400px] mx-auto px-8 h-[72px] flex items-center justify-between">
-
-          {/* Logo */}
-          <Link href="/" className="flex items-center" onClick={close}>
-            <Image src="/logo.png" alt="Aunty Council" width={120} height={120} className="object-contain" style={{ height: "52px", width: "auto" }} />
-          </Link>
+        <div className="max-w-[1400px] mx-auto px-8 h-[72px] flex items-center justify-center gap-6">
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
-            {[
-              { href: "/aunties", label: "The Aunties" },
-              { href: "/science", label: "Our Science" },
-            ].map((l) => (
-              <Link key={l.href} href={l.href}
-                className="font-body text-[13px] font-medium text-[#6B5040] hover:text-[#2D1B0E] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1.5px] after:bg-[#2D1B0E] after:transition-all hover:after:w-full">
-                {l.label}
-              </Link>
-            ))}
-
-            {/* Shop dropdown */}
+            {/* Shop dropdown — first */}
             <div ref={shopRef} className="relative">
               <button
                 onClick={() => setShopOpen(!shopOpen)}
@@ -154,22 +158,48 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="#app"
-              className="font-body text-[13px] font-medium text-[#6B5040] hover:text-[#2D1B0E] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1.5px] after:bg-[#2D1B0E] after:transition-all hover:after:w-full">
-              The App
-            </Link>
+            {[
+              { href: "/app", label: "The App" },
+              { href: "/science", label: "Our Science" },
+            ].map((l) => (
+              <Link key={l.href} href={l.href}
+                className="font-body text-[13px] font-medium text-[#6B5040] hover:text-[#2D1B0E] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1.5px] after:bg-[#2D1B0E] after:transition-all hover:after:w-full">
+                {l.label}
+              </Link>
+            ))}
+
           </div>
 
-          {/* Right: CTA + hamburger */}
+          {/* Right: Log in + bag + CTA + hamburger */}
           <div className="flex items-center gap-4">
             <Link href={authed ? "/account" : "/login"}
               className="hidden md:block font-body text-[13px] font-medium text-[#6B5040] hover:text-[#2D1B0E] transition-colors">
               {authed ? "Account" : "Log in"}
             </Link>
-            <a href="#quiz" onClick={close}
-              className="hidden sm:block px-5 py-2 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[12px] font-semibold tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors">
-              Get Your Formula
-            </a>
+
+            {/* Bag + CTA pinned to the right on desktop */}
+            <div className="hidden md:flex md:absolute md:right-8 items-center gap-3">
+              <Link
+                href="/checkout"
+                aria-label={`Bag${cartCount > 0 ? ` (${cartCount} items)` : ""}`}
+                className="relative inline-flex items-center justify-center w-9 h-9 text-[#6B5040] hover:text-[#2D1B0E] transition-colors"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M6 7h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7z" />
+                  <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+                </svg>
+                {cartCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#C9903A] text-[#FDFCF8] font-body text-[10px] font-bold leading-none flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+              <a href="#quiz" onClick={close}
+                className="px-5 py-2 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[12px] font-semibold tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors">
+                Get Your Formula
+              </a>
+            </div>
+
             <button onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden flex flex-col justify-center items-center w-11 h-11 gap-[5px]" aria-label="Toggle menu">
               <span className="block w-5 h-[1.5px] bg-[#2D1B0E] transition-all duration-300 origin-center"
@@ -186,9 +216,6 @@ export default function Navbar() {
       {/* Mobile overlay */}
       <div className="fixed inset-0 z-40 bg-[#FDFCF8]/98 backdrop-blur-xl md:hidden flex flex-col items-center justify-center gap-6 transition-all duration-300"
         style={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "auto" : "none" }}>
-        <Link href="/aunties" onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">The Aunties</Link>
-        <Link href="/science" onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">Our Science</Link>
-
         <button onClick={() => setMobileShopOpen(!mobileShopOpen)}
           className="flex items-center gap-2 font-display text-xl font-medium text-[#2D1B0E]">
           Shop
@@ -207,7 +234,9 @@ export default function Navbar() {
           </div>
         )}
 
-        <Link href="#app" onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">The App</Link>
+        <Link href="/app" onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">The App</Link>
+        <Link href="/science" onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">Our Science</Link>
+
         <Link href={authed ? "/account" : "/login"} onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">
           {authed ? "Account" : "Log in"}
         </Link>

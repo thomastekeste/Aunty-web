@@ -137,19 +137,19 @@ function HomeScreen() {
         <div className="flex items-center gap-2 mb-2">
           <div className="w-7 h-7 rounded-full overflow-hidden bg-[#FEF8EC20] flex items-center justify-center text-[10px]">M</div>
           <div>
-            <p className="font-body text-[8px] font-semibold text-[#FEF8EC]">Aunty Marcia</p>
-            <p className="font-body text-[6px] text-[rgba(254,248,236,0.6)]">Kingston, Jamaica</p>
+            <p className="font-body text-[8px] font-semibold text-[#FEF8EC]">The Council</p>
+            <p className="font-body text-[6px] text-[rgba(254,248,236,0.6)]">Your hair experts</p>
           </div>
         </div>
         <p className="font-body text-[8px] text-[#FEF8EC] leading-relaxed mb-2 italic">&ldquo;Your hair holds memory, darling. Wash day is how we start fresh.&rdquo;</p>
         <div className="h-[22px] rounded-md bg-[rgba(254,248,236,0.15)] flex items-center justify-center">
-          <span className="font-body text-[7px] font-semibold text-[#FEF8EC]">Chat with Marcia</span>
+          <span className="font-body text-[7px] font-semibold text-[#FEF8EC]">Chat with the council</span>
         </div>
       </div>
 
       {/* Aunty's Tip */}
       <div className="rounded-xl bg-white p-3" style={{ boxShadow: '0 2px 8px rgba(45,27,14,0.06)' }}>
-        <p className="font-body text-[7px] font-semibold tracking-[2px] uppercase text-[#D4A04A] mb-1.5">Aunty&rsquo;s Tip</p>
+        <p className="font-body text-[7px] font-semibold tracking-[2px] uppercase text-[#D4A04A] mb-1.5">Daily Tip</p>
         <p className="font-body text-[8px] text-[#5C4433] leading-relaxed">Sleep on a satin pillowcase to lock in tonight&rsquo;s moisture...</p>
       </div>
     </div>
@@ -203,8 +203,8 @@ function PlanScreen() {
       {/* Aunty tip */}
       <div className="mt-3.5 rounded-xl p-3 bg-[#FDF6E8] border border-[#D4A04A20]">
         <div className="flex items-center gap-2 mb-1.5">
-          <div className="w-5 h-5 rounded-full bg-[#D4A04A20] flex items-center justify-center text-[7px] font-bold text-[#D4A04A]">N</div>
-          <p className="font-body text-[7px] font-semibold text-[#D4A04A]">Ngozi says:</p>
+          <div className="w-5 h-5 rounded-full bg-[#D4A04A20] flex items-center justify-center text-[7px] font-bold text-[#D4A04A]">AC</div>
+          <p className="font-body text-[7px] font-semibold text-[#D4A04A]">Council tip:</p>
         </div>
         <p className="font-body text-[8px] text-[#5C4433] italic leading-relaxed">&ldquo;Section di hair into four before you start. Trust me.&rdquo;</p>
       </div>
@@ -269,16 +269,16 @@ function ChatScreen() {
   return (
     <div className="flex-1 overflow-hidden px-4 pt-2 pb-14 flex flex-col">
       <div className="mb-3">
-        <p className="font-body text-[7px] font-semibold tracking-[2px] uppercase text-[#D4A04A] mb-0.5">Ask Your Aunties</p>
+        <p className="font-body text-[7px] font-semibold tracking-[2px] uppercase text-[#D4A04A] mb-0.5">Ask the Council</p>
         <p className="font-display text-[16px] font-bold text-[#2D1B0E] leading-tight">Chat</p>
       </div>
 
       {/* Aunty selector */}
       <div className="flex gap-2 mb-4">
         {[
-          { initial: "N", color: "#D4A04A", name: "Ngozi" },
-          { initial: "M", color: "#1A7A4A", name: "Marcia" },
-          { initial: "D", color: "#3D5A99", name: "Denise" },
+          { initial: "H", color: "#D4A04A", name: "Hair" },
+          { initial: "S", color: "#1A7A4A", name: "Skin" },
+          { initial: "R", color: "#3D5A99", name: "Routine" },
         ].map((a, i) => (
           <div key={a.name} className="flex flex-col items-center gap-1">
             <div
@@ -303,7 +303,7 @@ function ChatScreen() {
       {/* Chat bubbles */}
       <div className="flex-1 space-y-2.5">
         <div className="flex gap-2 items-end">
-          <div className="w-5 h-5 rounded-full bg-[#D4A04A] flex items-center justify-center text-[6px] font-bold text-[#FEF8EC] flex-shrink-0">N</div>
+          <div className="w-5 h-5 rounded-full bg-[#D4A04A] flex items-center justify-center text-[6px] font-bold text-[#FEF8EC] flex-shrink-0">AC</div>
           <div className="rounded-xl rounded-bl-sm bg-[#FDF6E8] border border-[#D4A04A20] px-3 py-2 max-w-[75%]">
             <p className="font-body text-[8px] text-[#2D1B0E] leading-relaxed">Wetin happen? Tell Aunty everything about dis hair.</p>
           </div>
@@ -314,7 +314,7 @@ function ChatScreen() {
           </div>
         </div>
         <div className="flex gap-2 items-end">
-          <div className="w-5 h-5 rounded-full bg-[#D4A04A] flex items-center justify-center text-[6px] font-bold text-[#FEF8EC] flex-shrink-0">N</div>
+          <div className="w-5 h-5 rounded-full bg-[#D4A04A] flex items-center justify-center text-[6px] font-bold text-[#FEF8EC] flex-shrink-0">AC</div>
           <div className="rounded-xl rounded-bl-sm bg-[#FDF6E8] border border-[#D4A04A20] px-3 py-2 max-w-[75%]">
             <p className="font-body text-[8px] text-[#2D1B0E] leading-relaxed">Ah! You no dey seal? After leave-in, you need oil THEN cream. Lock. It. In.</p>
           </div>
@@ -324,7 +324,7 @@ function ChatScreen() {
       {/* Input */}
       <div className="mt-2 flex items-center gap-2">
         <div className="flex-1 h-[28px] rounded-full bg-[#F5EDE0] flex items-center px-3">
-          <span className="font-body text-[8px] text-[#6B5040]">Ask your aunty...</span>
+          <span className="font-body text-[8px] text-[#6B5040]">Ask the council...</span>
         </div>
         <div className="w-[28px] h-[28px] rounded-full bg-[#D4A04A] flex items-center justify-center">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -354,7 +354,7 @@ function LearnScreen() {
       <div className="rounded-2xl p-3.5 mb-3.5 relative overflow-hidden" style={{ backgroundColor: '#3D5A99' }}>
         <p className="font-body text-[7px] font-semibold text-[rgba(254,248,236,0.6)] mb-1">Featured Lesson</p>
         <p className="font-display text-[13px] font-bold text-[#FEF8EC] mb-1.5 leading-snug">Understanding Your Curl Pattern</p>
-        <p className="font-body text-[8px] text-[rgba(254,248,236,0.6)] mb-2.5">With Aunty Denise &middot; 5 min read</p>
+        <p className="font-body text-[8px] text-[rgba(254,248,236,0.6)] mb-2.5">The Council &middot; 5 min read</p>
         <div className="h-[24px] w-[90px] rounded-md bg-[rgba(254,248,236,0.15)] flex items-center justify-center">
           <span className="font-body text-[7px] font-semibold text-[#FEF8EC]">Start Reading</span>
         </div>

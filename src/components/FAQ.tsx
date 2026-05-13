@@ -47,12 +47,12 @@ export default function FAQ() {
             <p className="font-body text-[11px] font-bold tracking-[4px] uppercase text-[#C9903A] mb-5">
               Real talk
             </p>
-            <h2 className="font-display text-[2rem] md:text-[2.8rem] font-bold text-[#1A0F08] leading-[1.05] tracking-[-0.025em] mb-6">
+            <h2 className="font-display text-[1.75rem] md:text-[2.4rem] font-bold text-[#1A0F08] leading-[1.05] tracking-[-0.025em] mb-6">
               Things people
               <br />
               <span className="italic font-light text-[#6B5040]">actually ask.</span>
             </h2>
-            <p className="font-body text-[14px] md:text-[15px] text-[#3D2B1A] leading-[1.7] max-w-sm">
+            <p className="font-body text-[15px] md:text-[16px] text-[#3D2B1A] leading-[1.7] max-w-sm">
               Don&apos;t see your question? Email{" "}
               <a
                 href="mailto:hello@auntycurlcouncil.com"
@@ -76,7 +76,7 @@ export default function FAQ() {
                   className="text-left border-t border-[rgba(26,15,8,0.08)] last:border-b py-6 group"
                 >
                   <div className="flex items-start justify-between gap-6">
-                    <span className="font-display text-[16px] md:text-[18px] font-semibold text-[#1A0F08] leading-snug pr-2">
+                    <span className="font-display text-[15px] md:text-[17px] font-semibold text-[#1A0F08] leading-snug pr-2">
                       {qa.q}
                     </span>
                     <span
@@ -100,7 +100,7 @@ export default function FAQ() {
                       marginTop: isOpen ? "16px" : "0",
                     }}
                   >
-                    <p className="font-body text-[14px] md:text-[15px] text-[#3D2B1A] leading-[1.7] pr-12">
+                    <p className="font-body text-[15px] md:text-[16px] text-[#3D2B1A] leading-[1.7] pr-12">
                       {qa.a}
                     </p>
                   </div>

@@ -94,14 +94,14 @@ export default function WhyAunty() {
           <p className="font-body text-[11px] font-bold tracking-[4px] uppercase text-[#C9903A] mb-5">
             The honest comparison
           </p>
-          <h2 className="font-display text-[2.2rem] md:text-[3.4rem] font-bold text-[#FDFCF8] leading-[1.05] tracking-[-0.025em]">
+          <h2 className="font-display text-[1.75rem] md:text-[2.4rem] font-bold text-[#FDFCF8] leading-[1.05] tracking-[-0.025em]">
             We&apos;re not the only option.
             <br />
             <span className="text-[#9E8C7A]">We&apos;re just the </span>
             <span className="text-shimmer">honest</span>
             <span className="text-[#9E8C7A]"> one.</span>
           </h2>
-          <p className="font-body text-[15px] md:text-base text-[#9E8C7A] leading-[1.7] mt-6 max-w-xl">
+          <p className="font-body text-[15px] md:text-[16px] text-[#9E8C7A] leading-[1.7] mt-6 max-w-xl">
             Drugstore aisles weren&apos;t built for textured hair. Dermatologist visits
             cost $300 and don&apos;t cover what mama already knows. Here&apos;s where
             we land.
@@ -126,11 +126,11 @@ export default function WhyAunty() {
               ★ Best fit
             </span>
             <span className="font-body text-[10px] md:text-[11px] font-bold tracking-[1px] md:tracking-[2px] uppercase text-[#FDFCF8] text-center">
-              <span className="hidden md:inline">Aunty Council</span>
-              <span className="md:hidden">Aunty</span>
+              <span className="hidden md:inline">The Council</span>
+              <span className="md:hidden">Council</span>
             </span>
             <span className="font-body text-[10px] text-[#C9903A]/80 mt-1 text-center hidden md:block">
-              The whole council
+              AI-powered
             </span>
           </div>
           <div className="flex flex-col items-center justify-end pb-5 px-2">
@@ -160,7 +160,7 @@ export default function WhyAunty() {
                 className="flex items-center py-4 md:py-5 border-t border-[#FDFCF8]/8 row-reveal"
                 style={{ animationDelay: `${i * 70}ms`, animationPlayState: visible ? "running" : "paused" }}
               >
-                <span className="font-body text-[13px] md:text-[15px] text-[#FDFCF8] leading-snug">
+                <span className="font-body text-[14px] md:text-[15px] text-[#FDFCF8] leading-snug">
                   {row.label}
                 </span>
               </div>
@@ -189,7 +189,7 @@ export default function WhyAunty() {
           <div className="border-t border-[#FDFCF8]/15" />
           <div className="border-t border-[#FDFCF8]/15" />
           <div className="border-t border-[#C9903A]/30 bg-gradient-to-b from-[#C9903A]/[0.06] to-[#C9903A]/[0.02] rounded-b-3xl pt-6 pb-7 flex flex-col items-center gap-3">
-            <span className="font-display text-[18px] md:text-[20px] font-bold text-[#FDFCF8]">$0</span>
+            <span className="font-display text-[24px] md:text-[28px] font-bold text-[#FDFCF8]">$0</span>
             <a
               href="#quiz"
               className="px-5 py-2.5 rounded-full bg-[#C9903A] text-[#1A0F08] font-body text-[10px] md:text-[11px] font-bold tracking-[1.5px] uppercase hover:bg-[#E8C87A] transition-colors text-center whitespace-nowrap"

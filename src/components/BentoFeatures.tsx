@@ -24,7 +24,7 @@ interface Feature {
 const FEATURES: Feature[] = [
   {
     title: "AI Aunty Consultation",
-    blurb: "Seven aunty perspectives, one AI-powered quiz that builds your routine in two minutes. Re-takeable as your hair changes.",
+    blurb: "One AI-powered quiz that builds your routine in two minutes. Re-takeable as your hair changes.",
     meta: "Quiz",
     span: "md:col-span-4 md:row-span-2",
     bg: "linear-gradient(155deg, #1A0F08 0%, #2D1B0E 60%, #3D2B1A 100%)",
@@ -136,13 +136,13 @@ export default function BentoFeatures() {
             <span className="font-body text-[11px] font-bold tracking-[4px] uppercase text-[#C9903A]">
               What you get
             </span>
-            <h2 className="font-display text-[2rem] md:text-[3rem] font-bold text-[#1A0F08] leading-[1.05] tracking-[-0.025em]">
+            <h2 className="font-display text-[1.75rem] md:text-[2.4rem] font-bold text-[#1A0F08] leading-[1.05] tracking-[-0.025em]">
               Built different.
               <br />
               <span className="italic font-light text-[#6B5040]">From the inside out.</span>
             </h2>
           </div>
-          <p className="font-body text-[14px] md:text-[15px] text-[#3D2B1A] leading-[1.7] max-w-md">
+          <p className="font-body text-[15px] md:text-[16px] text-[#3D2B1A] leading-[1.7] max-w-md">
             Five things you won&apos;t find when you grab a random product off the shelf —
             no matter what the bottle promises.
           </p>
@@ -195,13 +195,13 @@ export default function BentoFeatures() {
               {/* Title + body */}
               <div className="mt-5 md:mt-8 relative">
                 <h3
-                  className="font-display text-[1.4rem] md:text-[1.75rem] font-bold leading-[1.05] tracking-[-0.02em] mb-2.5"
+                  className="font-display text-[1.25rem] md:text-[1.5rem] font-bold leading-[1.05] tracking-[-0.02em] mb-2.5"
                   style={{ color: f.dark ? "#FDFCF8" : "#1A0F08" }}
                 >
                   {f.title}
                 </h3>
                 <p
-                  className="font-body text-[13.5px] leading-[1.6]"
+                  className="font-body text-[14px] leading-[1.65]"
                   style={{ color: f.dark ? "rgba(253,252,248,0.65)" : "#3D2B1A" }}
                 >
                   {f.blurb}

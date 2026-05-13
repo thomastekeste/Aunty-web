@@ -19,10 +19,10 @@ export default function AppShowcase() {
             <p className="font-body text-[11px] font-bold tracking-[4px] uppercase text-[#C9903A] mb-4">
               The App
             </p>
-            <h2 className="font-display text-[2rem] md:text-[2.8rem] font-bold text-[#FDFCF8] leading-[1.05] tracking-[-0.025em] mb-4">
+            <h2 className="font-display text-[1.75rem] md:text-[2.4rem] font-bold text-[#FDFCF8] leading-[1.05] tracking-[-0.025em] mb-4">
               Your AI curls &amp; skin tracking app
             </h2>
-            <p className="font-body text-[14px] md:text-[16px] text-[#FDFCF8]/50 max-w-lg mx-auto leading-relaxed">
+            <p className="font-body text-[15px] md:text-[16px] text-[#FDFCF8]/50 max-w-lg mx-auto leading-relaxed">
               Track wash days, get personalized routines, chat with your Aunties,
               and watch your progress week by week.
             </p>
@@ -85,10 +85,10 @@ export default function AppShowcase() {
                     {f.icon}
                   </div>
                   <div>
-                    <h3 className="font-body font-semibold text-[14px] text-[#FDFCF8] mb-1">
+                    <h3 className="font-body font-semibold text-[15px] text-[#FDFCF8] mb-1">
                       {f.title}
                     </h3>
-                    <p className="font-body text-[13px] text-[#FDFCF8]/45 leading-relaxed">
+                    <p className="font-body text-[14px] text-[#FDFCF8]/45 leading-relaxed">
                       {f.desc}
                     </p>
                   </div>

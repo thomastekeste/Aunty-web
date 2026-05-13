@@ -61,13 +61,13 @@ export default function Manifesto() {
   return (
     <section
       ref={containerRef}
-      className="relative py-28 md:py-40 bg-[#FDFCF8] overflow-hidden"
+      className="relative py-20 md:py-28 bg-[#FDFCF8] overflow-hidden"
     >
       {/* Faint decorative quote mark */}
       <div
         className="absolute top-6 right-6 md:right-14 font-display font-bold leading-none select-none pointer-events-none"
         style={{
-          fontSize: "clamp(10rem, 20vw, 22rem)",
+          fontSize: "clamp(8rem, 16vw, 16rem)",
           color: "rgba(26,15,8,0.035)",
           lineHeight: 0.8,
         }}
@@ -89,7 +89,7 @@ export default function Manifesto() {
         {/* Headline */}
         <h2
           className="font-display font-bold leading-[1.02] tracking-[-0.035em]"
-          style={{ fontSize: "clamp(2.8rem, 6vw, 5.6rem)" }}
+          style={{ fontSize: "clamp(1.75rem, 3.2vw, 2.4rem)" }}
         >
           {lines.map((line, li) => (
             <span key={li} className="block mb-0.5 md:mb-1">
@@ -118,7 +118,7 @@ export default function Manifesto() {
 
         {/* Divider + subtext + CTA */}
         <div className="mt-16 md:mt-22 pt-8 border-t border-[rgba(26,15,8,0.08)] flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <p className="font-body text-[14px] md:text-[15px] text-[#3D2B1A]/65 leading-[1.75] max-w-[400px]">
+          <p className="font-body text-[15px] md:text-[16px] text-[#3D2B1A]/65 leading-[1.75] max-w-[400px]">
             Aunty Council was built so the texture you were born with
             is the texture your routine was made for.
           </p>

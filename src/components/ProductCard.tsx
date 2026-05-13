@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { Product, ProductCategory } from "@/data/products";
+import { useCart } from "@/lib/cart";
 
 interface ProductCardProps {
   product: Product;
@@ -211,10 +212,17 @@ export default function ProductCard({
   size = "default",
   onOrder,
 }: ProductCardProps) {
-  const [loading, setLoading] = useState(false);
+  const [added, setAdded] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const { addItem } = useCart();
+
+  useEffect(() => {
+    if (!added) return;
+    const t = window.setTimeout(() => setAdded(false), 1500);
+    return () => window.clearTimeout(t);
+  }, [added]);
 
   const theme = CATEGORY_THEME[product.category];
   const isCompact = size === "compact";
@@ -235,25 +243,13 @@ export default function ProductCard({
     setTilt({ x: 0, y: 0 });
   }
 
-  const handleClick = async () => {
+  const handleClick = () => {
     if (onOrder) {
       onOrder();
       return;
     }
-    if (loading) return;
-    setLoading(true);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cart: [{ productId: product.id, quantity: 1 }] }),
-      });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-      else setLoading(false);
-    } catch {
-      setLoading(false);
-    }
+    addItem(product.id);
+    setAdded(true);
   };
 
   return (
@@ -367,13 +363,12 @@ export default function ProductCard({
 
         <button
           onClick={handleClick}
-          disabled={loading}
-          className={`group/btn mt-1 inline-flex items-center justify-center gap-1.5 font-body font-semibold tracking-[1px] uppercase transition-all disabled:opacity-60 hover:text-[#1A0F08] ${
+          className={`group/btn mt-1 inline-flex items-center justify-center gap-1.5 font-body font-semibold tracking-[1px] uppercase transition-all hover:text-[#1A0F08] ${
             isCompact ? "text-[10px]" : "text-[11px]"
           }`}
           style={{ color: theme.accent }}
         >
-          {loading ? "..." : "Add to bag"}
+          {added ? "Added" : "Add to bag"}
           <svg
             width="12"
             height="12"
@@ -385,7 +380,11 @@ export default function ProductCard({
             className="transition-transform group-hover/btn:translate-x-0.5"
             aria-hidden="true"
           >
-            <path d="M5 12h14M13 5l7 7-7 7" />
+            {added ? (
+              <path d="M5 12l5 5L20 7" />
+            ) : (
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            )}
           </svg>
         </button>
       </div>
