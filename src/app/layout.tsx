@@ -24,21 +24,12 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Aunty Council",
-    images: [
-      {
-        url: "/logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Aunty Council — Hair & Skin, Aunty Curated",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Aunty Council — Hair & Skin, Aunty Curated",
     description:
       "A curated marketplace of hair and skin products — each one matched to your texture through a free AI consultation.",
-    images: ["/logo.png"],
   },
 };
 
