@@ -1,11 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
+import { sanitizeRedirect } from "@/lib/sanitizeRedirect";
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/account";
+  const next = sanitizeRedirect(searchParams.get("next") ?? "/account");
 
   if (code) {
     const cookieStore = await cookies();

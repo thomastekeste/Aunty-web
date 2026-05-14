@@ -66,8 +66,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Order recording failed" }, { status: 500 });
     }
 
-    // Send order confirmation email via Resend
-    if (email && process.env.RESEND_API_KEY) {
+    // Send order confirmation email via Resend (only on first insert, not 409 retries)
+    if (res.ok && email && process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const amountFormatted = new Intl.NumberFormat("en-US", {
         style: "currency",
