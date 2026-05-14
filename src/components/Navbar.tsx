@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { useCart } from "@/lib/cart";
+import AuntyByCTA from "./AuntyByCTA";
 
 const SHOP_CATEGORIES = [
   {
@@ -68,7 +69,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const navGone = hidden && !hovered && !menuOpen;
-    document.documentElement.style.setProperty("--nav-offset", navGone ? "0px" : "72px");
+    document.documentElement.style.setProperty("--nav-offset", navGone ? "0px" : "112px");
   }, [hidden, hovered, menuOpen]);
 
   useEffect(() => {
@@ -85,19 +86,20 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Logo — completely independent, floats over page */}
+      {/* Logo — sits inside a tall navbar band */}
       <Link
         href="/"
         onClick={close}
-        className="absolute left-4 md:left-6 z-50 pointer-events-auto"
-        style={{ top: "8px" }}
+        className="fixed left-4 md:left-6 z-[60] pointer-events-auto flex items-center"
+        style={{ top: 0, height: "112px" }}
       >
         <Image
           src="/logo.png"
           alt="Aunty Council"
           width={400}
           height={300}
-          className="object-contain h-[96px] md:h-[120px] lg:h-[140px] w-auto"
+          className="object-contain h-[88px] md:h-[100px] lg:h-[112px] w-auto"
+          style={{ mixBlendMode: "multiply" }}
           priority
         />
       </Link>
@@ -112,16 +114,16 @@ export default function Navbar() {
       <nav
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 bg-[#FDFCF8]/95 backdrop-blur-xl ${
           scrolled || menuOpen
-            ? "bg-[#FDFCF8]/96 backdrop-blur-xl border-b border-[rgba(26,15,8,0.06)]"
-            : "bg-transparent"
+            ? "border-b border-[rgba(26,15,8,0.06)] shadow-[0_4px_24px_-12px_rgba(26,15,8,0.08)]"
+            : ""
         }`}
         style={{
-          top: hidden && !hovered && !menuOpen ? "-80px" : "0px",
+          top: hidden && !hovered && !menuOpen ? "-120px" : "0px",
         }}
       >
-        <div className="max-w-[1400px] mx-auto px-8 h-[72px] flex items-center justify-center gap-6">
+        <div className="max-w-[1400px] mx-auto px-8 h-[112px] flex items-center justify-center gap-6">
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
@@ -194,10 +196,12 @@ export default function Navbar() {
                   </span>
                 )}
               </Link>
-              <a href="#quiz" onClick={close}
-                className="px-5 py-2 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[12px] font-semibold tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors">
-                Get Your Formula
-              </a>
+              <AuntyByCTA size={40} bubblePosition="bottom" bubbleAlign="end">
+                <a href="#quiz" onClick={close}
+                  className="px-5 py-2 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[12px] font-semibold tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors">
+                  Get Your Formula
+                </a>
+              </AuntyByCTA>
             </div>
 
             <button onClick={() => setMenuOpen(!menuOpen)}
@@ -240,9 +244,11 @@ export default function Navbar() {
         <Link href={authed ? "/account" : "/login"} onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">
           {authed ? "Account" : "Log in"}
         </Link>
-        <a href="#quiz" onClick={close} className="mt-4 px-8 py-3.5 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[13px] font-semibold tracking-[1px] uppercase">
-          Get Your Formula
-        </a>
+        <AuntyByCTA size={48} bubblePosition="top">
+          <a href="#quiz" onClick={close} className="mt-4 px-8 py-3.5 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[13px] font-semibold tracking-[1px] uppercase">
+            Get Your Formula
+          </a>
+        </AuntyByCTA>
       </div>
     </>
   );

@@ -28,7 +28,7 @@ const FEATURES = [
     label: "AI Aunties",
     title: "Chat with seven aunties — each one a different voice",
     body:
-      "Pick the aunty that matches your moment. Need a straight answer? Ngozi. Feeling overwhelmed? Amara. Want hyped up? Carmen. They each carry the wisdom of a region, not a stereotype.",
+      "Pick the aunty that matches your moment. Need a straight answer? Ngozi. Feeling overwhelmed? Senayt. Want hyped up? Carmen. They each carry the wisdom of a region, not a stereotype.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9903A" strokeWidth="1.8" strokeLinecap="round">
         <path d="M21 12c0 4.4-4 8-9 8-1.2 0-2.3-.2-3.4-.6L3 21l1.5-4.6C3.5 15.1 3 13.6 3 12c0-4.4 4-8 9-8s9 3.6 9 8z" />
@@ -95,7 +95,7 @@ export default function AppPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#FDFCF8] pt-[72px]">
+      <main className="bg-[#FDFCF8] pt-[112px]">
 
         {/* ── Hero ── */}
         <section className="relative overflow-hidden">

@@ -117,8 +117,8 @@ export const aunties: Aunty[] = [
     gradient: ["#FBEEF2", "#F0C5D5"],
   },
   {
-    id: "amara",
-    name: "Amara",
+    id: "senayt",
+    name: "Senayt",
     region: "East Africa",
     title: "The Steady One",
     specialty: "Calm strength. Never panics, always delivers.",

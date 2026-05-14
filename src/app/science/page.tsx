@@ -12,7 +12,7 @@ export default function SciencePage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#FDFCF8] pt-[72px]">
+      <main className="min-h-screen bg-[#FDFCF8] pt-[112px]">
         <IngredientCredibility />
         <Footer />
       </main>

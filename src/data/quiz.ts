@@ -431,7 +431,7 @@ export function getVerdicts(
 
   const third: TeaserVerdict = isCoily
     ? {
-        auntyId: "amara",
+        auntyId: "senayt",
         message:
           "Your coils carry so much strength. Sometimes they just need someone to remind them. That is what we are here for.",
       }
@@ -768,9 +768,9 @@ export function getSkinVerdicts(skinType: AuntySkinType): TeaserVerdict[] {
     skinType === "dry-ashy"
       ? { auntyId: "fatou", message: "Ashiness is not a personality trait. It is a fixable barrier problem. These fix it." }
       : skinType === "combination"
-      ? { auntyId: "amara", message: "Your face has zones. Most brands ignore that. We don't." }
+      ? { auntyId: "senayt", message: "Your face has zones. Most brands ignore that. We don't." }
       : skinType === "sensitive"
-      ? { auntyId: "amara", message: "Your skin isn't weak — it's communicating. These products listen." }
+      ? { auntyId: "senayt", message: "Your skin isn't weak — it's communicating. These products listen." }
       : { auntyId: "carmen", message: "Glow comes from within the skin, not on top of it. We build the foundation — the radiance follows." };
 
   return [salma, denise, third];

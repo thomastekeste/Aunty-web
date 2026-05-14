@@ -21,6 +21,9 @@ import OptionButton from "./quiz/OptionButton";
 import QuizFrame from "./quiz/QuizFrame";
 import TieredResults from "./quiz/TieredResults";
 import JourneyPicker from "./quiz/JourneyPicker";
+import { getAunty, type Aunty } from "@/data/aunties";
+import { SELECTED_AUNTY_KEY } from "./AuntySelectorHero";
+import AuntyGuide, { type GuidePhase } from "./AuntyGuide";
 
 const BROWN = "#2D1B0E";
 const MUTED = "#6B5040";
@@ -69,8 +72,23 @@ export default function ConsultationQuiz() {
   const [middayFinish, setMiddayFinish] = useState<MiddayFinish | null>(null);
   const [detectedSkinType, setDetectedSkinType] = useState<AuntySkinType | null>(null);
 
+  // Selected aunty (picked from AuntySelectorHero on homepage)
+  const [aunty, setAunty] = useState<Aunty | null>(null);
+
   useEffect(() => {
-    const sync = () => setOpen(window.location.hash === "#quiz");
+    const readAunty = () => {
+      try {
+        const id = sessionStorage.getItem(SELECTED_AUNTY_KEY);
+        setAunty(id ? getAunty(id) : null);
+      } catch {
+        setAunty(null);
+      }
+    };
+    const sync = () => {
+      const isOpen = window.location.hash === "#quiz";
+      setOpen(isOpen);
+      if (isOpen) readAunty();
+    };
     sync();
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
@@ -168,6 +186,9 @@ export default function ConsultationQuiz() {
   return (
     <div className="fixed inset-0 z-[100] overflow-y-auto"
          style={{ background: CANVAS }}>
+
+      {/* Aunty guide — shows the selected aunty + her voice throughout the quiz */}
+      {aunty && <AuntyGuide aunty={aunty} phase={phase as GuidePhase} />}
 
       {/* Journey picker */}
       {phase === "journey-pick" && (

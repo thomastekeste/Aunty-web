@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import AuntyByCTA from "./AuntyByCTA";
 
 const PRODUCTS = [
   { name: "Moisture Seal Curl Crème", type: "Styler", icon: "✦" },
@@ -135,7 +136,7 @@ function FormulaCard() {
 
 export default function Hero() {
   return (
-    <section className="relative bg-[#FDFCF8] pt-[72px] overflow-hidden min-h-[88svh] flex items-center">
+    <section className="relative bg-[#FDFCF8] pt-[112px] overflow-hidden min-h-[88svh] flex items-center">
       {/* Gold glow — top-right */}
       <div
         className="absolute top-0 right-0 w-[700px] h-[600px] opacity-[0.08] blur-[120px] pointer-events-none"
@@ -178,24 +179,26 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-start gap-3 mb-4">
-            <a
-              href="#quiz"
-              className="group cta-magnetic inline-flex items-center justify-center gap-2.5 px-10 py-[18px] rounded-full bg-[#1A0F08] text-[#FDFCF8] font-body font-semibold text-[13px] tracking-[1.5px] uppercase hover:bg-[#2C1A0E] hover:shadow-[0_18px_40px_-12px_rgba(26,15,8,0.3)] transition-all"
-            >
-              Get your formula
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                className="transition-transform group-hover:translate-x-0.5"
+            <AuntyByCTA size={56} bubblePosition="right">
+              <a
+                href="#quiz"
+                className="group cta-magnetic inline-flex items-center justify-center gap-2.5 px-10 py-[18px] rounded-full bg-[#1A0F08] text-[#FDFCF8] font-body font-semibold text-[13px] tracking-[1.5px] uppercase hover:bg-[#2C1A0E] hover:shadow-[0_18px_40px_-12px_rgba(26,15,8,0.3)] transition-all"
               >
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </a>
+                Get your formula
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  className="transition-transform group-hover:translate-x-0.5"
+                >
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </a>
+            </AuntyByCTA>
           </div>
 
           <Link

@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getProductById } from "@/data/products";
 import AppPreview from "@/components/AppPreview";
-import { getAunty } from "@/data/aunties";
+import { getAunty, type Aunty } from "@/data/aunties";
 import { type TieredMatches, type TeaserVerdict } from "@/data/quiz";
 import TierHeader from "./TierHeader";
 import TierProductCard from "./TierProductCard";
 import CheckoutConfirm from "./CheckoutConfirm";
+import AuntyPortrait from "@/components/AuntyPortrait";
+import { SELECTED_AUNTY_KEY } from "@/components/AuntySelectorHero";
 
 export default function TieredResults({
   eyebrow, title, accent, journey, tiered, verdicts, onClose, onReset,
@@ -21,6 +23,16 @@ export default function TieredResults({
   const [checkingOut, setCheckingOut] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [confirmTier, setConfirmTier] = useState<"basics" | "essentials" | "everything" | null>(null);
+  const [selectedAunty, setSelectedAunty] = useState<Aunty | null>(null);
+
+  useEffect(() => {
+    try {
+      const id = sessionStorage.getItem(SELECTED_AUNTY_KEY);
+      setSelectedAunty(id ? getAunty(id) : null);
+    } catch {
+      setSelectedAunty(null);
+    }
+  }, []);
 
   const tierPrice = (items: { productId: string }[]) =>
     items.reduce((sum, m) => sum + (getProductById(m.productId)?.price ?? 0), 0);
@@ -112,24 +124,57 @@ export default function TieredResults({
             Three tiers. Start with the basics, add on when you&apos;re ready.
           </p>
 
-          {/* Aunty verdicts */}
+          {/* Selected aunty's verdict — large hero card */}
+          {selectedAunty && (
+            <div
+              className="mb-8 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-5 md:gap-6"
+              style={{
+                background: `linear-gradient(135deg, ${selectedAunty.gradient[0]} 0%, ${selectedAunty.gradient[1]} 100%)`,
+                border: `2px solid ${selectedAunty.color}`,
+              }}
+            >
+              <div className="flex-shrink-0">
+                <AuntyPortrait auntyId={selectedAunty.id} size={104} bg={selectedAunty.bg} />
+              </div>
+              <div className="flex-1 min-w-0 text-center md:text-left">
+                <p
+                  className="font-body text-[10px] md:text-[11px] font-bold tracking-[1.5px] uppercase mb-2"
+                  style={{ color: selectedAunty.color }}
+                >
+                  Aunty {selectedAunty.name} · {selectedAunty.title}
+                </p>
+                <p className="font-display text-[22px] md:text-[26px] leading-[1.2] text-[#1A0F08] mb-3">
+                  &ldquo;{selectedAunty.win}&rdquo;
+                </p>
+                <p className="font-body text-[14px] leading-relaxed text-[#1A0F08]/70">
+                  {selectedAunty.personality}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Wider council verdicts — small supporting voices */}
           {verdicts.length > 0 && (
             <div className="mb-10 space-y-3">
+              <p className="font-body text-[10px] font-bold tracking-[1.5px] uppercase text-[#9E8C7A] text-center mb-4">
+                The rest of the council weighs in
+              </p>
               {verdicts.map((v) => {
                 const aunty = getAunty(v.auntyId);
                 if (!aunty) return null;
+                // Don't repeat the selected aunty's voice — she already led above
+                if (selectedAunty && aunty.id === selectedAunty.id) return null;
                 return (
                   <div key={v.auntyId} className="rounded-xl p-4 flex items-start gap-3"
                     style={{ backgroundColor: aunty.color + "0A", border: `1px solid ${aunty.color}18` }}>
-                    <div className="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white"
-                      style={{ backgroundColor: aunty.color }}>
-                      {aunty.name[0]}
+                    <div className="flex-shrink-0">
+                      <AuntyPortrait auntyId={aunty.id} size={36} bg={aunty.bg} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-body text-xs font-semibold mb-0.5" style={{ color: aunty.color }}>
-                        The Council
+                        Aunty {aunty.name}
                       </p>
-                      <p className="font-display text-sm italic text-[rgba(45,27,14,0.7)] leading-relaxed">
+                      <p className="font-display text-sm italic text-[rgba(45,27,14,0.75)] leading-relaxed">
                         &ldquo;{v.message}&rdquo;
                       </p>
                     </div>

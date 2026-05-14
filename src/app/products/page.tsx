@@ -164,10 +164,10 @@ function ProductsPageInner() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#FDFCF8] pt-[72px]">
+      <main className="min-h-screen bg-[#FDFCF8] pt-[112px]">
 
         {/* Compact header + filters */}
-        <div className="sticky z-30 bg-[#FDFCF8]/95 backdrop-blur-md border-b border-[rgba(26,15,8,0.06)]" style={{ top: "var(--nav-offset, 72px)", transition: "top 300ms cubic-bezier(0.16,1,0.3,1)" }}>
+        <div className="sticky z-30 bg-[#FDFCF8]/95 backdrop-blur-md border-b border-[rgba(26,15,8,0.06)]" style={{ top: "var(--nav-offset, 112px)", transition: "top 300ms cubic-bezier(0.16,1,0.3,1)" }}>
           <div className="max-w-[1400px] mx-auto px-6 md:px-8">
             <div className="py-3 flex items-center gap-4 flex-wrap">
 

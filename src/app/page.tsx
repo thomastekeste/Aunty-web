@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import AuntySelectorHero from "@/components/AuntySelectorHero";
 import Hero from "@/components/Hero";
 import TrustBand from "@/components/TrustBand";
 import Manifesto from "@/components/Manifesto";
@@ -18,6 +19,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main>
+      <AuntySelectorHero />
       <Navbar />
       <Hero />
       <ProductFeature />
