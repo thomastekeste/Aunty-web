@@ -218,6 +218,7 @@ export const products: Product[] = [
     productType: "bonnet",
     keyIngredients: ["Double-lined satin", "Adjustable elastic band", "Breathable mesh interior"],
     whyItWorks: "Cotton pillowcases strip moisture and create friction that breaks curls overnight. Double-lined satin eliminates both — you wake up with day-one definition instead of frizz.",
+    image: "/products/bonnet.svg",
   },
   {
     id: "silk-pillowcase",
@@ -231,6 +232,7 @@ export const products: Product[] = [
     productType: "accessory",
     keyIngredients: ["22-momme mulberry silk", "Hidden zipper closure", "Standard & queen sizes"],
     whyItWorks: "Silk reduces friction by 43% compared to cotton. Less friction means less breakage, less frizz, and fewer sleep creases on your face. Your night routine becomes automatic.",
+    image: "/products/accessory.svg",
   },
   {
     id: "silky-durag",
@@ -244,6 +246,7 @@ export const products: Product[] = [
     productType: "durag",
     keyIngredients: ["Premium silky satin", "Extra-long tails", "Wide stretch headband"],
     whyItWorks: "The right durag lays waves flat without pulling your hairline. Silky satin interior reduces friction on the scalp while providing even compression for wave training.",
+    image: "/products/durag.svg",
   },
   {
     id: "wave-cap-2pack",
@@ -257,6 +260,7 @@ export const products: Product[] = [
     productType: "durag",
     keyIngredients: ["Breathable stocking mesh", "Seamless construction", "One-size stretch fit"],
     whyItWorks: "Wave caps provide consistent compression that durags alone can't hold all night. The seamless construction means no imprint lines — just clean, even wave progression.",
+    image: "/products/durag.svg",
   },
   {
     id: "scalp-massager",
@@ -270,6 +274,7 @@ export const products: Product[] = [
     productType: "tool",
     keyIngredients: ["Soft silicone bristles", "Ergonomic grip", "Wet & dry use"],
     whyItWorks: "Increases blood flow to the follicle by up to 300% during use. Pairs with your scalp oil to boost absorption. The bristles lift product buildup that blocks growth.",
+    image: "/products/tool.svg",
   },
   {
     id: "detangling-brush-set",
@@ -283,6 +288,7 @@ export const products: Product[] = [
     productType: "tool",
     keyIngredients: ["Flexible bristle detangler", "Wide-tooth comb", "Sectioning clips"],
     whyItWorks: "Rigid combs snap coily hair at the bend. Flexible bristles move with the curl pattern, separating tangles from the ends up without ripping through knots.",
+    image: "/products/tool.svg",
   },
   {
     id: "satin-scrunchie-pack",
@@ -296,6 +302,7 @@ export const products: Product[] = [
     productType: "accessory",
     keyIngredients: ["Satin exterior", "Gentle elastic core", "6-pack assorted earth tones"],
     whyItWorks: "Elastic hair ties create tension points that snap curly hair. Satin scrunchies distribute pressure evenly — no crease, no breakage, no reset needed after a puff.",
+    image: "/products/accessory.svg",
   },
   {
     id: "edge-brush-kit",
@@ -309,6 +316,7 @@ export const products: Product[] = [
     productType: "tool",
     keyIngredients: ["Dual-ended edge brush", "Rattail comb", "Travel case"],
     whyItWorks: "The fine-bristle side lays baby hairs flat while the spoolie blends. Rattail comb creates clean parts. Small enough for your bag — touch-ups anywhere.",
+    image: "/products/tool.svg",
   },
   {
     id: "microfiber-hair-towel",
@@ -322,6 +330,7 @@ export const products: Product[] = [
     productType: "accessory",
     keyIngredients: ["Ultra-fine microfiber weave", "Button closure", "Quick-dry technology"],
     whyItWorks: "Cotton terry cloth roughs up the hair cuticle, creating frizz on contact. Microfiber absorbs water without friction — dries 50% faster while keeping your curl pattern intact.",
+    image: "/products/accessory.svg",
   },
 
   // ── ACCESSORIES: Skin ──────────────────────────────────────────────────────
@@ -337,6 +346,7 @@ export const products: Product[] = [
     productType: "mask",
     keyIngredients: ["Red LED (630nm)", "Blue LED (415nm)", "3 intensity settings", "USB-C rechargeable"],
     whyItWorks: "Red light at 630nm stimulates collagen and fades post-inflammatory hyperpigmentation without irritating melanocytes. Blue light kills acne bacteria — preventing the breakouts that cause dark spots in the first place.",
+    image: "/products/mask.svg",
   },
   {
     id: "ice-roller",
@@ -350,6 +360,7 @@ export const products: Product[] = [
     productType: "roller",
     keyIngredients: ["Medical-grade stainless steel", "Gel-core freeze head", "Ergonomic handle"],
     whyItWorks: "Cold constricts blood vessels and reduces the inflammatory response that triggers melanin overproduction. Two minutes after cleansing calms redness and preps skin for serum absorption.",
+    image: "/products/roller.svg",
   },
   {
     id: "pimple-patches",
@@ -363,6 +374,7 @@ export const products: Product[] = [
     productType: "accessory",
     keyIngredients: ["Hydrocolloid technology", "36 patches per pack", "Invisible matte finish"],
     whyItWorks: "On melanin-rich skin, every picked pimple risks months of hyperpigmentation. Hydrocolloid patches draw out fluid overnight while creating a physical barrier against your fingers.",
+    image: "/products/accessory.svg",
   },
   {
     id: "derma-roller",
@@ -376,6 +388,7 @@ export const products: Product[] = [
     productType: "tool",
     keyIngredients: ["0.25mm titanium needles", "540-needle head", "Protective travel case"],
     whyItWorks: "0.25mm depth is the sweet spot for melanin-rich skin — deep enough to boost product absorption and stimulate collagen, shallow enough to avoid the inflammation that triggers PIH.",
+    image: "/products/tool.svg",
   },
   {
     id: "gua-sha-tool",
@@ -389,6 +402,7 @@ export const products: Product[] = [
     productType: "tool",
     keyIngredients: ["Rose quartz stone", "Wing-shaped design", "Velvet storage pouch"],
     whyItWorks: "Lymphatic drainage reduces puffiness and uneven tone. The wing shape follows your jawline and cheekbones naturally — promoting circulation that helps fade dark spots from within.",
+    image: "/products/tool.svg",
   },
   {
     id: "silicone-face-scrubber",
@@ -402,6 +416,7 @@ export const products: Product[] = [
     productType: "tool",
     keyIngredients: ["Medical-grade silicone", "Dual-zone bristles", "Antimicrobial material"],
     whyItWorks: "Abrasive scrubs create micro-tears that trigger inflammation and PIH on dark skin. Soft silicone nubs lift dirt and dead skin gently — clean pores without the damage.",
+    image: "/products/tool.svg",
   },
   {
     id: "microfiber-face-cloths",
@@ -415,6 +430,7 @@ export const products: Product[] = [
     productType: "accessory",
     keyIngredients: ["Ultra-soft microfiber", "3-pack assorted", "Machine washable"],
     whyItWorks: "Rubbing your face with a cotton towel creates friction that irritates melanin-rich skin. Microfiber removes cleanser and water by absorption alone — pat dry, no drag.",
+    image: "/products/accessory.svg",
   },
 ];
 

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#F7F5F0"/>
+  <!-- Bonnet dome -->
+  <ellipse cx="200" cy="200" rx="120" ry="100" fill="none" stroke="#6B5040" stroke-width="6"/>
+  <!-- Gathered top -->
+  <path d="M140 200 Q140 120 200 100 Q260 120 260 200" fill="none" stroke="#6B5040" stroke-width="6"/>
+  <!-- Elastic band at bottom -->
+  <path d="M80 220 Q120 250 200 250 Q280 250 320 220" fill="none" stroke="#6B5040" stroke-width="4" stroke-dasharray="8 4"/>
+  <!-- Gather lines on dome -->
+  <path d="M170 120 Q175 160 175 200" fill="none" stroke="#6B5040" stroke-width="2" opacity="0.5"/>
+  <path d="M200 110 Q200 155 200 200" fill="none" stroke="#6B5040" stroke-width="2" opacity="0.5"/>
+  <path d="M230 120 Q225 160 225 200" fill="none" stroke="#6B5040" stroke-width="2" opacity="0.5"/>
+</svg>

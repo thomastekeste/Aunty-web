@@ -14,7 +14,7 @@ interface CartItem {
 export async function POST(req: NextRequest) {
   const forwarded = req.headers.get("x-forwarded-for");
   const ip = forwarded ? forwarded.split(",").at(-1)!.trim() : (req.headers.get("x-real-ip") ?? "unknown");
-  if (isRateLimited(ip, 10, 60_000)) {
+  if (await isRateLimited(ip, 10, 60_000)) {
     return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 
