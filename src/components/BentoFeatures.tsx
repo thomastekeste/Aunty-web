@@ -23,14 +23,14 @@ interface Feature {
 
 const FEATURES: Feature[] = [
   {
-    title: "AI Aunty Consultation",
-    blurb: "One AI-powered quiz that builds your routine in two minutes. Re-takeable as your hair changes.",
-    meta: "Quiz",
+    title: "AI Aunty Marketplace",
+    blurb: "68+ curated products matched to your texture — from brands that actually understand textured hair.",
+    meta: "Shop",
     span: "md:col-span-4 md:row-span-2",
     bg: "linear-gradient(155deg, #1A0F08 0%, #2D1B0E 60%, #3D2B1A 100%)",
     dark: true,
     image: "/how-it-works.png",
-    imageAlt: "How it works: ingredient mixing, products on a bathroom shelf, and the consultation quiz on a phone",
+    imageAlt: "How it works: curated products, accessories on a shelf, and the marketplace on a phone",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
         <circle cx="12" cy="12" r="10" />
@@ -41,7 +41,7 @@ const FEATURES: Feature[] = [
   },
   {
     title: "Texture-matched",
-    blurb: "Every formula tested on the porosity & curl pattern it claims to serve.",
+    blurb: "Every recommendation matched to your porosity and curl pattern — not a generic pick.",
     meta: "Match",
     span: "md:col-span-2 md:row-span-1",
     bg: "linear-gradient(155deg, #F5ECD4 0%, #E8C87A 100%)",
@@ -54,23 +54,22 @@ const FEATURES: Feature[] = [
     ),
   },
   {
-    title: "Pre-order model",
-    blurb: "Your money funds your formula, not warehouse inventory.",
-    meta: "Ship",
+    title: "Curated accessories",
+    blurb: "Bonnets, tools, and devices — picked to complement your routine.",
+    meta: "Shop",
     span: "md:col-span-2 md:row-span-1",
     bg: "linear-gradient(155deg, #F7EDE9 0%, #E8C4B8 100%)",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
-        <path d="M16 16h2a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
-        <path d="M14 5H6a2 2 0 0 0-2 2v9" />
-        <circle cx="7" cy="18" r="2" />
-        <circle cx="17" cy="18" r="2" />
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <path d="M16 10a4 4 0 0 1-8 0" />
       </svg>
     ),
   },
   {
     title: "Melanin-aware",
-    blurb: "Every skin formula screened for actives that trigger PIH on melanin-rich skin.",
+    blurb: "Every product screened for actives that trigger PIH on melanin-rich skin.",
     meta: "Skin",
     span: "md:col-span-3 md:row-span-1",
     bg: "linear-gradient(155deg, #E4EDE8 0%, #BFD9C8 100%)",
@@ -82,7 +81,7 @@ const FEATURES: Feature[] = [
   },
   {
     title: "Adapts as you change",
-    blurb: "Hair shifts with seasons, hormones, and life. Re-take the quiz any time.",
+    blurb: "Hair shifts with seasons, hormones, and life. Your recommendations evolve with you.",
     meta: "Adapt",
     span: "md:col-span-3 md:row-span-1",
     bg: "linear-gradient(155deg, #EDE9DF 0%, #D4C8AE 100%)",

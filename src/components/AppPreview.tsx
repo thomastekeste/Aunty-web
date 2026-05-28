@@ -67,10 +67,10 @@ export default function AppPreview({ hideCta = false }: AppPreviewProps) {
         {/* CTA */}
         {!hideCta && (
           <div className="text-center mt-16">
-            <a href="#quiz"
+            <a href="/products"
               className="px-7 py-3.5 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body font-semibold text-[13px] tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors inline-block"
             >
-              Get Your Formula
+              Shop Now
             </a>
           </div>
         )}

@@ -15,10 +15,10 @@ interface Stat {
 }
 
 const STATS: Stat[] = [
-  { value: 12000, suffix: "+", label: "Routines built" },
+  { value: 68, suffix: "+", label: "Curated products" },
   { value: 4.9, suffix: "★", label: "Avg. rating", decimals: 1 },
-  { value: 3, label: "Categories" },
-  { value: 47, label: "Products" },
+  { value: 4, label: "Categories" },
+  { value: 15, suffix: "+", label: "Trusted brands" },
 ];
 
 

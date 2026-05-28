@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   icons: { icon: "/logo.png", apple: "/logo.png" },
   title: "Aunty Council — Hair & Skin, Aunty Curated",
   description:
-    "A curated marketplace of hair and skin products — each one recommended by an aunty who knows your texture. Take the free consultation and shop your picks.",
+    "The marketplace for textured hair and melanin-rich skin. Curated accessories and vetted products from brands that actually understand your texture.",
   openGraph: {
     title: "Aunty Council — Hair & Skin, Aunty Curated",
     description:
-      "A curated marketplace of hair and skin products — each one matched to your texture through a free AI consultation.",
+      "The marketplace for textured hair and melanin-rich skin. Curated accessories and vetted products from trusted brands.",
     type: "website",
     url: siteUrl,
     siteName: "Aunty Council",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Aunty Council — Hair & Skin, Aunty Curated",
     description:
-      "A curated marketplace of hair and skin products — each one matched to your texture through a free AI consultation.",
+      "The marketplace for textured hair and melanin-rich skin. Curated accessories and vetted products from trusted brands.",
   },
 };
 

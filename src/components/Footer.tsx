@@ -22,8 +22,8 @@ export default function Footer() {
             <Link href="/products" className="font-body text-[14px] text-[#6B5040] hover:text-[#2D1B0E] transition-colors">
               Shop
             </Link>
-            <a href="/#quiz" className="font-body text-[14px] text-[#6B5040] hover:text-[#2D1B0E] transition-colors">
-              Get Your Formula
+            <a href="/products" className="font-body text-[14px] text-[#6B5040] hover:text-[#2D1B0E] transition-colors">
+              Shop All
             </a>
           </div>
         </div>

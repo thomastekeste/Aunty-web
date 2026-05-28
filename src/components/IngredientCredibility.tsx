@@ -202,16 +202,16 @@ export default function IngredientCredibility() {
                 Real talk
               </p>
               <p className="font-display text-[1.2rem] md:text-[1.5rem] text-[#FDFCF8] leading-[1.4] tracking-[-0.01em]">
-                We don&apos;t list every ingredient because we don&apos;t want it copied. But every formula
-                is sulfate-free, paraben-free, silicone-free, and tested on melanin-rich skin for irritants we
-                know cause PIH.
+                Every product we recommend has been vetted for ingredient safety on melanin-rich skin.
+                No actives known to trigger PIH, no unnecessary sulfates, no fillers. The brands we trust
+                earn that trust.
               </p>
             </div>
             <a
-              href="/#quiz"
+              href="/products"
               className="cta-magnetic group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#C9903A] text-[#1A0F08] font-body font-bold text-[12px] tracking-[1.5px] uppercase hover:bg-[#E8C87A] flex-shrink-0 self-start md:self-auto"
             >
-              Build my routine
+              Shop vetted products
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="transition-transform group-hover:translate-x-0.5">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>

@@ -12,13 +12,13 @@ interface Row {
 }
 
 const ROWS: Row[] = [
-  { label: "Knows your hair texture",       drugstore: "no",      aunty: "yes", derm: "partial" },
-  { label: "Built for melanin-rich skin",   drugstore: "no",      aunty: "yes", derm: "partial" },
-  { label: "Personalized to your porosity", drugstore: "no",      aunty: "yes", derm: "no" },
-  { label: "Cultural context, no judgment", drugstore: "no",      aunty: "yes", derm: "no" },
-  { label: "Under $35 / product",           drugstore: "yes",     aunty: "yes", derm: "no" },
-  { label: "Routine ready in 2 minutes",    drugstore: "partial", aunty: "yes", derm: "no" },
-  { label: "Adjusts as your hair changes",  drugstore: "no",      aunty: "yes", derm: "partial" },
+  { label: "Curated for textured hair",     drugstore: "no",      aunty: "yes", derm: "partial" },
+  { label: "Vetted for melanin safety",     drugstore: "no",      aunty: "yes", derm: "no" },
+  { label: "Trusted brand selection",       drugstore: "partial", aunty: "yes", derm: "partial" },
+  { label: "Fast direct shipping",          drugstore: "yes",     aunty: "yes", derm: "yes" },
+  { label: "Cultural context & community",  drugstore: "no",      aunty: "yes", derm: "no" },
+  { label: "Budget & premium options",      drugstore: "partial", aunty: "yes", derm: "yes" },
+  { label: "Expert-reviewed products",      drugstore: "no",      aunty: "yes", derm: "no" },
 ];
 
 function CellMark({ value }: { value: Cell }) {
@@ -102,9 +102,8 @@ export default function WhyAunty() {
             <span className="text-[#9E8C7A]"> one.</span>
           </h2>
           <p className="font-body text-[15px] md:text-[16px] text-[#9E8C7A] leading-[1.7] mt-6 max-w-xl">
-            Drugstore aisles weren&apos;t built for textured hair. Dermatologist visits
-            cost $300 and don&apos;t cover what mama already knows. Here&apos;s where
-            we land.
+            Drugstore aisles weren&apos;t built for textured hair. Amazon search
+            is a guessing game. Here&apos;s how the marketplace stacks up.
           </p>
         </div>
 
@@ -118,7 +117,7 @@ export default function WhyAunty() {
               Drugstore
             </span>
             <span className="font-body text-[10px] text-[#9E8C7A]/60 mt-1 text-center hidden md:block">
-              Random pick
+              Aisle roulette
             </span>
           </div>
           <div className="relative flex flex-col items-center justify-end pb-5 pt-6 px-2 rounded-t-3xl bg-gradient-to-b from-[#C9903A]/12 to-transparent">
@@ -135,10 +134,10 @@ export default function WhyAunty() {
           </div>
           <div className="flex flex-col items-center justify-end pb-5 px-2">
             <span className="font-body text-[10px] md:text-[11px] font-bold tracking-[1.5px] md:tracking-[2px] uppercase text-[#9E8C7A] text-center">
-              Dermatologist
+              Amazon
             </span>
             <span className="font-body text-[10px] text-[#9E8C7A]/60 mt-1 text-center hidden md:block">
-              $300 visit
+              Search & pray
             </span>
           </div>
 
@@ -189,12 +188,13 @@ export default function WhyAunty() {
           <div className="border-t border-[#FDFCF8]/15" />
           <div className="border-t border-[#FDFCF8]/15" />
           <div className="border-t border-[#C9903A]/30 bg-gradient-to-b from-[#C9903A]/[0.06] to-[#C9903A]/[0.02] rounded-b-3xl pt-6 pb-7 flex flex-col items-center gap-3">
-            <span className="font-display text-[24px] md:text-[28px] font-bold text-[#FDFCF8]">$0</span>
+            <span className="font-display text-[24px] md:text-[28px] font-bold text-[#FDFCF8]">68+</span>
+            <span className="font-body text-[10px] text-[#9E8C7A] -mt-1">products</span>
             <a
-              href="#quiz"
+              href="/products"
               className="px-5 py-2.5 rounded-full bg-[#C9903A] text-[#1A0F08] font-body text-[10px] md:text-[11px] font-bold tracking-[1.5px] uppercase hover:bg-[#E8C87A] transition-colors text-center whitespace-nowrap"
             >
-              Start free
+              Shop now
             </a>
           </div>
           <div className="border-t border-[#FDFCF8]/15" />

@@ -123,10 +123,10 @@ export default function Manifesto() {
             is the texture your routine was made for.
           </p>
           <a
-            href="#quiz"
+            href="/products"
             className="cta-magnetic group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#1A0F08] text-[#FDFCF8] font-body font-semibold text-[12px] tracking-[1.5px] uppercase hover:bg-[#0F0905] hover:shadow-[0_18px_40px_-12px_rgba(26,15,8,0.45)] flex-shrink-0 self-start md:self-auto transition-all duration-200"
           >
-            Find your aunty
+            Shop the collection
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="transition-transform group-hover:translate-x-0.5">
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>

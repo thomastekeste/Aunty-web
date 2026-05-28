@@ -10,28 +10,28 @@ interface QA {
 
 const FAQS: QA[] = [
   {
-    q: "How does the consultation actually work?",
-    a: "Seven questions. Two minutes. The aunties analyze your texture, porosity, scalp type, and goals — then build a routine matched to exactly what your hair needs. You can come back any time and re-do it as your hair changes.",
+    q: "What products do you carry?",
+    a: "We carry 68+ products across two types: accessories (bonnets, tools, skincare devices) that ship directly from us, and vetted hair & skin products from brands like SheaMoisture, Pattern Beauty, Mielle, and more — each one screened for ingredient safety on melanin-rich skin.",
   },
   {
-    q: "Why pre-order? When do products ship?",
-    a: "We manufacture based on which products hit minimum order quantity first — so your money funds your formula, not unsold inventory on a warehouse shelf. First batch shipments begin within 6–8 weeks of the MOQ being met. You'll get an email the moment yours is on the way.",
+    q: "How are brands vetted?",
+    a: "Every product in the marketplace has been screened for ingredient safety on melanin-rich skin and textured hair. No actives known to trigger post-inflammatory hyperpigmentation (PIH), no unnecessary sulfates, no fillers. If a brand doesn't meet the standard, it doesn't get listed.",
   },
   {
-    q: "What makes this different from a drugstore product?",
-    a: "Drugstore lines are formulated for the average head of hair — which doesn't exist if your texture is 4C. Every Aunty Council formula was built specifically for textured hair and melanin-rich skin. No filler. No \"works for all hair types\" hand-waving.",
+    q: "How does shipping work?",
+    a: "Accessories (bonnets, tools, devices) ship directly from us with fast delivery and free returns within 30 days. Hair and skin products link to each brand's own store — you buy direct from SheaMoisture, Mielle, or whoever makes the product.",
   },
   {
-    q: "Are the ingredients safe?",
-    a: "Every formula is sulfate-free, paraben-free, and silicone-free. We test for irritants known to trigger PIH on melanin-rich skin and avoid them entirely. Full ingredient lists are on every product page.",
+    q: "What makes this different from Amazon?",
+    a: "Amazon shows you everything and hopes you figure it out. We only list products that pass our vetting process — curated specifically for textured hair and melanin-rich skin. No guesswork, no fake reviews, no random third-party sellers.",
   },
   {
-    q: "What if my routine doesn't work?",
-    a: "Email us. The aunties will rework it for free. If after 60 days you're still not happy, we refund the unopened products — no quiz, no questions.",
+    q: "What's your return policy?",
+    a: "Accessories purchased from our store can be returned within 30 days, no questions asked. For hair and skin products bought through brand links, each brand's own return policy applies — we link you to their support.",
   },
   {
-    q: "Are the aunties real people?",
-    a: "The aunties are characters who carry the diaspora's actual wisdom — Nigerian shea butter, Jamaican castor oil, Caribbean steam therapy. They speak in dialects we grew up with. Behind the scenes, they're powered by AI trained on textured hair science and cross-cultural haircare practice.",
+    q: "Do you have an app?",
+    a: "Yes. The Aunty Council app gives you daily coaching from 7 culturally-aware AI aunties — they track your hair journey, adjust your routine, and give personalized advice in the voice of the diaspora. The marketplace is for shopping; the app is for the full experience.",
   },
 ];
 

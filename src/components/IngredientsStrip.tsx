@@ -1,28 +1,28 @@
 import ScrollReveal from "./ScrollReveal";
 
 const STATS = [
-  { num: "47", label: "Bioactive compounds" },
-  { num: "0", label: "Sulfates" },
-  { num: "0", label: "Parabens" },
-  { num: "0", label: "Silicones" },
+  { num: "70+", label: "Vetted products" },
+  { num: "7", label: "Expert aunties" },
+  { num: "4", label: "Porosity types" },
+  { num: "12", label: "Curl patterns" },
 ];
 
 const ACTIVES = [
-  "Panthenol (Vit B5)",
-  "Ceramide complex",
-  "Biotin",
-  "Niacinamide",
-  "Hydrolysed keratin",
-  "Jamaican black castor oil",
-  "Shea butter",
-  "Aloe barbadensis",
-  "Hibiscus extract",
-  "Rice water ferment",
+  "Curl type analysis",
+  "Porosity matching",
+  "Scalp health scoring",
+  "PIH-safe screening",
+  "Ingredient vetting",
+  "Budget-aware picks",
+  "Texture pairing",
+  "Goal-based matching",
+  "Brand trust scoring",
+  "Seasonal adaptation",
 ];
 
 /**
- * Science-forward formula breakdown — not a natural-brand ingredient flat-lay.
- * Stats + active ingredients with clinical and cultural compounds together.
+ * Science-forward matching engine breakdown.
+ * Stats + analysis criteria powering the product matching engine.
  */
 export default function IngredientsStrip() {
   return (
@@ -48,16 +48,16 @@ export default function IngredientsStrip() {
         <ScrollReveal>
           <div className="max-w-3xl mb-14 md:mb-18">
             <p className="font-body text-[11px] font-bold tracking-[4px] uppercase text-[#C9903A] mb-5">
-              The science
+              The matching engine
             </p>
             <h2 className="font-display text-[1.75rem] md:text-[2.4rem] font-bold text-[#FDFCF8] leading-[1.05] tracking-[-0.025em] mb-6">
-              Formulated.{" "}
-              <span className="italic font-light text-[#9E8C7A]">Not just foraged.</span>
+              Matched.{" "}
+              <span className="italic font-light text-[#9E8C7A]">Not just recommended.</span>
             </h2>
             <p className="font-body text-[15px] md:text-[16px] text-[#9E8C7A] leading-[1.75] max-w-xl">
-              Every formula starts with dermatological research — then layers in the actives that
-              textured hair and melanin-rich skin have needed for generations. Not because
-              they&apos;re &ldquo;natural.&rdquo; Because the data backs them.
+              Every recommendation starts with your texture, porosity, and goals — then
+              cross-references 70+ products from brands that actually understand textured hair.
+              Not random picks. Data-driven matches.
             </p>
           </div>
         </ScrollReveal>
@@ -85,7 +85,7 @@ export default function IngredientsStrip() {
         <ScrollReveal delay={200}>
           <div>
             <p className="font-body text-[10px] font-bold tracking-[3px] uppercase text-[#FDFCF8]/35 mb-4">
-              Key actives
+              What we analyze
             </p>
             <div className="flex flex-wrap gap-2.5">
               {ACTIVES.map((a) => (

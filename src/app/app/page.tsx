@@ -85,10 +85,10 @@ const FEATURES = [
 ];
 
 const STEPS = [
-  { num: "01", title: "Take the quiz",  body: "7 questions about your texture, porosity, scalp, lifestyle, and goals — 2 minutes." },
+  { num: "01", title: "Download the app",  body: "Set up your profile — texture, porosity, scalp type, and goals. Takes about 2 minutes." },
   { num: "02", title: "Meet your aunty", body: "Based on what you need most, we match you with the aunty whose voice fits the moment." },
   { num: "03", title: "Track daily",     body: "Check in each morning. Snap, rate, note. The app starts to learn your rhythm in 7–10 days." },
-  { num: "04", title: "Refine forever",  body: "Every month, your formula adjusts. Better products, better routine, visible proof in the vault." },
+  { num: "04", title: "Refine forever",  body: "Every month, your routine adjusts. Better products, better habits, visible proof in the vault." },
 ];
 
 export default function AppPage() {
@@ -126,10 +126,10 @@ export default function AppPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
-                  href="/#quiz"
+                  href="/products"
                   className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-[#1A0F08] text-[#FDFCF8] font-body font-semibold text-[13px] tracking-[1.5px] uppercase hover:bg-[#2C1A0E] transition-all"
                 >
-                  Get your formula
+                  Browse the marketplace
                 </a>
                 <Link
                   href="#aunties"
@@ -304,14 +304,14 @@ export default function AppPage() {
               Your aunties are waiting.
             </h2>
             <p className="font-body text-[15px] md:text-[16px] text-[#FDFCF8]/60 max-w-lg mx-auto leading-[1.7] mb-8">
-              Start with the 2-minute quiz. We&apos;ll match you to the right aunty
-              and build your first formula on the spot.
+              Download the app for daily coaching, or browse the marketplace
+              for curated products matched to your texture.
             </p>
             <a
-              href="/#quiz"
+              href="/products"
               className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-[#C9903A] text-[#1A0F08] font-body font-bold text-[13px] tracking-[1.5px] uppercase hover:bg-[#E8C87A] transition-all"
             >
-              Get your formula — free
+              Shop the marketplace
             </a>
           </div>
         </section>

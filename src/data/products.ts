@@ -1,220 +1,33 @@
-export type ProductCategory = "hair" | "skin" | "accessories";
-export type HairSub = "low-porosity" | "high-porosity" | "normal-porosity" | "scalp";
-export type SkinSub = "universal" | "oily" | "dry-ashy" | "combination" | "balanced" | "sensitive";
-export type AccessorySub = "hair" | "skin";
-export type ProductSub = HairSub | SkinSub | AccessorySub;
-export type ProductStatus = "pre-order" | "ships-now";
+// ── Accessories-only product catalog (dropship store) ────────────────────────
+// Hair & skin care product recommendations are now affiliate-based — see affiliate-products.ts
+
+export type AccessoryCategory = "sleep" | "tools" | "devices";
 export type ProductType =
-  | "shampoo" | "conditioner" | "deep-conditioner" | "curl-cream"
-  | "scalp-serum" | "growth-oil" | "face-serum" | "face-cream" | "lotion"
-  | "face-wash" | "accessory" | "scalp-treatment" | "spf" | "scar-gel"
-  | "bonnet" | "durag" | "tool" | "roller" | "mask";
+  | "bonnet" | "durag" | "accessory" | "tool" | "roller" | "mask";
 
 export interface Product {
   id: string;
   name: string;
-  category: ProductCategory;
-  sub: ProductSub;
+  category: AccessoryCategory;
   auntyId: string;
   painPoint: string;
   price: number;
-  status: ProductStatus;
   productType: ProductType;
-  keyIngredients: string[];
+  keyIngredients: string[];  // specs / features for accessories
   whyItWorks: string;
   image?: string;
 }
 
 export const products: Product[] = [
 
-  // ── HAIR: Low Porosity ──────────────────────────────────────────────────────
-  {
-    id: "clarifying-shampoo",
-    name: "Aunty Clarifying Shampoo",
-    category: "hair",
-    sub: "low-porosity",
-    auntyId: "fatou",
-    painPoint: "For hair that holds onto everything — except moisture.",
-    price: 20,
-    status: "pre-order",
-    productType: "shampoo",
-    keyIngredients: ["Apple Cider Vinegar Complex", "Glycerin", "Panthenol", "Peppermint Actives"],
-    whyItWorks: "Low porosity hair repels moisture — products pile up on the cuticle instead of getting in. Our ACV complex breaks down that buildup so your hair can finally absorb what it needs.",
-    image: "/products/clarifying-shampoo.png",
-  },
-  {
-    id: "lightweight-conditioner",
-    name: "Aunty Lightweight Conditioner",
-    category: "hair",
-    sub: "low-porosity",
-    auntyId: "fatou",
-    painPoint: "Moisture that actually gets in. Not just sits on top.",
-    price: 22,
-    status: "pre-order",
-    productType: "conditioner",
-    keyIngredients: ["Rice Water Extract", "Silk Amino Complex", "Lightweight Oil Blend", "Cetyl Alcohol"],
-    whyItWorks: "Low porosity hair is easily weighed down by rich butters. Rice water and silk amino complex give detangling slip without coating the strand — smoothing the cuticle without shutting it.",
-    image: "/products/lightweight-conditioner.png",
-  },
-
-  // ── HAIR: High Porosity ─────────────────────────────────────────────────────
-  {
-    id: "strengthening-shampoo",
-    name: "Aunty Strengthening Shampoo",
-    category: "hair",
-    sub: "high-porosity",
-    auntyId: "ngozi",
-    painPoint: "High porosity hair needs strength, not stripping.",
-    price: 22,
-    status: "pre-order",
-    productType: "shampoo",
-    keyIngredients: ["Hydrolyzed Protein Blend", "Shea Extract", "Castor Oil Derivative", "Panthenol"],
-    whyItWorks: "High porosity hair loses protein fast — color, heat, and manipulation all strip the cortex. This deposits our protein blend while cleansing so you don't start wash day in a deficit.",
-    image: "/products/strengthening-shampoo.png",
-  },
-  {
-    id: "deep-conditioner",
-    name: "Aunty Deep Conditioner",
-    category: "hair",
-    sub: "high-porosity",
-    auntyId: "marcia",
-    painPoint: "The long game. Rich, slow, deep moisture your hair holds onto.",
-    price: 26,
-    status: "pre-order",
-    productType: "deep-conditioner",
-    keyIngredients: ["Mango Butter Complex", "Avocado Oil Blend", "Wheat Protein Matrix", "Honey Extract"],
-    whyItWorks: "High porosity curls need protein and moisture in balance. This formula floods each strand with hydration, then our protein matrix fills the gaps in the cuticle so moisture stays locked in.",
-    image: "/products/deep-conditioner.png",
-  },
-
-  // ── HAIR: Normal Porosity ───────────────────────────────────────────────────
-  {
-    id: "liquid-curl-creme",
-    name: "Aunty Liquid Curl Crème",
-    category: "hair",
-    sub: "normal-porosity",
-    auntyId: "carmen",
-    painPoint: "Define your curls without the crunch. No cast, no residue.",
-    price: 24,
-    status: "pre-order",
-    productType: "curl-cream",
-    keyIngredients: ["Flaxseed Gel Complex", "Marshmallow Root Extract", "Aloe Vera", "Glycerin"],
-    whyItWorks: "Wavy and curly hair needs definition without weight. Flaxseed gel locks in curl pattern without crunch; marshmallow root creates natural clumping and slip so curls form, stay formed, and don't frizz.",
-    image: "/products/liquid-curl-creme.png",
-  },
-  {
-    id: "rich-curl-creme",
-    name: "Aunty Rich Curl Crème",
-    category: "hair",
-    sub: "high-porosity",
-    auntyId: "ngozi",
-    painPoint: "Seal your coils. Lock in moisture. Show your real length.",
-    price: 26,
-    status: "pre-order",
-    productType: "curl-cream",
-    keyIngredients: ["Shea Butter Complex", "Mango Butter", "Black Castor Oil", "Rice Bran Oil"],
-    whyItWorks: "Dense coily hair loses moisture fast once styled. This butter-based formula seals the cuticle on contact so your definition holds all day without going stiff, flaking, or leaving white residue.",
-    image: "/products/rich-curl-creme.png",
-  },
-
-  // ── HAIR: Scalp ─────────────────────────────────────────────────────────────
-  {
-    id: "scalp-oil",
-    name: "Aunty Scalp Oil",
-    category: "hair",
-    sub: "scalp",
-    auntyId: "denise",
-    painPoint: "Old recipe. Real results. Your edges will thank you.",
-    price: 24,
-    status: "pre-order",
-    productType: "growth-oil",
-    keyIngredients: ["Black Castor Oil Complex", "Peppermint Actives", "Rosemary Extract", "Vitamin E"],
-    whyItWorks: "You're growing hair — you're just not keeping it. Rosemary and peppermint actives stimulate blood flow to the follicle; castor complex seals the scalp and strengthens the base so length doesn't break off.",
-    image: "/products/scalp-oil.png",
-  },
-  {
-    id: "edge-repair-serum",
-    name: "Aunty Edge Repair Serum",
-    category: "hair",
-    sub: "scalp",
-    auntyId: "denise",
-    painPoint: "Braids. Cornrows. Extensions. Your edges remember everything.",
-    price: 28,
-    status: "pre-order",
-    productType: "scalp-serum",
-    keyIngredients: ["Castor Oil Complex", "Peptide Blend", "Biotin Actives", "Anti-Inflammatory Extract"],
-    whyItWorks: "Lightweight, anti-inflammatory formula. Castor complex + peptide blend + biotin actives target hairline damage from traction and tight styling specifically.",
-    image: "/products/edge-repair-serum.png",
-  },
-
-  // ── SKIN ────────────────────────────────────────────────────────────────────
-  {
-    id: "gentle-face-wash",
-    name: "Aunty Gentle Face Wash",
-    category: "skin",
-    sub: "universal",
-    auntyId: "fatou",
-    painPoint: "pH balanced. Fragrance free. Your skin barrier stays intact.",
-    price: 18,
-    status: "pre-order",
-    productType: "face-wash",
-    keyIngredients: ["PHA Complex", "Aloe Vera Extract", "Oat Actives", "Panthenol"],
-    whyItWorks: "Stripping cleansers trigger inflammation — and inflammation on melanin-rich skin means PIH. This stays at pH 5.5 (your skin's natural pH) and uses a PHA complex that cleanses without disrupting the barrier.",
-    image: "/products/gentle-face-wash.png",
-  },
-  {
-    id: "pih-cream",
-    name: "Aunty PIH Cream",
-    category: "skin",
-    sub: "universal",
-    auntyId: "salma",
-    painPoint: "Richer. Slower. For dark spots that need more than a serum.",
-    price: 30,
-    status: "pre-order",
-    productType: "face-cream",
-    keyIngredients: ["Alpha-Arbutin Complex", "Niacinamide", "Ceramide Blend", "Kojic Actives"],
-    whyItWorks: "For deeper, older dark spots that need slow-release actives and an occlusive base. Alpha-arbutin complex inhibits melanin transfer; ceramide blend seals in treatment while repairing the barrier overnight.",
-    image: "/products/pih-cream.png",
-  },
-  {
-    id: "sebum-control-serum",
-    name: "Aunty Sebum Control Serum",
-    category: "skin",
-    sub: "oily",
-    auntyId: "salma",
-    painPoint: "Blotting papers are not a routine. Niacinamide is.",
-    price: 28,
-    status: "pre-order",
-    productType: "face-serum",
-    keyIngredients: ["Niacinamide 10% Complex", "Zinc PCA Blend", "Panthenol"],
-    whyItWorks: "Regulates sebum at the gland level. Niacinamide complex + zinc PCA blend reduce shine without stripping — so skin stays matte without the tightness. For oily + dehydrated types.",
-    image: "/products/sebum-control-serum.png",
-  },
-  {
-    id: "moisturizer",
-    name: "Aunty Moisturizer",
-    category: "skin",
-    sub: "universal",
-    auntyId: "salma",
-    painPoint: "Rich. Fast-absorbing. Leaves no grease, just glow.",
-    price: 26,
-    status: "pre-order",
-    productType: "face-cream",
-    keyIngredients: ["Ceramide Complex", "Hyaluronic Acid Blend", "Shea Butter", "Niacinamide"],
-    whyItWorks: "Melanin-rich skin benefits from a moisturizer that hydrates and strengthens the barrier simultaneously. Ceramide complex locks moisture in; hyaluronic acid draws water to the surface. Absorbs fully — no white residue.",
-    image: "/products/moisturizer.png",
-  },
-
-  // ── ACCESSORIES: Hair ──────────────────────────────────────────────────────
+  // ── SLEEP & PROTECTION ─────────────────────────────────────────────────────
   {
     id: "satin-bonnet",
     name: "Aunty Satin Bonnet",
-    category: "accessories",
-    sub: "hair",
+    category: "sleep",
     auntyId: "ngozi",
     painPoint: "Your curls don't stop working just because you're sleeping.",
     price: 14,
-    status: "ships-now",
     productType: "bonnet",
     keyIngredients: ["Double-lined satin", "Adjustable elastic band", "Breathable mesh interior"],
     whyItWorks: "Cotton pillowcases strip moisture and create friction that breaks curls overnight. Double-lined satin eliminates both — you wake up with day-one definition instead of frizz.",
@@ -223,12 +36,10 @@ export const products: Product[] = [
   {
     id: "silk-pillowcase",
     name: "Aunty Silk Pillowcase",
-    category: "accessories",
-    sub: "hair",
+    category: "sleep",
     auntyId: "ngozi",
     painPoint: "Upgrade your sleep. Your hair and skin both benefit.",
     price: 22,
-    status: "ships-now",
     productType: "accessory",
     keyIngredients: ["22-momme mulberry silk", "Hidden zipper closure", "Standard & queen sizes"],
     whyItWorks: "Silk reduces friction by 43% compared to cotton. Less friction means less breakage, less frizz, and fewer sleep creases on your face. Your night routine becomes automatic.",
@@ -237,12 +48,10 @@ export const products: Product[] = [
   {
     id: "silky-durag",
     name: "Aunty Silky Durag",
-    category: "accessories",
-    sub: "hair",
+    category: "sleep",
     auntyId: "denise",
     painPoint: "360 waves need compression. This gives it without the headache.",
     price: 12,
-    status: "ships-now",
     productType: "durag",
     keyIngredients: ["Premium silky satin", "Extra-long tails", "Wide stretch headband"],
     whyItWorks: "The right durag lays waves flat without pulling your hairline. Silky satin interior reduces friction on the scalp while providing even compression for wave training.",
@@ -251,26 +60,35 @@ export const products: Product[] = [
   {
     id: "wave-cap-2pack",
     name: "Aunty Wave Cap 2-Pack",
-    category: "accessories",
-    sub: "hair",
+    category: "sleep",
     auntyId: "denise",
     painPoint: "Under the durag or on its own. Compression that stays put.",
     price: 8,
-    status: "ships-now",
     productType: "durag",
     keyIngredients: ["Breathable stocking mesh", "Seamless construction", "One-size stretch fit"],
     whyItWorks: "Wave caps provide consistent compression that durags alone can't hold all night. The seamless construction means no imprint lines — just clean, even wave progression.",
     image: "/products/durag.svg",
   },
   {
+    id: "satin-scrunchie-pack",
+    name: "Aunty Satin Scrunchie Pack",
+    category: "sleep",
+    auntyId: "carmen",
+    painPoint: "Regular hair ties leave dents and break your strands. These don't.",
+    price: 10,
+    productType: "accessory",
+    keyIngredients: ["Satin exterior", "Gentle elastic core", "6-pack assorted earth tones"],
+    whyItWorks: "Elastic hair ties create tension points that snap curly hair. Satin scrunchies distribute pressure evenly — no crease, no breakage, no reset needed after a puff.",
+  },
+
+  // ── TOOLS & BRUSHES ────────────────────────────────────────────────────────
+  {
     id: "scalp-massager",
     name: "Aunty Scalp Massager",
-    category: "accessories",
-    sub: "hair",
+    category: "tools",
     auntyId: "denise",
     painPoint: "Stimulate your scalp. Feel it working. Watch your edges come back.",
     price: 10,
-    status: "ships-now",
     productType: "tool",
     keyIngredients: ["Soft silicone bristles", "Ergonomic grip", "Wet & dry use"],
     whyItWorks: "Increases blood flow to the follicle by up to 300% during use. Pairs with your scalp oil to boost absorption. The bristles lift product buildup that blocks growth.",
@@ -279,12 +97,10 @@ export const products: Product[] = [
   {
     id: "detangling-brush-set",
     name: "Aunty Detangling Set",
-    category: "accessories",
-    sub: "hair",
+    category: "tools",
     auntyId: "carmen",
     painPoint: "Detangling shouldn't mean losing half your hair in the brush.",
     price: 16,
-    status: "ships-now",
     productType: "tool",
     keyIngredients: ["Flexible bristle detangler", "Wide-tooth comb", "Sectioning clips"],
     whyItWorks: "Rigid combs snap coily hair at the bend. Flexible bristles move with the curl pattern, separating tangles from the ends up without ripping through knots.",
@@ -293,12 +109,10 @@ export const products: Product[] = [
   {
     id: "satin-scrunchie-pack",
     name: "Aunty Satin Scrunchie Pack",
-    category: "accessories",
-    sub: "hair",
+    category: "sleep" as AccessoryCategory,
     auntyId: "carmen",
     painPoint: "Regular hair ties leave dents and break your strands. These don't.",
     price: 10,
-    status: "ships-now",
     productType: "accessory",
     keyIngredients: ["Satin exterior", "Gentle elastic core", "6-pack assorted earth tones"],
     whyItWorks: "Elastic hair ties create tension points that snap curly hair. Satin scrunchies distribute pressure evenly — no crease, no breakage, no reset needed after a puff.",
@@ -307,12 +121,10 @@ export const products: Product[] = [
   {
     id: "edge-brush-kit",
     name: "Aunty Edge Brush Kit",
-    category: "accessories",
-    sub: "hair",
+    category: "tools",
     auntyId: "marcia",
     painPoint: "Laid edges are an art. These are your brushes.",
     price: 8,
-    status: "ships-now",
     productType: "tool",
     keyIngredients: ["Dual-ended edge brush", "Rattail comb", "Travel case"],
     whyItWorks: "The fine-bristle side lays baby hairs flat while the spoolie blends. Rattail comb creates clean parts. Small enough for your bag — touch-ups anywhere.",
@@ -321,98 +133,22 @@ export const products: Product[] = [
   {
     id: "microfiber-hair-towel",
     name: "Aunty Microfiber Hair Towel",
-    category: "accessories",
-    sub: "hair",
+    category: "tools",
     auntyId: "fatou",
     painPoint: "Cotton towels are why your wash day ends in frizz.",
     price: 16,
-    status: "ships-now",
     productType: "accessory",
     keyIngredients: ["Ultra-fine microfiber weave", "Button closure", "Quick-dry technology"],
     whyItWorks: "Cotton terry cloth roughs up the hair cuticle, creating frizz on contact. Microfiber absorbs water without friction — dries 50% faster while keeping your curl pattern intact.",
     image: "/products/accessory.svg",
   },
-
-  // ── ACCESSORIES: Skin ──────────────────────────────────────────────────────
-  {
-    id: "led-therapy-mask",
-    name: "Aunty LED Therapy Mask",
-    category: "accessories",
-    sub: "skin",
-    auntyId: "salma",
-    painPoint: "Red light for dark spots. Blue light for breakouts. No chemicals.",
-    price: 68,
-    status: "ships-now",
-    productType: "mask",
-    keyIngredients: ["Red LED (630nm)", "Blue LED (415nm)", "3 intensity settings", "USB-C rechargeable"],
-    whyItWorks: "Red light at 630nm stimulates collagen and fades post-inflammatory hyperpigmentation without irritating melanocytes. Blue light kills acne bacteria — preventing the breakouts that cause dark spots in the first place.",
-    image: "/products/mask.svg",
-  },
-  {
-    id: "ice-roller",
-    name: "Aunty Ice Roller",
-    category: "accessories",
-    sub: "skin",
-    auntyId: "salma",
-    painPoint: "Inflammation is the #1 trigger for dark spots. Cool it down.",
-    price: 12,
-    status: "ships-now",
-    productType: "roller",
-    keyIngredients: ["Medical-grade stainless steel", "Gel-core freeze head", "Ergonomic handle"],
-    whyItWorks: "Cold constricts blood vessels and reduces the inflammatory response that triggers melanin overproduction. Two minutes after cleansing calms redness and preps skin for serum absorption.",
-    image: "/products/roller.svg",
-  },
-  {
-    id: "pimple-patches",
-    name: "Aunty Pimple Patches",
-    category: "accessories",
-    sub: "skin",
-    auntyId: "senayt",
-    painPoint: "Stop picking. Seriously. Every pick becomes a dark spot.",
-    price: 8,
-    status: "ships-now",
-    productType: "accessory",
-    keyIngredients: ["Hydrocolloid technology", "36 patches per pack", "Invisible matte finish"],
-    whyItWorks: "On melanin-rich skin, every picked pimple risks months of hyperpigmentation. Hydrocolloid patches draw out fluid overnight while creating a physical barrier against your fingers.",
-    image: "/products/accessory.svg",
-  },
-  {
-    id: "derma-roller",
-    name: "Aunty Derma Roller",
-    category: "accessories",
-    sub: "skin",
-    auntyId: "salma",
-    painPoint: "Boost serum absorption by 200%. The needle does the work.",
-    price: 14,
-    status: "ships-now",
-    productType: "tool",
-    keyIngredients: ["0.25mm titanium needles", "540-needle head", "Protective travel case"],
-    whyItWorks: "0.25mm depth is the sweet spot for melanin-rich skin — deep enough to boost product absorption and stimulate collagen, shallow enough to avoid the inflammation that triggers PIH.",
-    image: "/products/tool.svg",
-  },
-  {
-    id: "gua-sha-tool",
-    name: "Aunty Gua Sha Stone",
-    category: "accessories",
-    sub: "skin",
-    auntyId: "senayt",
-    painPoint: "Sculpt. De-puff. Move the lymph. Two minutes, visible difference.",
-    price: 12,
-    status: "ships-now",
-    productType: "tool",
-    keyIngredients: ["Rose quartz stone", "Wing-shaped design", "Velvet storage pouch"],
-    whyItWorks: "Lymphatic drainage reduces puffiness and uneven tone. The wing shape follows your jawline and cheekbones naturally — promoting circulation that helps fade dark spots from within.",
-    image: "/products/tool.svg",
-  },
   {
     id: "silicone-face-scrubber",
     name: "Aunty Silicone Face Scrubber",
-    category: "accessories",
-    sub: "skin",
+    category: "tools",
     auntyId: "fatou",
     painPoint: "Exfoliate without micro-tears. Your skin is too precious for rough tools.",
     price: 8,
-    status: "ships-now",
     productType: "tool",
     keyIngredients: ["Medical-grade silicone", "Dual-zone bristles", "Antimicrobial material"],
     whyItWorks: "Abrasive scrubs create micro-tears that trigger inflammation and PIH on dark skin. Soft silicone nubs lift dirt and dead skin gently — clean pores without the damage.",
@@ -421,16 +157,71 @@ export const products: Product[] = [
   {
     id: "microfiber-face-cloths",
     name: "Aunty Microfiber Face Cloths",
-    category: "accessories",
-    sub: "skin",
+    category: "tools",
     auntyId: "fatou",
     painPoint: "Your regular towel is too rough for your face. Period.",
     price: 12,
-    status: "ships-now",
     productType: "accessory",
     keyIngredients: ["Ultra-soft microfiber", "3-pack assorted", "Machine washable"],
     whyItWorks: "Rubbing your face with a cotton towel creates friction that irritates melanin-rich skin. Microfiber removes cleanser and water by absorption alone — pat dry, no drag.",
     image: "/products/accessory.svg",
+  },
+
+  // ── SKINCARE DEVICES ───────────────────────────────────────────────────────
+  {
+    id: "led-therapy-mask",
+    name: "Aunty LED Therapy Mask",
+    category: "devices",
+    auntyId: "salma",
+    painPoint: "Red light for dark spots. Blue light for breakouts. No chemicals.",
+    price: 68,
+    productType: "mask",
+    keyIngredients: ["Red LED (630nm)", "Blue LED (415nm)", "3 intensity settings", "USB-C rechargeable"],
+    whyItWorks: "Red light at 630nm stimulates collagen and fades post-inflammatory hyperpigmentation without irritating melanocytes. Blue light kills acne bacteria — preventing the breakouts that cause dark spots in the first place.",
+  },
+  {
+    id: "ice-roller",
+    name: "Aunty Ice Roller",
+    category: "devices",
+    auntyId: "salma",
+    painPoint: "Inflammation is the #1 trigger for dark spots. Cool it down.",
+    price: 12,
+    productType: "roller",
+    keyIngredients: ["Medical-grade stainless steel", "Gel-core freeze head", "Ergonomic handle"],
+    whyItWorks: "Cold constricts blood vessels and reduces the inflammatory response that triggers melanin overproduction. Two minutes after cleansing calms redness and preps skin for serum absorption.",
+  },
+  {
+    id: "pimple-patches",
+    name: "Aunty Pimple Patches",
+    category: "devices",
+    auntyId: "senayt",
+    painPoint: "Stop picking. Seriously. Every pick becomes a dark spot.",
+    price: 8,
+    productType: "accessory",
+    keyIngredients: ["Hydrocolloid technology", "36 patches per pack", "Invisible matte finish"],
+    whyItWorks: "On melanin-rich skin, every picked pimple risks months of hyperpigmentation. Hydrocolloid patches draw out fluid overnight while creating a physical barrier against your fingers.",
+  },
+  {
+    id: "derma-roller",
+    name: "Aunty Derma Roller",
+    category: "devices",
+    auntyId: "salma",
+    painPoint: "Boost serum absorption by 200%. The needle does the work.",
+    price: 14,
+    productType: "tool",
+    keyIngredients: ["0.25mm titanium needles", "540-needle head", "Protective travel case"],
+    whyItWorks: "0.25mm depth is the sweet spot for melanin-rich skin — deep enough to boost product absorption and stimulate collagen, shallow enough to avoid the inflammation that triggers PIH.",
+  },
+  {
+    id: "gua-sha-tool",
+    name: "Aunty Gua Sha Stone",
+    category: "devices",
+    auntyId: "senayt",
+    painPoint: "Sculpt. De-puff. Move the lymph. Two minutes, visible difference.",
+    price: 12,
+    productType: "tool",
+    keyIngredients: ["Rose quartz stone", "Wing-shaped design", "Velvet storage pouch"],
+    whyItWorks: "Lymphatic drainage reduces puffiness and uneven tone. The wing shape follows your jawline and cheekbones naturally — promoting circulation that helps fade dark spots from within.",
   },
 ];
 
@@ -444,54 +235,10 @@ export interface Bundle {
   originalPrice: number;
   savings: number;
   savingsPct: number;
-  category: "hair" | "skin" | "accessories" | "full";
+  category: AccessoryCategory;
 }
 
 export const bundles: Bundle[] = [
-  {
-    id: "low-porosity-bundle",
-    name: "Low Porosity Bundle",
-    description: "Clarifying Shampoo + Lightweight Conditioner + Liquid Curl Crème.",
-    includes: "3 products",
-    price: 55,
-    originalPrice: 66,
-    savings: 11,
-    savingsPct: 17,
-    category: "hair",
-  },
-  {
-    id: "high-porosity-bundle",
-    name: "High Porosity Bundle",
-    description: "Strengthening Shampoo + Deep Conditioner + Rich Curl Crème.",
-    includes: "3 products",
-    price: 63,
-    originalPrice: 74,
-    savings: 11,
-    savingsPct: 15,
-    category: "hair",
-  },
-  {
-    id: "scalp-bundle",
-    name: "Scalp Health Bundle",
-    description: "Scalp Oil + Edge Repair Serum — your full scalp ritual.",
-    includes: "2 products",
-    price: 46,
-    originalPrice: 52,
-    savings: 6,
-    savingsPct: 12,
-    category: "hair",
-  },
-  {
-    id: "skin-starter-kit",
-    name: "Skin Starter Kit",
-    description: "Gentle Face Wash + PIH Cream + Aunty Moisturizer.",
-    includes: "3 products",
-    price: 63,
-    originalPrice: 74,
-    savings: 11,
-    savingsPct: 15,
-    category: "skin",
-  },
   {
     id: "sleep-protection-bundle",
     name: "Sleep Protection Set",
@@ -501,7 +248,7 @@ export const bundles: Bundle[] = [
     originalPrice: 46,
     savings: 8,
     savingsPct: 17,
-    category: "accessories",
+    category: "sleep",
   },
   {
     id: "wave-starter-bundle",
@@ -512,7 +259,7 @@ export const bundles: Bundle[] = [
     originalPrice: 30,
     savings: 5,
     savingsPct: 17,
-    category: "accessories",
+    category: "sleep",
   },
   {
     id: "skin-tools-bundle",
@@ -523,27 +270,13 @@ export const bundles: Bundle[] = [
     originalPrice: 32,
     savings: 5,
     savingsPct: 16,
-    category: "accessories",
-  },
-  {
-    id: "full-council-kit",
-    name: "Full Council Kit",
-    description: "4 hair + 4 skin essentials. The whole council, in a box.",
-    includes: "8 products",
-    price: 130,
-    originalPrice: 164,
-    savings: 34,
-    savingsPct: 21,
-    category: "full",
+    category: "devices",
   },
 ];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-export function getProductsByCategory(cat: ProductCategory) {
+export function getProductsByCategory(cat: AccessoryCategory) {
   return products.filter((p) => p.category === cat);
-}
-export function getProductsBySub(sub: ProductSub) {
-  return products.filter((p) => p.sub === sub);
 }
 export function getProductById(id: string) {
   return products.find((p) => p.id === id) ?? null;

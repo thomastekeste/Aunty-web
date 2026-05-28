@@ -9,8 +9,8 @@ const PERKS = [
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       </svg>
     ),
-    title: "First batch access",
-    desc: "Early members get their formulas in the first production run — before general sale opens.",
+    title: "Vetted brand recommendations",
+    desc: "Every product we recommend is screened for ingredient safety on melanin-rich skin and textured hair.",
   },
   {
     icon: (
@@ -18,30 +18,29 @@ const PERKS = [
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
       </svg>
     ),
-    title: "Founding member pricing",
-    desc: "Lock in pre-launch prices. They won't be offered again once we ship the first batch.",
+    title: "Free, always",
+    desc: "Browse and shop anytime. No account needed, no paywall. Just honest curation.",
   },
   {
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9903A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+        <line x1="12" y1="18" x2="12.01" y2="18" />
       </svg>
     ),
-    title: "Direct access to the aunties",
-    desc: "Founding members get a private channel to give feedback that shapes the next formula.",
+    title: "Daily aunty coaching",
+    desc: "Download the app for daily check-ins, hair tracking, and personalized advice from your aunty.",
   },
   {
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9903A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-        <polyline points="17 6 23 6 23 12" />
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <path d="M16 10a4 4 0 0 1-8 0" />
       </svg>
     ),
-    title: "60-day satisfaction promise",
-    desc: "If the routine doesn't work for your hair, the aunties rework it free. Still not happy? Full refund.",
+    title: "Accessories that ship fast",
+    desc: "Bonnets, tools, and skincare devices ship directly from us. Free returns within 30 days.",
   },
 ];
 
@@ -61,15 +60,15 @@ export default function SocialProof() {
         <ScrollReveal>
           <div className="text-center mb-14 md:mb-16">
             <p className="font-body text-[11px] font-bold tracking-[4px] uppercase text-[#C9903A] mb-5">
-              Early access
+              The community
             </p>
             <h2 className="font-display text-[1.75rem] md:text-[2.4rem] font-bold text-[#1A0F08] leading-[1.05] tracking-[-0.025em] mb-4">
               12,000 people already
               <br />
-              <span className="italic font-light text-[#6B5040]">know their formula.</span>
+              <span className="italic font-light text-[#6B5040]">shop with us.</span>
             </h2>
             <p className="font-body text-[15px] text-[#3D2B1A]/65 max-w-md mx-auto leading-[1.7]">
-              They took the free consultation. Their routine is waiting. First products ship when their batch hits minimum order.
+              Matched products from brands that actually understand textured hair and melanin-rich skin.
             </p>
           </div>
         </ScrollReveal>
@@ -121,16 +120,16 @@ export default function SocialProof() {
         <ScrollReveal delay={250}>
           <div className="mt-12 text-center">
             <a
-              href="#quiz"
+              href="/products"
               className="inline-flex items-center gap-2.5 font-body text-[12px] font-bold tracking-[2px] uppercase px-8 py-4 rounded-full bg-[#1A0F08] text-[#FDFCF8] hover:bg-[#2C1A0E] transition-colors"
             >
-              Get your formula free
+              Shop now
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
             </a>
             <p className="font-body text-[12px] text-[#6B5040] mt-3">
-              Free consultation · No account needed · 2 minutes
+              68+ vetted products · Free shipping on bundles
             </p>
           </div>
         </ScrollReveal>

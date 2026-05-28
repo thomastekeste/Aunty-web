@@ -5,23 +5,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { useCart } from "@/lib/cart";
-import AuntyByCTA from "./AuntyByCTA";
 
 const SHOP_CATEGORIES = [
   {
     href: "/products?cat=hair",
-    label: "Hair Care",
-    desc: "Shampoos, conditioners & curl cremes by porosity",
+    label: "Hair Products",
+    desc: "Cleansers, conditioners, oils, gels & styling",
   },
   {
-    href: "/products?cat=skin",
-    label: "Skin Care",
-    desc: "Face wash, serums & moisturizers for melanin-rich skin",
+    href: "/products?cat=sleep",
+    label: "Sleep & Protection",
+    desc: "Bonnets, durags, silk pillowcases & satin scrunchies",
   },
   {
-    href: "/products?cat=accessories",
-    label: "Accessories",
-    desc: "Bonnets, durags, tools & skincare devices",
+    href: "/products?cat=tools",
+    label: "Tools & Brushes",
+    desc: "Detanglers, edge brushes, scalp massagers & towels",
+  },
+  {
+    href: "/products?cat=devices",
+    label: "Skincare Devices",
+    desc: "LED masks, ice rollers, gua sha & derma rollers",
   },
 ];
 
@@ -196,12 +200,10 @@ export default function Navbar() {
                   </span>
                 )}
               </Link>
-              <AuntyByCTA size={40} bubblePosition="bottom" bubbleAlign="end">
-                <a href="#quiz" onClick={close}
+              <Link href="/products" onClick={close}
                   className="px-5 py-2 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[12px] font-semibold tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors">
-                  Get Your Formula
-                </a>
-              </AuntyByCTA>
+                  Shop Now
+              </Link>
             </div>
 
             <button onClick={() => setMenuOpen(!menuOpen)}
@@ -244,11 +246,9 @@ export default function Navbar() {
         <Link href={authed ? "/account" : "/login"} onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">
           {authed ? "Account" : "Log in"}
         </Link>
-        <AuntyByCTA size={48} bubblePosition="top">
-          <a href="#quiz" onClick={close} className="mt-4 px-8 py-3.5 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[13px] font-semibold tracking-[1px] uppercase">
-            Get Your Formula
-          </a>
-        </AuntyByCTA>
+        <Link href="/products" onClick={close} className="mt-4 px-8 py-3.5 rounded-full bg-[#2D1B0E] text-[#FDFCF8] font-body text-[13px] font-semibold tracking-[1px] uppercase hover:bg-[#1A0F08] transition-colors">
+            Shop Now
+        </Link>
       </div>
     </>
   );

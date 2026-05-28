@@ -24,16 +24,16 @@ export default function StickyBar() {
     >
       <div className="bg-[#2D1B0E] px-6 py-3.5 flex items-center justify-between max-w-[1400px] mx-auto sm:rounded-t-2xl">
         <p className="font-body text-[13px] text-[#E8DCC8] hidden sm:block">
-          Your aunties are ready to build your routine
+          Curated products for textured hair &amp; melanin-rich skin
         </p>
         <p className="font-body text-[13px] text-[#E8DCC8] sm:hidden">
-          Your aunties are ready
+          Shop curated products
         </p>
         <a
-          href="#quiz"
+          href="/products"
           className="px-5 py-2 rounded-full bg-[#FDFCF8] text-[#2D1B0E] font-body text-[12px] font-semibold tracking-[1px] uppercase hover:bg-white transition-colors flex-shrink-0"
         >
-          Start Consultation
+          Shop Now
         </a>
       </div>
     </div>

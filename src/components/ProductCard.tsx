@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import type { Product, ProductCategory } from "@/data/products";
+import type { Product, AccessoryCategory } from "@/data/products";
 import { useCart } from "@/lib/cart";
 
 interface ProductCardProps {
@@ -15,20 +15,20 @@ interface ProductCardProps {
 /* ─── Category-specific theming ──────────────────────────────────────────── */
 
 const CATEGORY_THEME: Record<
-  ProductCategory,
+  AccessoryCategory,
   { gradient: string; accent: string; pattern: string }
 > = {
-  hair: {
+  sleep: {
+    gradient: "linear-gradient(155deg, #F0EBF5 0%, #D4C4E0 65%, #B8A5CC 100%)",
+    accent:   "#6B4F8A",
+    pattern:  "#4D3866",
+  },
+  tools: {
     gradient: "linear-gradient(155deg, #F5ECD4 0%, #E8C87A 70%, #D4A04A 100%)",
     accent:   "#A0701E",
     pattern:  "#7A5A2A",
   },
-  skin: {
-    gradient: "linear-gradient(155deg, #F7EDE9 0%, #E8C4B8 65%, #C49185 100%)",
-    accent:   "#8B4A3A",
-    pattern:  "#6B3A2D",
-  },
-  accessories: {
+  devices: {
     gradient: "linear-gradient(155deg, #E4EDE8 0%, #BFD9C8 65%, #9CB9A7 100%)",
     accent:   "#3F6B52",
     pattern:  "#2D4F3D",
@@ -226,7 +226,6 @@ export default function ProductCard({
 
   const theme = CATEGORY_THEME[product.category];
   const isCompact = size === "compact";
-  const isPreOrder = product.status === "pre-order";
   const displayName = product.name.startsWith("Aunty ") ? product.name.slice(6) : product.name;
 
   /* ── 3D tilt on pointer move (desktop only) ── */
@@ -282,15 +281,15 @@ export default function ProductCard({
           <span
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-body text-[9px] font-bold tracking-[1.5px] uppercase backdrop-blur-md"
             style={{
-              background: isPreOrder ? "rgba(26,15,8,0.85)" : "rgba(26,107,58,0.92)",
-              color: isPreOrder ? "#E8C87A" : "#FDFCF8",
+              background: "rgba(26,107,58,0.92)",
+              color: "#FDFCF8",
             }}
           >
             <span
               className="w-1 h-1 rounded-full"
-              style={{ background: isPreOrder ? "#E8C87A" : "#FDFCF8" }}
+              style={{ background: "#FDFCF8" }}
             />
-            {isPreOrder ? "Pre-order" : "Ships now"}
+            Ships now
           </span>
         </div>
 
