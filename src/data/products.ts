@@ -21,6 +21,7 @@ export interface Product {
   cjSearchKeyword: string;
   cjProductId?: string;
   cjVariantId?: string;
+  cjSourceUrl?: string;
 }
 
 export const products: Product[] = [
@@ -40,6 +41,8 @@ export const products: Product[] = [
     whyItWorks: "Cotton pillowcases strip moisture and create friction that breaks curls overnight. Double-lined satin eliminates both — you wake up with day-one definition instead of frizz.",
     image: "/products/satin-bonnet.webp",
     cjSearchKeyword: "satin bonnet adjustable",
+    cjSourceUrl: "https://cjdropshipping.com/product/new-silk-bonnet-for-sleeping-women-satin-bonnet-hair-bonnet-night-sleep-cap-scarf-wrap-for-curly-hair-with-tie-band-for-curly-hair-p-2407140638471615000.html",
+    cjProductId: "2407140638471615000",
   },
   {
     id: "satin-bonnet-xl",
@@ -214,6 +217,8 @@ export const products: Product[] = [
     whyItWorks: "Cotton terry cloth roughs up the hair cuticle, creating frizz on contact. Microfiber absorbs water without friction — dries 50% faster while keeping your curl pattern intact.",
     image: "/products/microfiber-hair-towel.webp",
     cjSearchKeyword: "microfiber hair towel 2 pack",
+    cjSourceUrl: "https://cjdropshipping.com/product/women-3-pc-microfiber-hair-towel-wrap-ultra-absorbent-hair-turbans-for-curly--long-%26-thick-hair-blue-grey-pink-p-1989262481651838977.html",
+    cjProductId: "1989262481651838977",
   },
   {
     id: "universal-diffuser",
@@ -284,6 +289,8 @@ export const products: Product[] = [
     whyItWorks: "Electric vibration increases blood flow to hair follicles more consistently than manual massage. Waterproof design means you can use it during shampoo — product distribution and stimulation in one step.",
     image: "/products/electric-scalp-massager.webp",
     cjSearchKeyword: "electric scalp massager waterproof USB",
+    cjSourceUrl: "https://cjdropshipping.com/product/electric-scalp-massager-rechargeable-head-massager-waterproof-portable-p-2000946157629644802.html",
+    cjProductId: "2000946157629644802",
   },
   {
     id: "scalp-massager",
@@ -359,6 +366,8 @@ export const products: Product[] = [
     image: "/products/led-therapy-mask.webp",
 
     cjSearchKeyword: "LED therapy face mask 7 color",
+    cjSourceUrl: "https://cjdropshipping.com/product/7-color-led-mask-red-light-therapy-skin-rejuvenation-massager-beauty-home-skin-face-whitening-anti-aging-spa-device-p-1404365861178970112.html",
+    cjProductId: "1404365861178970112",
   },
   {
     id: "gua-sha-tool",
@@ -374,6 +383,8 @@ export const products: Product[] = [
     image: "/products/gua-sha-tool.webp",
 
     cjSearchKeyword: "rose quartz gua sha facial tool",
+    cjSourceUrl: "https://cjdropshipping.com/product/gua-sha-equipment-p-36D405C0-C84A-4311-B9C1-080631FF623B.html",
+    cjProductId: "36D405C0-C84A-4311-B9C1-080631FF623B",
   },
   {
     id: "gua-sha-jade",
@@ -389,6 +400,8 @@ export const products: Product[] = [
     image: "/products/gua-sha-jade.webp",
 
     cjSearchKeyword: "jade gua sha facial scraping tool",
+    cjSourceUrl: "https://cjdropshipping.com/product/gua-sha-equipment-p-36D405C0-C84A-4311-B9C1-080631FF623B.html",
+    cjProductId: "36D405C0-C84A-4311-B9C1-080631FF623B",
   },
   {
     id: "rose-quartz-roller",
@@ -434,6 +447,8 @@ export const products: Product[] = [
     image: "/products/ice-roller.webp",
 
     cjSearchKeyword: "ice roller face 2 pack silicone",
+    cjSourceUrl: "https://cjdropshipping.com/product/silicone-ice-face-roller-contour-shrink-pores-remove-dark-circles-massage-skin-beauty-facial-roller-for-eyes-neck-skin-care-tool-p-1764139609648271360.html",
+    cjProductId: "1764139609648271360",
   },
   {
     id: "derma-roller",
@@ -463,6 +478,8 @@ export const products: Product[] = [
     whyItWorks: "Abrasive scrubs create micro-tears that trigger inflammation and PIH on dark skin. Soft silicone nubs lift dirt and dead skin gently — clean pores without the damage.",
     image: "/products/silicone-face-scrubber.webp",
     cjSearchKeyword: "silicone facial cleansing brush manual",
+    cjSourceUrl: "https://cjdropshipping.com/product/silicone-face-brush-p-FC32D191-0B41-46C8-95CC-6C8BAC483096.html",
+    cjProductId: "FC32D191-0B41-46C8-95CC-6C8BAC483096",
   },
   {
     id: "heated-eye-massager",
@@ -478,6 +495,8 @@ export const products: Product[] = [
     image: "/products/heated-eye-massager.webp",
 
     cjSearchKeyword: "heated eye massager vibration dark circles",
+    cjSourceUrl: "https://cjdropshipping.com/product/bluetooth-music-eye-massager-air-pressure-hot-compress-dark-circles-eye-care-p-F3402E0C-EB11-4C4C-83BE-4EA19B02F790.html",
+    cjProductId: "F3402E0C-EB11-4C4C-83BE-4EA19B02F790",
   },
   {
     id: "ultrasonic-spatula",
@@ -553,6 +572,8 @@ export const products: Product[] = [
     image: "/products/microcurrent-device.webp",
 
     cjSearchKeyword: "microcurrent face lift device home use",
+    cjSourceUrl: "https://cjdropshipping.com/product/ems-microcurrent-neck-face-beauty-device-with-3-colors-led-photon-therapy-skin-tighten-reduce-double-chin-face-lifting-devices-p-1458715610648285184.html",
+    cjProductId: "1458715610648285184",
   },
   {
     id: "t-bar-massager",
