@@ -20,9 +20,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  if (!process.env.CJ_EMAIL || !process.env.CJ_API_KEY) {
+  if (!process.env.CJ_API_KEY) {
     return NextResponse.json(
-      { error: "CJ_EMAIL and CJ_API_KEY must be set" },
+      { error: "CJ_API_KEY must be set" },
       { status: 500 }
     );
   }

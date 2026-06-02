@@ -273,7 +273,7 @@ export async function POST(req: NextRequest) {
 
     // ── AUTO-PURCHASE from CJ Dropshipping ──────────────────────────────────
     const isProductOrder = session.metadata?.type === "products";
-    const hasCjCredentials = process.env.CJ_EMAIL && process.env.CJ_API_KEY;
+    const hasCjCredentials = !!process.env.CJ_API_KEY;
 
     if (isProductOrder && hasCjCredentials && res.ok) {
       try {

@@ -2,13 +2,12 @@ const CJ_BASE_URL = "https://developers.cjdropshipping.com/api2.0/v1";
 
 let cachedToken: { token: string; expiresAt: number } | null = null;
 
-function getCjCredentials() {
-  const email = process.env.CJ_EMAIL;
+function getCjApiKey(): string {
   const apiKey = process.env.CJ_API_KEY;
-  if (!email || !apiKey) {
-    throw new Error("Missing CJ_EMAIL or CJ_API_KEY environment variables");
+  if (!apiKey) {
+    throw new Error("Missing CJ_API_KEY environment variable");
   }
-  return { email, apiKey };
+  return apiKey;
 }
 
 async function cjFetch<T>(
@@ -43,12 +42,12 @@ export async function getAccessToken(): Promise<string> {
     return cachedToken.token;
   }
 
-  const { email, apiKey } = getCjCredentials();
+  const apiKey = getCjApiKey();
 
   const res = await fetch(`${CJ_BASE_URL}/authentication/getAccessToken`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password: apiKey }),
+    body: JSON.stringify({ apiKey }),
   });
 
   if (!res.ok) {
@@ -57,7 +56,7 @@ export async function getAccessToken(): Promise<string> {
 
   const json = (await res.json()) as {
     code: number;
-    data: { accessToken: string; accessTokenExpiryDate: string };
+    data: { accessToken: string; refreshToken: string; accessTokenExpiryDate: string };
   };
 
   if (json.code !== 200 || !json.data?.accessToken) {
@@ -66,7 +65,7 @@ export async function getAccessToken(): Promise<string> {
 
   cachedToken = {
     token: json.data.accessToken,
-    expiresAt: Date.now() + 10 * 60 * 60 * 1000, // 10h (token lasts 12h, refresh early)
+    expiresAt: Date.now() + 14 * 24 * 60 * 60 * 1000, // 14 days (token lasts 15 days, refresh early)
   };
 
   return cachedToken.token;
