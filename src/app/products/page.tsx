@@ -6,7 +6,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
-import { products, bundles, type AccessoryCategory } from "@/data/products";
+import { products, type AccessoryCategory } from "@/data/products";
 
 type TopFilter = "all" | AccessoryCategory;
 
@@ -37,32 +37,6 @@ const CATEGORY_META: Record<AccessoryCategory, { title: string; desc: string; ey
     color: "#3F6B52",
   },
 };
-
-function BundleCard({ bundle }: { bundle: typeof bundles[number] }) {
-  return (
-    <div className="rounded-2xl p-6 md:p-8 flex flex-col gap-4 bg-[#F7F5F0] border border-[rgba(26,15,8,0.06)]">
-      <div>
-        <h3 className="font-display text-base md:text-lg font-bold text-[#2D1B0E] mb-1">{bundle.name}</h3>
-        <p className="font-body text-[13px] text-[#6B5040] leading-relaxed">{bundle.description}</p>
-      </div>
-      <div className="flex items-end justify-between mt-auto">
-        <div>
-          <div className="font-display text-xl md:text-2xl font-bold text-[#2D1B0E]">${bundle.price}</div>
-          <div className="font-body text-[12px] text-[#9E8C7A]">
-            <span className="line-through">${bundle.originalPrice}</span>
-            <span className="ml-1.5 font-semibold text-[#2D1B0E]">Save ${bundle.savings}</span>
-          </div>
-        </div>
-        <Link
-          href="/products"
-          className="font-body text-[11px] font-semibold tracking-[1.5px] uppercase text-[#2D1B0E] border-b border-[#2D1B0E] pb-0.5 hover:opacity-60 transition-opacity"
-        >
-          Add to bag
-        </Link>
-      </div>
-    </div>
-  );
-}
 
 function ProductsPageInner() {
   const searchParams = useSearchParams();
@@ -189,30 +163,6 @@ function ProductsPageInner() {
               </div>
             )
           )}
-        </div>
-
-        {/* Bundles */}
-        <div className="border-t border-[rgba(26,15,8,0.06)] bg-[#FDFCF8]">
-          <div className="max-w-[1400px] mx-auto px-6 md:px-8 py-14">
-            <div className="flex items-baseline justify-between mb-6">
-              <div>
-                <p className="font-body text-[11px] font-semibold tracking-[3px] uppercase text-[#9E8C7A] mb-1">
-                  Save more
-                </p>
-                <h2 className="font-display text-[1.25rem] md:text-[1.5rem] font-bold text-[#2D1B0E] tracking-[-0.02em]">
-                  Starter bundles
-                </h2>
-              </div>
-              <span className="font-body text-[12px] text-[#9E8C7A] hidden sm:block">
-                {bundles.length} bundles
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-              {bundles.map((b) => (
-                <BundleCard key={b.id} bundle={b} />
-              ))}
-            </div>
-          </div>
         </div>
 
         {/* App CTA */}
