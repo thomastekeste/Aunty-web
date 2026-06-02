@@ -61,6 +61,9 @@ export async function POST(req: NextRequest) {
         payment_method_types: ["card"],
         customer_email: email || undefined,
         line_items: lineItems,
+        shipping_address_collection: {
+          allowed_countries: ["US", "CA", "GB", "AU", "DE", "FR", "NL", "SE", "NO", "DK", "IE", "NZ"],
+        },
         metadata: {
           type: "products",
           productIds: cart.map((c) => c.productId).join(","),

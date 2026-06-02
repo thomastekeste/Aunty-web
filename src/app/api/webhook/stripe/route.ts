@@ -2,9 +2,51 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { Resend } from "resend";
+import { createOrder, type CJOrderRequest, type CJShippingAddress } from "@/lib/cj";
 
-// Required so Next.js doesn't parse the body — Stripe needs the raw bytes
 export const runtime = "nodejs";
+
+async function getCjMapping(productId: string): Promise<{ cj_product_id: string; cj_variant_id: string } | null> {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return null;
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/cj_product_mappings?product_id=eq.${encodeURIComponent(productId)}&select=cj_product_id,cj_variant_id`,
+    {
+      headers: {
+        apikey: process.env.SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+      },
+    }
+  );
+
+  if (!res.ok) return null;
+  const rows = await res.json();
+  if (!rows.length || !rows[0].cj_variant_id) return null;
+  return rows[0];
+}
+
+async function saveCjOrder(stripeSessionId: string, cjOrderId: string, cjOrderNumber: string) {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return;
+
+  await fetch(
+    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/cj_orders`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: process.env.SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({
+        stripe_session_id: stripeSessionId,
+        cj_order_id: cjOrderId,
+        cj_order_number: cjOrderNumber,
+        status: "pending",
+      }),
+    }
+  ).catch((err) => console.error("Failed to save CJ order:", err));
+}
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -59,10 +101,8 @@ export async function POST(req: NextRequest) {
     );
 
     if (!res.ok && res.status !== 409) {
-      // 409 = duplicate (already recorded via idempotency), safe to ignore
       const text = await res.text();
       console.error("Supabase insert failed:", res.status, text);
-      // Return 500 so Stripe retries — do NOT silently swallow data loss
       return NextResponse.json({ error: "Order recording failed" }, { status: 500 });
     }
 
@@ -91,6 +131,62 @@ export async function POST(req: NextRequest) {
           </div>
         `,
       }).catch((err: unknown) => console.error("Failed to send confirmation email:", err));
+    }
+
+    // ── CJ Dropshipping order fulfillment ───────────────────────────────────
+    const isProductOrder = session.metadata?.type === "products";
+    const hasCjCredentials = process.env.CJ_EMAIL && process.env.CJ_API_KEY;
+
+    if (isProductOrder && hasCjCredentials && res.ok) {
+      try {
+        const productIds = (session.metadata?.productIds ?? "").split(",").filter(Boolean);
+        const shipping = session.customer_details;
+
+        if (productIds.length > 0 && shipping?.address) {
+          const cjItems: { vid: string; quantity: number }[] = [];
+
+          // Use productIds from metadata + default qty 1 (metadata tracks the product list)
+          for (const productId of productIds) {
+            const mapping = await getCjMapping(productId);
+            if (mapping?.cj_variant_id) {
+              cjItems.push({
+                vid: mapping.cj_variant_id,
+                quantity: 1,
+              });
+            }
+          }
+
+          if (cjItems.length > 0) {
+            const addr = shipping.address!;
+            const nameParts = (shipping.name ?? "Customer").split(" ");
+            const lastName = nameParts.slice(1).join(" ");
+            const cjAddress: CJShippingAddress = {
+              firstName: nameParts[0] ?? "",
+              lastName: lastName ? lastName : (nameParts[0] ?? ""),
+              phone: shipping.phone ?? "",
+              email,
+              country: addr.country ?? "US",
+              province: addr.state ?? "",
+              city: addr.city ?? "",
+              address: [addr.line1, addr.line2].filter(Boolean).join(", "),
+              zip: addr.postal_code ?? "",
+            };
+
+            const cjOrder: CJOrderRequest = {
+              orderNumber: stripeSessionId,
+              shippingAddress: cjAddress,
+              products: cjItems,
+            };
+
+            const cjResult = await createOrder(cjOrder);
+            await saveCjOrder(stripeSessionId, cjResult.orderId, cjResult.orderNumber);
+            console.log(`CJ order created: ${cjResult.orderId} for Stripe session ${stripeSessionId}`);
+          }
+        }
+      } catch (cjErr) {
+        // Log but don't fail the webhook — the payment was already recorded
+        console.error("CJ order creation failed:", cjErr);
+      }
     }
   }
 
