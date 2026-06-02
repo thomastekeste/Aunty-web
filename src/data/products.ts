@@ -346,6 +346,8 @@ export const products: Product[] = [
     whyItWorks: "Hand-braiding takes hours and wrecks your wrists. This device auto-twists three strands into clean, even braids at the push of a button — same tension every time, no fatigue.",
     image: "/products/electric-braider.webp",
     cjSearchKeyword: "automatic electric hair braiding tool machine twist",
+    cjSourceUrl: "https://cjdropshipping.com/product/automatic-hair-braider-hair-twister-usb-electric-braiding-machine-diy-magic-roller-styling-tool-styler-bun-maker-p-44A35EBA-6CD2-4BC2-AD9E-CFB2A7AF4563.html",
+    cjProductId: "44A35EBA-6CD2-4BC2-AD9E-CFB2A7AF4563",
   },
   {
     id: "tie-dye-bonnet-2pack",
