@@ -14,22 +14,22 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://auntycurlcouncil.co
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   icons: { icon: "/logo.png", apple: "/logo.png" },
-  title: "Aunty Council — Hair & Skin, Aunty Curated",
+  title: "Aunty Council — Accessories for Textured Hair & Melanin-Rich Skin",
   description:
-    "The marketplace for textured hair and melanin-rich skin. Curated accessories and vetted products from brands that actually understand your texture.",
+    "Curated accessories for textured hair and melanin-rich skin — bonnets, tools, and skincare devices from brands that understand your texture.",
   openGraph: {
-    title: "Aunty Council — Hair & Skin, Aunty Curated",
+    title: "Aunty Council — Accessories for Textured Hair & Melanin-Rich Skin",
     description:
-      "The marketplace for textured hair and melanin-rich skin. Curated accessories and vetted products from trusted brands.",
+      "Curated accessories for textured hair and melanin-rich skin — bonnets, tools, and skincare devices from brands that understand your texture.",
     type: "website",
     url: siteUrl,
     siteName: "Aunty Council",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aunty Council — Hair & Skin, Aunty Curated",
+    title: "Aunty Council — Accessories for Textured Hair & Melanin-Rich Skin",
     description:
-      "The marketplace for textured hair and melanin-rich skin. Curated accessories and vetted products from trusted brands.",
+      "Curated accessories for textured hair and melanin-rich skin — bonnets, tools, and skincare devices from brands that understand your texture.",
   },
 };
 
@@ -40,7 +40,7 @@ const jsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   description:
-    "A curated marketplace of hair and skin products — each one recommended by an aunty who knows your texture.",
+    "Curated accessories for textured hair and melanin-rich skin — bonnets, tools, and skincare devices.",
   contactPoint: {
     "@type": "ContactPoint",
     email: "hello@auntycurlcouncil.com",

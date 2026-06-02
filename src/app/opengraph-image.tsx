@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Aunty Council — Hair & Skin, Aunty Curated";
+export const alt = "Aunty Council — Accessories for Textured Hair & Melanin-Rich Skin";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -54,7 +54,7 @@ export default function OGImage() {
             textAlign: "center",
           }}
         >
-          Hair &amp; Skin, Aunty Curated
+          Accessories for Textured Hair &amp; Melanin-Rich Skin
         </div>
 
         {/* Decorative divider */}

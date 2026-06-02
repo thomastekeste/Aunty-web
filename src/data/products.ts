@@ -1,6 +1,4 @@
-// ── Accessories-only product catalog (dropship store) ────────────────────────
-// Hair & skin care product recommendations are now affiliate-based — see affiliate-products.ts
-// Product data sourced from CJ Dropshipping catalog — see aunty_council_product_catalog.xlsx
+// ── Accessories-only product catalog (dropship via CJ Dropshipping) ──────────
 
 export type AccessoryCategory = "sleep" | "tools" | "devices";
 export type ProductType =
