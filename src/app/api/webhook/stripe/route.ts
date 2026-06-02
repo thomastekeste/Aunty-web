@@ -78,6 +78,59 @@ async function getCjVariantId(productId: string): Promise<string | null> {
   return null;
 }
 
+/** Claim one unused offer code from Supabase and assign it to this email */
+async function claimOfferCode(email: string): Promise<string | null> {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return null;
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const headers = {
+    "Content-Type": "application/json",
+    apikey: serviceKey,
+    Authorization: `Bearer ${serviceKey}`,
+  };
+
+  try {
+    // Grab one unused code (oldest first)
+    const fetchRes = await fetch(
+      `${supabaseUrl}/rest/v1/offer_codes?used=eq.false&order=id.asc&limit=1&select=id,code`,
+      { headers }
+    );
+    if (!fetchRes.ok) return null;
+    const rows = await fetchRes.json();
+    if (!rows.length) {
+      console.warn("Offer codes exhausted — no unused codes left");
+      return null;
+    }
+
+    const { id, code } = rows[0];
+
+    // Mark it used + assign to this email
+    const updateRes = await fetch(
+      `${supabaseUrl}/rest/v1/offer_codes?id=eq.${id}`,
+      {
+        method: "PATCH",
+        headers: { ...headers, Prefer: "return=minimal" },
+        body: JSON.stringify({
+          used: true,
+          assigned_to_email: email,
+          assigned_at: new Date().toISOString(),
+        }),
+      }
+    );
+
+    if (!updateRes.ok) {
+      console.error("Failed to mark offer code as used:", await updateRes.text());
+      return null;
+    }
+
+    return code as string;
+  } catch (err) {
+    console.error("Offer code claim failed:", err);
+    return null;
+  }
+}
+
 async function saveCjOrder(
   stripeSessionId: string,
   email: string,
@@ -169,7 +222,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Order recording failed" }, { status: 500 });
     }
 
-    // ── Send confirmation email ─────────────────────────────────────────────
+    // ── Claim an offer code + send confirmation email ─────────────────────────
     if (res.ok && email && process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const amountFormatted = new Intl.NumberFormat("en-US", {
@@ -177,10 +230,31 @@ export async function POST(req: NextRequest) {
         currency: currency.toUpperCase(),
       }).format(amountCents / 100);
 
+      // Claim a 50% off App Store offer code for this customer
+      const offerCode = await claimOfferCode(email);
+
+      const offerCodeHtml = offerCode
+        ? `
+            <div style="margin-top:28px;padding:20px 24px;background:linear-gradient(135deg,#2D1B0E 0%,#3D2A1A 100%);border-radius:16px;color:#FDFCF8;">
+              <p style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#D4A04A;margin:0 0 8px;">Free bonus with your order</p>
+              <h2 style="font-size:20px;font-weight:700;margin:0 0 6px;color:#FDFCF8;">50% off the Aunty Curl app</h2>
+              <p style="font-size:13px;color:rgba(253,252,248,0.6);margin:0 0 16px;">Daily hair coaching from 7 culturally-aware aunties — personalized to your curl type.</p>
+              <div style="background:rgba(253,252,248,0.1);border:1px dashed rgba(212,160,74,0.4);border-radius:10px;padding:12px 16px;text-align:center;">
+                <p style="font-size:10px;color:rgba(253,252,248,0.5);margin:0 0 4px;">Your offer code</p>
+                <p style="font-size:24px;font-weight:800;letter-spacing:3px;color:#D4A04A;margin:0;font-family:monospace;">${offerCode}</p>
+              </div>
+              <p style="font-size:11px;color:rgba(253,252,248,0.4);margin:12px 0 0;text-align:center;">Redeem in the App Store when you subscribe</p>
+            </div>`
+        : "";
+
+      const emailSubject = offerCode
+        ? "Your order + 50% off the Aunty Curl app 🎁"
+        : "Your Aunty Council order is confirmed!";
+
       await resend.emails.send({
         from: "Aunty Council <orders@auntycurlcouncil.com>",
         to: [email],
-        subject: "Your Aunty Council order is confirmed!",
+        subject: emailSubject,
         html: `
           <div style="font-family:sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;background:#FDFCF8;color:#2D1B0E;">
             <h1 style="font-size:22px;margin-bottom:8px;">Order confirmed ✓</h1>
@@ -190,6 +264,7 @@ export async function POST(req: NextRequest) {
               <tr><td style="font-family:monospace;font-size:13px;">${stripeSessionId}</td></tr>
             </table>
             <p style="margin-top:24px;color:#6B5040;font-size:14px;">We'll send shipping updates to this email. Reply with any questions.</p>
+            ${offerCodeHtml}
             <p style="margin-top:32px;font-size:13px;color:#9E8C7A;">With love,<br/>The Aunty Council</p>
           </div>
         `,
