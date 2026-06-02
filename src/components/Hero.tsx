@@ -84,7 +84,7 @@ function CategoryGrid() {
         {/* Footer */}
         <div className="pt-4 border-t border-[#FDFCF8]/8 flex items-center justify-between">
           <span className="font-body text-[10px] text-[#B8A795]/70">
-            68+ vetted products
+            38+ accessories
           </span>
           <span className="font-body text-[10px] font-bold tracking-[1px] uppercase text-[#C9903A]">
             Ships fast
@@ -135,7 +135,7 @@ export default function Hero() {
           </h1>
 
           <p className="font-body text-[15px] md:text-[16px] text-[#3D2B1A]/70 max-w-md leading-[1.75] mb-8">
-            Curated products from trusted brands — vetted for your texture,
+            Bonnets, tools, and skincare devices — curated for your texture,
             safe for your melanin. No guesswork, no drugstore roulette.
           </p>
 
