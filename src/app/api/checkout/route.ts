@@ -66,7 +66,8 @@ export async function POST(req: NextRequest) {
         },
         metadata: {
           type: "products",
-          productIds: cart.map((c) => c.productId).join(","),
+          // Store "id:qty,id:qty" so the webhook knows exact quantities
+          cartItems: cart.map((c) => `${c.productId}:${Math.max(1, Math.min(10, Math.floor(c.quantity ?? 1)))}`).join(","),
           email: email || "",
         },
         success_url: `${req.nextUrl.origin}/success?session_id={CHECKOUT_SESSION_ID}`,

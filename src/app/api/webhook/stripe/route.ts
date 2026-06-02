@@ -2,30 +2,89 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { Resend } from "resend";
-import { createOrder, type CJOrderRequest, type CJShippingAddress } from "@/lib/cj";
+import {
+  createOrder,
+  getProductDetail,
+  type CJOrderRequest,
+  type CJShippingAddress,
+} from "@/lib/cj";
+import { getProductById } from "@/data/products";
 
 export const runtime = "nodejs";
 
-async function getCjMapping(productId: string): Promise<{ cj_product_id: string; cj_variant_id: string } | null> {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return null;
+// ── Helpers ──────────────────────────────────────────────────────────────────
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/cj_product_mappings?product_id=eq.${encodeURIComponent(productId)}&select=cj_product_id,cj_variant_id`,
-    {
-      headers: {
-        apikey: process.env.SUPABASE_SERVICE_ROLE_KEY,
-        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
-      },
-    }
-  );
-
-  if (!res.ok) return null;
-  const rows = await res.json();
-  if (!rows.length || !rows[0].cj_variant_id) return null;
-  return rows[0];
+/** Parse "id:qty,id:qty" from Stripe metadata (new format) or "id,id" (legacy) */
+function parseCartItems(metadata: Record<string, string>): { productId: string; quantity: number }[] {
+  // New format: cartItems = "satin-bonnet:2,ice-roller:1"
+  const cartItems = metadata.cartItems;
+  if (cartItems) {
+    return cartItems.split(",").filter(Boolean).map((entry) => {
+      const [productId, qtyStr] = entry.split(":");
+      return { productId, quantity: parseInt(qtyStr, 10) || 1 };
+    });
+  }
+  // Legacy format: productIds = "satin-bonnet,ice-roller"
+  const productIds = metadata.productIds;
+  if (productIds) {
+    return productIds.split(",").filter(Boolean).map((id) => ({ productId: id, quantity: 1 }));
+  }
+  return [];
 }
 
-async function saveCjOrder(stripeSessionId: string, cjOrderId: string, cjOrderNumber: string) {
+/** Get CJ variant ID for a product — uses product data first, then CJ API lookup */
+async function getCjVariantId(productId: string): Promise<string | null> {
+  const product = getProductById(productId);
+  if (!product) return null;
+
+  // 1. Already have variant ID mapped
+  if (product.cjVariantId) return product.cjVariantId;
+
+  // 2. Have product ID — look up default variant from CJ API
+  if (product.cjProductId) {
+    try {
+      const detail = await getProductDetail(product.cjProductId);
+      if (detail.variants?.length > 0) {
+        return detail.variants[0].vid;
+      }
+    } catch (err) {
+      console.error(`CJ variant lookup failed for ${productId}:`, err);
+    }
+  }
+
+  // 3. Try Supabase mapping table as fallback
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/cj_product_mappings?product_id=eq.${encodeURIComponent(productId)}&select=cj_variant_id`,
+        {
+          headers: {
+            apikey: process.env.SUPABASE_SERVICE_ROLE_KEY,
+            Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+          },
+        }
+      );
+      if (res.ok) {
+        const rows = await res.json();
+        if (rows.length > 0 && rows[0].cj_variant_id) {
+          return rows[0].cj_variant_id;
+        }
+      }
+    } catch {
+      // Supabase table may not exist yet — that's fine
+    }
+  }
+
+  return null;
+}
+
+async function saveCjOrder(
+  stripeSessionId: string,
+  email: string,
+  cjOrderId: string,
+  cjOrderNumber: string,
+  itemCount: number
+) {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return;
 
   await fetch(
@@ -40,13 +99,17 @@ async function saveCjOrder(stripeSessionId: string, cjOrderId: string, cjOrderNu
       },
       body: JSON.stringify({
         stripe_session_id: stripeSessionId,
+        email,
         cj_order_id: cjOrderId,
         cj_order_number: cjOrderNumber,
+        item_count: itemCount,
         status: "pending",
       }),
     }
   ).catch((err) => console.error("Failed to save CJ order:", err));
 }
+
+// ── Webhook handler ──────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -79,7 +142,7 @@ export async function POST(req: NextRequest) {
     const currency = session.currency ?? "usd";
     const stripeSessionId = session.id;
 
-    // Insert into Supabase founding_orders using service role key (bypasses RLS)
+    // ── Record the order in Supabase ────────────────────────────────────────
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/founding_orders`,
       {
@@ -106,7 +169,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Order recording failed" }, { status: 500 });
     }
 
-    // Send order confirmation email via Resend (only on first insert, not 409 retries)
+    // ── Send confirmation email ─────────────────────────────────────────────
     if (res.ok && email && process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const amountFormatted = new Intl.NumberFormat("en-US", {
@@ -133,36 +196,41 @@ export async function POST(req: NextRequest) {
       }).catch((err: unknown) => console.error("Failed to send confirmation email:", err));
     }
 
-    // ── CJ Dropshipping order fulfillment ───────────────────────────────────
+    // ── AUTO-PURCHASE from CJ Dropshipping ──────────────────────────────────
     const isProductOrder = session.metadata?.type === "products";
     const hasCjCredentials = process.env.CJ_EMAIL && process.env.CJ_API_KEY;
 
     if (isProductOrder && hasCjCredentials && res.ok) {
       try {
-        const productIds = (session.metadata?.productIds ?? "").split(",").filter(Boolean);
+        const cartItems = parseCartItems(session.metadata ?? {});
         const shipping = session.customer_details;
 
-        if (productIds.length > 0 && shipping?.address) {
+        if (cartItems.length > 0 && shipping?.address) {
+          // Resolve CJ variant IDs for each cart item
           const cjItems: { vid: string; quantity: number }[] = [];
+          const skippedItems: string[] = [];
 
-          // Use productIds from metadata + default qty 1 (metadata tracks the product list)
-          for (const productId of productIds) {
-            const mapping = await getCjMapping(productId);
-            if (mapping?.cj_variant_id) {
-              cjItems.push({
-                vid: mapping.cj_variant_id,
-                quantity: 1,
-              });
+          for (const item of cartItems) {
+            const vid = await getCjVariantId(item.productId);
+            if (vid) {
+              cjItems.push({ vid, quantity: item.quantity });
+            } else {
+              skippedItems.push(item.productId);
             }
+          }
+
+          if (skippedItems.length > 0) {
+            console.warn(`CJ: skipped products without variant mapping: ${skippedItems.join(", ")}`);
           }
 
           if (cjItems.length > 0) {
             const addr = shipping.address!;
             const nameParts = (shipping.name ?? "Customer").split(" ");
             const lastName = nameParts.slice(1).join(" ");
+
             const cjAddress: CJShippingAddress = {
               firstName: nameParts[0] ?? "",
-              lastName: lastName ? lastName : (nameParts[0] ?? ""),
+              lastName: lastName || (nameParts[0] ?? ""),
               phone: shipping.phone ?? "",
               email,
               country: addr.country ?? "US",
@@ -179,13 +247,17 @@ export async function POST(req: NextRequest) {
             };
 
             const cjResult = await createOrder(cjOrder);
-            await saveCjOrder(stripeSessionId, cjResult.orderId, cjResult.orderNumber);
-            console.log(`CJ order created: ${cjResult.orderId} for Stripe session ${stripeSessionId}`);
+            await saveCjOrder(stripeSessionId, email, cjResult.orderId, cjResult.orderNumber, cjItems.length);
+
+            console.log(
+              `CJ auto-purchase: order ${cjResult.orderId} created for ${cjItems.length} items ` +
+              `(${skippedItems.length} skipped) — Stripe session ${stripeSessionId}`
+            );
           }
         }
       } catch (cjErr) {
         // Log but don't fail the webhook — the payment was already recorded
-        console.error("CJ order creation failed:", cjErr);
+        console.error("CJ auto-purchase failed:", cjErr);
       }
     }
   }
