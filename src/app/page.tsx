@@ -16,13 +16,13 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <Hero />
-      <TrustBand />
       {!isLive && (
         <div id="waitlist">
           <WaitlistBanner />
         </div>
       )}
+      {isLive && <Hero />}
+      <TrustBand />
       <ProductFeature />
       <Manifesto />
       <PhotoBreak />
