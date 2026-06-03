@@ -1,8 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import AuntyPortrait from "@/components/AuntyPortrait";
+import { aunties } from "@/data/aunties";
 
 type Status = "idle" | "loading" | "success" | "error";
+
+const STACK_IDS = ["ngozi", "marcia", "denise", "fatou", "carmen", "senayt", "salma"];
 
 export default function WaitlistSection() {
   const [email, setEmail] = useState("");
@@ -26,7 +30,6 @@ export default function WaitlistSection() {
         body: JSON.stringify({ email: trimmed }),
       });
       if (res.ok || res.status === 409) {
-        // Treat "already on the list" as success
         setStatus("success");
       } else {
         const data = (await res.json().catch(() => null)) as { error?: string } | null;
@@ -39,10 +42,12 @@ export default function WaitlistSection() {
     }
   }
 
+  const ngozi = aunties.find((a) => a.id === "ngozi")!;
+
   return (
     <section
       id="waitlist"
-      className="relative overflow-hidden bg-[#1A0F08]"
+      className="relative overflow-hidden bg-[#F3E9DD]"
       style={{ borderTop: "1px solid rgba(201,144,58,0.35)" }}
     >
       {/* Gold gradient top edge */}
@@ -51,42 +56,58 @@ export default function WaitlistSection() {
         style={{ background: "linear-gradient(90deg, transparent, #C9903A, transparent)" }}
         aria-hidden
       />
-      {/* Subtle dot texture */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(#FDFCF8 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
-        aria-hidden
-      />
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full opacity-10 blur-[100px] pointer-events-none"
-        style={{ background: "radial-gradient(circle, #C9903A 0%, transparent 70%)" }}
-        aria-hidden
-      />
 
       <div className="relative max-w-[680px] mx-auto px-5 sm:px-6 py-16 md:py-20 text-center">
+
+        {/* Aunty portrait stack */}
+        <div className="flex items-center justify-center mb-6">
+          {STACK_IDS.map((id, i) => {
+            const aunty = aunties.find((a) => a.id === id);
+            return (
+              <div
+                key={id}
+                className={`relative rounded-full border-[2.5px] border-[#F3E9DD] shadow-sm ${
+                  i >= 5 ? "hidden sm:block" : ""
+                }`}
+                style={{
+                  marginLeft: i === 0 ? 0 : -10,
+                  zIndex: STACK_IDS.length - i,
+                }}
+              >
+                <AuntyPortrait auntyId={id} size={60} bg={aunty?.bg ?? "#F5EBD5"} />
+              </div>
+            );
+          })}
+        </div>
+
         <p className="font-body text-[10px] md:text-[11px] font-bold tracking-[4px] uppercase text-[#C9903A] mb-4">
           The app is coming
         </p>
-        <h2 className="font-display text-[1.6rem] sm:text-[2rem] md:text-[2.4rem] font-bold text-[#FDFCF8] leading-[1.1] tracking-[-0.03em] mb-3">
+        <h2 className="font-display text-[1.6rem] sm:text-[2rem] md:text-[2.4rem] font-bold text-[#1A0F08] leading-[1.1] tracking-[-0.03em] mb-3">
           The aunties are almost
           <br className="sm:hidden" /> ready for you.
         </h2>
-        <p className="font-body text-[14px] md:text-[15px] text-[#9E8C7A] leading-[1.7] max-w-md mx-auto mb-8">
+        <p className="font-body text-[14px] md:text-[15px] text-[#6B5040] leading-[1.7] max-w-md mx-auto mb-8">
           Join the list and get <span className="text-[#C9903A] font-semibold">20% off your first month</span> the
           moment the app drops.
         </p>
 
         {status === "success" ? (
-          <div className="inline-flex items-center gap-2.5 px-6 py-4 rounded-2xl bg-[rgba(201,144,58,0.12)] border border-[rgba(201,144,58,0.3)]">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9903A" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-              <path d="M5 12l5 5L20 7" />
-            </svg>
-            <span className="font-body text-[14px] font-semibold text-[#FDFCF8]">
-              You&rsquo;re in 🤎 We&rsquo;ll see you at launch.
-            </span>
+          <div className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-[rgba(201,144,58,0.10)] border border-[rgba(201,144,58,0.25)]">
+            <AuntyPortrait auntyId="ngozi" size={44} bg={ngozi.bg} />
+            <div className="text-left">
+              <div className="flex items-center gap-2 mb-0.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9903A" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+                  <path d="M5 12l5 5L20 7" />
+                </svg>
+                <span className="font-body text-[14px] font-semibold text-[#1A0F08]">
+                  You&rsquo;re in 🤎
+                </span>
+              </div>
+              <p className="font-body text-[11px] text-[#6B5040]">
+                {ngozi.greeting}
+              </p>
+            </div>
           </div>
         ) : (
           <form
@@ -105,7 +126,7 @@ export default function WaitlistSection() {
               autoComplete="email"
               inputMode="email"
               required
-              className="flex-1 min-w-0 px-5 py-3.5 rounded-full bg-[rgba(253,252,248,0.06)] border border-[rgba(253,252,248,0.15)] font-body text-[14px] text-[#FDFCF8] placeholder:text-[#9E8C7A]/60 outline-none focus:border-[#C9903A] transition-colors"
+              className="flex-1 min-w-0 px-5 py-3.5 rounded-full bg-white border border-[rgba(26,15,8,0.12)] font-body text-[14px] text-[#1A0F08] placeholder:text-[#9E8C7A]/60 outline-none focus:border-[#C9903A] transition-colors"
             />
             <button
               type="submit"
@@ -123,7 +144,7 @@ export default function WaitlistSection() {
           </p>
         )}
 
-        <p className="font-body text-[11px] text-[#9E8C7A]/60 mt-5">
+        <p className="font-body text-[11px] text-[#9E8C7A] mt-5">
           No spam. One email when we launch, that&rsquo;s it.
         </p>
       </div>

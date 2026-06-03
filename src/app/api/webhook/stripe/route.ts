@@ -116,6 +116,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Order recording failed" }, { status: 500 });
     }
 
+    // ── Auto-add buyer to app waitlist ────────────────────────────────────
+    if (res.ok && email) {
+      await supabasePost("waitlist", { email }).catch(() => {});
+    }
+
     // ── CJ auto-fulfillment (product orders only) ───────────────────────────
     if (res.ok && orderType === "products") {
       const productIds = (session.metadata?.productIds ?? "").split(",").filter(Boolean);
@@ -158,8 +163,8 @@ export async function POST(req: NextRequest) {
         ? `
           <div style="margin:28px 0;padding:20px 24px;background:#FEF8EC;border:1.5px solid #D4A04A;border-radius:14px;text-align:center;">
             <p style="margin:0 0 6px;font-size:12px;color:#9E8C7A;text-transform:uppercase;letter-spacing:2px;">Your gift</p>
-            <p style="margin:0 0 12px;font-size:18px;font-weight:700;color:#1A0F08;">50% off your first month of Aunty Curl</p>
-            <p style="margin:0 0 16px;font-size:13px;color:#6B5040;">Our gift to you — half off month one. Redeem in the App Store:</p>
+            <p style="margin:0 0 12px;font-size:18px;font-weight:700;color:#1A0F08;">20% off your first month of Aunty Curl</p>
+            <p style="margin:0 0 16px;font-size:13px;color:#6B5040;">Our gift to you — 20% off month one. Redeem in the App Store:</p>
             <div style="background:#1A0F08;border-radius:10px;padding:12px 16px;display:inline-block;">
               <span style="font-family:monospace;font-size:17px;font-weight:700;color:#D4A04A;letter-spacing:2px;">${offerCode}</span>
             </div>
@@ -172,7 +177,7 @@ export async function POST(req: NextRequest) {
         from: "Aunty Council <orders@auntycurlcouncil.com>",
         to: [email],
         subject: offerCode
-          ? "Your order + 50% off your first month of Aunty Curl 🎁"
+          ? "Your order + 20% off your first month of Aunty Curl 🎁"
           : "Your Aunty Council order is confirmed!",
         html: `
           <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;background:#FDFCF8;color:#2D1B0E;">

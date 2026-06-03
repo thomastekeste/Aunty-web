@@ -1,6 +1,7 @@
 "use client";
 
 import type { Aunty } from "@/data/aunties";
+import AuntyPortrait from "@/components/AuntyPortrait";
 
 interface Props {
   aunties: Aunty[];
@@ -8,10 +9,6 @@ interface Props {
   onSelect: (aunty: Aunty) => void;
 }
 
-/**
- * Crown arc offsets — center is highest (0px), edges drop.
- * Creates a tiara/crown silhouette from 7 evenly-spaced avatars.
- */
 const CROWN_Y = [26, 13, 4, 0, 4, 13, 26];
 
 export default function AuntyCrown({ aunties, selected, onSelect }: Props) {
@@ -19,7 +16,7 @@ export default function AuntyCrown({ aunties, selected, onSelect }: Props) {
     <div className="relative">
       {/* ── Crown SVG arc (decorative) ────────────────────────────── */}
       <svg
-        className="absolute left-1/2 -translate-x-1/2 bottom-[42px] md:bottom-[50px] w-[85%] md:w-[70%] h-[50px] pointer-events-none opacity-[0.12]"
+        className="absolute left-1/2 -translate-x-1/2 bottom-[42px] md:bottom-[50px] w-[85%] md:w-[70%] h-[50px] pointer-events-none opacity-[0.18]"
         viewBox="0 0 700 50"
         fill="none"
         preserveAspectRatio="none"
@@ -47,28 +44,29 @@ export default function AuntyCrown({ aunties, selected, onSelect }: Props) {
                 transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
               }}
             >
-              {/* Avatar */}
+              {/* Portrait */}
               <div
-                className="relative w-10 h-10 sm:w-14 sm:h-14 md:w-[68px] md:h-[68px] rounded-full flex items-center justify-center font-bold transition-all duration-400"
+                className="relative rounded-full transition-all duration-400"
                 style={{
-                  fontSize: isActive ? "1.2rem" : "1rem",
-                  backgroundColor: aunty.color + (isActive ? "28" : "12"),
-                  color: aunty.color,
-                  border: `2px solid ${aunty.color}${isActive ? "90" : "25"}`,
+                  border: `2.5px solid ${aunty.color}${isActive ? "90" : "25"}`,
                   boxShadow: isActive
-                    ? `0 0 0 3px ${aunty.color}20, 0 0 24px ${aunty.color}30, 0 4px 12px ${aunty.color}15`
+                    ? `0 0 0 3px ${aunty.color}20, 0 0 24px ${aunty.color}25, 0 4px 12px ${aunty.color}10`
                     : "none",
                   transform: isActive ? "scale(1.12)" : "scale(1)",
                   transition:
                     "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                 }}
               >
-                {aunty.name[0]}
+                <AuntyPortrait
+                  auntyId={aunty.id}
+                  size={68}
+                  bg={aunty.bg}
+                />
 
                 {/* Online dot */}
                 {isActive && (
                   <span
-                    className="absolute -bottom-0.5 -right-0.5 w-3 h-3 md:w-3.5 md:h-3.5 rounded-full border-2 border-[#1A0F08] animate-pulse"
+                    className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-[#F3E9DD] animate-pulse"
                     style={{ backgroundColor: aunty.color }}
                   />
                 )}
@@ -78,7 +76,7 @@ export default function AuntyCrown({ aunties, selected, onSelect }: Props) {
               <span
                 className="font-body text-[10px] sm:text-[11px] md:text-[12px] tracking-wide transition-all duration-300 whitespace-nowrap"
                 style={{
-                  color: isActive ? "#FDFCF8" : "#9E8C7A",
+                  color: isActive ? "#1A0F08" : "#9E8C7A",
                   fontWeight: isActive ? 700 : 400,
                 }}
               >

@@ -2,10 +2,14 @@
 
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
+import AuntyPortrait from "@/components/AuntyPortrait";
 import { products } from "@/data/products";
+import { aunties } from "@/data/aunties";
 
 /** Featured picks — one strong seller per category, then fill */
 const FEATURED_IDS = ["satin-bonnet", "silk-pillowcase", "silky-durag", "satin-scrunchie-pack"];
+
+const COUNCIL_IDS = ["ngozi", "carmen", "salma"];
 
 export default function ShopSection() {
   const featured = FEATURED_IDS
@@ -20,6 +24,30 @@ export default function ShopSection() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-7 md:mb-10">
           <div>
+            {/* Aunty curation strip */}
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="flex items-center">
+                {COUNCIL_IDS.map((id, i) => {
+                  const aunty = aunties.find((a) => a.id === id);
+                  return (
+                    <div
+                      key={id}
+                      className="relative rounded-full border-[2px] border-[#FDFCF8] shadow-sm"
+                      style={{
+                        marginLeft: i === 0 ? 0 : -8,
+                        zIndex: COUNCIL_IDS.length - i,
+                      }}
+                    >
+                      <AuntyPortrait auntyId={id} size={36} bg={aunty?.bg ?? "#F5EBD5"} />
+                    </div>
+                  );
+                })}
+              </div>
+              <span className="font-body text-[11px] text-[#6B5040] tracking-[0.5px]">
+                Curated by the Aunty Council
+              </span>
+            </div>
+
             <p className="font-body text-[10px] md:text-[11px] font-bold tracking-[4px] uppercase text-[#C9903A] mb-3">
               Shop now — ships today
             </p>

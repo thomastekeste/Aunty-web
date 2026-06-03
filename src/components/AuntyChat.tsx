@@ -30,12 +30,10 @@ export default function AuntyChat({ aunty }: Props) {
     ],
   });
 
-  // Local input state (v6 doesn't expose input/handleInputChange)
   const inputRef = useRef<HTMLInputElement>(null);
 
   const isStreaming = status === "streaming" || status === "submitted";
 
-  // Auto-scroll to newest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isStreaming]);
@@ -57,9 +55,9 @@ export default function AuntyChat({ aunty }: Props) {
   );
 
   return (
-    <div className="bg-[#FDFCF8]/[0.02] border border-[#FDFCF8]/8 rounded-2xl md:rounded-3xl overflow-hidden max-w-2xl mx-auto backdrop-blur-sm">
+    <div className="bg-white/60 border border-[rgba(26,15,8,0.08)] rounded-2xl md:rounded-3xl overflow-hidden max-w-2xl mx-auto backdrop-blur-sm shadow-sm">
       {/* ── Chat header ──────────────────────────────────────────────── */}
-      <div className="px-5 py-4 border-b border-[#FDFCF8]/8 flex items-center gap-3">
+      <div className="px-5 py-4 border-b border-[rgba(26,15,8,0.06)] flex items-center gap-3">
         <div
           className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
           style={{ backgroundColor: aunty.color + "25", color: aunty.color }}
@@ -67,7 +65,7 @@ export default function AuntyChat({ aunty }: Props) {
           {aunty.name[0]}
         </div>
         <div className="min-w-0">
-          <p className="font-display text-[14px] font-bold text-[#FDFCF8] truncate">
+          <p className="font-display text-[14px] font-bold text-[#1A0F08] truncate">
             {aunty.name}
           </p>
           <p className="font-body text-[11px] text-[#9E8C7A]">
@@ -111,8 +109,8 @@ export default function AuntyChat({ aunty }: Props) {
               <div
                 className={`max-w-[82%] px-4 py-2.5 font-body text-[14px] leading-[1.65] ${
                   isUser
-                    ? "bg-[#C9903A]/15 text-[#FDFCF8] rounded-2xl rounded-br-md"
-                    : "bg-[#FDFCF8]/[0.05] text-[#FDFCF8]/90 rounded-2xl rounded-bl-md"
+                    ? "bg-[#C9903A]/12 text-[#1A0F08] rounded-2xl rounded-br-md"
+                    : "bg-[#F3E9DD]/60 text-[#2D1B0E] rounded-2xl rounded-bl-md"
                 }`}
                 style={
                   !isUser
@@ -139,7 +137,7 @@ export default function AuntyChat({ aunty }: Props) {
               {aunty.name[0]}
             </div>
             <div
-              className="px-4 py-3 rounded-2xl rounded-bl-md bg-[#FDFCF8]/[0.05]"
+              className="px-4 py-3 rounded-2xl rounded-bl-md bg-[#F3E9DD]/60"
               style={{ borderLeft: `2px solid ${aunty.color}35` }}
             >
               <div className="flex gap-1">
@@ -163,7 +161,7 @@ export default function AuntyChat({ aunty }: Props) {
         {/* Error state */}
         {error && (
           <div className="flex justify-center">
-            <p className="font-body text-[13px] text-red-400/80 bg-red-400/10 px-4 py-2 rounded-xl">
+            <p className="font-body text-[13px] text-red-600/80 bg-red-500/10 px-4 py-2 rounded-xl">
               {error.message.includes("429")
                 ? "Too many messages — give aunty a moment to breathe."
                 : "Something went wrong. Try sending again."}
@@ -177,22 +175,21 @@ export default function AuntyChat({ aunty }: Props) {
       {/* ── Input ────────────────────────────────────────────────────── */}
       <form
         onSubmit={handleSubmit}
-        className="px-4 md:px-5 py-3 md:py-4 border-t border-[#FDFCF8]/8 flex gap-2 md:gap-3"
+        className="px-4 md:px-5 py-3 md:py-4 border-t border-[rgba(26,15,8,0.06)] flex gap-2 md:gap-3"
       >
         <input
           ref={inputRef}
           placeholder={`Ask ${aunty.name} about hair & skin...`}
-          className="flex-1 min-w-0 bg-[#FDFCF8]/[0.05] border border-[#FDFCF8]/10 rounded-xl px-4 py-2.5 md:py-3 font-body text-[14px] text-[#FDFCF8] placeholder:text-[#9E8C7A]/50 focus:outline-none focus:border-[#C9903A]/40 focus:bg-[#FDFCF8]/[0.06] transition-all duration-200"
+          className="flex-1 min-w-0 bg-white border border-[rgba(26,15,8,0.10)] rounded-xl px-4 py-2.5 md:py-3 font-body text-[14px] text-[#1A0F08] placeholder:text-[#9E8C7A]/50 focus:outline-none focus:border-[#C9903A]/40 transition-all duration-200"
           disabled={isStreaming}
           autoComplete="off"
         />
         <button
           type="submit"
           disabled={isStreaming}
-          className="shrink-0 px-4 md:px-5 py-2.5 md:py-3 rounded-xl bg-[#C9903A] text-[#1A0F08] font-body text-[12px] md:text-[13px] font-bold tracking-[0.5px] uppercase hover:bg-[#E8C87A] active:scale-[0.97] transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[#C9903A]"
+          className="shrink-0 px-4 md:px-5 py-2.5 md:py-3 rounded-xl bg-[#C9903A] text-[#1A0F08] font-body text-[12px] md:text-[13px] font-bold tracking-[0.5px] uppercase hover:bg-[#D4A04A] active:scale-[0.97] transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[#C9903A]"
         >
           <span className="hidden md:inline">Send</span>
-          {/* Arrow icon on mobile */}
           <svg
             className="md:hidden w-4 h-4"
             viewBox="0 0 24 24"
