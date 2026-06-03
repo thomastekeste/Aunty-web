@@ -45,6 +45,19 @@ export default function WaitlistBanner() {
               <WaitlistForm source="hero" variant="light" />
             </div>
 
+            {/* Trust line — app recommends any brand, not just ours */}
+            <div className="flex items-start gap-2 mt-4 max-w-md">
+              <svg
+                width="15" height="15" viewBox="0 0 24 24" fill="none"
+                className="text-[#1A7A4A] mt-0.5 flex-shrink-0"
+              >
+                <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <p className="font-body text-[13px] text-[#3D2B1A]/70 leading-snug">
+                Unbiased picks from <span className="font-semibold text-[#1A0F08]">every brand</span> — not just the ones we sell.
+              </p>
+            </div>
+
             {/* Interactive hint — points to the phone on the right */}
             <div className="hidden md:flex items-center gap-2 mt-8">
               <span className="font-body text-[12px] font-semibold tracking-[0.5px] text-[#6B5040]">
