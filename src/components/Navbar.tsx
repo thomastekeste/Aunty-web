@@ -90,12 +90,15 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Logo — sits inside a tall navbar band */}
+      {/* Logo — inside the navbar, hides with it on scroll */}
       <Link
         href="/"
         onClick={close}
-        className="fixed left-4 md:left-6 z-[60] pointer-events-auto flex items-center"
-        style={{ top: 0, height: "112px" }}
+        className="fixed left-4 md:left-6 z-[60] pointer-events-auto flex items-center transition-all duration-300"
+        style={{
+          top: hidden && !hovered && !menuOpen ? "-120px" : "0px",
+          height: "112px",
+        }}
       >
         <Image
           src="/logo.png"
