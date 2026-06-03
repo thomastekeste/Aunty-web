@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TrustBand from "@/components/TrustBand";
+import MeetTheCouncil from "@/components/MeetTheCouncil";
 import WaitlistBanner from "@/components/WaitlistBanner";
 import Manifesto from "@/components/Manifesto";
 import ProductFeature from "@/components/ProductFeature";
@@ -23,6 +24,7 @@ export default function Home() {
       )}
       {isLive && <Hero />}
       <TrustBand />
+      <MeetTheCouncil />
       <ProductFeature />
       <Manifesto />
       <PhotoBreak />
