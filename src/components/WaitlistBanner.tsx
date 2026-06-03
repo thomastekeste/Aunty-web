@@ -20,9 +20,9 @@ export default function WaitlistBanner() {
       />
 
       <div className="relative w-full max-w-[1300px] mx-auto px-6 md:px-10 pb-12 md:pb-16">
-        <div className="grid md:grid-cols-[1fr_auto] gap-8 md:gap-14 items-center">
+        <div className="grid md:grid-cols-[1fr_auto] gap-8 md:gap-14 items-start">
           {/* ── Left: email capture ── */}
-          <div>
+          <div className="md:pt-6">
             <p className="font-body text-[11px] font-bold tracking-[3px] uppercase text-[#D4A04A] mb-4">
               Coming soon
             </p>
