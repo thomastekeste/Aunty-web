@@ -11,7 +11,7 @@ export default function WaitlistBanner() {
   if (isLive) return null;
 
   return (
-    <section className="relative bg-[#FDFCF8] overflow-hidden pt-[112px] min-h-[85svh] flex items-center">
+    <section className="relative bg-[#FDFCF8] overflow-hidden">
       {/* Gold glow — subtle */}
       <div
         className="absolute top-[-10%] right-[10%] w-[500px] h-[500px] opacity-[0.08] blur-[140px] pointer-events-none"
@@ -19,8 +19,8 @@ export default function WaitlistBanner() {
         aria-hidden
       />
 
-      <div className="relative w-full max-w-[1300px] mx-auto px-6 md:px-10 py-12 md:py-16">
-        <div className="grid md:grid-cols-[1fr_auto] gap-10 md:gap-14 items-center">
+      <div className="relative w-full max-w-[1300px] mx-auto px-6 md:px-10 pb-12 md:pb-16">
+        <div className="grid md:grid-cols-[1fr_auto] gap-8 md:gap-14 items-center">
           {/* ── Left: email capture ── */}
           <div>
             <p className="font-body text-[11px] font-bold tracking-[3px] uppercase text-[#D4A04A] mb-4">
