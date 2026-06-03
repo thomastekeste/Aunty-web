@@ -15,27 +15,30 @@ interface Stat {
 }
 
 const STATS: Stat[] = [
-  { value: 38, suffix: "+", label: "Accessories" },
+  { value: 28, suffix: "+", label: "Accessories" },
   { value: 3, label: "Categories" },
   { value: 7, label: "Shipping days", suffix: "–14" },
-  { value: 50, suffix: "%+", label: "Margins saved" },
+  { value: 40, suffix: "%+", label: "Avg. margin" },
 ];
 
 
-function CountUp({ end, decimals = 0, duration = 1600 }: { end: number; decimals?: number; duration?: number }) {
-  const [val, setVal] = useState(0);
+function CountUp({ end, decimals = 0, duration = 1400 }: { end: number; decimals?: number; duration?: number }) {
+  // Start at the real value to avoid a "0" flash before hydration
+  const [val, setVal] = useState(end);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
 
   useEffect(() => {
+    // Reset to 0 and animate up once the component mounts
+    setVal(0);
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(([e]) => {
       if (e.isIntersecting && !started.current) {
         started.current = true;
-        const start = performance.now();
+        const startTime = performance.now();
         const tick = (now: number) => {
-          const t = Math.min(1, (now - start) / duration);
+          const t = Math.min(1, (now - startTime) / duration);
           const eased = 1 - Math.pow(1 - t, 3);
           setVal(end * eased);
           if (t < 1) requestAnimationFrame(tick);
@@ -43,7 +46,7 @@ function CountUp({ end, decimals = 0, duration = 1600 }: { end: number; decimals
         };
         requestAnimationFrame(tick);
       }
-    }, { threshold: 0.4 });
+    }, { threshold: 0.1 });
     obs.observe(el);
     return () => obs.disconnect();
   }, [end, duration]);
