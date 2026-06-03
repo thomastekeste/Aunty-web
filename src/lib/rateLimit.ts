@@ -106,3 +106,44 @@ export async function isRateLimited(
 
   return isRateLimitedInMemory(ip, limit, windowMs);
 }
+
+// ── Global daily spend cap ──────────────────────────────────────────────────
+// A hard ceiling on total AI calls per UTC day across ALL users, to bound the
+// Anthropic bill if the public chat endpoint is abused. Backed by Upstash
+// (shared across serverless instances, survives cold starts) when configured,
+// with an in-memory fallback for dev.
+
+const dailyMemory = new Map<string, { count: number; day: string }>();
+
+/**
+ * Increment and check a global per-day counter.
+ * @returns `true` if the cap has been reached (request should be blocked).
+ */
+export async function exceedsDailyCap(
+  bucket: string,
+  max: number
+): Promise<boolean> {
+  const day = new Date().toISOString().slice(0, 10); // UTC YYYY-MM-DD
+  const key = `daily:${bucket}:${day}`;
+
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (url && token) {
+    try {
+      const redis = new Redis({ url, token });
+      const count = await redis.incr(key);
+      if (count === 1) await redis.expire(key, 60 * 60 * 26); // ~1 day + slack
+      return count > max;
+    } catch (err) {
+      console.error("[dailyCap] Upstash error, falling back to in-memory:", err);
+    }
+  }
+
+  const state = dailyMemory.get(bucket);
+  if (!state || state.day !== day) {
+    dailyMemory.set(bucket, { count: 1, day });
+    return 1 > max;
+  }
+  state.count += 1;
+  return state.count > max;
+}

@@ -209,6 +209,24 @@ export default function Navbar() {
               </Link>
             </div>
 
+            {/* Mobile bag icon — always visible on small screens */}
+            <Link
+              href="/checkout"
+              onClick={close}
+              aria-label={`Bag${cartCount > 0 ? ` (${cartCount} items)` : ""}`}
+              className="md:hidden relative inline-flex items-center justify-center w-11 h-11 text-[#2D1B0E]"
+            >
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 7h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7z" />
+                <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+              </svg>
+              {cartCount > 0 && (
+                <span className="absolute top-0.5 right-0 min-w-[18px] h-[18px] px-1 rounded-full bg-[#C9903A] text-[#FDFCF8] font-body text-[10px] font-bold leading-none flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+
             <button onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden flex flex-col justify-center items-center w-11 h-11 gap-[5px]" aria-label="Toggle menu">
               <span className="block w-5 h-[1.5px] bg-[#2D1B0E] transition-all duration-300 origin-center"
@@ -245,6 +263,10 @@ export default function Navbar() {
 
         <Link href="/app" onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">The App</Link>
         <Link href="/science" onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">Our Science</Link>
+
+        <Link href="/checkout" onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">
+          Bag{cartCount > 0 ? ` (${cartCount})` : ""}
+        </Link>
 
         <Link href={authed ? "/account" : "/login"} onClick={close} className="font-display text-xl font-medium text-[#2D1B0E]">
           {authed ? "Account" : "Log in"}

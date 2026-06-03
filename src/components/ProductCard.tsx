@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { Product, AccessoryCategory } from "@/data/products";
 import { useCart } from "@/lib/cart";
 
@@ -14,7 +15,7 @@ interface ProductCardProps {
 
 /* ─── Category-specific theming ──────────────────────────────────────────── */
 
-const CATEGORY_THEME: Record<
+export const CATEGORY_THEME: Record<
   AccessoryCategory,
   { gradient: string; accent: string; pattern: string }
 > = {
@@ -37,7 +38,7 @@ const CATEGORY_THEME: Record<
 
 /* ─── Product silhouettes ────────────────────────────────────────────────── */
 
-function ProductSilhouette({
+export function ProductSilhouette({
   type,
   color,
 }: {
@@ -136,7 +137,8 @@ export default function ProductCard({
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-  const { addItem } = useCart();
+  const { addItem, isInCart } = useCart();
+  const inCart = isInCart(product.id);
 
   useEffect(() => {
     if (!added) return;
@@ -183,9 +185,11 @@ export default function ProductCard({
         transition: hovered ? "transform 100ms ease" : "transform 400ms cubic-bezier(0.16,1,0.3,1)",
       }}
     >
-      {/* ── Visual top section ── */}
-      <div
-        className={`relative rounded-2xl overflow-hidden mb-3 ${isCompact ? "aspect-[4/3]" : "aspect-[4/5]"}`}
+      {/* ── Visual top section — opens product page ── */}
+      <Link
+        href={`/products/${product.id}`}
+        aria-label={`View ${displayName}`}
+        className={`relative block rounded-2xl overflow-hidden mb-3 ${isCompact ? "aspect-[4/3]" : "aspect-[4/5]"}`}
         style={{
           background: theme.gradient,
           boxShadow: hovered
@@ -241,7 +245,7 @@ export default function ProductCard({
               background: "linear-gradient(to top, rgba(14,7,2,0.96) 55%, rgba(14,7,2,0.0) 100%)",
               opacity: hovered ? 1 : 0,
               transform: hovered ? "translateY(0)" : "translateY(12px)",
-              pointerEvents: hovered ? "auto" : "none",
+              pointerEvents: "none",
             }}
           >
             <p className="font-body text-[8px] font-bold tracking-[2.5px] uppercase mb-2" style={{ color: theme.accent }}>
@@ -252,17 +256,19 @@ export default function ProductCard({
             </p>
           </div>
         )}
-      </div>
+      </Link>
 
       {/* ── Info ── */}
       <div className={`flex flex-col text-center ${isCompact ? "gap-1" : "gap-2 pt-1"}`}>
-        <h3
-          className={`font-display font-semibold text-[#1A0F08] leading-snug ${
-            isCompact ? "text-sm" : "text-[17px] md:text-[18px]"
-          }`}
-        >
-          {displayName}
-        </h3>
+        <Link href={`/products/${product.id}`}>
+          <h3
+            className={`font-display font-semibold text-[#1A0F08] leading-snug ${
+              isCompact ? "text-sm" : "text-[16px] md:text-[18px]"
+            }`}
+          >
+            {displayName}
+          </h3>
+        </Link>
 
         {reason && (
           <p className="font-body text-[13px] text-[#3D2B1A] leading-relaxed">{reason}</p>
@@ -287,7 +293,7 @@ export default function ProductCard({
           }`}
           style={{ color: theme.accent }}
         >
-          {added ? "Added" : "Add to bag"}
+          {added ? "Added" : inCart ? "In bag — add more" : "Add to bag"}
           <svg
             width="12"
             height="12"
@@ -299,7 +305,7 @@ export default function ProductCard({
             className="transition-transform group-hover/btn:translate-x-0.5"
             aria-hidden="true"
           >
-            {added ? (
+            {added || inCart ? (
               <path d="M5 12l5 5L20 7" />
             ) : (
               <path d="M5 12h14M13 5l7 7-7 7" />

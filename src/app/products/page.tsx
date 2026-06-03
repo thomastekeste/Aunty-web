@@ -74,16 +74,16 @@ function ProductsPageInner() {
 
         {/* Compact header + filters */}
         <div className="sticky z-30 bg-[#FDFCF8]/95 backdrop-blur-md border-b border-[rgba(26,15,8,0.06)]" style={{ top: "var(--nav-offset, 112px)", transition: "top 300ms cubic-bezier(0.16,1,0.3,1)" }}>
-          <div className="max-w-[1400px] mx-auto px-6 md:px-8">
-            <div className="py-3 flex items-center gap-4 flex-wrap">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8">
+            <div className="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
 
               {/* Title */}
-              <h1 className="font-display text-[1.1rem] md:text-[1.25rem] font-bold text-[#2D1B0E] tracking-[-0.02em] mr-2">
+              <h1 className="font-display text-[1.1rem] md:text-[1.25rem] font-bold text-[#2D1B0E] tracking-[-0.02em] sm:mr-2">
                 The Marketplace
               </h1>
 
               {/* Top-level filter pills */}
-              <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+              <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0 min-w-0">
                 {TOP_FILTERS.map((f) => {
                   const count = countByFilter[f.value] || 0;
                   const active = top === f.value;
@@ -110,7 +110,7 @@ function ProductsPageInner() {
         </div>
 
         {/* Products */}
-        <div className="max-w-[1400px] mx-auto px-6 md:px-8 pt-6 pb-10">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-10">
 
           {/* ── ALL view: accessories grouped by category ── */}
           {top === "all" && (
@@ -131,14 +131,14 @@ function ProductsPageInner() {
                         </h2>
                         <p className="font-body text-[12px] text-[#6B5040] max-w-md">{meta.desc}</p>
                       </div>
-                      <div className="flex flex-col items-end gap-1">
+                      <div className="hidden sm:flex flex-col items-end gap-1">
                         <span className="font-display text-[20px] font-bold text-[#1A0F08]">{items.length}</span>
                         <span className="font-body text-[10px] tracking-[1.5px] uppercase text-[#6B5040]">
                           {items.length === 1 ? "product" : "products"}
                         </span>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
                       {items.map((p) => (
                         <ProductCard key={p.id} product={p} />
                       ))}
@@ -156,7 +156,7 @@ function ProductsPageInner() {
                 No products found for that filter.
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
                 {filteredAccessories.map((p) => (
                   <ProductCard key={p.id} product={p} />
                 ))}

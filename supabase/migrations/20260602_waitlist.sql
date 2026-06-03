@@ -1,24 +1,12 @@
--- Waitlist capture for pre-launch email collection.
--- Safe to run whether or not the `waitlist` table already exists.
+-- Waitlist signups
+-- Captured pre-launch via the /api/subscribe endpoint, which inserts
+-- server-side with the service-role key. RLS stays fully locked (no public
+-- policies) so the public anon key cannot read/harvest emails.
 
 create table if not exists waitlist (
-  id uuid primary key default gen_random_uuid(),
-  email text not null unique,
-  source text default 'website',   -- 'hero', 'sticky', 'footer'
-  launched_at timestamptz,         -- set when the launch blast is sent
-  created_at timestamptz not null default now()
+  id          uuid primary key default gen_random_uuid(),
+  email       text not null unique,   -- unique → /api/subscribe returns 409 on repeat
+  created_at  timestamptz default now()
 );
 
--- Ensure columns exist if the table predates this migration.
-alter table waitlist add column if not exists source text default 'website';
-alter table waitlist add column if not exists launched_at timestamptz;
-
 alter table waitlist enable row level security;
-
--- Allow public signups (insert only). Reads/updates stay restricted to the
--- service role, which bypasses RLS entirely.
-drop policy if exists "waitlist_public_insert" on waitlist;
-create policy "waitlist_public_insert"
-  on waitlist for insert
-  to anon, authenticated
-  with check (true);

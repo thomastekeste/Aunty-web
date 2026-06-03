@@ -1,159 +1,107 @@
-const CJ_BASE_URL = "https://developers.cjdropshipping.com/api2.0/v1";
+/**
+ * CJ Dropshipping API client
+ *
+ * Docs: https://developers.cjdropshipping.com
+ * Auth: email + apiKey → short-lived access token (cached in memory)
+ *
+ * Required env vars:
+ *   CJ_EMAIL          — your CJ account email
+ *   CJ_API_KEY        — from CJ dashboard → My CJ → Keys
+ */
 
-let cachedToken: { token: string; expiresAt: number } | null = null;
+const CJ_BASE = "https://developers.cjdropshipping.com/api2.0/v1";
 
-function getCjApiKey(): string {
-  const apiKey = process.env.CJ_API_KEY;
-  if (!apiKey) {
-    throw new Error("Missing CJ_API_KEY environment variable");
+let _token: string | null = null;
+let _tokenExpiry = 0;
+
+// ── Auth ─────────────────────────────────────────────────────────────────────
+
+async function getAccessToken(): Promise<string> {
+  if (_token && Date.now() < _tokenExpiry) return _token;
+
+  const res = await fetch(`${CJ_BASE}/authentication/getAccessToken`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: process.env.CJ_EMAIL,
+      password: process.env.CJ_API_KEY,
+    }),
+  });
+
+  const data = await res.json();
+  if (!data.result || !data.data?.accessToken) {
+    throw new Error(`CJ auth failed: ${data.message}`);
   }
-  return apiKey;
+
+  _token = data.data.accessToken as string;
+  // Tokens last 12h — refresh after 11h
+  _tokenExpiry = Date.now() + 11 * 60 * 60 * 1000;
+  return _token;
 }
 
-async function cjFetch<T>(
-  path: string,
-  options: RequestInit = {}
-): Promise<T> {
+async function cjFetch(path: string, opts: RequestInit = {}) {
   const token = await getAccessToken();
-  const res = await fetch(`${CJ_BASE_URL}${path}`, {
-    ...options,
+  const res = await fetch(`${CJ_BASE}${path}`, {
+    ...opts,
     headers: {
       "Content-Type": "application/json",
       "CJ-Access-Token": token,
-      ...options.headers,
+      ...(opts.headers ?? {}),
     },
   });
-
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`CJ API ${res.status}: ${text}`);
-  }
-
-  const json = (await res.json()) as { code: number; result: boolean; message: string; data: T };
-  if (json.code !== 200) {
-    throw new Error(`CJ API error ${json.code}: ${json.message}`);
-  }
-
-  return json.data;
+  return res.json();
 }
 
-export async function getAccessToken(): Promise<string> {
-  if (cachedToken && Date.now() < cachedToken.expiresAt) {
-    return cachedToken.token;
-  }
+// ── Product search ────────────────────────────────────────────────────────────
 
-  const apiKey = getCjApiKey();
-
-  const res = await fetch(`${CJ_BASE_URL}/authentication/getAccessToken`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ apiKey }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`CJ auth failed: ${res.status}`);
-  }
-
-  const json = (await res.json()) as {
-    code: number;
-    data: { accessToken: string; refreshToken: string; accessTokenExpiryDate: string };
-  };
-
-  if (json.code !== 200 || !json.data?.accessToken) {
-    throw new Error("CJ auth: no access token returned");
-  }
-
-  cachedToken = {
-    token: json.data.accessToken,
-    expiresAt: Date.now() + 14 * 24 * 60 * 60 * 1000, // 14 days (token lasts 15 days, refresh early)
-  };
-
-  return cachedToken.token;
+export async function searchProducts(keyword: string, pageNum = 1, pageSize = 20) {
+  return cjFetch(
+    `/product/list?keyword=${encodeURIComponent(keyword)}&pageNum=${pageNum}&pageSize=${pageSize}`
+  );
 }
 
-export interface CJProduct {
-  pid: string;
-  productName: string;
-  productImage: string;
-  sellPrice: number;
-  variants: CJVariant[];
+export async function getProductDetail(pid: string) {
+  return cjFetch(`/product/query?pid=${pid}`);
 }
 
-export interface CJVariant {
-  vid: string;
-  variantName: string;
-  variantSellPrice: number;
-  variantImage: string;
-}
-
-export async function searchProducts(
-  keyword: string,
-  pageNum = 1,
-  pageSize = 20
-): Promise<{ list: CJProduct[]; total: number }> {
-  return cjFetch<{ list: CJProduct[]; total: number }>("/product/list", {
-    method: "PATCH",
-    body: JSON.stringify({
-      productNameEn: keyword,
-      pageNum,
-      pageSize,
-    }),
-  });
-}
-
-export async function getProductDetail(pid: string): Promise<CJProduct> {
-  return cjFetch<CJProduct>(`/product/query?pid=${encodeURIComponent(pid)}`);
-}
+// ── Orders ────────────────────────────────────────────────────────────────────
 
 export interface CJOrderItem {
-  vid: string;
+  vid: string;          // CJ variant ID
   quantity: number;
+  shippingName: string; // logistics name e.g. "CJPacket Ordinary"
 }
 
 export interface CJShippingAddress {
-  firstName: string;
-  lastName: string;
-  phone: string;
+  consigneeID?: string;
+  consignee: string;
   email: string;
-  country: string;
+  phone: string;
+  country: string;       // ISO 2-letter e.g. "US"
   province: string;
   city: string;
   address: string;
   zip: string;
 }
 
-export interface CJOrderRequest {
-  orderNumber: string;
+export interface CJCreateOrderPayload {
+  orderNumber: string;   // your internal order ID (idempotency key)
   shippingAddress: CJShippingAddress;
   products: CJOrderItem[];
+  remark?: string;
 }
 
-export interface CJOrderResponse {
-  orderId: string;
-  orderNumber: string;
-  orderStatus: string;
-}
-
-export async function createOrder(
-  order: CJOrderRequest
-): Promise<CJOrderResponse> {
-  return cjFetch<CJOrderResponse>("/shopping/order/createOrder", {
+export async function createOrder(payload: CJCreateOrderPayload) {
+  return cjFetch("/shopping/order/createOrderV2", {
     method: "POST",
-    body: JSON.stringify(order),
+    body: JSON.stringify(payload),
   });
 }
 
-export interface CJOrderStatus {
-  orderId: string;
-  orderNumber: string;
-  orderStatus: string;
-  trackingNumber: string;
-  logisticsStatus: string;
-  shippingCarrier: string;
+export async function getOrderDetail(orderId: string) {
+  return cjFetch(`/shopping/order/getOrderDetail?orderId=${orderId}`);
 }
 
-export async function queryOrder(orderId: string): Promise<CJOrderStatus> {
-  return cjFetch<CJOrderStatus>(
-    `/shopping/order/getOrderDetail?orderId=${encodeURIComponent(orderId)}`
-  );
+export async function getTrackingInfo(orderId: string) {
+  return cjFetch(`/logistic/trackInfo?orderId=${orderId}`);
 }

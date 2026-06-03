@@ -1,12 +1,8 @@
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import TrustBand from "@/components/TrustBand";
-import MeetTheCouncil from "@/components/MeetTheCouncil";
-import WaitlistBanner from "@/components/WaitlistBanner";
-import Manifesto from "@/components/Manifesto";
+import MeetTheAunties from "@/components/MeetTheAunties";
+import WaitlistSection from "@/components/WaitlistSection";
+import ShopSection from "@/components/ShopSection";
 import ProductFeature from "@/components/ProductFeature";
-import PhotoBreak from "@/components/PhotoBreak";
-import WhyAunty from "@/components/WhyAunty";
 import FAQ from "@/components/FAQ";
 import AppShowcase from "@/components/AppShowcase";
 import StickyBar from "@/components/StickyBar";
@@ -17,18 +13,12 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <MeetTheCouncil />
-      {!isLive && (
-        <div id="waitlist">
-          <WaitlistBanner />
-        </div>
-      )}
-      {isLive && <Hero />}
-      <TrustBand />
+      <MeetTheAunties />
+      {/* Section 1 — app waitlist (email capture) */}
+      <WaitlistSection />
+      {/* Section 2 — the shop (dropship, ad destination) */}
+      <ShopSection />
       <ProductFeature />
-      <Manifesto />
-      <PhotoBreak />
-      <WhyAunty />
       <AppShowcase />
       <FAQ />
       <Footer />

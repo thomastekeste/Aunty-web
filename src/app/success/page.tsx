@@ -79,8 +79,8 @@ export default async function SuccessPage({ searchParams }: Props) {
             You&rsquo;re in.
           </h1>
           <p className="font-body text-lg text-[rgba(26,15,8,0.65)] mb-10 leading-relaxed">
-            Your spot is reserved. The aunties will be ready for you at launch —
-            in the coming weeks.
+            Your order is confirmed. Check your inbox — we sent your receipt
+            and a gift inside.
           </p>
 
           {/* Order summary */}
@@ -120,15 +120,15 @@ export default async function SuccessPage({ searchParams }: Props) {
             <ol className="space-y-3 font-body text-sm text-[rgba(26,15,8,0.7)]">
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#D4A04A] text-[#1A0F08] font-bold text-xs flex items-center justify-center">1</span>
-                <span>A receipt from Stripe just hit your inbox.</span>
+                <span>Your confirmation email is on its way — check your inbox (and spam just in case).</span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#D4A04A] text-[#1A0F08] font-bold text-xs flex items-center justify-center">2</span>
-                <span>We&rsquo;ll email you the moment beta access opens.</span>
+                <span>Your order ships within 1–3 business days. Tracking info will be emailed to you.</span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#D4A04A] text-[#1A0F08] font-bold text-xs flex items-center justify-center">3</span>
-                <span>Your Founding Member benefits are locked in — price, badge, early access, all of it.</span>
+                <span>Check your email for a 50% off code for the Aunty Curl app — your gift with purchase.</span>
               </li>
             </ol>
           </div>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from "@/lib/cart";
+import { CartProvider, CartToast } from "@/lib/cart";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -60,7 +60,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <CartProvider>{children}</CartProvider>
+        <CartProvider>
+          {children}
+          <CartToast />
+        </CartProvider>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />

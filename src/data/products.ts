@@ -124,7 +124,6 @@ export const products: Product[] = [
     keyIngredients: ["Large 90x90cm", "100% satin", "Multi-use"],
     whyItWorks: "A large satin scarf doubles as overnight protection and a daytime fashion accessory. Reduces friction on protective styles while keeping your aesthetic on point.",
     image: "/products/satin-hair-scarf.webp",
-
     cjSearchKeyword: "satin hair scarf wrap square",
   },
   {
@@ -139,7 +138,6 @@ export const products: Product[] = [
     keyIngredients: ["Satin interior", "Stretch jersey exterior", "Adjustable"],
     whyItWorks: "The jersey exterior grips your pillow while the satin interior protects your style. Fits over twists, braids, and voluminous fros without sliding off overnight.",
     image: "/products/satin-lined-sleep-cap.webp",
-
     cjSearchKeyword: "satin lined sleep cap",
   },
   {
@@ -154,8 +152,21 @@ export const products: Product[] = [
     keyIngredients: ["Waterproof outer", "Satin inner", "Large diameter"],
     whyItWorks: "Regular shower caps create humidity that frizzes curls. This satin-lined version keeps water out and friction off — your day-two style survives the shower.",
     image: "/products/waterproof-shower-cap.webp",
-
     cjSearchKeyword: "satin lined shower cap waterproof",
+  },
+  {
+    id: "wave-cap-2pack",
+    sku: "H-024",
+    name: "Aunty Wave Cap 2-Pack",
+    category: "sleep",
+    auntyId: "denise",
+    painPoint: "Under the durag or on its own. Compression that stays put.",
+    price: 8,
+    productType: "durag",
+    keyIngredients: ["Breathable stocking mesh", "Seamless construction", "One-size stretch fit"],
+    whyItWorks: "Wave caps provide consistent compression that durags alone can't hold all night. The seamless construction means no imprint lines — just clean, even wave progression.",
+    image: "/products/durag.svg",
+    cjSearchKeyword: "wave cap stocking mesh 2 pack",
   },
 
   // ── HAIR — TOOLS & BRUSHES ────────────────────────────────────────────────
@@ -330,7 +341,6 @@ export const products: Product[] = [
     keyIngredients: ["Nano-ionic mist", "Portable", "USB-C, 30-min runtime"],
     whyItWorks: "Steam opens the hair cuticle so deep conditioner actually penetrates instead of sitting on top. Nano-ionic mist breaks water into smaller particles for deeper moisture infusion.",
     image: "/products/portable-hair-steamer.webp",
-
     cjSearchKeyword: "portable handheld hair steamer nano ionic",
   },
   {
@@ -378,10 +388,23 @@ export const products: Product[] = [
     keyIngredients: ["7 LED colours", "20-min auto-off", "Hands-free, USB charge"],
     whyItWorks: "Red light at 630nm stimulates collagen and fades post-inflammatory hyperpigmentation without irritating melanocytes. Blue light kills acne bacteria — preventing the breakouts that cause dark spots in the first place.",
     image: "/products/led-therapy-mask.webp",
-
     cjSearchKeyword: "LED therapy face mask 7 color",
     cjSourceUrl: "https://cjdropshipping.com/product/7-color-led-mask-red-light-therapy-skin-rejuvenation-massager-beauty-home-skin-face-whitening-anti-aging-spa-device-p-1404365861178970112.html",
     cjProductId: "1404365861178970112",
+  },
+  {
+    id: "auto-hair-braider",
+    sku: "H-025",
+    name: "Automatic Hair Braider & Twister",
+    category: "tools",
+    auntyId: "carmen",
+    painPoint: "Twist-outs and braid-outs that used to take an hour now take 10 minutes.",
+    price: 20,
+    productType: "tool",
+    keyIngredients: ["Electric auto-twist mechanism", "Works on 2c–4c curl types", "USB rechargeable", "ABS + motor, 430g"],
+    whyItWorks: "The spinning head mimics the two-strand twist motion your hands already know — but faster and more consistent. No more skipping twist-outs because you don't have time.",
+    image: "/auto-hair-braider.png",
+    cjSearchKeyword: "automatic hair braider twister USB electric",
   },
   {
     id: "gua-sha-tool",
@@ -395,7 +418,6 @@ export const products: Product[] = [
     keyIngredients: ["Double-curve", "Rose quartz", "Cooling stone"],
     whyItWorks: "Lymphatic drainage reduces puffiness and uneven tone. The wing shape follows your jawline and cheekbones naturally — promoting circulation that helps fade dark spots from within.",
     image: "/products/gua-sha-tool.webp",
-
     cjSearchKeyword: "rose quartz gua sha facial tool",
     cjSourceUrl: "https://cjdropshipping.com/product/gua-sha-equipment-p-36D405C0-C84A-4311-B9C1-080631FF623B.html",
     cjProductId: "36D405C0-C84A-4311-B9C1-080631FF623B",
@@ -412,7 +434,6 @@ export const products: Product[] = [
     keyIngredients: ["Jade stone", "Double-curve", "Cools on contact"],
     whyItWorks: "Jade absorbs and holds cold longer than rose quartz, giving a deeper depuffing effect. The heavier weight means less manual pressure — the stone does the work.",
     image: "/products/gua-sha-jade.webp",
-
     cjSearchKeyword: "jade gua sha facial scraping tool",
     cjSourceUrl: "https://cjdropshipping.com/product/gua-sha-equipment-p-36D405C0-C84A-4311-B9C1-080631FF623B.html",
     cjProductId: "36D405C0-C84A-4311-B9C1-080631FF623B",
@@ -429,7 +450,6 @@ export const products: Product[] = [
     keyIngredients: ["Dual head", "Real rose quartz", "Ergonomic handle"],
     whyItWorks: "Rolling pushes serum deeper into skin and activates lymphatic drainage. The small end targets under-eyes and nasolabial folds — two problem areas for dark circles on melanin-rich skin.",
     image: "/products/rose-quartz-roller.webp",
-
     cjSearchKeyword: "rose quartz face roller dual head",
   },
   {
@@ -444,7 +464,6 @@ export const products: Product[] = [
     keyIngredients: ["Nano-ionic", "30ml tank", "10-min steam, USB-C"],
     whyItWorks: "Steam opens pores so active ingredients in your mask or serum can actually reach the dermis. Nano-ionic mist is finer than regular steam — less irritation, deeper hydration.",
     image: "/products/mini-facial-steamer.webp",
-
     cjSearchKeyword: "nano ionic facial steamer portable mini",
   },
   {
@@ -459,7 +478,6 @@ export const products: Product[] = [
     keyIngredients: ["Freeze-and-use", "Silicone head", "2-pack, non-drip"],
     whyItWorks: "Cold constricts blood vessels and reduces the inflammatory response that triggers melanin overproduction. Two minutes after cleansing calms redness and preps skin for serum absorption.",
     image: "/products/ice-roller.webp",
-
     cjSearchKeyword: "ice roller face 2 pack silicone",
     cjSourceUrl: "https://cjdropshipping.com/product/silicone-ice-face-roller-contour-shrink-pores-remove-dark-circles-massage-skin-beauty-facial-roller-for-eyes-neck-skin-care-tool-p-1764139609648271360.html",
     cjProductId: "1764139609648271360",
@@ -476,7 +494,6 @@ export const products: Product[] = [
     keyIngredients: ["0.25mm titanium", "540 needles", "Easy-clean head, case included"],
     whyItWorks: "0.25mm depth is the sweet spot for melanin-rich skin — deep enough to boost product absorption and stimulate collagen, shallow enough to avoid the inflammation that triggers PIH.",
     image: "/products/derma-roller.webp",
-
     cjSearchKeyword: "derma roller 0.25mm titanium home use",
   },
   {
@@ -507,7 +524,6 @@ export const products: Product[] = [
     keyIngredients: ["42°C heat", "Vibration massage", "USB-C, foldable"],
     whyItWorks: "Gentle heat dilates capillaries around the eyes, increasing circulation to reduce the blood-pooling that causes dark circles. Vibration adds lymphatic drainage for depuffing.",
     image: "/products/heated-eye-massager.webp",
-
     cjSearchKeyword: "heated eye massager vibration dark circles",
     cjSourceUrl: "https://cjdropshipping.com/product/bluetooth-music-eye-massager-air-pressure-hot-compress-dark-circles-eye-care-p-F3402E0C-EB11-4C4C-83BE-4EA19B02F790.html",
     cjProductId: "F3402E0C-EB11-4C4C-83BE-4EA19B02F790",
@@ -524,7 +540,6 @@ export const products: Product[] = [
     keyIngredients: ["3 modes", "Ultrasonic", "USB-C, stainless blade"],
     whyItWorks: "Squeezing blackheads causes trauma that triggers PIH on melanin-rich skin. Ultrasonic vibration loosens sebum and debris from pores without any pressure or inflammation.",
     image: "/products/ultrasonic-spatula.webp",
-
     cjSearchKeyword: "ultrasonic facial spatula skin scrubber",
   },
   {
@@ -539,7 +554,6 @@ export const products: Product[] = [
     keyIngredients: ["630nm + 850nm", "3-min timer", "Cordless, USB-C"],
     whyItWorks: "630nm red light boosts collagen and fades hyperpigmentation. 850nm near-infrared penetrates deeper for anti-aging benefits. Both wavelengths are safe for melanin-rich skin — no UV, no heat damage.",
     image: "/products/red-light-wand.webp",
-
     cjSearchKeyword: "red light therapy wand handheld LED 630nm",
   },
   {
@@ -554,7 +568,6 @@ export const products: Product[] = [
     keyIngredients: ["3pc: silicone + 2 bristle", "Easy-clean", "Hygienic"],
     whyItWorks: "Even application means every part of your face gets the same dose of actives. Silicone brushes don't absorb product like fingers do — you use less and get better results.",
     image: "/products/mask-brush-set.webp",
-
     cjSearchKeyword: "face mask brush applicator set 3pc",
   },
   {
@@ -569,7 +582,6 @@ export const products: Product[] = [
     keyIngredients: ["Reusable", "Hydrogel", "5 pairs, fridge-ready"],
     whyItWorks: "Cold hydrogel constricts under-eye blood vessels, reducing the puffiness and dark circles that are more visible on melanin-rich skin. Reusable means no single-use waste.",
     image: "/products/cooling-eye-patches.webp",
-
     cjSearchKeyword: "reusable gel eye patches cooling dark circle",
   },
   {
@@ -584,7 +596,6 @@ export const products: Product[] = [
     keyIngredients: ["5 intensity levels", "USB-C", "Stainless probes, timer"],
     whyItWorks: "Microcurrent stimulates facial muscles with low-level electrical current, creating a visible lift in the jawline and cheekbones. Safe for all skin tones — the current works on muscle, not melanin.",
     image: "/products/microcurrent-device.webp",
-
     cjSearchKeyword: "microcurrent face lift device home use",
     cjSourceUrl: "https://cjdropshipping.com/product/ems-microcurrent-neck-face-beauty-device-with-3-colors-led-photon-therapy-skin-tighten-reduce-double-chin-face-lifting-devices-p-1458715610648285184.html",
     cjProductId: "1458715610648285184",
@@ -601,7 +612,6 @@ export const products: Product[] = [
     keyIngredients: ["Stainless steel", "Cool-to-touch", "Ergonomic grip"],
     whyItWorks: "The T-bar shape follows facial contours for effective lymphatic drainage and product absorption. Stainless steel stays naturally cool — no need to refrigerate.",
     image: "/products/t-bar-massager.webp",
-
     cjSearchKeyword: "T bar facial massager stainless steel lymphatic",
   },
   {
@@ -616,7 +626,6 @@ export const products: Product[] = [
     keyIngredients: ["Rose quartz", "Dual head roller + gua sha", "Gift box"],
     whyItWorks: "The roller depuffs and pushes serum in; the gua sha sculpts and drains lymph. Together they cover every step of a facial massage routine — and the gift box makes it easy to share.",
     image: "/products/gua-sha-roller-combo.webp",
-
     cjSearchKeyword: "rose quartz roller gua sha set gift box",
   },
 ];

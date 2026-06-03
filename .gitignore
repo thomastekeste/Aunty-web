@@ -40,3 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 !.env.example
+
+# local databases
+*.db
+
+# dev task prompts
+WAITLIST_PROMPT.md
+CLAUDE_CODE*.md

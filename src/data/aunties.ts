@@ -158,6 +158,16 @@ export const aunties: Aunty[] = [
   },
 ];
 
+// Cross-platform id aliases. The mobile app + backend use "amara" for the same
+// aunty the web calls "senayt". A user's preferred_aunty_id is shared via the
+// same Supabase row, so we normalize foreign/legacy ids to the web's id here to
+// keep chat + portraits working no matter which platform saved the preference.
+const ID_ALIASES: Record<string, string> = { amara: "senayt" };
+
+export function normalizeAuntyId(id: string): string {
+  return ID_ALIASES[id] ?? id;
+}
+
 export function getAunty(id: string) {
-  return aunties.find((a) => a.id === id) ?? null;
+  return aunties.find((a) => a.id === normalizeAuntyId(id)) ?? null;
 }

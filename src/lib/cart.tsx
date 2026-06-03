@@ -9,6 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import Link from "next/link";
 import { getProductById } from "@/data/products";
 
 const STORAGE_KEY = "aunty-cart";
@@ -26,6 +27,8 @@ interface CartContextValue {
   clear: () => void;
   count: number;
   subtotal: number;
+  isInCart: (productId: string) => boolean;
+  lastAdded: { id: string; ts: number } | null;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -46,6 +49,7 @@ function isCartItemArray(value: unknown): value is CartItem[] {
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  const [lastAdded, setLastAdded] = useState<{ id: string; ts: number } | null>(null);
 
   useEffect(() => {
     try {
@@ -81,7 +85,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...prev, { id: productId, qty: 1 }];
     });
+    setLastAdded({ id: productId, ts: Date.now() });
   }, []);
+
+  const isInCart = useCallback(
+    (productId: string) => items.some((p) => p.id === productId),
+    [items]
+  );
 
   const removeItem = useCallback((productId: string) => {
     setItems((prev) => prev.filter((p) => p.id !== productId));
@@ -116,9 +126,62 @@ export function CartProvider({ children }: { children: ReactNode }) {
     clear,
     count,
     subtotal,
+    isInCart,
+    lastAdded,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+}
+
+/* ── Global "added to bag" toast ─────────────────────────────────────────── */
+
+export function CartToast() {
+  const { lastAdded, count } = useCart();
+  const [dismissedTs, setDismissedTs] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!lastAdded) return;
+    const t = window.setTimeout(() => setDismissedTs(lastAdded.ts), 4000);
+    return () => window.clearTimeout(t);
+  }, [lastAdded]);
+
+  const visible = !!lastAdded && dismissedTs !== lastAdded.ts;
+  const product = lastAdded ? getProductById(lastAdded.id) : null;
+
+  return (
+    <div
+      className="fixed left-4 right-4 sm:left-auto sm:right-6 sm:w-[340px] z-[80] transition-all duration-300 ease-out"
+      style={{
+        bottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(16px)",
+        pointerEvents: visible ? "auto" : "none",
+      }}
+      aria-live="polite"
+    >
+      <div className="flex items-center gap-3 rounded-2xl bg-[#2D1B0E] text-[#FDFCF8] px-4 py-3.5 shadow-[0_16px_40px_-8px_rgba(26,15,8,0.4)]">
+        <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[#C9903A] flex items-center justify-center">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FDFCF8" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+            <path d="M5 12l5 5L20 7" />
+          </svg>
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="font-body text-[13px] font-semibold truncate">
+            {product ? product.name : "Item"} added to bag
+          </p>
+          <p className="font-body text-[11px] text-[rgba(253,252,248,0.55)]">
+            {count} {count === 1 ? "item" : "items"} in your bag
+          </p>
+        </div>
+        <Link
+          href="/checkout"
+          className="flex-shrink-0 font-body text-[10px] font-bold tracking-[1.5px] uppercase px-3.5 py-2 rounded-full bg-[#FDFCF8] text-[#2D1B0E] hover:bg-white transition-colors"
+        >
+          View bag
+        </Link>
+      </div>
+    </div>
+  );
 }
 
 export function useCart(): CartContextValue {
