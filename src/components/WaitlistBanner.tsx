@@ -44,6 +44,19 @@ export default function WaitlistBanner() {
             <div className="max-w-md">
               <WaitlistForm source="hero" variant="light" />
             </div>
+
+            {/* Interactive hint — points to the phone on the right */}
+            <div className="hidden md:flex items-center gap-2 mt-8">
+              <span className="font-body text-[12px] font-semibold tracking-[0.5px] text-[#6B5040]">
+                Take a peek inside — it&rsquo;s interactive, tap around
+              </span>
+              <svg
+                width="22" height="14" viewBox="0 0 24 16" fill="none"
+                className="text-[#D4A04A] animate-[nudge_1.4s_ease-in-out_infinite]"
+              >
+                <path d="M2 8h18M14 2l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
           </div>
 
           {/* ── Right: interactive app preview (hidden on mobile, scaled on desktop) ── */}
