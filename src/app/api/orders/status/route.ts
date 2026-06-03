@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { queryOrder } from "@/lib/cj";
+import { getOrderDetail } from "@/lib/cj";
 
 export const runtime = "nodejs";
 
@@ -15,10 +15,11 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const status = await queryOrder(cjOrderId);
+    const result = await getOrderDetail(cjOrderId);
+    const data = result?.data;
 
     // Update Supabase with latest status
-    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    if (data && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
       await fetch(
         `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/cj_orders?cj_order_id=eq.${encodeURIComponent(cjOrderId)}`,
         {
@@ -30,9 +31,9 @@ export async function GET(req: NextRequest) {
             Prefer: "return=minimal",
           },
           body: JSON.stringify({
-            status: status.orderStatus,
-            tracking_number: status.trackingNumber || null,
-            shipping_carrier: status.shippingCarrier || null,
+            status: data.orderStatus,
+            tracking_number: data.trackNumber || null,
+            shipping_carrier: data.logisticName || null,
             updated_at: new Date().toISOString(),
           }),
         }
@@ -40,10 +41,10 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json({
-      orderId: status.orderId,
-      status: status.orderStatus,
-      trackingNumber: status.trackingNumber,
-      carrier: status.shippingCarrier,
+      orderId: data?.orderId,
+      status: data?.orderStatus,
+      trackingNumber: data?.trackNumber,
+      carrier: data?.logisticName,
     });
   } catch (err) {
     console.error("CJ order query failed:", err);
