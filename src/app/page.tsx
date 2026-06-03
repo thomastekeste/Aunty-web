@@ -17,6 +17,7 @@ export default function Home() {
   return (
     <main>
       <Navbar />
+      <MeetTheCouncil />
       {!isLive && (
         <div id="waitlist">
           <WaitlistBanner />
@@ -24,7 +25,6 @@ export default function Home() {
       )}
       {isLive && <Hero />}
       <TrustBand />
-      <MeetTheCouncil />
       <ProductFeature />
       <Manifesto />
       <PhotoBreak />
