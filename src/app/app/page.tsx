@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import InteractivePhone from "@/components/InteractivePhone";
 import ScrollReveal from "@/components/ScrollReveal";
+import WaitlistForm from "@/components/WaitlistForm";
 import Link from "next/link";
 import { aunties } from "@/data/aunties";
 
@@ -124,19 +125,8 @@ export default function AppPage() {
                 your texture day by day, learns your rhythm, adjusts your routine,
                 and gives you real advice in the voice that actually sounds like home.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a
-                  href="/products"
-                  className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-[#1A0F08] text-[#FDFCF8] font-body font-semibold text-[13px] tracking-[1.5px] uppercase hover:bg-[#2C1A0E] transition-all"
-                >
-                  Browse the marketplace
-                </a>
-                <Link
-                  href="#aunties"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full border border-[#1A0F08]/15 text-[#1A0F08] font-body font-semibold text-[13px] tracking-[1.5px] uppercase hover:bg-[#1A0F08]/[0.03] transition-all"
-                >
-                  Meet the aunties
-                </Link>
+              <div className="max-w-md">
+                <WaitlistForm source="app-hero" variant="light" />
               </div>
             </div>
 
@@ -295,24 +285,20 @@ export default function AppPage() {
         </section>
 
         {/* ── Final CTA ── */}
-        <section className="bg-[#1A0F08] py-20 md:py-24">
-          <div className="max-w-[800px] mx-auto px-6 md:px-10 text-center">
+        <section className="bg-[#F3E9DD] py-20 md:py-24">
+          <div className="max-w-[600px] mx-auto px-6 md:px-10 text-center">
             <h2
-              className="font-display font-bold text-[#FDFCF8] leading-[1.05] tracking-[-0.025em] mb-5"
+              className="font-display font-bold text-[#1A0F08] leading-[1.05] tracking-[-0.025em] mb-5"
               style={{ fontSize: "clamp(1.75rem, 3.2vw, 2.8rem)" }}
             >
               Your aunties are waiting.
             </h2>
-            <p className="font-body text-[15px] md:text-[16px] text-[#FDFCF8]/60 max-w-lg mx-auto leading-[1.7] mb-8">
-              Download the app for daily coaching, or browse the marketplace
-              for curated products matched to your texture.
+            <p className="font-body text-[15px] md:text-[16px] text-[#6B5040] max-w-lg mx-auto leading-[1.7] mb-8">
+              Join the waitlist and get <span className="text-[#C9903A] font-semibold">20% off your first month</span> when the app drops.
             </p>
-            <a
-              href="/products"
-              className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-full bg-[#C9903A] text-[#1A0F08] font-body font-bold text-[13px] tracking-[1.5px] uppercase hover:bg-[#E8C87A] transition-all"
-            >
-              Shop the marketplace
-            </a>
+            <div className="max-w-md mx-auto">
+              <WaitlistForm source="app-footer" variant="light" />
+            </div>
           </div>
         </section>
 

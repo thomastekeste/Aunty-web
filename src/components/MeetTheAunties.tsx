@@ -72,7 +72,7 @@ export default function MeetTheAunties() {
             </svg>
           </Link>
           <Link
-            href="#waitlist"
+            href="/app"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#1A0F08]/15 text-[#6B5040] font-body text-[12px] font-medium tracking-[0.5px] hover:border-[#1A0F08]/30 hover:text-[#1A0F08] transition-all duration-200"
           >
             <svg
