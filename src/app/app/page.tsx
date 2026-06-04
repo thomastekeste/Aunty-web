@@ -96,7 +96,7 @@ export default function AppPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#FDFCF8] pt-[112px]">
+      <main className="bg-[#FDFCF8] pt-[80px]">
 
         {/* ── Hero ── */}
         <section className="relative overflow-hidden">

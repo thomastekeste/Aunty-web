@@ -70,7 +70,7 @@ function ProductsPageInner() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#FDFCF8] pt-[112px]">
+      <main className="min-h-screen bg-[#FDFCF8] pt-[80px]">
 
         {/* Compact header + filters */}
         <div className="sticky z-30 bg-[#FDFCF8]/95 backdrop-blur-md border-b border-[rgba(26,15,8,0.06)]" style={{ top: "var(--nav-offset, 112px)", transition: "top 300ms cubic-bezier(0.16,1,0.3,1)" }}>
@@ -138,7 +138,7 @@ function ProductsPageInner() {
                         </span>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
                       {items.map((p) => (
                         <ProductCard key={p.id} product={p} />
                       ))}
@@ -156,7 +156,7 @@ function ProductsPageInner() {
                 No products found for that filter.
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
                 {filteredAccessories.map((p) => (
                   <ProductCard key={p.id} product={p} />
                 ))}

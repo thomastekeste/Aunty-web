@@ -4,7 +4,7 @@ import type { AuntyId } from "@/components/AuntyPortrait";
 
 export default function MeetTheCouncil() {
   return (
-    <section className="bg-[#FDFCF8] pt-[112px] pb-10 md:pb-12">
+    <section className="bg-[#FDFCF8] pt-[80px] pb-10 md:pb-12">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
 
         {/* Header */}

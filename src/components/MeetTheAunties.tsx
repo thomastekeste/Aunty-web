@@ -13,7 +13,7 @@ export default function MeetTheAunties() {
   const [selected, setSelected] = useState(aunties[0]);
 
   return (
-    <section className="relative pt-36 md:pt-40 pb-14 md:pb-20 overflow-hidden bg-[#F3E9DD]">
+    <section className="relative pt-24 md:pt-28 pb-14 md:pb-20 overflow-hidden bg-[#F3E9DD]">
       {/* Dynamic glow that follows selected aunty color */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-10 blur-[100px] pointer-events-none"

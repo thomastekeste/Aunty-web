@@ -73,7 +73,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const navGone = hidden && !hovered && !menuOpen;
-    document.documentElement.style.setProperty("--nav-offset", navGone ? "0px" : "112px");
+    document.documentElement.style.setProperty("--nav-offset", navGone ? "0px" : "72px");
   }, [hidden, hovered, menuOpen]);
 
   useEffect(() => {
@@ -96,8 +96,8 @@ export default function Navbar() {
         onClick={close}
         className="fixed left-4 md:left-6 z-[60] pointer-events-auto flex items-center transition-all duration-300"
         style={{
-          top: hidden && !hovered && !menuOpen ? "-120px" : "0px",
-          height: "112px",
+          top: hidden && !hovered && !menuOpen ? "-80px" : "0px",
+          height: "72px",
         }}
       >
         <Image
@@ -105,7 +105,7 @@ export default function Navbar() {
           alt="Aunty Council"
           width={400}
           height={300}
-          className="object-contain h-[88px] md:h-[100px] lg:h-[112px] w-auto"
+          className="object-contain h-[48px] md:h-[56px] w-auto"
           style={{ mixBlendMode: "multiply" }}
           priority
         />
@@ -127,10 +127,10 @@ export default function Navbar() {
             : ""
         }`}
         style={{
-          top: hidden && !hovered && !menuOpen ? "-120px" : "0px",
+          top: hidden && !hovered && !menuOpen ? "-80px" : "0px",
         }}
       >
-        <div className="max-w-[1400px] mx-auto px-8 h-[112px] flex items-center justify-center gap-6">
+        <div className="max-w-[1400px] mx-auto px-8 h-[72px] flex items-center justify-center gap-6">
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">

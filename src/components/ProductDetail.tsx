@@ -36,7 +36,7 @@ export default function ProductDetail({ product }: { product: Product }) {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#FDFCF8] pt-[112px]">
+      <main className="min-h-screen bg-[#FDFCF8] pt-[80px]">
         <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 pt-4 md:pt-8 pb-12 md:pb-16">
 
           {/* Breadcrumb */}

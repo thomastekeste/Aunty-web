@@ -189,7 +189,7 @@ export default function ProductCard({
       <Link
         href={`/products/${product.id}`}
         aria-label={`View ${displayName}`}
-        className={`relative block rounded-2xl overflow-hidden mb-3 ${isCompact ? "aspect-[4/3]" : "aspect-[4/5]"}`}
+        className={`relative block rounded-2xl overflow-hidden mb-2 ${isCompact ? "aspect-[4/3]" : "aspect-square"}`}
         style={{
           background: theme.gradient,
           boxShadow: hovered
@@ -259,11 +259,11 @@ export default function ProductCard({
       </Link>
 
       {/* ── Info ── */}
-      <div className={`flex flex-col text-center ${isCompact ? "gap-1" : "gap-2 pt-1"}`}>
+      <div className={`flex flex-col text-center ${isCompact ? "gap-0.5" : "gap-1"}`}>
         <Link href={`/products/${product.id}`}>
           <h3
             className={`font-display font-semibold text-[#1A0F08] leading-snug ${
-              isCompact ? "text-sm" : "text-[16px] md:text-[18px]"
+              isCompact ? "text-sm" : "text-[14px] md:text-[15px]"
             }`}
           >
             {displayName}
@@ -271,17 +271,17 @@ export default function ProductCard({
         </Link>
 
         {reason && (
-          <p className="font-body text-[13px] text-[#3D2B1A] leading-relaxed">{reason}</p>
+          <p className="font-body text-[12px] text-[#3D2B1A] leading-relaxed">{reason}</p>
         )}
 
         {!reason && !isCompact && product.painPoint && (
-          <p className="font-body text-[13px] text-[#6B5040]/70 leading-relaxed line-clamp-2">
+          <p className="font-body text-[12px] text-[#6B5040]/70 leading-relaxed line-clamp-2">
             {product.painPoint}
           </p>
         )}
 
         <div className="flex items-center justify-center gap-3 mt-1">
-          <span className={`font-body text-[#6B5040] ${isCompact ? "text-sm" : "text-[15px]"}`}>
+          <span className={`font-body text-[#6B5040] ${isCompact ? "text-sm" : "text-[13px]"}`}>
             From ${product.price}
           </span>
         </div>
