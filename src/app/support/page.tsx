@@ -19,8 +19,8 @@ export default function SupportPage() {
       <h2>Contact us</h2>
       <p>
         Email:{" "}
-        <a href="mailto:support@auntycurl.com">
-          <strong>support@auntycurl.com</strong>
+        <a href="mailto:zablan898@gmail.com">
+          <strong>zablan898@gmail.com</strong>
         </a>
       </p>
       <p>
@@ -107,7 +107,7 @@ export default function SupportPage() {
       <p>
         For anything else — billing issues, product questions, partnership
         inquiries — email{" "}
-        <a href="mailto:support@auntycurl.com">support@auntycurl.com</a> and
+        <a href="mailto:zablan898@gmail.com">zablan898@gmail.com</a> and
         we&rsquo;ll take care of it.
       </p>
     </LegalLayout>
