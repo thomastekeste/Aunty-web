@@ -54,6 +54,9 @@ export default function LegalLayout({ title, lastUpdated, children }: Props) {
           <Link href="/refund" className="text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
             Refund Policy
           </Link>
+          <Link href="/support" className="text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors">
+            Support
+          </Link>
           <a
             href="mailto:hello@auntycurlcouncil.com"
             className="text-[rgba(26,15,8,0.4)] hover:text-[#D4A04A] transition-colors ml-auto"
